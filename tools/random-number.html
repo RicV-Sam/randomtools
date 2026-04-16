@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Number Generator — RandomTools</title>
+<meta name="description" content="Generate random numbers instantly between any minimum and maximum value. Free online random number generator, works on mobile.">
+<meta name="keywords" content="random number generator, random number between 1 and 10, random number 1 to 100, generate random number online">
+<link rel="canonical" href="https://yourusername.github.io/randomtools/tools/random-number.html">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Number Generator","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="../index.html">← all tools</a>
+  <div class="nav-logo">random<span>tools</span></div>
+</nav>
+
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎲</div>
+    <h1>Random Number Generator</h1>
+    <p>Generate a random number between any two values instantly</p>
+  </div>
+
+  <!-- AdSense -->
+  <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your number</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-row">
+      <div class="control-group">
+        <label>Minimum</label>
+        <input type="number" id="minVal" value="1">
+      </div>
+      <div class="control-group">
+        <label>Maximum</label>
+        <input type="number" id="maxVal" value="100">
+      </div>
+    </div>
+    <div class="control-group">
+      <label>How many numbers?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE NUMBER</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Recent results</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <!-- AdSense mid -->
+  <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
+
+  <div style="margin-top:2rem;padding:1.25rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);">
+    <h2 style="font-size:15px;font-weight:600;margin-bottom:8px;">About this tool</h2>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">This random number generator uses your browser's cryptographically secure <code style="color:var(--accent2);font-family:var(--mono);font-size:12px;">Math.random()</code> function to produce truly unpredictable results. Use it for games, decisions, statistical sampling, picking lottery numbers, or any time you need a fair random result.</p>
+  </div>
+
+  <div class="related">
+    <div class="related-label">Related tools</div>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Dice Roller</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Coin Flip</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lottery Picker</a>
+      <a class="related-card" href="percentage-generator.html"><span class="ri">📊</span> Random %</a>
+    </div>
+  </div>
+
+</main>
+
+<footer><p>RandomTools &copy; 2025 — <a href="../index.html">all tools</a></p></footer>
+
+<script>
+const history = [];
+
+function generate() {
+  const min = parseInt(document.getElementById('minVal').value) || 1;
+  const max = parseInt(document.getElementById('maxVal').value) || 100;
+  const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+  if (min >= max) { alert('Max must be greater than Min'); return; }
+  
+  let results = [];
+  for (let i = 0; i < count; i++) {
+    results.push(Math.floor(Math.random() * (max - min + 1)) + min);
+  }
+  
+  const resultEl = document.getElementById('result');
+  resultEl.textContent = results.join(', ');
+  document.getElementById('resultBox').classList.remove('pop');
+  void document.getElementById('resultBox').offsetWidth;
+  document.getElementById('resultBox').classList.add('pop');
+  
+  const val = results[0];
+  history.unshift(val);
+  if (history.length > 10) history.pop();
+  renderHistory();
+}
+
+function renderHistory() {
+  const sec = document.getElementById('historySection');
+  const list = document.getElementById('historyList');
+  if (history.length === 0) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+}
+
+function copyResult() {
+  const val = document.getElementById('result').textContent;
+  if (val === '—') return;
+  navigator.clipboard.writeText(val).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); generate(); }});
+</script>
+</body>
+</html>

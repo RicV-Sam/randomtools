@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dice Roller — Roll D6, D20, D100 Online — RandomTools</title>
+<meta name="description" content="Roll dice online. D4, D6, D8, D10, D12, D20, D100 and custom dice. Roll multiple dice at once. Free mobile-friendly dice roller.">
+<meta name="keywords" content="dice roller, roll dice online, d20 roller, d6 dice, dungeons and dragons dice, tabletop dice roller">
+<link rel="canonical" href="https://yourusername.github.io/randomtools/tools/dice-roller.html">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="../index.html">← all tools</a>
+  <div class="nav-logo">random<span>tools</span></div>
+</nav>
+
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">⚄</div>
+    <h1>Dice Roller</h1>
+    <p>Roll any type of dice, any number of times</p>
+  </div>
+
+  <!-- AdSense -->
+  <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label" id="rollLabel">roll the dice</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.8rem,10vw,4rem);">—</div>
+    <div id="totalLabel" style="font-size:13px;color:var(--text2);display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Dice type</label>
+      <select id="diceType">
+        <option value="4">D4 (4-sided)</option>
+        <option value="6" selected>D6 (6-sided)</option>
+        <option value="8">D8 (8-sided)</option>
+        <option value="10">D10 (10-sided)</option>
+        <option value="12">D12 (12-sided)</option>
+        <option value="20">D20 (20-sided)</option>
+        <option value="100">D100 (percentile)</option>
+        <option value="custom">Custom</option>
+      </select>
+    </div>
+    <div class="control-group" id="customGroup" style="display:none">
+      <label>Custom sides</label>
+      <input type="number" id="customSides" value="30" min="2" max="1000">
+    </div>
+    <div class="control-group">
+      <label>Number of dice</label>
+      <input type="number" id="diceCount" value="1" min="1" max="20">
+    </div>
+  </div>
+
+  <!-- Quick dice buttons -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+    <button onclick="quickRoll(6)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D6</button>
+    <button onclick="quickRoll(20)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D20</button>
+    <button onclick="quickRoll(100)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D100</button>
+    <button onclick="quickRoll(4)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D4</button>
+    <button onclick="quickRoll(12)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D12</button>
+  </div>
+
+  <button class="btn-generate" onclick="rollDice()">ROLL DICE</button>
+
+  <div class="history" id="historySection" style="display:none;margin-top:1rem;">
+    <div class="history-label">Roll history</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <div class="related" style="margin-top:2rem;">
+    <div class="related-label">Related tools</div>
+    <div class="related-grid">
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Coin Flip</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Random Number</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🎡</span> Yes/No Wheel</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lottery Picker</a>
+    </div>
+  </div>
+
+</main>
+
+<footer><p>RandomTools &copy; 2025 — <a href="../index.html">all tools</a></p></footer>
+
+<script>
+const rollHistory = [];
+
+document.getElementById('diceType').addEventListener('change', function() {
+  document.getElementById('customGroup').style.display = this.value === 'custom' ? 'block' : 'none';
+});
+
+function getSides() {
+  const type = document.getElementById('diceType').value;
+  return type === 'custom' ? parseInt(document.getElementById('customSides').value) || 6 : parseInt(type);
+}
+
+function rollDice() {
+  const sides = getSides();
+  const count = Math.min(parseInt(document.getElementById('diceCount').value) || 1, 20);
+  const rolls = Array.from({length: count}, () => Math.floor(Math.random() * sides) + 1);
+  const total = rolls.reduce((a,b) => a+b, 0);
+
+  const resultEl = document.getElementById('result');
+  const totalEl = document.getElementById('totalLabel');
+  const labelEl = document.getElementById('rollLabel');
+
+  if (count === 1) {
+    resultEl.textContent = rolls[0];
+    totalEl.style.display = 'none';
+    labelEl.textContent = `D${sides} result`;
+  } else {
+    resultEl.textContent = rolls.join(' + ');
+    resultEl.style.fontSize = 'clamp(1rem,5vw,1.8rem)';
+    totalEl.style.display = 'block';
+    totalEl.textContent = `Total: ${total}`;
+    labelEl.textContent = `${count}D${sides}`;
+  }
+
+  document.getElementById('resultBox').classList.remove('pop');
+  void document.getElementById('resultBox').offsetWidth;
+  document.getElementById('resultBox').classList.add('pop');
+
+  rollHistory.unshift(`${count}D${sides}: ${total}`);
+  if (rollHistory.length > 8) rollHistory.pop();
+  const sec = document.getElementById('historySection');
+  sec.style.display = 'block';
+  document.getElementById('historyList').innerHTML = rollHistory.map(r => `<span class="history-item">${r}</span>`).join('');
+}
+
+function quickRoll(sides) {
+  document.getElementById('diceType').value = sides;
+  document.getElementById('customGroup').style.display = 'none';
+  document.getElementById('diceCount').value = 1;
+  rollDice();
+}
+
+document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); rollDice(); }});
+</script>
+</body>
+</html>

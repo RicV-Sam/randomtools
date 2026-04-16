@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Percentage Generator — RandomTools</title>
+<meta name="description" content="Generate a random percentage or decimal number between any two values. Set min, max and decimal precision. Free online random percentage tool.">
+<meta name="keywords" content="random percentage generator, random decimal generator, random percent, generate random percentage online">
+<link rel="canonical" href="https://yourusername.github.io/randomtools/tools/percentage-generator.html">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="../index.html">← all tools</a>
+  <div class="nav-logo">random<span>tools</span></div>
+</nav>
+
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">📊</div>
+    <h1>Random Percentage</h1>
+    <p>Generate a random percentage or decimal value</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label" id="resultLabel">your percentage</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-row">
+      <div class="control-group">
+        <label>Minimum %</label>
+        <input type="number" id="minVal" value="0" step="any">
+      </div>
+      <div class="control-group">
+        <label>Maximum %</label>
+        <input type="number" id="maxVal" value="100" step="any">
+      </div>
+    </div>
+    <div class="control-group">
+      <label>Decimal places</label>
+      <select id="decimals">
+        <option value="0">0 — whole number (e.g. 47%)</option>
+        <option value="1" selected>1 — e.g. 47.3%</option>
+        <option value="2">2 — e.g. 47.38%</option>
+        <option value="3">3 — e.g. 47.381%</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label>How many values?</label>
+      <input type="number" id="count" value="1" min="1" max="20">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE PERCENTAGE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <div class="history" id="historySection" style="display:none;margin-top:1rem;">
+    <div class="history-label">Recent results</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <div class="related" style="margin-top:2rem;">
+    <div class="related-label">Related tools</div>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Random Number</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Dice Roller</a>
+      <a class="related-card" href="colour-generator.html"><span class="ri">🎨</span> Colour Gen</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
+    </div>
+  </div>
+
+</main>
+
+<footer><p>RandomTools &copy; 2025 — <a href="../index.html">all tools</a></p></footer>
+
+<script>
+const history = [];
+
+function generate() {
+  const min = parseFloat(document.getElementById('minVal').value) || 0;
+  const max = parseFloat(document.getElementById('maxVal').value) || 100;
+  const decimals = parseInt(document.getElementById('decimals').value);
+  const count = Math.min(parseInt(document.getElementById('count').value)||1, 20);
+  if (min >= max) { alert('Max must be greater than Min'); return; }
+
+  const results = Array.from({length: count}, () => (Math.random() * (max - min) + min).toFixed(decimals));
+  const display = results.map(r => r + '%').join(', ');
+
+  document.getElementById('result').textContent = display;
+  document.getElementById('resultBox').classList.remove('pop');
+  void document.getElementById('resultBox').offsetWidth;
+  document.getElementById('resultBox').classList.add('pop');
+
+  history.unshift(display);
+  if (history.length > 10) history.pop();
+  const sec = document.getElementById('historySection');
+  sec.style.display = 'block';
+  document.getElementById('historyList').innerHTML = history.map(h => `<span class="history-item">${h}</span>`).join('');
+}
+
+function copyResult() {
+  const val = document.getElementById('result').textContent;
+  if (val === '—') return;
+  navigator.clipboard.writeText(val).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+document.addEventListener('keydown', e => { if(e.code==='Space'){e.preventDefault();generate();}});
+</script>
+</body>
+</html>

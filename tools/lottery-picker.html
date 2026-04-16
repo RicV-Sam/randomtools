@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lottery Number Picker — UK Lotto, EuroMillions, Powerball — RandomTools</title>
+<meta name="description" content="Generate random lottery numbers for UK Lotto, EuroMillions, Powerball, Mega Millions and more. Free online lottery number picker.">
+<meta name="keywords" content="lottery number generator, lottery number picker, UK lotto numbers, EuroMillions numbers, Powerball numbers, random lotto numbers">
+<link rel="canonical" href="https://yourusername.github.io/randomtools/tools/lottery-picker.html">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.lottery-balls { display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:1.25rem 0; }
+.ball {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 16px; font-weight: 700;
+  border: 2px solid rgba(255,255,255,0.1);
+  animation: ballPop 0.3s ease both;
+}
+@keyframes ballPop {
+  from { transform: scale(0) rotate(-20deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.ball-main { background: linear-gradient(135deg, #7c6af7, #a78bfa); color: #fff; }
+.ball-bonus { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #1c1000; }
+.ball-label { font-size:11px;color:var(--text3);font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="../index.html">← all tools</a>
+  <div class="nav-logo">random<span>tools</span></div>
+</nav>
+
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🍀</div>
+    <h1>Lottery Number Picker</h1>
+    <p>Generate your lucky numbers for major lotteries worldwide</p>
+  </div>
+
+  <div class="control-group" style="margin-bottom:1rem;">
+    <label>Select lottery</label>
+    <select id="lotteryType" onchange="updateInfo()">
+      <option value="uklotto">UK Lotto (6 from 59)</option>
+      <option value="euromillions">EuroMillions (5+2)</option>
+      <option value="powerball">Powerball US (5+1)</option>
+      <option value="megamillions">Mega Millions (5+1)</option>
+      <option value="irish">Irish Lotto (6 from 47)</option>
+      <option value="custom">Custom</option>
+    </select>
+  </div>
+
+  <div id="customOptions" style="display:none;margin-bottom:1rem;">
+    <div class="control-row">
+      <div class="control-group">
+        <label>Main balls</label>
+        <input type="number" id="mainCount" value="6" min="1" max="10">
+      </div>
+      <div class="control-group">
+        <label>Max number</label>
+        <input type="number" id="mainMax" value="49" min="10" max="99">
+      </div>
+    </div>
+    <div class="control-row" style="margin-top:10px;">
+      <div class="control-group">
+        <label>Bonus balls</label>
+        <input type="number" id="bonusCount" value="0" min="0" max="5">
+      </div>
+      <div class="control-group">
+        <label>Bonus max</label>
+        <input type="number" id="bonusMax" value="12" min="1" max="50">
+      </div>
+    </div>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="lottery-balls" id="balls">
+      <div style="color:var(--text3);font-size:13px;">Tap generate to pick your numbers</div>
+    </div>
+  </div>
+
+  <div class="control-group" style="margin-bottom:12px;">
+    <label>Number of lines</label>
+    <input type="number" id="numLines" value="1" min="1" max="6">
+  </div>
+
+  <button class="btn-generate" onclick="pick()">PICK MY NUMBERS</button>
+
+  <div id="lotteryInfo" style="margin-top:1.25rem;padding:1rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--text2);line-height:1.6;"></div>
+
+  <div class="related" style="margin-top:2rem;">
+    <div class="related-label">Related tools</div>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Random Number</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Dice Roller</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🎡</span> Yes/No Wheel</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Coin Flip</a>
+    </div>
+  </div>
+
+</main>
+
+<footer><p>RandomTools &copy; 2025 — <a href="../index.html">all tools</a></p></footer>
+
+<script>
+const lotteries = {
+  uklotto:     { name:'UK Lotto', main:6, mainMax:59, bonus:1, bonusMax:59, info:'Draw every Wednesday and Saturday. Match 6 numbers to win the jackpot.' },
+  euromillions:{ name:'EuroMillions', main:5, mainMax:50, bonus:2, bonusMax:12, info:'Played across Europe. Match 5 main numbers + 2 Lucky Stars to win the jackpot.' },
+  powerball:   { name:'Powerball', main:5, mainMax:69, bonus:1, bonusMax:26, info:'US lottery drawn every Monday, Wednesday, Saturday. Jackpot starts at $20 million.' },
+  megamillions:{ name:'Mega Millions', main:5, mainMax:70, bonus:1, bonusMax:25, info:'US lottery drawn every Tuesday and Friday. Record jackpot over $1.5 billion.' },
+  irish:       { name:'Irish Lotto', main:6, mainMax:47, bonus:1, bonusMax:47, info:'Ireland\'s national lottery. Drawn every Wednesday and Saturday.' },
+  custom:      { name:'Custom', main:6, mainMax:49, bonus:0, bonusMax:10, info:'Set your own rules above.' }
+};
+
+function updateInfo() {
+  const type = document.getElementById('lotteryType').value;
+  document.getElementById('customOptions').style.display = type === 'custom' ? 'block' : 'none';
+  const l = lotteries[type];
+  document.getElementById('lotteryInfo').textContent = l.info;
+}
+
+function getConfig() {
+  const type = document.getElementById('lotteryType').value;
+  if (type === 'custom') return {
+    main: parseInt(document.getElementById('mainCount').value)||6,
+    mainMax: parseInt(document.getElementById('mainMax').value)||49,
+    bonus: parseInt(document.getElementById('bonusCount').value)||0,
+    bonusMax: parseInt(document.getElementById('bonusMax').value)||12
+  };
+  return lotteries[type];
+}
+
+function pickLine(cfg) {
+  const pool = Array.from({length:cfg.mainMax}, (_,i) => i+1);
+  const shuffled = pool.sort(() => Math.random()-0.5);
+  const main = shuffled.slice(0, cfg.main).sort((a,b)=>a-b);
+  const bonusBalls = [];
+  if (cfg.bonus > 0) {
+    const bPool = Array.from({length:cfg.bonusMax}, (_,i)=>i+1).sort(()=>Math.random()-0.5);
+    for(let i=0;i<cfg.bonus;i++) bonusBalls.push(bPool[i]);
+    bonusBalls.sort((a,b)=>a-b);
+  }
+  return {main, bonus: bonusBalls};
+}
+
+function pick() {
+  const cfg = getConfig();
+  const lines = Math.min(parseInt(document.getElementById('numLines').value)||1, 6);
+  const container = document.getElementById('balls');
+  container.innerHTML = '';
+
+  for (let l = 0; l < lines; l++) {
+    if (lines > 1) {
+      const lbl = document.createElement('div');
+      lbl.style.cssText = 'width:100%;text-align:center;font-size:11px;color:var(--text3);font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;margin-top:'+(l>0?'12px':'0');
+      lbl.textContent = `Line ${l+1}`;
+      container.appendChild(lbl);
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;justify-content:center;width:100%;';
+      const {main, bonus} = pickLine(cfg);
+      main.forEach((n,i) => { const b = makeBall(n,'ball-main',i*60); row.appendChild(b); });
+      if (bonus.length) {
+        const sep = document.createElement('div');
+        sep.style.cssText = 'width:2px;background:var(--border);border-radius:2px;margin:0 2px;';
+        row.appendChild(sep);
+        bonus.forEach((n,i) => { const b = makeBall(n,'ball-bonus',(main.length+i)*60); row.appendChild(b); });
+      }
+      container.appendChild(row);
+    } else {
+      const {main, bonus} = pickLine(cfg);
+      main.forEach((n,i) => container.appendChild(makeBall(n,'ball-main',i*60)));
+      if (bonus.length) {
+        const sep = document.createElement('div');
+        sep.style.cssText = 'display:flex;align-items:center;padding:0 4px;color:var(--text3);font-size:18px;';
+        sep.textContent = '+';
+        container.appendChild(sep);
+        bonus.forEach((n,i) => container.appendChild(makeBall(n,'ball-bonus',(main.length+i)*60)));
+      }
+    }
+  }
+}
+
+function makeBall(n, cls, delay) {
+  const b = document.createElement('div');
+  b.className = `ball ${cls}`;
+  b.textContent = n;
+  b.style.animationDelay = delay + 'ms';
+  return b;
+}
+
+updateInfo();
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coin Flip — Heads or Tails Online — RandomTools</title>
+<meta name="description" content="Flip a coin online. Get heads or tails with a virtual coin flip. Free, instant, and works on mobile. Tracks your flip history and stats.">
+<meta name="keywords" content="coin flip, flip a coin, heads or tails, virtual coin flip, online coin toss, coin flipper">
+<link rel="canonical" href="https://yourusername.github.io/randomtools/tools/coin-flip.html">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.coin {
+  width: 120px; height: 120px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 52px; margin: 0 auto 1rem;
+  background: var(--bg3); border: 2px solid var(--border2);
+  transition: transform 0.1s;
+}
+.coin.flipping { animation: flip 0.5s ease; }
+@keyframes flip {
+  0%   { transform: rotateY(0deg) scale(1); }
+  25%  { transform: rotateY(90deg) scale(0.8); }
+  50%  { transform: rotateY(180deg) scale(1.1); }
+  75%  { transform: rotateY(270deg) scale(0.9); }
+  100% { transform: rotateY(360deg) scale(1); }
+}
+.stats-row { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem; }
+.stat-box { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center; }
+.stat-num { font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--accent2); }
+.stat-lbl { font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="../index.html">← all tools</a>
+  <div class="nav-logo">random<span>tools</span></div>
+</nav>
+
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🪙</div>
+    <h1>Coin Flip</h1>
+    <p>Tap to flip — heads or tails?</p>
+  </div>
+
+  <div class="result-box" id="resultBox" onclick="flip()" style="cursor:pointer;user-select:none;">
+    <div class="coin" id="coin">🪙</div>
+    <div class="result-text" id="result">Tap to flip</div>
+    <div class="result-label">tap anywhere to flip again</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num" id="headsCount">0</div>
+      <div class="stat-lbl">Heads</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="tailsCount">0</div>
+      <div class="stat-lbl">Tails</div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="flip()">FLIP COIN</button>
+  <button class="btn-copy" onclick="resetStats()" style="margin-top:8px;">Reset stats</button>
+
+  <div class="history" id="historySection" style="display:none;margin-top:1rem;">
+    <div class="history-label">Flip history</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <div class="related" style="margin-top:2rem;">
+    <div class="related-label">Related tools</div>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Dice Roller</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🎡</span> Yes/No Wheel</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Random Number</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
+    </div>
+  </div>
+
+</main>
+
+<footer><p>RandomTools &copy; 2025 — <a href="../index.html">all tools</a></p></footer>
+
+<script>
+let heads = 0, tails = 0;
+const flipHistory = [];
+
+function flip() {
+  const coin = document.getElementById('coin');
+  const result = document.getElementById('result');
+  coin.classList.remove('flipping');
+  void coin.offsetWidth;
+  coin.classList.add('flipping');
+
+  setTimeout(() => {
+    const isHeads = Math.random() < 0.5;
+    if (isHeads) { heads++; coin.textContent = '🌕'; result.textContent = 'Heads!'; flipHistory.unshift('H'); }
+    else { tails++; coin.textContent = '🌑'; result.textContent = 'Tails!'; flipHistory.unshift('T'); }
+    document.getElementById('headsCount').textContent = heads;
+    document.getElementById('tailsCount').textContent = tails;
+    if (flipHistory.length > 15) flipHistory.pop();
+    const sec = document.getElementById('historySection');
+    sec.style.display = 'block';
+    document.getElementById('historyList').innerHTML = flipHistory.map(f => `<span class="history-item" style="color:${f==='H'?'#a78bfa':'#fb923c'}">${f==='H'?'Heads':'Tails'}</span>`).join('');
+  }, 500);
+}
+
+function resetStats() {
+  heads = 0; tails = 0; flipHistory.length = 0;
+  document.getElementById('headsCount').textContent = '0';
+  document.getElementById('tailsCount').textContent = '0';
+  document.getElementById('coin').textContent = '🪙';
+  document.getElementById('result').textContent = 'Tap to flip';
+  document.getElementById('historySection').style.display = 'none';
+}
+
+document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); flip(); }});
+</script>
+</body>
+</html>

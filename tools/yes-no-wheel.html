@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yes No Wheel — Spin for Yes or No — RandomTools</title>
+<meta name="description" content="Can't decide? Spin the yes no wheel for a random answer. Free online decision spinner with yes, no, and maybe options.">
+<meta name="keywords" content="yes no wheel, yes or no spinner, decision wheel, spin wheel yes no, random yes no generator">
+<link rel="canonical" href="https://yourusername.github.io/randomtools/tools/yes-no-wheel.html">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.wheel-wrap { position:relative;width:min(280px,80vw);margin:0 auto 1.5rem; }
+.wheel-pointer {
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  width:0;height:0;
+  border-left:10px solid transparent;
+  border-right:10px solid transparent;
+  border-top:20px solid var(--accent2);
+  z-index:10;
+}
+canvas { display:block;width:100%;height:auto;border-radius:50%; }
+.answer-display {
+  text-align:center;font-size:clamp(2rem,10vw,3.5rem);
+  font-weight:700;margin:0.5rem 0;min-height:60px;
+  font-family:var(--mono);transition:color 0.3s;
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="../index.html">← all tools</a>
+  <div class="nav-logo">random<span>tools</span></div>
+</nav>
+
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎡</div>
+    <h1>Yes / No Wheel</h1>
+    <p>Spin the wheel — let fate decide</p>
+  </div>
+
+  <div class="wheel-wrap">
+    <div class="wheel-pointer"></div>
+    <canvas id="wheel" width="300" height="300"></canvas>
+  </div>
+
+  <div class="answer-display" id="answer">—</div>
+  <p style="text-align:center;font-size:13px;color:var(--text3);margin-bottom:1.25rem;" id="subtext">Tap spin to get your answer</p>
+
+  <div class="control-group" style="margin-bottom:12px;">
+    <label>Mode</label>
+    <select id="mode" onchange="drawWheel()">
+      <option value="yesno">Yes / No</option>
+      <option value="yesnomaybe">Yes / No / Maybe</option>
+      <option value="heavy-yes">Probably Yes (70%)</option>
+      <option value="heavy-no">Probably No (70%)</option>
+    </select>
+  </div>
+
+  <button class="btn-generate" id="spinBtn" onclick="spin()">SPIN THE WHEEL</button>
+
+  <div class="related" style="margin-top:2rem;">
+    <div class="related-label">Related tools</div>
+    <div class="related-grid">
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Coin Flip</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Dice Roller</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
+    </div>
+  </div>
+
+</main>
+
+<footer><p>RandomTools &copy; 2025 — <a href="../index.html">all tools</a></p></footer>
+
+<script>
+const canvas = document.getElementById('wheel');
+const ctx = canvas.getContext('2d');
+let spinning = false;
+let currentAngle = 0;
+
+function getSegments() {
+  const mode = document.getElementById('mode').value;
+  if (mode === 'yesno') return [
+    {label:'YES', color:'#4ade80', textColor:'#052e16', size: 0.5},
+    {label:'NO', color:'#f87171', textColor:'#450a0a', size: 0.5}
+  ];
+  if (mode === 'yesnomaybe') return [
+    {label:'YES', color:'#4ade80', textColor:'#052e16', size: 1/3},
+    {label:'NO', color:'#f87171', textColor:'#450a0a', size: 1/3},
+    {label:'MAYBE', color:'#facc15', textColor:'#422006', size: 1/3}
+  ];
+  if (mode === 'heavy-yes') return [
+    {label:'YES', color:'#4ade80', textColor:'#052e16', size: 0.7},
+    {label:'NO', color:'#f87171', textColor:'#450a0a', size: 0.3}
+  ];
+  return [
+    {label:'YES', color:'#4ade80', textColor:'#052e16', size: 0.3},
+    {label:'NO', color:'#f87171', textColor:'#450a0a', size: 0.7}
+  ];
+}
+
+function drawWheel(angle = 0) {
+  const segs = getSegments();
+  const cx = 150, cy = 150, r = 140;
+  ctx.clearRect(0,0,300,300);
+  let start = angle;
+  segs.forEach(seg => {
+    const arc = seg.size * 2 * Math.PI;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, start, start + arc);
+    ctx.closePath();
+    ctx.fillStyle = seg.color;
+    ctx.fill();
+    ctx.strokeStyle = '#0a0a0f';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(start + arc / 2);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = seg.textColor;
+    ctx.font = 'bold 22px Space Mono, monospace';
+    ctx.fillText(seg.label, r - 20, 8);
+    ctx.restore();
+    start += arc;
+  });
+
+  // center circle
+  ctx.beginPath();
+  ctx.arc(cx, cy, 18, 0, 2 * Math.PI);
+  ctx.fillStyle = '#0a0a0f';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+}
+
+function spin() {
+  if (spinning) return;
+  spinning = true;
+  document.getElementById('spinBtn').disabled = true;
+  document.getElementById('answer').textContent = '...';
+  document.getElementById('subtext').textContent = '';
+
+  const totalSpins = (5 + Math.random() * 5) * 2 * Math.PI;
+  const duration = 2500 + Math.random() * 1000;
+  const startAngle = currentAngle;
+  const targetAngle = startAngle + totalSpins;
+  const startTime = performance.now();
+
+  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+  function frame(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    currentAngle = startAngle + (targetAngle - startAngle) * easeOut(progress);
+    drawWheel(currentAngle);
+
+    if (progress < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      spinning = false;
+      document.getElementById('spinBtn').disabled = false;
+      // Find winning segment: pointer at top = -PI/2, find which segment contains that
+      const segs = getSegments();
+      const normalised = ((currentAngle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+      const pointerAngle = (2 * Math.PI - normalised) % (2 * Math.PI);
+      let cumulative = 0;
+      let winner = segs[0];
+      for (const seg of segs) {
+        cumulative += seg.size * 2 * Math.PI;
+        if (pointerAngle < cumulative) { winner = seg; break; }
+      }
+      const answerEl = document.getElementById('answer');
+      answerEl.textContent = winner.label;
+      answerEl.style.color = winner.color;
+      document.getElementById('subtext').textContent = 'Spin again to try your luck';
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+drawWheel();
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Team Picker — Split Names into Teams — RandomTools</title>
+<meta name="description" content="Randomly split a list of names into equal teams. Great for sports, school projects, work groups. Free online team picker.">
+<meta name="keywords" content="random team picker, team generator, split into teams, random group generator, team maker online">
+<link rel="canonical" href="https://yourusername.github.io/randomtools/tools/team-picker.html">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.teams-output { display:flex;flex-direction:column;gap:10px;margin-top:1.25rem; }
+.team-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px; }
+.team-title { font-family:var(--mono);font-size:12px;color:var(--accent2);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px; }
+.team-members { display:flex;flex-wrap:wrap;gap:6px; }
+.member-chip { background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:13px;color:var(--text); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="../index.html">← all tools</a>
+  <div class="nav-logo">random<span>tools</span></div>
+</nav>
+
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">👥</div>
+    <h1>Random Team Picker</h1>
+    <p>Paste your list of names, choose how many teams</p>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Names (one per line)</label>
+      <textarea id="nameList" placeholder="Alice&#10;Bob&#10;Charlie&#10;Diana&#10;Eve&#10;Frank&#10;Grace&#10;Hank"></textarea>
+    </div>
+    <div class="control-row">
+      <div class="control-group">
+        <label>Number of teams</label>
+        <input type="number" id="numTeams" value="2" min="2" max="20">
+      </div>
+      <div class="control-group">
+        <label>Team names (optional)</label>
+        <input type="text" id="teamPrefix" placeholder="Team" value="Team">
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pickTeams()">PICK TEAMS</button>
+
+  <div id="teamsOutput" class="teams-output"></div>
+
+  <div class="related" style="margin-top:2rem;">
+    <div class="related-label">Related tools</div>
+    <div class="related-grid">
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🎡</span> Yes/No Wheel</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Coin Flip</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Random Number</a>
+    </div>
+  </div>
+
+</main>
+
+<footer><p>RandomTools &copy; 2025 — <a href="../index.html">all tools</a></p></footer>
+
+<script>
+function pickTeams() {
+  const raw = document.getElementById('nameList').value.trim();
+  if (!raw) { alert('Please enter some names first'); return; }
+  const names = raw.split('\n').map(n => n.trim()).filter(n => n);
+  const numTeams = Math.min(parseInt(document.getElementById('numTeams').value) || 2, names.length);
+  const prefix = document.getElementById('teamPrefix').value || 'Team';
+
+  // Fisher-Yates shuffle
+  const shuffled = [...names];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  const teams = Array.from({length: numTeams}, () => []);
+  shuffled.forEach((name, i) => teams[i % numTeams].push(name));
+
+  const out = document.getElementById('teamsOutput');
+  const colors = ['#a78bfa','#34d399','#fb923c','#60a5fa','#f472b6','#facc15'];
+  out.innerHTML = teams.map((members, i) => `
+    <div class="team-card">
+      <div class="team-title" style="color:${colors[i % colors.length]}">${prefix} ${i + 1} · ${members.length} players</div>
+      <div class="team-members">${members.map(m => `<span class="member-chip">${m}</span>`).join('')}</div>
+    </div>
+  `).join('');
+
+  out.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+</script>
+</body>
+</html>
