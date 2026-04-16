@@ -1,22 +1,22 @@
 {
-  "name": "RandomTools",
-  "short_name": "RandomTools",
+  "name": "Spinnit — Random Tools",
+  "short_name": "Spinnit",
   "description": "Free online random generators and pickers — dice, coins, passwords, names and more",
-  "start_url": "/randomtools/",
-  "scope": "/randomtools/",
+  "start_url": "https://spinnit.site/",
+  "scope": "https://spinnit.site/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#0a0a0f",
   "theme_color": "#7c6af7",
   "icons": [
     {
-      "src": "/randomtools/icons/icon-192.png",
+      "src": "/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/randomtools/icons/icon-512.png",
+      "src": "/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

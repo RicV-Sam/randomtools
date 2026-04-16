@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://RicV-Sam.github.io/randomtools/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/random-number.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/dice-roller.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/coin-flip.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/team-picker.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/yes-no-wheel.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/colour-generator.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/password-generator.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/lottery-picker.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/percentage-generator.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/list-shuffler.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/wheel-of-names.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/random-country.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://RicV-Sam.github.io/randomtools/tools/random-name-generator.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://spinnit.site/tools/random-number.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/dice-roller.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/coin-flip.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/team-picker.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/yes-no-wheel.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/wheel-of-names.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/colour-generator.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/password-generator.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/lottery-picker.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/percentage-generator.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/list-shuffler.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/random-country.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/random-name-generator.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/privacy.html</loc><lastmod>2026-04-16</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://spinnit.site/about.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
