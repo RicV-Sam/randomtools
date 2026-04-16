@@ -1,0 +1,25 @@
+{
+  "name": "RandomTools",
+  "short_name": "RandomTools",
+  "description": "Free online random generators and pickers — dice, coins, passwords, names and more",
+  "start_url": "/randomtools/",
+  "scope": "/randomtools/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0a0f",
+  "theme_color": "#7c6af7",
+  "icons": [
+    {
+      "src": "/randomtools/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/randomtools/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

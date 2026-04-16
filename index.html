@@ -3,13 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RandomTools — Free Online Random Generators</title>
-<meta name="description" content="Free online random generators and pickers. Dice roller, coin flip, password generator, team picker, colour generator and more. Fast, free, mobile-friendly.">
-<meta name="keywords" content="random number generator, dice roller, coin flip, password generator, team picker, random colour, lottery numbers, list shuffler">
-<meta property="og:title" content="RandomTools — Free Online Random Generators">
-<meta property="og:description" content="Fast, free, mobile-friendly random generators for everything. No ads, no sign-up.">
+<title>RandomTools — 13 Free Online Random Generators</title>
+<meta name="description" content="Free online random generators and pickers. Dice roller, coin flip, password generator, wheel of names, random country, team picker and more. Fast, free, mobile-friendly.">
+<meta name="keywords" content="random number generator, dice roller, coin flip, password generator, team picker, random colour, lottery numbers, list shuffler, wheel of names, random country, random name generator">
+<meta property="og:title" content="RandomTools — 13 Free Online Random Generators">
+<meta property="og:description" content="Fast, free, mobile-friendly random generators for everything. Dice, coins, passwords, name wheels, countries and more. No sign-up.">
 <meta property="og:type" content="website">
-<link rel="canonical" href="https://yourusername.github.io/randomtools/">
+<meta property="og:url" content="https://RicV-Sam.github.io/randomtools/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RandomTools — 13 Free Online Random Generators">
+<meta name="twitter:description" content="Fast, free, mobile-friendly random generators for everything. No sign-up required.">
+<meta name="theme-color" content="#7c6af7">
+<link rel="manifest" href="manifest.json">
+<link rel="canonical" href="https://RicV-Sam.github.io/randomtools/">
 <link rel="stylesheet" href="assets/style.css">
 <script type="application/ld+json">
 {
@@ -17,7 +23,7 @@
   "@type": "WebSite",
   "name": "RandomTools",
   "description": "Free online random generators and pickers",
-  "url": "https://yourusername.github.io/randomtools/"
+  "url": "https://RicV-Sam.github.io/randomtools/"
 }
 </script>
 </head>
@@ -25,13 +31,13 @@
 
 <nav class="nav">
   <div class="nav-logo">random<span>tools</span></div>
-  <span style="font-size:12px;color:var(--text3);font-family:var(--mono);">10 free tools</span>
+  <span style="font-size:12px;color:var(--text3);font-family:var(--mono);">13 free tools</span>
 </nav>
 
 <section class="hero">
   <div class="hero-eyebrow">free · fast · no sign-up</div>
   <h1>Random generators<br>for everything</h1>
-  <p>Ten instant tools for decisions, games, passwords, and more. Works perfectly on mobile.</p>
+  <p>Thirteen instant tools for decisions, games, passwords, names, and more. Works perfectly on mobile.</p>
 </section>
 
 <!-- AdSense Banner -->
@@ -71,9 +77,16 @@
   </a>
 
   <a class="tool-card" href="tools/yes-no-wheel.html">
-    <div class="tool-icon">🎡</div>
+    <div class="tool-icon">🔮</div>
     <h3>Yes / No Wheel</h3>
     <p>Can't decide? Spin the wheel for a random yes or no answer.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/wheel-of-names.html">
+    <div class="tool-icon">🎡</div>
+    <h3>Wheel of Names</h3>
+    <p>Add any list of names and spin the wheel to pick a random winner.</p>
     <div class="tool-arrow">use tool →</div>
   </a>
 
@@ -112,11 +125,30 @@
     <div class="tool-arrow">use tool →</div>
   </a>
 
+  <a class="tool-card" href="tools/random-country.html">
+    <div class="tool-icon">🌍</div>
+    <h3>Random Country Generator</h3>
+    <p>Discover a random country from all 195 nations. Filter by continent.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/random-name-generator.html">
+    <div class="tool-icon">👤</div>
+    <h3>Random Name Generator</h3>
+    <p>Generate realistic names from 10 cultures: English, Japanese, Arabic and more.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
 </main>
 
 <footer>
   <p>RandomTools &copy; 2025 — free forever &nbsp;|&nbsp; <a href="#">Privacy</a> &nbsp;|&nbsp; <a href="#">About</a></p>
 </footer>
 
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
 </body>
 </html>

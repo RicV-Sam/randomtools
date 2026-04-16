@@ -378,6 +378,37 @@ footer a:hover { color: var(--text2); }
 }
 canvas#wheel { max-width: 100%; border-radius: 50%; }
 
+/* COUNTRY CARD */
+.country-flag { font-size: 72px; line-height: 1; margin-bottom: 0.75rem; display: block; }
+.country-name { font-size: clamp(1.4rem,6vw,2rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+.country-continent {
+  display: inline-block; font-size: 11px; font-family: var(--mono);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2);
+  background: rgba(124,106,247,0.12); border: 1px solid rgba(124,106,247,0.25);
+  border-radius: 20px; padding: 3px 12px; margin-bottom: 1.25rem;
+}
+.country-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 1.25rem; }
+.stat-cell { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 8px; }
+.stat-cell-label { font-size: 10px; font-family: var(--mono); color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.stat-cell-val { font-size: 13px; color: var(--text); font-weight: 500; word-break: break-word; }
+
+/* NAME GENERATOR OUTPUT */
+.name-item {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px 14px; display: flex; justify-content: space-between;
+  align-items: center; gap: 10px;
+}
+.name-item-text { font-size: 15px; font-weight: 500; color: var(--text); font-family: var(--mono); }
+
+/* CONTINENT FILTER PILLS */
+.filter-btn {
+  padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border);
+  background: var(--bg3); color: var(--text2); font-size: 12px;
+  font-family: var(--mono); cursor: pointer; transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--border2); color: var(--text); }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
 /* COLOR SWATCH */
 .color-swatch {
   width: 100%;
