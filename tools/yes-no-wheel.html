@@ -30,11 +30,6 @@
   z-index:10;
 }
 canvas { display:block;width:100%;height:auto;border-radius:50%; }
-.answer-display {
-  text-align:center;font-size:clamp(2rem,10vw,3.5rem);
-  font-weight:700;margin:0.5rem 0;min-height:60px;
-  font-family:var(--mono);transition:color 0.3s;
-}
 </style>
 </head>
 <body>
@@ -56,9 +51,6 @@ canvas { display:block;width:100%;height:auto;border-radius:50%; }
     <div class="wheel-pointer"></div>
     <canvas id="wheel" width="300" height="300"></canvas>
   </div>
-
-  <div class="answer-display" id="answer">—</div>
-  <p style="text-align:center;font-size:13px;color:var(--text3);margin-bottom:1.25rem;" id="subtext">Tap spin to get your answer</p>
 
   <div class="control-group" style="margin-bottom:12px;">
     <label>Mode</label>
@@ -225,8 +217,6 @@ function spin() {
   if (spinning) return;
   spinning = true;
   document.getElementById('spinBtn').disabled = true;
-  document.getElementById('answer').textContent = '...';
-  document.getElementById('subtext').textContent = '';
 
   const totalSpins = (5 + Math.random() * 5) * 2 * Math.PI;
   const duration = 2500 + Math.random() * 1000;
@@ -247,19 +237,6 @@ function spin() {
     } else {
       spinning = false;
       document.getElementById('spinBtn').disabled = false;
-      const segs = getSegments();
-      const normalised = ((currentAngle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-      const pointerAngle = ((3 * Math.PI / 2) - normalised + 2 * Math.PI) % (2 * Math.PI);
-      let cumulative = 0;
-      let winner = segs[0];
-      for (const seg of segs) {
-        cumulative += seg.size * 2 * Math.PI;
-        if (pointerAngle < cumulative) { winner = seg; break; }
-      }
-      const answerEl = document.getElementById('answer');
-      answerEl.textContent = winner.label;
-      answerEl.style.color = winner.color;
-      document.getElementById('subtext').textContent = 'Spin again to try your luck';
     }
   }
   requestAnimationFrame(frame);
