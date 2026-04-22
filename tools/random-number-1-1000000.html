@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Number Between 1 and 1,000,000 – Free Picker | Spinnit</title>
+<meta name="description" content="Generate a random number between 1 and one million instantly. Fair, free, and fast — for large giveaways, ID generation and probability demos.">
+<link rel="canonical" href="https://spinnit.site/tools/random-number-1-1000000.html">
+<meta property="og:title" content="Random Number Between 1 and 1,000,000 | Spinnit">
+<meta property="og:description" content="Free random number from 1 to one million with one tap. Big draws, IDs and probability demos.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spinnit.site/tools/random-number-1-1000000.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#7c6af7">
+<link rel="manifest" href="../manifest.json">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Number Between 1 and 1,000,000","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="../index.html">← all tools</a>
+  <div class="nav-logo">spinn<span>it</span></div>
+</nav>
+
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">💯</div>
+    <h1>Random Number Between 1 and 1,000,000</h1>
+    <p>One in a million — a fair pick from the full range</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your number (1–1,000,000)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>How many numbers?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Recent results</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>One in a million is the classic figurative phrase for "very unlikely" — and here you can literally pick from a million. This range is useful when you want a number that's almost certainly unique, or for probability demonstrations where small odds need to feel genuinely small.</p>
+
+    <h2>Good uses</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Generating a near-unique ID for forms, tickets or test records</li>
+      <li>Probability teaching — "what are the odds?" demonstrations</li>
+      <li>Large-scale giveaways where hundreds of thousands entered</li>
+      <li>Creating realistic-looking random numeric test data</li>
+      <li>Picking a random frame from a million-frame video (fun, not practical)</li>
+    </ul>
+
+    <h2>Worth knowing</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Even at 1-in-a-million odds, the same number <em>can</em> appear twice in a row — it's just very unlikely. For guaranteed uniqueness, use a UUID generator, not random integers. This tool is best for one-off picks and demonstrations.</p>
+
+    <h2>Other ranges</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Smaller draws: <a href="random-number-1-1000.html">1–1000</a>, <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-10.html">1–10</a>. Need something custom? Use the full <a href="random-number.html">Random Number Generator</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What are the odds of the same number appearing twice?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">For two independent draws, the chance of the exact same result is one in one million. It's vanishingly rare but not impossible.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this suitable for generating unique IDs?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Only for small numbers of IDs. Due to the birthday paradox, you'll start seeing collisions after roughly 1,200 draws. For true uniqueness use UUIDs.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Why does the result take the same time as smaller ranges?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Random number generation is constant-time regardless of range size. Picking from one million is just as fast as picking from ten.</p>
+  </section>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What are the odds of the same number appearing twice?","acceptedAnswer":{"@type":"Answer","text":"For two independent draws, the chance of the exact same result is one in one million."}},
+    {"@type":"Question","name":"Is this suitable for generating unique IDs?","acceptedAnswer":{"@type":"Answer","text":"Only for small numbers of IDs. Due to the birthday paradox collisions start appearing after roughly 1,200 draws. Use UUIDs for true uniqueness."}},
+    {"@type":"Question","name":"Why does the result take the same time as smaller ranges?","acceptedAnswer":{"@type":"Answer","text":"Random number generation is constant-time regardless of range size."}}
+  ]}
+  </script>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Custom Range Generator</a>
+      <a class="related-card" href="random-number-1-1000.html"><span class="ri">🔢</span> 1–1000 Generator</a>
+      <a class="related-card" href="password-generator.html"><span class="ri">🔐</span> Password Generator</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lottery Picker</a>
+    </div>
+  </section>
+
+</main>
+
+<footer><p>Spinnit &copy; 2026 — <a href="/index.html">all tools</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/about.html">About</a></p></footer>
+
+<script>
+const MIN = 1, MAX = 1000000;
+const history = [];
+function generate() {
+  const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+  let results = [];
+  for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+  document.getElementById('result').textContent = results.map(n => n.toLocaleString()).join(', ');
+  const box = document.getElementById('resultBox');
+  box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  history.unshift(results[0]); if (history.length > 10) history.pop();
+  renderHistory();
+}
+function renderHistory() {
+  const sec = document.getElementById('historySection');
+  const list = document.getElementById('historyList');
+  if (!history.length) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  list.innerHTML = history.map(n => `<span class="history-item">${n.toLocaleString()}</span>`).join('');
+}
+function copyResult() {
+  const val = document.getElementById('result').textContent;
+  if (val === '—') return;
+  navigator.clipboard.writeText(val).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); generate(); }});
+</script>
+</body>
+</html>

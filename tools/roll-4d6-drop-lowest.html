@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roll 4d6 Drop Lowest – D&amp;D 5e Stat Roller | Spinnit</title>
+<meta name="description" content="Roll 4d6 drop lowest — the standard Dungeons &amp; Dragons 5e ability score method. Free online roller with all four dice shown. Instant, no sign-up.">
+<link rel="canonical" href="https://spinnit.site/tools/roll-4d6-drop-lowest.html">
+<meta property="og:title" content="Roll 4d6 Drop Lowest | Spinnit">
+<meta property="og:description" content="The D&amp;D 5e stat roll — four d6, drop the lowest, sum the rest.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spinnit.site/tools/roll-4d6-drop-lowest.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#7c6af7">
+<link rel="manifest" href="../manifest.json">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Roll 4d6 Drop Lowest","applicationCategory":"GameApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="../index.html">← all tools</a>
+  <div class="nav-logo">spinn<span>it</span></div>
+</nav>
+
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🐉</div>
+    <h1>Roll 4d6 Drop Lowest</h1>
+    <p>The standard D&amp;D 5e ability score method</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your score</div>
+    <div class="result-number" id="result">—</div>
+    <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>How many scores? (6 for a full stat block)</label>
+      <input type="number" id="count" value="6" min="1" max="20">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="roll()">ROLL STATS</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Recent scores</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Four six-sided dice, drop the lowest, sum the rest — the standard ability score method in Dungeons &amp; Dragons 5th edition and Pathfinder. It's kinder than 3d6: the average score is 12.24, and scores of 13+ show up more than half the time, so your heroes actually feel heroic.</p>
+
+    <h2>How to roll a 5e character</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Leave the count set to 6 — you need six ability scores.</li>
+      <li>Tap <strong>ROLL STATS</strong>. Four dice are rolled six times; the lowest die from each set is dropped.</li>
+      <li>Each of the six totals becomes an ability score.</li>
+      <li>Assign them (in order, or freely if your DM allows) to Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma.</li>
+      <li>Apply racial bonuses per your chosen species.</li>
+    </ol>
+
+    <h2>Is it a good roll?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">A useful rule of thumb: the sum of all six scores should be at least 70 to be competitive. Under 65 is rough; over 80 is notably above average. Most DMs let you reroll once if the total is below a set minimum — ask before you start.</p>
+
+    <h2>Other dice rollers</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Try <a href="roll-3d6.html">3d6 (classic stats)</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-d100.html">d100</a>, <a href="roll-d10.html">d10</a>, <a href="random-number-1-20.html">d20</a>, or the full <a href="dice-roller.html">Dice Roller</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What's the average 4d6 drop lowest?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">12.24. Modal value is 13. An 18 appears about 1.6% of the time per roll, so expect roughly one 18 every ten characters on average.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I see all four dice, not just the total?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. After each roll, the dropped die and kept dice are shown below the score so you can verify the math.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this follow the 5e Player's Handbook rules?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. This is the "Rolling Scores" method from the 5e PHB character creation chapter. Your DM may allow rerolls or use point-buy instead.</p>
+  </section>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What's the average 4d6 drop lowest?","acceptedAnswer":{"@type":"Answer","text":"12.24. Modal value is 13. An 18 appears about 1.6% per roll."}},
+    {"@type":"Question","name":"Can I see all four dice not just the total?","acceptedAnswer":{"@type":"Answer","text":"Yes. After each roll, the dropped die and kept dice are shown below the score."}},
+    {"@type":"Question","name":"Does this follow the 5e Player's Handbook rules?","acceptedAnswer":{"@type":"Answer","text":"Yes. This is the Rolling Scores method from the 5e PHB."}}
+  ]}
+  </script>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="roll-3d6.html"><span class="ri">🎲</span> Roll 3d6 (Classic)</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Full Dice Roller</a>
+      <a class="related-card" href="random-number-1-20.html"><span class="ri">🎲</span> Roll d20</a>
+      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> Roll d100</a>
+    </div>
+  </section>
+
+</main>
+
+<footer><p>Spinnit &copy; 2026 — <a href="/index.html">all tools</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/about.html">About</a></p></footer>
+
+<script>
+const history = [];
+function roll() {
+  const count = Math.min(parseInt(document.getElementById('count').value) || 1, 20);
+  let rolls = [];
+  for (let i = 0; i < count; i++) {
+    const d = [Math.floor(Math.random()*6)+1, Math.floor(Math.random()*6)+1, Math.floor(Math.random()*6)+1, Math.floor(Math.random()*6)+1];
+    const sorted = [...d].sort((a,b)=>a-b);
+    const dropped = sorted[0];
+    const kept = sorted.slice(1);
+    rolls.push({ dice: d, dropped, kept, total: kept.reduce((a,b)=>a+b,0) });
+  }
+  const resultEl = document.getElementById('result');
+  const totalEl = document.getElementById('totalLabel');
+  if (count === 1) {
+    resultEl.textContent = rolls[0].total;
+    totalEl.textContent = `Rolled [${rolls[0].dice.join(', ')}] — dropped ${rolls[0].dropped}, kept ${rolls[0].kept.join('+')}`;
+    totalEl.style.display = 'block';
+  } else {
+    resultEl.textContent = rolls.map(r => r.total).join(', ');
+    const sum = rolls.reduce((a,r)=>a+r.total,0);
+    totalEl.textContent = `Total of all scores: ${sum}`;
+    totalEl.style.display = 'block';
+  }
+  const box = document.getElementById('resultBox');
+  box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  history.unshift(rolls[0].total); if (history.length > 10) history.pop();
+  renderHistory();
+}
+function renderHistory() {
+  const sec = document.getElementById('historySection');
+  const list = document.getElementById('historyList');
+  if (!history.length) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+}
+function copyResult() {
+  const val = document.getElementById('result').textContent;
+  if (val === '—') return;
+  navigator.clipboard.writeText(val).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); roll(); }});
+</script>
+</body>
+</html>

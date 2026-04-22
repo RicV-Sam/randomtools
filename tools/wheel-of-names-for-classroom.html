@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wheel of Names for Classroom – Teacher's Guide | Spinnit</title>
+<meta name="description" content="A wheel of names made for the classroom. Free, projector-friendly, GDPR-safe — with practical tips from real teachers on using a name wheel in lessons.">
+<link rel="canonical" href="https://spinnit.site/tools/wheel-of-names-for-classroom.html">
+<meta property="og:title" content="Wheel of Names for Classroom | Spinnit">
+<meta property="og:description" content="Teacher's guide to using a name wheel — free, projector-ready, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spinnit.site/tools/wheel-of-names-for-classroom.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#7c6af7">
+<link rel="manifest" href="../manifest.json">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Wheel of Names for Classroom","applicationCategory":"EducationalApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="../index.html">← all tools</a>
+  <div class="nav-logo">spinn<span>it</span></div>
+</nav>
+
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎡</div>
+    <h1>Wheel of Names for the Classroom</h1>
+    <p>A teacher-friendly name wheel — plus tips that actually work</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">picked</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Class list (one name per line)</label>
+      <textarea id="namesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;"></textarea>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">SPIN</button>
+  <button class="btn-copy" onclick="clearResult()" style="margin-top:8px;">Clear</button>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>A wheel of names is one of the simplest teaching tools to add to your routine — and one of the most effective for fair student participation. This page gives you a quick picker above, and below it, a practical guide to using a name wheel without it becoming noise in your lesson.</p>
+
+    <h2>Why use a name wheel in class</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Equity of voice</strong> — quiet students get called on as often as the hand-raisers</li>
+      <li><strong>Reduced resistance</strong> — "the wheel picked you" is easier to accept than "I'm picking you"</li>
+      <li><strong>Attention</strong> — students stay alert because anyone could be next</li>
+      <li><strong>Pace</strong> — one tap, one answer, no waiting for hands</li>
+      <li><strong>Data collection</strong> — keep track of who's answered to spot patterns</li>
+    </ul>
+
+    <h2>Three ways to use it well</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;"><strong>1. The cold call.</strong> Ask a question, pause for ten seconds of thinking time, <em>then</em> tap the wheel. Thinking time is non-negotiable — without it you get "I don't know" instead of real answers.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;"><strong>2. The safety net.</strong> Let the student answer, and if they're stuck, let them "pass the wheel" to a peer of their choice. They stay in control, but the activity moves on.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;"><strong>3. The presentation order.</strong> For group work or individual presentations, spin the wheel once per slot to set the order live. Removes every "you go first" argument.</p>
+
+    <h2>Three common mistakes</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Skipping the picked student</strong> — once the wheel calls a name, commit to it. Skipping breaks the fairness contract.</li>
+      <li><strong>Using it for high-stakes questions</strong> — never use the wheel for public marking or behaviour decisions. Keep it low-stakes.</li>
+      <li><strong>Forgetting to reset</strong> — if you use no-repeat mode, reset after each lesson or class dynamics skew.</li>
+    </ul>
+
+    <h2>Want the full animated wheel?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The picker above is intentionally quick — tap, done. For the full spinning animation that kids enjoy, use the main <a href="wheel-of-names.html">Wheel of Names</a>. Also useful: the <a href="random-student-picker.html">Random Student Picker</a> with no-repeat mode, the <a href="team-picker.html">Team Picker</a> for group work, and the <a href="list-shuffler.html">List Shuffler</a> for a one-shot randomised order.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this GDPR-safe for a UK school?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Names you paste in never leave the browser tab — no upload, no account, no cookies tracking you across sites. That means there's no personal data processing under GDPR as far as this tool is concerned.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Will it work on an interactive whiteboard?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The tool is responsive and touch-friendly. For the cleanest look on an IWB, press F11 for full-screen and use the main <a href="wheel-of-names.html">Wheel of Names</a> for the animated version.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I save my class list between lessons?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Currently no — but you can paste a list from a note or spreadsheet in under a second. Many teachers keep a "Class 7B roster" note on their phone for this exact reason.</p>
+  </section>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Is this GDPR-safe for a UK school?","acceptedAnswer":{"@type":"Answer","text":"Yes. Names pasted in never leave the browser tab — no upload, no account, no tracking cookies."}},
+    {"@type":"Question","name":"Will it work on an interactive whiteboard?","acceptedAnswer":{"@type":"Answer","text":"Yes. The tool is responsive and touch-friendly. Press F11 for full-screen."}},
+    {"@type":"Question","name":"Can I save my class list between lessons?","acceptedAnswer":{"@type":"Answer","text":"Not currently. Many teachers keep a roster note on their phone to paste in seconds."}}
+  ]}
+  </script>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Full Wheel of Names</a>
+      <a class="related-card" href="random-student-picker.html"><span class="ri">🎒</span> Student Picker</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
+      <a class="related-card" href="random-name-picker-no-repeat.html"><span class="ri">🎯</span> No-Repeat Picker</a>
+    </div>
+  </section>
+
+</main>
+
+<footer><p>Spinnit &copy; 2026 — <a href="/index.html">all tools</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/about.html">About</a></p></footer>
+
+<script>
+const DEFAULT_NAMES = ['Aisha','Benjamin','Chloe','Daniel','Eva','Finn','Grace','Harry','Ivy','Jack','Kai','Leo','Mia','Nina','Oliver','Poppy','Quinn','Ruby','Samuel','Tara','Umar','Violet','Willow','Xander','Yasmin','Zane'];
+document.getElementById('namesInput').value = DEFAULT_NAMES.join('\n');
+
+function getNames() {
+  return document.getElementById('namesInput').value.split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
+}
+function pick() {
+  const names = getNames();
+  if (!names.length) { alert('Add some names first.'); return; }
+  const winner = names[Math.floor(Math.random() * names.length)];
+  document.getElementById('result').textContent = winner;
+  const box = document.getElementById('resultBox');
+  box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+}
+function clearResult() { document.getElementById('result').textContent = '—'; }
+document.addEventListener('keydown', e => {
+  if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
+    e.preventDefault(); pick();
+  }
+});
+</script>
+</body>
+</html>

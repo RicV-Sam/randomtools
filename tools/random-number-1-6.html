@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Number Between 1 and 6 – Online Dice Alternative | Spinnit</title>
+<meta name="description" content="Pick a random number between 1 and 6 — a fair online substitute for a six-sided dice. Instant, free, mobile-friendly, no sign-up.">
+<link rel="canonical" href="https://spinnit.site/tools/random-number-1-6.html">
+<meta property="og:title" content="Random Number Between 1 and 6 | Spinnit">
+<meta property="og:description" content="Instant fair random number from 1 to 6 — a proper online dice replacement.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spinnit.site/tools/random-number-1-6.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#7c6af7">
+<link rel="manifest" href="../manifest.json">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Number Between 1 and 6","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="../index.html">← all tools</a>
+  <div class="nav-logo">spinn<span>it</span></div>
+</nav>
+
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">⚄</div>
+    <h1>Random Number Between 1 and 6</h1>
+    <p>A fair online replacement for a six-sided dice</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your roll (1–6)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>How many rolls?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">ROLL</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Recent rolls</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>When the dice go missing, a random number between 1 and 6 is the obvious substitute. This generator mirrors a fair six-sided die exactly: each face has a 1-in-6 chance, rolls are independent, and the result is ready the instant you tap the button.</p>
+
+    <h2>When a 1–6 roll is what you need</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Board games where you've lost the dice — Monopoly, Ludo, Snakes &amp; Ladders</li>
+      <li>Tabletop RPGs that call for a d6 skill check or damage roll</li>
+      <li>Classroom activities — assign groups of six, pick a question number</li>
+      <li>Drinking and party games that use a single die</li>
+      <li>Coding exercises that need a simple uniform distribution</li>
+    </ul>
+
+    <h2>Need multiple dice?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Set <em>How many rolls?</em> up to 100 and every result shows together — useful for 2d6, 3d6 or "roll with advantage" checks. For a visual animated roll with several dice at once, try the dedicated <a href="dice-roller.html">Dice Roller</a>.</p>
+
+    <h2>Other ranges</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Need d20 or d10 instead? Try <a href="random-number-1-20.html">1–20</a>, <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-100.html">1–100</a>, or build a <a href="random-number.html">custom range</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this a fair replacement for a real dice?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes — in fact, it's often <em>fairer</em>. Real dice can be biased by uneven weight or worn edges. Digital rolls are mathematically uniform: each number from 1 to 6 has exactly a 1-in-6 chance.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I roll two dice at once (2d6)?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set "How many rolls?" to 2 and both results appear together. Add them to get the 2d6 total.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this work offline?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Once the page has loaded, all rolls happen in your browser with no network needed.</p>
+  </section>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Is this a fair replacement for a real dice?","acceptedAnswer":{"@type":"Answer","text":"Yes. Digital rolls are mathematically uniform — each number from 1 to 6 has exactly a 1-in-6 chance."}},
+    {"@type":"Question","name":"Can I roll two dice at once (2d6)?","acceptedAnswer":{"@type":"Answer","text":"Yes. Set How many rolls to 2 and both results appear together. Add them for the 2d6 total."}},
+    {"@type":"Question","name":"Does this work offline?","acceptedAnswer":{"@type":"Answer","text":"Yes. Once loaded, all rolls happen in your browser with no network needed."}}
+  ]}
+  </script>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Visual Dice Roller</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Custom Range Generator</a>
+      <a class="related-card" href="random-number-1-20.html"><span class="ri">🔢</span> 1–20 (D20)</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Coin Flip</a>
+    </div>
+  </section>
+
+</main>
+
+<footer><p>Spinnit &copy; 2026 — <a href="/index.html">all tools</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/about.html">About</a></p></footer>
+
+<script>
+const MIN = 1, MAX = 6;
+const history = [];
+function generate() {
+  const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+  let results = [];
+  for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+  document.getElementById('result').textContent = results.join(', ');
+  const box = document.getElementById('resultBox');
+  box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  history.unshift(results[0]); if (history.length > 10) history.pop();
+  renderHistory();
+}
+function renderHistory() {
+  const sec = document.getElementById('historySection');
+  const list = document.getElementById('historyList');
+  if (!history.length) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+}
+function copyResult() {
+  const val = document.getElementById('result').textContent;
+  if (val === '—') return;
+  navigator.clipboard.writeText(val).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); generate(); }});
+</script>
+</body>
+</html>

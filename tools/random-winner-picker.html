@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Winner Picker – Free Giveaway Tool | Spinnit</title>
+<meta name="description" content="Pick a random winner from any list of entries. Free giveaway tool for social media, raffles and competitions. Pick 1 or multiple winners, no duplicates.">
+<link rel="canonical" href="https://spinnit.site/tools/random-winner-picker.html">
+<meta property="og:title" content="Random Winner Picker | Spinnit">
+<meta property="og:description" content="Free giveaway winner picker — paste entries, pick one or many, no duplicates.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spinnit.site/tools/random-winner-picker.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#7c6af7">
+<link rel="manifest" href="../manifest.json">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Winner Picker","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="../index.html">← all tools</a>
+  <div class="nav-logo">spinn<span>it</span></div>
+</nav>
+
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🏆</div>
+    <h1>Random Winner Picker</h1>
+    <p>Fair, transparent draws for giveaways and competitions</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">winner</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.4rem,7vw,2.6rem);word-break:break-word;line-height:1.25;">—</div>
+    <div id="entryCount" style="font-size:13px;color:var(--text2);margin-top:6px;display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Entries (one per line — names, @handles, emails, anything)</label>
+      <textarea id="entriesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;" placeholder="@first_entrant&#10;@second_entrant&#10;..."></textarea>
+    </div>
+    <div class="control-row" style="margin-top:10px;">
+      <div class="control-group">
+        <label>How many winners?</label>
+        <input type="number" id="winnerCount" value="1" min="1" max="50">
+      </div>
+      <div class="control-group">
+        <label>&nbsp;</label>
+        <label style="font-size:13px;"><input type="checkbox" id="dedupe" style="margin-right:6px;vertical-align:middle;"> Remove duplicate entries</label>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="drawWinners()">DRAW WINNERS</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Running a giveaway and need to pick a winner fairly? Paste your entry list (one per line), set how many winners you want, and tap the button. Every entry has an equal chance, no entry is picked twice in the same draw, and you can screenshot the result as proof. No account required.</p>
+
+    <h2>What to paste as an entry list</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Instagram comments</strong> — copy the comment list from a scraper or export</li>
+      <li><strong>Twitter/X replies</strong> — copy the @handles of everyone who entered</li>
+      <li><strong>Email addresses</strong> — from a signup form or mailing list</li>
+      <li><strong>Ticket numbers</strong> — for a raffle draw</li>
+      <li><strong>Customer IDs</strong> — for a loyalty reward</li>
+    </ul>
+
+    <h2>Keeping your draw transparent</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For public giveaways on social media, most platforms require the draw to be verifiable. The standard practice:</p>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Announce the entry rules and closing date up front</li>
+      <li>Close entries — don't edit the list after closing</li>
+      <li>Screen-record or screenshot the picker showing the full entry list and the result</li>
+      <li>Post the result with the date and the number of entries</li>
+    </ol>
+
+    <h2>Duplicate handling</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">By default the tool keeps duplicates — sometimes you want entries weighted by submission count. Tick <em>Remove duplicate entries</em> to collapse repeats so each unique handle has one chance only.</p>
+
+    <h2>Related tools</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Also useful: <a href="pick-random-name.html">Pick a Random Name</a>, <a href="lottery-picker.html">Lottery Picker</a>, <a href="wheel-of-names.html">Wheel of Names</a>, <a href="random-number-1-1000.html">Random Number 1–1000</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is the draw fair?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Every entry has exactly the same chance of being picked. The tool uses the browser's unbiased random number generator and shows you the full entry count before each draw.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can the same entry win twice in one draw?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. When picking multiple winners, the tool removes each winner from the pool before drawing the next — so no single entry can win two prizes in the same draw.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this comply with Instagram / Facebook giveaway rules?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">The tool handles the draw itself — compliance depends on how you run the giveaway. Always release entrants of responsibility from the platform, include eligibility rules, and follow each platform's promotional policy.</p>
+  </section>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Is the draw fair?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every entry has the same chance. The tool uses an unbiased random number generator."}},
+    {"@type":"Question","name":"Can the same entry win twice in one draw?","acceptedAnswer":{"@type":"Answer","text":"No. Each winner is removed from the pool before drawing the next so no entry can win two prizes in one draw."}},
+    {"@type":"Question","name":"Does this comply with Instagram / Facebook giveaway rules?","acceptedAnswer":{"@type":"Answer","text":"The tool handles the draw. Compliance depends on how you run the giveaway per each platform's promotional policy."}}
+  ]}
+  </script>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="pick-random-name.html"><span class="ri">🎲</span> Pick Random Name</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lottery Picker</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Wheel of Names</a>
+      <a class="related-card" href="random-number-1-1000.html"><span class="ri">🔢</span> 1–1000 Generator</a>
+    </div>
+  </section>
+
+</main>
+
+<footer><p>Spinnit &copy; 2026 — <a href="/index.html">all tools</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/about.html">About</a></p></footer>
+
+<script>
+function getEntries() {
+  let entries = document.getElementById('entriesInput').value.split(/\n/).map(n => n.trim()).filter(n => n.length > 0);
+  if (document.getElementById('dedupe').checked) entries = [...new Set(entries)];
+  return entries;
+}
+function drawWinners() {
+  const entries = getEntries();
+  if (!entries.length) { alert('Paste some entries first.'); return; }
+  const wantCount = parseInt(document.getElementById('winnerCount').value) || 1;
+  const count = Math.min(wantCount, entries.length);
+  const pool = [...entries];
+  const winners = [];
+  for (let i = 0; i < count; i++) {
+    const idx = Math.floor(Math.random() * pool.length);
+    winners.push(pool.splice(idx, 1)[0]);
+  }
+  document.getElementById('result').textContent = winners.map((w,i) => count > 1 ? `${i+1}. ${w}` : w).join('\n');
+  document.getElementById('result').style.whiteSpace = 'pre-line';
+  const label = document.getElementById('entryCount');
+  label.textContent = `Drawn from ${entries.length} entries`;
+  label.style.display = 'block';
+  const box = document.getElementById('resultBox');
+  box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+}
+function copyResult() {
+  const val = document.getElementById('result').textContent;
+  if (val === '—') return;
+  navigator.clipboard.writeText(val).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+document.addEventListener('keydown', e => {
+  if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
+    e.preventDefault(); drawWinners();
+  }
+});
+</script>
+</body>
+</html>
