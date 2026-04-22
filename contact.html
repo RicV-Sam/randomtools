@@ -110,12 +110,8 @@
   <h2>Send a message</h2>
   <p>Use the form below for anything — feature requests, bugs, "this tool broke on my phone", or a hello. All messages go to the same inbox.</p>
 
-  <!--
-    Form backend: this form posts to Formspree.
-    Before going live, sign up at https://formspree.io, create a new form,
-    and replace YOUR_FORM_ID below with the unique ID from your Formspree dashboard.
-  -->
-  <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+  <!-- Form backend: Formspree (https://formspree.io/f/xzdykdzo) -->
+  <form class="contact-form" action="https://formspree.io/f/xzdykdzo" method="POST">
     <label for="name">Your name</label>
     <input type="text" id="name" name="name" required autocomplete="name">
 
@@ -127,6 +123,9 @@
 
     <label for="message">Message</label>
     <textarea id="message" name="message" required placeholder="Tell us what's on your mind..."></textarea>
+
+    <!-- Formspree inbox subject line (uses the user's subject field) -->
+    <input type="hidden" name="_subject" value="Spinnit contact form">
 
     <!-- Honeypot — bots fill this, humans don't see it -->
     <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
