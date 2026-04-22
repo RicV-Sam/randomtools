@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Roll 4d6 Drop Lowest for D&D — Character Stats Explained</title>
+<meta name="description" content="The complete guide to rolling 4d6-drop-lowest for D&D 5e character stats. What the method is, why it beats 3d6, and how it compares to standard array and point-buy.">
+<meta property="og:title" content="How to Roll 4d6 Drop Lowest for D&D — Character Stats Explained">
+<meta property="og:description" content="4d6-drop-lowest in full: the maths, the tradeoffs, and the house rules that keep it fair.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://spinnit.site/blog/how-to-roll-4d6-drop-lowest-for-dnd.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#7c6af7">
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://spinnit.site/blog/how-to-roll-4d6-drop-lowest-for-dnd.html">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Roll 4d6 Drop Lowest for D&D — Character Stats Explained",
+  "description": "Complete guide to 4d6-drop-lowest D&D stat rolling: the maths, the tradeoffs, and common house rules.",
+  "author": { "@type": "Organization", "name": "Spinnit" },
+  "publisher": { "@type": "Organization", "name": "Spinnit", "url": "https://spinnit.site/" },
+  "datePublished": "2026-04-22",
+  "dateModified": "2026-04-22",
+  "mainEntityOfPage": "https://spinnit.site/blog/how-to-roll-4d6-drop-lowest-for-dnd.html"
+}
+</script>
+<style>
+  .prose { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .prose .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.75rem; }
+  .prose h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 0.5rem; background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .prose .byline { font-family: var(--mono); font-size: 12px; color: var(--text3); margin-bottom: 2.5rem; }
+  .prose h2 { font-size: 18px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; margin: 2.25rem 0 0.75rem; }
+  .prose h3 { font-size: 15px; font-weight: 600; color: var(--accent2); font-family: var(--mono); letter-spacing: 0.03em; margin: 1.75rem 0 0.5rem; }
+  .prose p, .prose li { font-size: 15px; color: var(--text2); line-height: 1.75; }
+  .prose ul, .prose ol { padding-left: 1.35rem; margin: 0.5rem 0 1rem; }
+  .prose li { margin-bottom: 0.35rem; }
+  .prose a { color: var(--accent2); }
+  .prose a:hover { color: var(--text); }
+  .prose strong { color: var(--text); }
+  .prose code { font-family: var(--mono); font-size: 13px; color: var(--accent2); background: var(--bg2); padding: 2px 6px; border-radius: 4px; }
+  table.stats { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 13px; font-family: var(--mono); }
+  table.stats th, table.stats td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; color: var(--text2); }
+  table.stats th { background: var(--bg2); color: var(--accent2); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; font-size: 11px; }
+  .method-box { background: var(--bg2); border-left: 3px solid var(--accent2); border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1.25rem 0; font-size: 14px; color: var(--text2); }
+  .cta-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 2rem 0; }
+  .cta-card h3 { margin-top: 0; color: var(--text); font-family: inherit; text-transform: none; letter-spacing: -0.01em; font-size: 16px; }
+  .cta-card p { margin: 0.4rem 0; font-size: 14px; }
+  .cta-card a { font-family: var(--mono); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="/blog/">← blog</a>
+  <div class="nav-logo">spinn<span>it</span></div>
+</nav>
+
+<article class="prose">
+  <p class="eyebrow">Tabletop</p>
+  <h1>How to roll 4d6 drop lowest for D&amp;D character stats</h1>
+  <p class="byline">Published 22 April 2026 &middot; 7 min read</p>
+
+  <p>You sit down at session zero, the DM says "roll your stats," and suddenly you need to remember whether it's 3d6, 4d6-drop-lowest, six times down the line, or some variant where a 7 triggers a reroll. This post is the one you bookmark so you never have to ask again.</p>
+
+  <p>We'll cover what 4d6-drop-lowest actually is, the maths of what you're likely to end up with, how it compares to standard array and point-buy, and the house rules most tables quietly use to smooth out the worst outcomes.</p>
+
+  <h2>The method in one paragraph</h2>
+
+  <p>Roll four six-sided dice. Drop the lowest single die. Add the remaining three. That's one ability score. Repeat the whole process six times to fill all six abilities — Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma — then assign the six resulting numbers to whichever abilities you want (unless your DM requires "down the line" where the first roll goes to Strength, second to Dex, and so on).</p>
+
+  <div class="method-box">
+    <strong>Example roll:</strong> dice land as <code>6, 3, 4, 2</code>. Drop the 2. Keep 6+3+4 = <strong>13</strong>. That's one score. Do it five more times.
+  </div>
+
+  <h2>Why 4d6-drop-lowest instead of 3d6?</h2>
+
+  <p>The historical method, going back to the earliest editions, was 3d6 straight. Roll three dice, sum them, that's your score. It's mathematically clean and gives an average of 10.5 — which is meant to be the average for humans.</p>
+
+  <p>The problem: <strong>a 3d6 roll produces a lot of average and below-average characters</strong>. You're expected to be heroic. Sitting at a table where your fighter has STR 9 because the dice were cold is not heroic, it's sad.</p>
+
+  <p>4d6-drop-lowest skews the distribution upward without breaking the game. By rolling an extra die and discarding the worst, you're essentially asking "what were three of your four attempts worth?" — the answer is almost always better than three straight rolls.</p>
+
+  <h3>The actual numbers</h3>
+
+  <p>Here are the averages and the chance of rolling specific landmark scores under each method:</p>
+
+  <table class="stats">
+    <thead><tr><th>Method</th><th>Avg per score</th><th>P(score &ge; 15)</th><th>P(score &ge; 18)</th></tr></thead>
+    <tbody>
+      <tr><td>3d6</td><td>10.5</td><td>~9.3%</td><td>~0.46%</td></tr>
+      <tr><td>4d6 drop lowest</td><td>~12.24</td><td>~25.5%</td><td>~1.62%</td></tr>
+    </tbody>
+  </table>
+
+  <p>Over six rolls, you're roughly three times more likely to see a 15+ with 4d6-drop-lowest, and about four times more likely to land an 18. The average total stat budget jumps from ~63 to ~73.4.</p>
+
+  <p>For context, the 5e standard array totals 72 (15, 14, 13, 12, 10, 8) and 27-point point-buy maxes out at a 75 total before racial bonuses. So the rolled average is <em>very close</em> to point-buy on the mean — the difference is the variance.</p>
+
+  <h2>Rolling it: the practical flow</h2>
+
+  <p>At a physical table, you want everyone watching every roll. Roll one score at a time, announce the four dice, drop the lowest visibly, call the total. Repeat six times. No pocket-rolling, no re-picking-up dropped dice.</p>
+
+  <p>Online or solo, the easiest thing is a dice roller that does the drop-lowest operation automatically and shows you which die was removed. The Spinnit <a href="/tools/roll-4d6-drop-lowest.html">4d6-drop-lowest roller</a> rolls all six ability scores in one click and marks the dropped die on each so there's no ambiguity.</p>
+
+  <p>If you want to stick with the classic method for a grittier campaign, there's also a straight <a href="/tools/roll-3d6.html">3d6 roller</a>. And for one-off stat rolls or rolling for hit points on level-up, a general <a href="/tools/dice-roller.html">dice roller</a> handles any <code>NdX</code> combination you need.</p>
+
+  <h2>Variants your DM might use</h2>
+
+  <h3>Down the line</h3>
+  <p>Roll six times in order. First score is Strength, second is Dex, third is Con, fourth is Int, fifth is Wis, sixth is Cha. No assigning. Creates characters shaped by chance instead of build optimisation. Old-school and surprisingly fun if the whole table commits.</p>
+
+  <h3>7 or 8 is a reroll</h3>
+  <p>If any single ability score rolls 7 or lower, reroll that score. Softens the cliff of having one abysmal stat that makes your character unplayable. Common enough that many DMs consider it the default.</p>
+
+  <h3>Reroll if the total is too low</h3>
+  <p>Classic rescue: "if your six scores total under 60, or your highest score is under 14, reroll the whole set." Stops you being stuck with a completely wet character through no fault of your own.</p>
+
+  <h3>Roll 7, drop the worst score</h3>
+  <p>Roll seven ability scores with 4d6-drop-lowest, then discard the lowest of the seven. Generous — pushes the expected total closer to 76–77. Great for heroic campaigns; too much for gritty ones.</p>
+
+  <h3>Roll two full sets, pick one</h3>
+  <p>Roll six scores twice, use whichever set you prefer. High variance reducer without increasing the ceiling the way "roll 7 drop 1" does.</p>
+
+  <h2>When to roll vs when to use standard array or point-buy</h2>
+
+  <ul>
+    <li><strong>Rolling is best</strong> when the group trusts each other, the campaign is meant to feel like legend or folklore, and nobody will feel crushed if their character is weaker than someone else's.</li>
+    <li><strong>Standard array is best</strong> when you want identical starting budgets, minimal session-zero time, and a predictable baseline for encounter balance.</li>
+    <li><strong>Point-buy is best</strong> when players want to optimise and the DM wants perfect fairness.</li>
+  </ul>
+
+  <p>There's no correct answer. Many long-running tables quietly mix: new players get standard array until they know the system, veterans roll 4d6-drop-lowest with a reroll clause, and the DM uses fixed stats for all NPCs regardless.</p>
+
+  <div class="cta-card">
+    <h3>Roll your next character now</h3>
+    <p>→ <a href="/tools/roll-4d6-drop-lowest.html">4d6 Drop Lowest — rolls all 6 ability scores</a></p>
+    <p>→ <a href="/tools/roll-3d6.html">3d6 Roller — classic old-school stats</a></p>
+    <p>→ <a href="/tools/dice-roller.html">Full Dice Roller — any NdX combination</a></p>
+  </div>
+
+  <h2>A final note on fairness</h2>
+
+  <p>The whole point of rolling is that you accept the outcome. If your table wants to reroll every time someone ends up with a 7, you don't want randomness — you want standard array with dice theatre. Both are fine. Just pick one honestly at session zero, write the rule down, and stop arguing about it mid-campaign.</p>
+
+  <p>Now go roll a barbarian with an 18 in Strength and a 7 in Intelligence. That's the whole point.</p>
+
+</article>
+
+<footer>
+  <p>Spinnit &copy; 2026 — free forever &nbsp;|&nbsp; <a href="/tools/">All Tools</a> &nbsp;|&nbsp; <a href="/blog/">Blog</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/terms.html">Terms</a> &nbsp;|&nbsp; <a href="/about.html">About</a> &nbsp;|&nbsp; <a href="/contact.html">Contact</a></p>
+</footer>
+
+</body>
+</html>
