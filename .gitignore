@@ -1,1 +1,16 @@
 .claude/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Eleventy build output
+_site/
+
+# Editor
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

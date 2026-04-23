@@ -1,0 +1,131 @@
+---
+layout: layouts/base.njk
+title: "Roll 3d6 Online – Classic D&amp;D Stat Roller | Spinnit"
+description: "Roll 3d6 online — three six-sided dice summed, the classic D&amp;D ability score method. Also used in GURPS, Call of Cthulhu and Traveller. Free, instant."
+ogTitle: "Roll 3d6 Online | Spinnit"
+ogDescription: "Three six-sided dice summed — classic D&amp;D stat rolling."
+canonical: "https://spinnit.site/tools/roll-3d6.html"
+jsonLd: |
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Roll 3d6","applicationCategory":"GameApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What are the odds of rolling an 18 on 3d6?","acceptedAnswer":{"@type":"Answer","text":"1 in 216, or about 0.46%. Roughly one 18 every 36 rolls on average."}},
+      {"@type":"Question","name":"How do I roll a full D&D character this way?","acceptedAnswer":{"@type":"Answer","text":"Set How many rolls to 6. Each total is an ability score for Strength, Dexterity, Constitution, Intelligence, Wisdom and Charisma."}},
+      {"@type":"Question","name":"Is 3d6 harsher than 4d6 drop lowest?","acceptedAnswer":{"@type":"Answer","text":"Yes. 3d6 averages 10.5; 4d6-drop-lowest averages 12.24."}}
+    ]}
+  </script>
+pageScript: |
+  
+  const history = [];
+  function roll() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 20);
+    let rolls = [];
+    for (let i = 0; i < count; i++) {
+      const d = [Math.floor(Math.random()*6)+1, Math.floor(Math.random()*6)+1, Math.floor(Math.random()*6)+1];
+      rolls.push({ dice: d, total: d[0]+d[1]+d[2] });
+    }
+    const resultEl = document.getElementById('result');
+    const totalEl = document.getElementById('totalLabel');
+    if (count === 1) {
+      resultEl.textContent = `${rolls[0].dice.join(' + ')} = ${rolls[0].total}`;
+      totalEl.style.display = 'none';
+    } else {
+      resultEl.textContent = rolls.map(r => r.total).join(', ');
+      totalEl.textContent = 'Dice: ' + rolls.map(r => `[${r.dice.join('+')}]`).join(' ');
+      totalEl.style.display = 'block';
+    }
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(rolls[0].total); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); roll(); }});
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎲</div>
+    <h1>Roll 3d6 Online</h1>
+    <p>Three six-sided dice summed — classic stat rolling</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your roll</div>
+    <div class="result-number" id="result">—</div>
+    <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>How many rolls? (6 for a full stat block)</label>
+      <input type="number" id="count" value="1" min="1" max="20">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="roll()">ROLL 3d6</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Recent totals</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Three six-sided dice summed is the original D&amp;D ability score method — one roll per stat, six stats, take what the dice gave you. Old school and unforgiving. Totals range from 3 to 18, with 10 and 11 the most likely thanks to the tight bell curve.</p>
+
+    <h2>Systems that use 3d6</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Original D&amp;D, AD&amp;D, OSR retroclones</strong> — straight ability score rolls</li>
+      <li><strong>GURPS</strong> — every single success roll is 3d6 under target</li>
+      <li><strong>Call of Cthulhu</strong> — several characteristics use 3d6</li>
+      <li><strong>Traveller</strong> — character creation and skill checks</li>
+      <li><strong>Fudge / FATE</strong> variants and many indie OSR games</li>
+    </ul>
+
+    <h2>3d6 probability</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Out of 216 possible combinations: 3 and 18 each have a 1/216 chance (0.46%) — those are the rare ones. Totals of 10 and 11 each appear 27 times (12.5%). A score of 13 or higher comes up on only about 26% of rolls, which is why "take the highest of 4d6" became the modern alternative.</p>
+
+    <h2>Related rollers</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Try <a href="roll-4d6-drop-lowest.html">4d6 drop lowest</a> (modern D&amp;D stats), <a href="roll-2d6.html">2d6</a>, <a href="roll-d100.html">d100</a>, <a href="roll-d10.html">d10</a>, or the full <a href="dice-roller.html">Dice Roller</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What are the odds of rolling an 18 on 3d6?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">1 in 216, or about 0.46%. You'd expect roughly one 18 every 36 rolls of a full six-stat block on average.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How do I roll a full D&amp;D character this way?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Set "How many rolls?" to 6. Each total is an ability score. Assign them to Strength, Dexterity, Constitution, Intelligence, Wisdom and Charisma in whatever order your DM allows.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is 3d6 harsher than 4d6 drop lowest?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, significantly. The average 3d6 is 10.5; the average 4d6-drop-lowest is 12.24. Old-school characters were meant to be fragile.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Full Dice Roller</a>
+      <a class="related-card" href="roll-4d6-drop-lowest.html"><span class="ri">🎲</span> 4d6 Drop Lowest</a>
+      <a class="related-card" href="roll-2d6.html"><span class="ri">⚄</span> Roll 2d6</a>
+      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> Roll d100</a>
+    </div>
+  </section>
+
+</main>

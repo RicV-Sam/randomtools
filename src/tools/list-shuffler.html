@@ -1,0 +1,182 @@
+---
+layout: layouts/base.njk
+title: "List Shuffler – Randomise Any List Online | Spinnit"
+description: "Paste any list and instantly shuffle it into a random order. Free list randomiser for names, tasks, playlists and more."
+canonical: "https://spinnit.site/tools/list-shuffler.html"
+jsonLd: |
+  {"@context":"https://schema.org","@type":"WebApplication","name":"List Shuffler","description":"Paste any list and instantly shuffle it into a random order","url":"https://spinnit.site/tools/list-shuffler.html","applicationCategory":"UtilityApplication","operatingSystem":"Web"}
+extraHead: |
+  <meta name="twitter:title" content="List Shuffler | Spinnit">
+  <meta name="twitter:description" content="Paste any list and shuffle it into a random order instantly. Free and mobile-friendly.">
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I pick just the top few items from a longer list?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Enter a number in the 'Pick top N items' field and only the first N items from the shuffled list will be shown." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a limit to how long my list can be?",
+          "acceptedAnswer": { "@type": "Answer", "text": "There is no hard limit. The tool handles hundreds of items without any issues." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool free to use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work on mobile?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
+        }
+      ]
+    }
+  </script>
+pageStyle: |
+  
+  .output-list { display:flex;flex-direction:column;gap:6px;margin-top:1.25rem; }
+  .list-item {
+    display:flex;align-items:center;gap:10px;
+    background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+    padding:10px 12px;animation:slideIn 0.2s ease both;
+  }
+  @keyframes slideIn {
+    from { transform:translateX(-10px);opacity:0; }
+    to   { transform:translateX(0);opacity:1; }
+  }
+  .item-num { font-family:var(--mono);font-size:11px;color:var(--text3);min-width:20px; }
+  .item-text { font-size:14px;color:var(--text);flex:1; }
+pageScript: |
+  
+  let shuffledItems = [];
+  
+  function shuffle() {
+    const raw = document.getElementById('listInput').value.trim();
+    if (!raw) { alert('Please enter a list first'); return; }
+    const items = raw.split('\n').map(i => i.trim()).filter(i => i);
+  
+    // Fisher-Yates shuffle
+    const arr = [...items];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  
+    const topN = parseInt(document.getElementById('topN').value);
+    shuffledItems = isNaN(topN) ? arr : arr.slice(0, topN);
+    const showNums = document.getElementById('showNums').value === 'yes';
+  
+    const out = document.getElementById('output');
+    out.innerHTML = shuffledItems.map((item, i) => `
+      <div class="list-item" style="animation-delay:${i * 40}ms">
+        ${showNums ? `<span class="item-num">${i+1}.</span>` : ''}
+        <span class="item-text">${escapeHtml(item)}</span>
+      </div>
+    `).join('');
+  
+    out.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  
+  function copyList() {
+    if (!shuffledItems.length) return;
+    const text = shuffledItems.join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy shuffled list'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🔀</div>
+    <h1>List Shuffler</h1>
+    <p>Paste any list — get it back in a random order</p>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Your list (one item per line)</label>
+      <textarea id="listInput" style="min-height:140px;" placeholder="Monday&#10;Tuesday&#10;Wednesday&#10;Thursday&#10;Friday&#10;Saturday&#10;Sunday"></textarea>
+    </div>
+    <div class="control-row">
+      <div class="control-group">
+        <label>Pick top N items</label>
+        <input type="number" id="topN" value="" placeholder="All" min="1">
+      </div>
+      <div class="control-group">
+        <label>Show numbering</label>
+        <select id="showNums">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="shuffle()">SHUFFLE LIST</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyList()" style="margin-top:8px;">Copy shuffled list</button>
+
+  <div class="output-list" id="output"></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>The List Shuffler takes any list you paste in and returns it in a completely random order using a statistically fair shuffle. You can choose to show only the top N items from the shuffled result, which makes it a simple way to randomly pick or rank items from a larger pool. No limits on list length, no setup required.</p>
+
+    <h2>How to Use</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Paste or type your list into the text area, one item per line.</li>
+      <li>Optionally set "Pick top N items" to show only the first N results after shuffling.</li>
+      <li>Choose whether to show numbered positions on each item.</li>
+      <li>Click Shuffle List to randomise the order instantly.</li>
+      <li>Use Copy shuffled list to grab the results for use elsewhere.</li>
+    </ol>
+
+    <h2>Common Uses</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Randomly ordering a playlist, setlist, or queue</li>
+      <li>Shuffling student names to determine random presentation order</li>
+      <li>Randomising a task or to-do list to avoid predictable patterns</li>
+      <li>Picking a shortlist of finalists from a longer list of candidates</li>
+      <li>Creating random tournament brackets for sports or gaming events</li>
+      <li>Assigning random roles or responsibilities within a team</li>
+    </ul>
+
+    <h2>Why Use Spinnit</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The Fisher-Yates algorithm produces a perfectly uniform shuffle — every possible ordering is equally likely. Your original list is never stored or transmitted anywhere. Works on any device and requires no account, no installation, and no loading time.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I pick just the top few items from a longer list?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Enter a number in the "Pick top N items" field and only the first N items from the shuffled list will be shown. This is useful for selecting a shortlist or picking winners from a pool.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is there a limit to how long my list can be?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">There is no hard limit. The tool handles hundreds of items without any issues. Very large lists may slow the animation slightly, but results are still instant.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this tool free to use?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, completely free with no sign-up required.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this work on mobile?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, all Spinnit tools are mobile-first and work on any device.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Random Team Picker</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Wheel of Names</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Yes No Wheel</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lottery Number Generator</a>
+    </div>
+  </section>
+
+</main>

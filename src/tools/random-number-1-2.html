@@ -1,0 +1,119 @@
+---
+layout: layouts/base.njk
+title: "Random Number Between 1 and 2 – Fair Binary Picker | Spinnit"
+description: "Pick a random 1 or 2 instantly — a fair coin-flip alternative in pure number form. Free, no sign-up, works on mobile."
+ogTitle: "Random Number Between 1 and 2 | Spinnit"
+ogDescription: "Free instant 1 or 2 — a number-form coin flip for binary decisions."
+canonical: "https://spinnit.site/tools/random-number-1-2.html"
+jsonLd: |
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Number Between 1 and 2","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is this really 50/50?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each generation has exactly a 50% chance of 1 and a 50% chance of 2."}},
+      {"@type":"Question","name":"Why use 1 or 2 instead of heads or tails?","acceptedAnswer":{"@type":"Answer","text":"Numbers are easier to paste into spreadsheets or map to any two-option list."}},
+      {"@type":"Question","name":"Can streaks of the same number happen?","acceptedAnswer":{"@type":"Answer","text":"Yes, and they're normal. Fairness is about long-run averages not short streaks."}}
+    ]}
+  </script>
+pageScript: |
+  
+  const MIN = 1, MAX = 2;
+  const history = [];
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); generate(); }});
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🪙</div>
+    <h1>Random Number Between 1 and 2</h1>
+    <p>A clean binary pick — the number-form coin flip</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your number (1 or 2)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>How many picks?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Recent picks</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>A random number between 1 and 2 is the simplest fair chance you can run — a 50/50 split in number form. It's a coin flip without the coin, which makes it handy when you want a binary decision written down as a clean digit instead of "heads" or "tails".</p>
+
+    <h2>When a 1-or-2 pick fits</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Deciding between two options when you genuinely don't mind</li>
+      <li>Randomly assigning one of two groups, teams or test conditions</li>
+      <li>A/B test sampling in classroom or research exercises</li>
+      <li>Choosing who goes first in a two-player game</li>
+      <li>Simulating coin flips in scripts and spreadsheets</li>
+    </ul>
+
+    <h2>Prefer heads or tails?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">If you'd rather see the result as a coin, use the <a href="coin-flip.html">Coin Flip</a> tool — same fairness, friendlier visuals. For yes/no style questions, the <a href="yes-no-wheel.html">Yes / No Wheel</a> is made for it.</p>
+
+    <h2>Other small ranges</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Also try <a href="random-number-1-5.html">1–5</a>, <a href="random-number-1-6.html">1–6 (dice)</a>, <a href="random-number-1-10.html">1–10</a>, or the full <a href="random-number.html">custom range</a> generator.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this really 50/50?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Each generation has exactly a 50% chance of 1 and a 50% chance of 2.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Why would I pick 1 or 2 instead of heads or tails?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Numbers are easier to paste into spreadsheets, log in research notes, or map to any two-option list you already have written down.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can streaks of the same number happen?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, and they're completely normal. Over 10 flips, a run of four or five of the same is not unusual. Fairness is about long-run averages, not short streaks.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Coin Flip</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Yes / No Wheel</a>
+      <a class="related-card" href="random-number-1-10.html"><span class="ri">🔢</span> 1–10 Generator</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Custom Range</a>
+    </div>
+  </section>
+
+</main>

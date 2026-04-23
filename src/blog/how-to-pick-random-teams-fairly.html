@@ -1,0 +1,132 @@
+---
+layout: layouts/base.njk
+title: "How to Pick Random Teams Fairly — Without the Captains-Picking Nightmare"
+description: "Three fair methods for picking random teams for PE, office games, sports, or tournaments. Why captains picking last is unfair, and how to balance skill without bias."
+ogTitle: "How to Pick Random Teams Fairly"
+ogDescription: "Fair team picking without captains choosing last. Three methods that actually work."
+ogType: article
+canonical: "https://spinnit.site/blog/how-to-pick-random-teams-fairly.html"
+navBackHref: "/blog/"
+navBackLabel: "blog"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Pick Random Teams Fairly",
+    "description": "Three fair methods for picking teams without the captains-picking nightmare.",
+    "author": { "@type": "Organization", "name": "Spinnit" },
+    "publisher": { "@type": "Organization", "name": "Spinnit", "url": "https://spinnit.site/" },
+    "datePublished": "2026-04-22",
+    "dateModified": "2026-04-22",
+    "mainEntityOfPage": "https://spinnit.site/blog/how-to-pick-random-teams-fairly.html"
+  }
+extraHead: |
+  <meta name="twitter:card" content="summary_large_image">
+pageStyle: |
+  .prose { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .prose .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.75rem; }
+  .prose h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 0.5rem; background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .prose .byline { font-family: var(--mono); font-size: 12px; color: var(--text3); margin-bottom: 2.5rem; }
+  .prose h2 { font-size: 18px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; margin: 2.25rem 0 0.75rem; }
+  .prose h3 { font-size: 15px; font-weight: 600; color: var(--accent2); font-family: var(--mono); letter-spacing: 0.03em; margin: 1.75rem 0 0.5rem; }
+  .prose p, .prose li { font-size: 15px; color: var(--text2); line-height: 1.75; }
+  .prose ul, .prose ol { padding-left: 1.35rem; margin: 0.5rem 0 1rem; }
+  .prose li { margin-bottom: 0.35rem; }
+  .prose a { color: var(--accent2); }
+  .prose a:hover { color: var(--text); }
+  .prose strong { color: var(--text); }
+  .method { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+  .method h3 { margin-top: 0; color: var(--text); font-family: inherit; text-transform: none; font-size: 16px; letter-spacing: -0.01em; }
+  .method .tag { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); border: 1px solid var(--border2); padding: 3px 8px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+  .cta-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 2rem 0; }
+  .cta-card h3 { margin-top: 0; color: var(--text); font-family: inherit; text-transform: none; letter-spacing: -0.01em; font-size: 16px; }
+  .cta-card p { margin: 0.4rem 0; font-size: 14px; }
+  .cta-card a { font-family: var(--mono); font-size: 13px; }
+---
+<article class="prose">
+  <p class="eyebrow">Games &amp; sport</p>
+  <h1>How to pick random teams fairly</h1>
+  <p class="byline">Published 22 April 2026 &middot; 5 min read</p>
+
+  <p>Two captains stand at the front of the room. Names are called one by one. The kid picked last remembers it for twenty years. Adults nod knowingly — "we all had that experience" — and then do the exact same thing at the office five-a-side next weekend.</p>
+
+  <p>Captain-led picking was always a bad system. It's slow, it's publicly ranked, and it encodes existing social hierarchies into a supposedly sporting decision. This post is about what to do instead. Three methods, ranked by how much fairness you actually need.</p>
+
+  <h2>Why the captains method is broken</h2>
+
+  <p>The ostensible purpose of captains picking is to produce balanced teams — each captain takes turns grabbing the best remaining player, so the teams end up roughly even in skill. The maths is plausible. The social cost is not.</p>
+
+  <ul>
+    <li>It assigns each person a <strong>publicly visible rank</strong>. Being picked seventh out of ten isn't the same as being picked privately for a team — it's a broadcast of where you sit.</li>
+    <li>Captains pick their friends even when friends aren't the strongest choice, which tanks the "balance" argument.</li>
+    <li>It's slow. For ten people, you're asking the group to watch ten sequential decisions and their reactions.</li>
+    <li>It fails entirely when the group doesn't have obvious captains — new colleagues, mixed-ability PE classes, strangers at a social.</li>
+  </ul>
+
+  <p>If the goal is balanced teams with no drama, randomness is almost always better. Here are the three methods that cover every situation.</p>
+
+  <div class="method">
+    <h3>Method 1: Pure random shuffle <span class="tag">Simplest</span></h3>
+    <p>Put every name into a list. Shuffle. Split the shuffled list into N equal chunks. Those are your teams.</p>
+    <p><strong>Use when:</strong> the group is roughly homogeneous in skill, the game is casual, or you explicitly want mixed-ability teams. This is the default for office socials, pub quizzes, classroom games, and any activity where the outcome matters less than everyone feeling included.</p>
+    <p><strong>Tool:</strong> a <a href="/tools/team-picker.html">team picker</a> does this in one click — paste names, set the number of teams, hit go. Or run a <a href="/tools/list-shuffler.html">list shuffler</a> and split the output manually.</p>
+    <p><strong>Expected result:</strong> some imbalance is possible. With ten players and two teams, there's a real chance the three strongest end up on the same side. For casual play that's fine; for competitive play see method 2.</p>
+  </div>
+
+  <div class="method">
+    <h3>Method 2: Snake-draft from a shuffled order <span class="tag">Balanced</span></h3>
+    <p>Rank players by skill (or pair them with a rough tier). Shuffle within tiers. Then distribute snake-draft style: team A picks first, team B picks second and third, team A picks fourth and fifth, and so on. This mirrors how professional drafts work and produces sharply balanced teams.</p>
+    <p><strong>Use when:</strong> the game is competitive enough that a lopsided match ruins the night. Friday football, tournament pool play, internal company sports leagues.</p>
+    <p><strong>How to do it without drama:</strong> the ranking should be done privately (the coach, the organiser) rather than by public discussion. Then the snake draft is deterministic — no captains, no public picking.</p>
+    <p><strong>Tip:</strong> if the skill gap is modest, rank everyone into three tiers (high/medium/low) rather than individually. Shuffle within each tier, then snake-draft. You get balance without pretending to rank strangers precisely.</p>
+  </div>
+
+  <div class="method">
+    <h3>Method 3: Random captains, then private draft <span class="tag">Compromise</span></h3>
+    <p>Keeps captains because some groups genuinely want them (traditions, leadership practice, tournament structure), but removes the public-picking humiliation. Pick captains randomly, then let them privately draft from the roster — or hand them a pre-shuffled list and have them alternate selections written down.</p>
+    <p><strong>Use when:</strong> the group expects captains as part of the format but you want to strip out the public ranking.</p>
+    <p><strong>How to pick captains fairly:</strong> a <a href="/tools/random-name-picker-no-repeat.html">random name picker with no repeats</a> gives you two, three, or four captains without anyone being "chosen" over anyone else. No bias, no favouritism.</p>
+  </div>
+
+  <h2>Handling edge cases</h2>
+
+  <h3>Uneven numbers</h3>
+  <p>If you have eleven players and want two teams, one team has six. A team picker handles this automatically — the extra player goes to the first team by default, or you can randomise which team gets the sixth member for true fairness. Announce the rule before the draw ("odd number out goes to Team A" or "we'll flip a coin"), not after.</p>
+
+  <h3>Pre-existing friend groups</h3>
+  <p>If two people explicitly don't want to be on opposite teams (co-workers running a workshop together, siblings who came as a pair), treat them as a single unit in the shuffle. Most good team pickers let you group names together.</p>
+
+  <h3>The "I don't want to be captain" problem</h3>
+  <p>If your method uses captains and the person picked hates public attention, let them pass and pick a replacement. Forcing anxious people into leadership spots to prove the tool was random defeats the purpose.</p>
+
+  <h3>Repeat matchups across a season</h3>
+  <p>If you're doing weekly five-a-side and keep getting the same combinations, add a constraint: nobody can be on the same team as last week's partner. Most team-picking tools don't do this natively, but running the shuffle and rejecting bad outputs is fast enough that you can just try until you get a fresh set.</p>
+
+  <h2>A five-line script you can use</h2>
+
+  <p>Adapt as needed:</p>
+
+  <ol>
+    <li>"Okay, we're doing random teams this time."</li>
+    <li>"I'm pasting everyone's names into a team picker. You can see the screen."</li>
+    <li>"Here we go — three teams of four."</li>
+    <li>Hit generate. Read out the results.</li>
+    <li>"Teams are locked. Go play."</li>
+  </ol>
+
+  <p>Total time: under ninety seconds. No humiliation. No captains. No discussion about whether it was fair because everyone watched it happen.</p>
+
+  <div class="cta-card">
+    <h3>Pick your teams now</h3>
+    <p>→ <a href="/tools/team-picker.html">Random Team Picker — splits names into N balanced teams</a></p>
+    <p>→ <a href="/tools/list-shuffler.html">List Shuffler — reorder any list, then chunk manually</a></p>
+    <p>→ <a href="/tools/random-name-picker-no-repeat.html">Name Picker — No Repeats — for picking captains</a></p>
+  </div>
+
+  <h2>The real win</h2>
+
+  <p>The reason random team-picking works isn't just fairness. It's that <em>nobody has to defend the outcome</em>. When a captain picks you last, there's an implicit judgment. When an algorithm shuffles a list and you happen to be in group B, there's nothing to resent. The teams are simply what the dice said — and everyone, from the eleven-year-old in PE to the senior manager at the offsite, intuitively accepts that.</p>
+
+  <p>Captains picking was the way it was done because nobody had a better option. You do now.</p>
+
+</article>

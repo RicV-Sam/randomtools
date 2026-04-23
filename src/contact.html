@@ -1,0 +1,131 @@
+---
+layout: layouts/base.njk
+title: "Contact — Spinnit"
+description: "Get in touch with Spinnit. Send feedback, suggest a new random tool, or ask a question. We read every message."
+ogTitle: "Contact Spinnit"
+ogDescription: "Send feedback or suggest a new random tool."
+canonical: "https://spinnit.site/contact.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Spinnit",
+    "url": "https://spinnit.site/contact.html",
+    "isPartOf": { "@type": "WebSite", "name": "Spinnit", "url": "https://spinnit.site/" }
+  }
+pageStyle: |
+  .prose { max-width: 640px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .prose h1 {
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .prose .lede { font-size: 15px; color: var(--text2); line-height: 1.7; margin-bottom: 2rem; }
+  .prose h2 {
+    font-size: 14px; font-weight: 600; color: var(--accent2);
+    font-family: var(--mono); letter-spacing: 0.08em;
+    text-transform: uppercase; margin: 2rem 0 0.75rem;
+  }
+  .prose p, .prose li { font-size: 14px; color: var(--text2); line-height: 1.8; }
+  .prose a { color: var(--accent2); }
+  .prose a:hover { color: var(--text); }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 10px; margin: 0.75rem 0 1.5rem; }
+  .contact-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.2rem;
+  }
+  .contact-card strong { display:block; font-size: 12px; font-family: var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent2); margin-bottom: 4px; }
+  .contact-card a { font-size: 14px; word-break: break-all; }
+  form.contact-form { margin-top: 0.5rem; }
+  form.contact-form label {
+    display:block; font-size: 12px; font-family: var(--mono);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text3); margin: 1rem 0 6px;
+  }
+  form.contact-form input, form.contact-form textarea {
+    width: 100%; background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 10px 12px;
+    color: var(--text); font-size: 14px; font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  form.contact-form input:focus, form.contact-form textarea:focus {
+    outline: none; border-color: var(--accent2);
+  }
+  form.contact-form textarea { min-height: 140px; resize: vertical; }
+  form.contact-form button {
+    margin-top: 1.25rem; width: 100%; padding: 12px 16px;
+    background: var(--accent2); border: none; border-radius: var(--radius);
+    color: var(--bg); font-weight: 700; font-size: 14px;
+    font-family: var(--mono); letter-spacing: 0.05em; text-transform: uppercase;
+    cursor: pointer; transition: opacity 0.15s;
+  }
+  form.contact-form button:hover { opacity: 0.88; }
+  .notice {
+    background: var(--bg2); border: 1px dashed var(--border2);
+    border-radius: var(--radius); padding: 0.85rem 1rem;
+    font-size: 13px; color: var(--text3); margin-top: 1rem;
+  }
+---
+<div class="prose">
+  <h1>Get in touch</h1>
+  <p class="lede">Feedback, bug reports, tool suggestions, partnership enquiries — we read every message. Pick the channel that suits you.</p>
+
+  <h2>Email directly</h2>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <strong>General</strong>
+      <a href="mailto:hello@spinnit.site">hello@spinnit.site</a>
+    </div>
+    <div class="contact-card">
+      <strong>Privacy / GDPR</strong>
+      <a href="mailto:privacy@spinnit.site">privacy@spinnit.site</a>
+    </div>
+  </div>
+
+  <h2>Send a message</h2>
+  <p>Use the form below for anything — feature requests, bugs, "this tool broke on my phone", or a hello. All messages go to the same inbox.</p>
+
+  <!-- Form backend: Formspree (https://formspree.io/f/xzdykdzo) -->
+  <form class="contact-form" action="https://formspree.io/f/xzdykdzo" method="POST">
+    <label for="name">Your name</label>
+    <input type="text" id="name" name="name" required autocomplete="name">
+
+    <label for="email">Your email</label>
+    <input type="email" id="email" name="email" required autocomplete="email">
+
+    <label for="subject">Subject</label>
+    <input type="text" id="subject" name="subject" placeholder="Tool suggestion, bug report, feedback..." required>
+
+    <label for="message">Message</label>
+    <textarea id="message" name="message" required placeholder="Tell us what's on your mind..."></textarea>
+
+    <!-- Formspree inbox subject line (uses the user's subject field) -->
+    <input type="hidden" name="_subject" value="Spinnit contact form">
+
+    <!-- Honeypot — bots fill this, humans don't see it -->
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+    <button type="submit">Send message</button>
+  </form>
+
+  <div class="notice">
+    <strong style="color:var(--text);">No account, no tracking.</strong> Your message is sent via Formspree straight to the Spinnit inbox. We reply from a real email address within 2–3 working days.
+  </div>
+
+  <h2>Common questions</h2>
+  <p><strong style="color:var(--text);">Can I suggest a new random tool?</strong><br>
+  Yes — please do. Most of our best ideas came from user suggestions. Tell us what you'd use it for and any specific features you'd want.</p>
+  <p><strong style="color:var(--text);">Can I link to Spinnit from my blog / classroom site?</strong><br>
+  Absolutely. No permission needed. If you do, we'd love to hear about it — drop us a line so we know.</p>
+  <p><strong style="color:var(--text);">Found a bug?</strong><br>
+  Include the page URL, what you did, what went wrong, and your browser (e.g. Chrome on iPhone). That's enough to reproduce almost anything.</p>
+  <p><strong style="color:var(--text);">Press, partnership, or advertising enquiries?</strong><br>
+  Use the email form with "Press" or "Partnership" in the subject and we'll route it to the right place.</p>
+</div>

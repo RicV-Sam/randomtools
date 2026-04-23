@@ -1,0 +1,151 @@
+---
+layout: layouts/base.njk
+title: "Spinnit — Free Random Generators, Wheels & Pickers"
+description: "Free online random generators for everyone. Dice roller, coin flip, wheel of names, password generator, lottery numbers, random country and more. Fast, free, no sign-up needed."
+ogDescription: "Free online random generators for everyone. Dice roller, coin flip, wheel of names, password generator and more."
+canonical: "https://spinnit.site/"
+hideNav: true
+extraHead: |
+  <meta name="twitter:title" content="Spinnit — Free Random Tools">
+  <meta name="twitter:description" content="33 free random tools and presets. No sign-up, works on mobile.">
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Spinnit",
+    "url": "https://spinnit.site/",
+    "description": "Free online random generators and tools",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://spinnit.site/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+pageScript: |
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+---
+<nav class="nav">
+  <div class="nav-logo">spinn<span>it</span></div>
+  <a href="/tools/" style="font-size:12px;color:var(--text3);font-family:var(--mono);text-decoration:none;">browse all 33 tools →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">free · fast · no sign-up</div>
+  <h1>Free Random Generators &amp; Tools</h1>
+  <p>Thirteen core tools plus 20 purpose-built presets for decisions, games, passwords, names, and more. Works perfectly on mobile.</p>
+  <p style="margin-top:0.75rem;"><a href="/tools/" style="color:var(--accent2);font-family:var(--mono);font-size:13px;text-decoration:none;">→ Browse all 33 tools &amp; presets</a></p>
+</section>
+
+<!-- AdSense Banner -->
+<div style="max-width:960px;margin:0 auto 1.5rem;padding:0 1.5rem;">
+  <!-- ADSENSE: Replace with your ad unit -->
+  <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
+</div>
+
+<main class="tools-grid">
+
+  <a class="tool-card" href="tools/random-number.html">
+    <div class="tool-icon">🎲</div>
+    <h3>Random Number Generator</h3>
+    <p>Generate random numbers between any min and max. Single or multiple results.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/dice-roller.html">
+    <div class="tool-icon">⚄</div>
+    <h3>Dice Roller</h3>
+    <p>Roll any number of dice with any number of sides. D6, D20, D100 and custom.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/coin-flip.html">
+    <div class="tool-icon">🪙</div>
+    <h3>Coin Flip</h3>
+    <p>Flip a coin online. Heads or tails — instant result with flip counter.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/team-picker.html">
+    <div class="tool-icon">👥</div>
+    <h3>Random Team Picker</h3>
+    <p>Split a list of names into random teams. Perfect for sports, school, work.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/yes-no-wheel.html">
+    <div class="tool-icon">🔮</div>
+    <h3>Yes / No Wheel</h3>
+    <p>Can't decide? Spin the wheel for a random yes or no answer.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/wheel-of-names.html">
+    <div class="tool-icon">🎡</div>
+    <h3>Wheel of Names</h3>
+    <p>Add any list of names and spin the wheel to pick a random winner.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/colour-generator.html">
+    <div class="tool-icon">🎨</div>
+    <h3>Random Colour Generator</h3>
+    <p>Generate random colours with HEX, RGB, and HSL values. Copy with one tap.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/password-generator.html">
+    <div class="tool-icon">🔐</div>
+    <h3>Password Generator</h3>
+    <p>Create strong, secure random passwords. Choose length, symbols, numbers.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/lottery-picker.html">
+    <div class="tool-icon">🍀</div>
+    <h3>Lottery Number Picker</h3>
+    <p>Generate random lottery numbers for UK Lotto, EuroMillions, Powerball and more.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/percentage-generator.html">
+    <div class="tool-icon">📊</div>
+    <h3>Random Percentage</h3>
+    <p>Generate a random percentage or decimal. Set min, max and decimal precision.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/list-shuffler.html">
+    <div class="tool-icon">🔀</div>
+    <h3>List Shuffler</h3>
+    <p>Paste any list and instantly shuffle it into a random order.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/random-country.html">
+    <div class="tool-icon">🌍</div>
+    <h3>Random Country Generator</h3>
+    <p>Discover a random country from all 195 nations. Filter by continent.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+  <a class="tool-card" href="tools/random-name-generator.html">
+    <div class="tool-icon">👤</div>
+    <h3>Random Name Generator</h3>
+    <p>Generate realistic names from 10 cultures: English, Japanese, Arabic and more.</p>
+    <div class="tool-arrow">use tool →</div>
+  </a>
+
+</main>
+
+<section aria-label="About Spinnit" style="max-width:960px;margin:0 auto 3rem;padding:0 1.5rem;">
+  <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Free Random Generators Online</h2>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Spinnit offers free random generators for numbers, names, teams, passwords, colours, and more. Every tool runs instantly in your browser — no downloads, no accounts, no tracking.</p>
+
+  <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Built for Everyone, Everywhere</h2>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Whether you need a dice roller for game night, a wheel of names for your classroom, or a password generator for security — Spinnit has a free tool for it. Every tool works perfectly on mobile devices worldwide, and you can <a href="/tools/" style="color:var(--accent2);">browse the full list</a> to find the exact picker or generator you need.</p>
+
+  <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Popular Tools</h2>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;">Our most used tools include the <a href="tools/random-number.html" style="color:var(--accent2);">random number generator</a>, <a href="tools/coin-flip.html" style="color:var(--accent2);">coin flip</a>, <a href="tools/wheel-of-names.html" style="color:var(--accent2);">wheel of names</a>, <a href="tools/team-picker.html" style="color:var(--accent2);">team picker</a>, and <a href="tools/lottery-picker.html" style="color:var(--accent2);">lottery number generator</a>. Each tool is free, fast, and requires no sign-up.</p>
+</section>

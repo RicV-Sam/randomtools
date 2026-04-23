@@ -1,0 +1,160 @@
+---
+layout: layouts/base.njk
+title: "Random Name Picker No Repeat – Free Unique Picker | Spinnit"
+description: "A random name picker with no repeats — every name gets picked once before anyone is picked twice. Free, instant, works offline in your browser."
+ogTitle: "Random Name Picker – No Repeats | Spinnit"
+ogDescription: "Every name gets picked once before anyone repeats. Fair rotation picker for classrooms and teams."
+canonical: "https://spinnit.site/tools/random-name-picker-no-repeat.html"
+jsonLd: |
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Name Picker No Repeat","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is the order really random each time?","acceptedAnswer":{"@type":"Answer","text":"Yes. A fresh Fisher-Yates shuffle runs on the first pick and on every reset."}},
+      {"@type":"Question","name":"What if I edit the list mid-round?","acceptedAnswer":{"@type":"Answer","text":"Editing resets the round automatically to prevent stale shuffles."}},
+      {"@type":"Question","name":"Is it the same as the List Shuffler?","acceptedAnswer":{"@type":"Answer","text":"Under the hood yes, but this reveals names one at a time; List Shuffler shows the full order at once."}}
+    ]}
+  </script>
+pageScript: |
+  
+  const DEFAULT_NAMES = ['Alice','Ben','Clara','David','Emma','Finn','Grace','Henry','Isla','Jack'];
+  document.getElementById('namesInput').value = DEFAULT_NAMES.join('\n');
+  
+  let shuffled = [];
+  let index = 0;
+  let picked = [];
+  
+  function getNames() {
+    return document.getElementById('namesInput').value.split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
+  }
+  
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  
+  function pick() {
+    const names = getNames();
+    if (!names.length) { alert('Add some names first.'); return; }
+  
+    if (shuffled.length === 0 || index >= shuffled.length) {
+      if (index >= shuffled.length && shuffled.length > 0) {
+        document.getElementById('result').textContent = 'Round complete!';
+        document.getElementById('remainingLabel').textContent = `All ${shuffled.length} names picked. Tap Reset for a new shuffled round.`;
+        document.getElementById('remainingLabel').style.display = 'block';
+        return;
+      }
+      shuffled = shuffle(names);
+      index = 0;
+      picked = [];
+    }
+  
+    const winner = shuffled[index++];
+    picked.push(winner);
+    document.getElementById('result').textContent = winner;
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  
+    const remaining = shuffled.length - index;
+    document.getElementById('remainingLabel').textContent = `${remaining} name${remaining === 1 ? '' : 's'} left in this round.`;
+    document.getElementById('remainingLabel').style.display = 'block';
+    renderHistory();
+  }
+  
+  function resetList() {
+    shuffled = []; index = 0; picked = [];
+    document.getElementById('result').textContent = '—';
+    document.getElementById('remainingLabel').style.display = 'none';
+    document.getElementById('historySection').style.display = 'none';
+  }
+  
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (picked.length === 0) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = picked.map((n,i) => `<span class="history-item">${i+1}. ${n}</span>`).join('');
+  }
+  
+  document.getElementById('namesInput').addEventListener('input', resetList);
+  document.addEventListener('keydown', e => {
+    if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault(); pick();
+    }
+  });
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎯</div>
+    <h1>Random Name Picker – No Repeats</h1>
+    <p>Every name gets picked once before anyone is picked twice</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">picked</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">—</div>
+    <div id="remainingLabel" style="font-size:13px;color:var(--text2);margin-top:6px;display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Names (one per line)</label>
+      <textarea id="namesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;"></textarea>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">PICK NEXT</button>
+  <button class="btn-copy" onclick="resetList()" style="margin-top:8px;">Reset list</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Already picked (in order)</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Most name pickers pick independently — which means someone can get picked twice while others never get picked at all. This tool does it properly: it works through the full list in a random order, and <em>nobody</em> gets picked a second time until the cycle is complete.</p>
+
+    <h2>How it works</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Internally it's a Fisher-Yates shuffle. On the first tap, the list is randomised once. Each subsequent tap just reveals the next name in the shuffled order. When the list is exhausted, the tool prompts you to reset (which reshuffles, so the second round is a different order from the first).</p>
+
+    <h2>Where it fits</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Cold calling in class</strong> — every student answers before anyone answers twice</li>
+      <li><strong>Presentation order</strong> — fair order, no "I already went" arguments</li>
+      <li><strong>Secret Santa</strong> — assign giver → receiver without anyone drawing themselves</li>
+      <li><strong>Rotation rosters</strong> — duty rotas, reading order, daily helper</li>
+      <li><strong>Randomised interview order</strong> — fair sequence for candidates or applicants</li>
+    </ul>
+
+    <h2>Not quite right?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">If you want picks that <em>can</em> repeat (each tap independent), use the <a href="wheel-of-names.html">Wheel of Names</a> or the <a href="random-student-picker.html">Student Picker</a> with no-repeat unticked. To shuffle the whole list in one click and see the order at once, use <a href="list-shuffler.html">List Shuffler</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is the order really random each time?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. A fresh Fisher-Yates shuffle runs on the first pick and on every reset, so the order is unbiased and different each round.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What if I edit the list mid-round?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Editing the list resets the round automatically. This prevents accidentally picking from a stale shuffle that doesn't match the visible list.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is it the same as the List Shuffler?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Under the hood, yes — but the interaction is different. This tool reveals one name at a time (good for live classroom use). The <a href="list-shuffler.html">List Shuffler</a> shows the full shuffled list at once.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Wheel of Names</a>
+      <a class="related-card" href="random-student-picker.html"><span class="ri">🎒</span> Student Picker</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
+    </div>
+  </section>
+
+</main>

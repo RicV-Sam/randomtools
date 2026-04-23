@@ -1,0 +1,168 @@
+---
+layout: layouts/base.njk
+title: "All Random Tools &amp; Generators – Browse Every Spinnit Tool"
+description: "Browse every free random tool on Spinnit — number generators, dice rollers, name pickers, wheels and more. 30+ specific pickers and generators, no sign-up."
+ogTitle: "All Random Tools &amp; Generators — Spinnit"
+ogDescription: "Every free random tool and generator on Spinnit, organised by category. 30+ pages."
+canonical: "https://spinnit.site/tools/"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "All Random Tools & Generators",
+    "url": "https://spinnit.site/tools/",
+    "isPartOf": { "@type": "WebSite", "name": "Spinnit", "url": "https://spinnit.site/" },
+    "description": "Full index of every free random generator and picker on Spinnit."
+  }
+pageStyle: |
+  
+  .browse {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .browse h1 {
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .browse .lede {
+    font-size: 15px;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 640px;
+  }
+  .browse h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent2);
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 2.5rem 0 0.25rem;
+  }
+  .browse h2 + p {
+    font-size: 13px;
+    color: var(--text3);
+    margin-bottom: 0.9rem;
+    line-height: 1.6;
+  }
+  .tool-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    gap: 8px;
+  }
+  .tool-list a {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 11px 14px;
+    font-size: 13px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .tool-list a:hover { border-color: var(--accent2); color: var(--text); transform: translateY(-1px); }
+  .tool-list a .emoji { font-size: 16px; }
+  .tool-list a.preset { opacity: 0.92; }
+  .tool-list a.preset::after {
+    content: 'preset';
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .count-pill {
+    display: inline-block;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+---
+<div class="browse">
+  <h1>All Random Tools &amp; Generators</h1>
+  <p class="lede">Every free tool and generator on Spinnit, organised by what you're trying to do. Click any tool to use it — no sign-up, no downloads, works on mobile.</p>
+
+  <h2>Random Numbers <span class="count-pill">12</span></h2>
+  <p>Pick a number instantly, in any range you need. The main generator accepts any custom min and max; the presets are one-tap shortcuts for the most-searched ranges.</p>
+  <div class="tool-list">
+    <a href="random-number.html"><span class="emoji">🎲</span> Random Number Generator</a>
+    <a href="percentage-generator.html"><span class="emoji">📊</span> Random Percentage</a>
+    <a class="preset" href="random-number-1-2.html"><span class="emoji">🪙</span> 1–2 (Binary Pick)</a>
+    <a class="preset" href="random-number-1-5.html"><span class="emoji">🔢</span> 1–5</a>
+    <a class="preset" href="random-number-1-6.html"><span class="emoji">⚄</span> 1–6 (Dice)</a>
+    <a class="preset" href="random-number-1-10.html"><span class="emoji">🔢</span> 1–10</a>
+    <a class="preset" href="random-number-1-20.html"><span class="emoji">🎲</span> 1–20 (D20)</a>
+    <a class="preset" href="random-number-1-25.html"><span class="emoji">🎒</span> 1–25 (Classroom)</a>
+    <a class="preset" href="random-number-1-50.html"><span class="emoji">🔢</span> 1–50</a>
+    <a class="preset" href="random-number-1-100.html"><span class="emoji">💯</span> 1–100</a>
+    <a class="preset" href="random-number-1-1000.html"><span class="emoji">🔢</span> 1–1000</a>
+    <a class="preset" href="random-number-1-1000000.html"><span class="emoji">💯</span> 1–1,000,000</a>
+  </div>
+
+  <h2>Dice Rollers <span class="count-pill">6</span></h2>
+  <p>Virtual dice for board games, D&amp;D, Pathfinder and any tabletop RPG. The full roller supports any die type; presets handle the most common multi-dice rolls.</p>
+  <div class="tool-list">
+    <a href="dice-roller.html"><span class="emoji">⚄</span> Dice Roller (any die)</a>
+    <a class="preset" href="roll-2d6.html"><span class="emoji">⚄</span> Roll 2d6</a>
+    <a class="preset" href="roll-3d6.html"><span class="emoji">🎲</span> Roll 3d6</a>
+    <a class="preset" href="roll-4d6-drop-lowest.html"><span class="emoji">🐉</span> 4d6 Drop Lowest (D&amp;D stats)</a>
+    <a class="preset" href="roll-d10.html"><span class="emoji">🎲</span> Roll d10</a>
+    <a class="preset" href="roll-d100.html"><span class="emoji">💯</span> Roll d100</a>
+  </div>
+
+  <h2>Name Pickers &amp; Wheels <span class="count-pill">8</span></h2>
+  <p>Pick a random name from any list, or spin a wheel. Presets are built for specific cases — classroom, giveaways, no-repeat cycling.</p>
+  <div class="tool-list">
+    <a href="wheel-of-names.html"><span class="emoji">🎡</span> Wheel of Names</a>
+    <a href="random-name-generator.html"><span class="emoji">👤</span> Random Name Generator</a>
+    <a href="team-picker.html"><span class="emoji">👥</span> Random Team Picker</a>
+    <a href="list-shuffler.html"><span class="emoji">🔀</span> List Shuffler</a>
+    <a class="preset" href="pick-random-name.html"><span class="emoji">🎲</span> Pick a Random Name</a>
+    <a class="preset" href="random-student-picker.html"><span class="emoji">🎒</span> Random Student Picker</a>
+    <a class="preset" href="random-name-picker-no-repeat.html"><span class="emoji">🎯</span> No-Repeat Name Picker</a>
+    <a class="preset" href="wheel-of-names-for-classroom.html"><span class="emoji">🎡</span> Classroom Wheel Guide</a>
+  </div>
+
+  <h2>Decision Makers <span class="count-pill">3</span></h2>
+  <p>Quick tools for when you just can't make up your mind.</p>
+  <div class="tool-list">
+    <a href="coin-flip.html"><span class="emoji">🪙</span> Coin Flip</a>
+    <a href="yes-no-wheel.html"><span class="emoji">🔮</span> Yes / No Wheel</a>
+    <a class="preset" href="random-winner-picker.html"><span class="emoji">🏆</span> Random Winner Picker</a>
+  </div>
+
+  <h2>Passwords, Colours &amp; Lottery <span class="count-pill">3</span></h2>
+  <p>Random output for security, design and lottery draws.</p>
+  <div class="tool-list">
+    <a href="password-generator.html"><span class="emoji">🔐</span> Password Generator</a>
+    <a href="colour-generator.html"><span class="emoji">🎨</span> Random Colour Generator</a>
+    <a href="lottery-picker.html"><span class="emoji">🍀</span> Lottery Number Picker</a>
+  </div>
+
+  <h2>Everything Else <span class="count-pill">1</span></h2>
+  <p>Geographic and general randomness.</p>
+  <div class="tool-list">
+    <a href="random-country.html"><span class="emoji">🌍</span> Random Country Generator</a>
+  </div>
+
+  <h2>What's a "Preset"?</h2>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;max-width:640px;">Presets are purpose-built shortcuts for a specific job — for example, <em>1–100</em> and <em>4d6 drop lowest</em> are presets of the main Random Number Generator and Dice Roller. They save you setting up the inputs every time and often add small quality-of-life features (like the D&amp;D stat block roller showing the dropped die, or the No-Repeat Picker cycling through a list without repeats).</p>
+</div>
