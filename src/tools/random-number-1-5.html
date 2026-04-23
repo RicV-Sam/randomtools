@@ -1,31 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1425572131754335" crossorigin="anonymous"></script>
-<title>Random Number Between 1 and 5 – Free Instant Picker | Spinnit</title>
-<meta name="description" content="Pick a random number between 1 and 5 instantly. Free fair picker for choosing between five options, star ratings and quick group decisions.">
-<link rel="canonical" href="https://spinnit.site/tools/random-number-1-5.html">
-<meta property="og:title" content="Random Number Between 1 and 5 | Spinnit">
-<meta property="og:description" content="Free instant random number from 1 to 5 — one tap, no sign-up.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://spinnit.site/tools/random-number-1-5.html">
-<meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#7c6af7">
-<link rel="manifest" href="../manifest.json">
-<link rel="stylesheet" href="../assets/style.css">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Number Between 1 and 5","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
-</script>
-</head>
-<body>
-
-<nav class="nav">
-  <a class="nav-back" href="../index.html">← all tools</a>
-  <div class="nav-logo">spinn<span>it</span></div>
-</nav>
-
+---
+layout: layouts/base.njk
+title: "Random Number Between 1 and 5 – Free Instant Picker | Spinnit"
+description: "Pick a random number between 1 and 5 instantly. Free fair picker for choosing between five options, star ratings and quick group decisions."
+ogTitle: "Random Number Between 1 and 5 | Spinnit"
+ogDescription: "Free instant random number from 1 to 5 — one tap, no sign-up."
+canonical: "https://spinnit.site/tools/random-number-1-5.html"
+jsonLd: |
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Number Between 1 and 5","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is each number equally likely?","acceptedAnswer":{"@type":"Answer","text":"Yes — each of 1, 2, 3, 4 and 5 has a 20% chance on every generation."}},
+      {"@type":"Question","name":"Can I use this as a d5?","acceptedAnswer":{"@type":"Answer","text":"Yes. A d5 is uncommon in physical dice sets. This generator gives a fair 1-to-5 roll directly."}},
+      {"@type":"Question","name":"Can the same number repeat?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each generation is independent and with five options repeats are expected."}}
+    ]}
+  </script>
+pageScript: |
+  
+  const MIN = 1, MAX = 5;
+  const history = [];
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); generate(); }});
+---
 <main class="tool-page">
 
   <div class="tool-header">
@@ -85,16 +106,7 @@
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can the same number repeat?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Each generation is independent, and with only five options repeats are common. That's expected and mathematically correct.</p>
   </section>
-
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"Is each number equally likely?","acceptedAnswer":{"@type":"Answer","text":"Yes — each of 1, 2, 3, 4 and 5 has a 20% chance on every generation."}},
-    {"@type":"Question","name":"Can I use this as a d5?","acceptedAnswer":{"@type":"Answer","text":"Yes. A d5 is uncommon in physical dice sets. This generator gives a fair 1-to-5 roll directly."}},
-    {"@type":"Question","name":"Can the same number repeat?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each generation is independent and with five options repeats are expected."}}
-  ]}
-  </script>
-
-  <section class="related" style="margin-top:2rem;">
+<section class="related" style="margin-top:2rem;">
     <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
       <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Custom Range Generator</a>
@@ -105,39 +117,3 @@
   </section>
 
 </main>
-
-<footer><p>Spinnit &copy; 2026 — <a href="/index.html">all tools</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/about.html">About</a></p></footer>
-
-<script>
-const MIN = 1, MAX = 5;
-const history = [];
-function generate() {
-  const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
-  let results = [];
-  for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
-  document.getElementById('result').textContent = results.join(', ');
-  const box = document.getElementById('resultBox');
-  box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
-  history.unshift(results[0]); if (history.length > 10) history.pop();
-  renderHistory();
-}
-function renderHistory() {
-  const sec = document.getElementById('historySection');
-  const list = document.getElementById('historyList');
-  if (!history.length) { sec.style.display = 'none'; return; }
-  sec.style.display = 'block';
-  list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
-}
-function copyResult() {
-  const val = document.getElementById('result').textContent;
-  if (val === '—') return;
-  navigator.clipboard.writeText(val).then(() => {
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = 'Copied!'; btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
-  });
-}
-document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); generate(); }});
-</script>
-</body>
-</html>

@@ -1,31 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1425572131754335" crossorigin="anonymous"></script>
-<title>Wheel of Names for Classroom – Teacher's Guide | Spinnit</title>
-<meta name="description" content="A wheel of names made for the classroom. Free, projector-friendly, GDPR-safe — with practical tips from real teachers on using a name wheel in lessons.">
-<link rel="canonical" href="https://spinnit.site/tools/wheel-of-names-for-classroom.html">
-<meta property="og:title" content="Wheel of Names for Classroom | Spinnit">
-<meta property="og:description" content="Teacher's guide to using a name wheel — free, projector-ready, no sign-up.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://spinnit.site/tools/wheel-of-names-for-classroom.html">
-<meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#7c6af7">
-<link rel="manifest" href="../manifest.json">
-<link rel="stylesheet" href="../assets/style.css">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Wheel of Names for Classroom","applicationCategory":"EducationalApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
-</script>
-</head>
-<body>
-
-<nav class="nav">
-  <a class="nav-back" href="../index.html">← all tools</a>
-  <div class="nav-logo">spinn<span>it</span></div>
-</nav>
-
+---
+layout: layouts/base.njk
+title: "Wheel of Names for Classroom – Teacher's Guide | Spinnit"
+description: "A wheel of names made for the classroom. Free, projector-friendly, GDPR-safe — with practical tips from real teachers on using a name wheel in lessons."
+ogTitle: "Wheel of Names for Classroom | Spinnit"
+ogDescription: "Teacher's guide to using a name wheel — free, projector-ready, no sign-up."
+canonical: "https://spinnit.site/tools/wheel-of-names-for-classroom.html"
+jsonLd: |
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Wheel of Names for Classroom","applicationCategory":"EducationalApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is this GDPR-safe for a UK school?","acceptedAnswer":{"@type":"Answer","text":"Yes. Names pasted in never leave the browser tab — no upload, no account, no tracking cookies."}},
+      {"@type":"Question","name":"Will it work on an interactive whiteboard?","acceptedAnswer":{"@type":"Answer","text":"Yes. The tool is responsive and touch-friendly. Press F11 for full-screen."}},
+      {"@type":"Question","name":"Can I save my class list between lessons?","acceptedAnswer":{"@type":"Answer","text":"Not currently. Many teachers keep a roster note on their phone to paste in seconds."}}
+    ]}
+  </script>
+pageScript: |
+  
+  const DEFAULT_NAMES = ['Aisha','Benjamin','Chloe','Daniel','Eva','Finn','Grace','Harry','Ivy','Jack','Kai','Leo','Mia','Nina','Oliver','Poppy','Quinn','Ruby','Samuel','Tara','Umar','Violet','Willow','Xander','Yasmin','Zane'];
+  document.getElementById('namesInput').value = DEFAULT_NAMES.join('\n');
+  
+  function getNames() {
+    return document.getElementById('namesInput').value.split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
+  }
+  function pick() {
+    const names = getNames();
+    if (!names.length) { alert('Add some names first.'); return; }
+    const winner = names[Math.floor(Math.random() * names.length)];
+    document.getElementById('result').textContent = winner;
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  }
+  function clearResult() { document.getElementById('result').textContent = '—'; }
+  document.addEventListener('keydown', e => {
+    if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault(); pick();
+    }
+  });
+---
 <main class="tool-page">
 
   <div class="tool-header">
@@ -89,16 +101,7 @@
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I save my class list between lessons?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Currently no — but you can paste a list from a note or spreadsheet in under a second. Many teachers keep a "Class 7B roster" note on their phone for this exact reason.</p>
   </section>
-
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"Is this GDPR-safe for a UK school?","acceptedAnswer":{"@type":"Answer","text":"Yes. Names pasted in never leave the browser tab — no upload, no account, no tracking cookies."}},
-    {"@type":"Question","name":"Will it work on an interactive whiteboard?","acceptedAnswer":{"@type":"Answer","text":"Yes. The tool is responsive and touch-friendly. Press F11 for full-screen."}},
-    {"@type":"Question","name":"Can I save my class list between lessons?","acceptedAnswer":{"@type":"Answer","text":"Not currently. Many teachers keep a roster note on their phone to paste in seconds."}}
-  ]}
-  </script>
-
-  <section class="related" style="margin-top:2rem;">
+<section class="related" style="margin-top:2rem;">
     <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
       <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Full Wheel of Names</a>
@@ -109,30 +112,3 @@
   </section>
 
 </main>
-
-<footer><p>Spinnit &copy; 2026 — <a href="/index.html">all tools</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/about.html">About</a></p></footer>
-
-<script>
-const DEFAULT_NAMES = ['Aisha','Benjamin','Chloe','Daniel','Eva','Finn','Grace','Harry','Ivy','Jack','Kai','Leo','Mia','Nina','Oliver','Poppy','Quinn','Ruby','Samuel','Tara','Umar','Violet','Willow','Xander','Yasmin','Zane'];
-document.getElementById('namesInput').value = DEFAULT_NAMES.join('\n');
-
-function getNames() {
-  return document.getElementById('namesInput').value.split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
-}
-function pick() {
-  const names = getNames();
-  if (!names.length) { alert('Add some names first.'); return; }
-  const winner = names[Math.floor(Math.random() * names.length)];
-  document.getElementById('result').textContent = winner;
-  const box = document.getElementById('resultBox');
-  box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
-}
-function clearResult() { document.getElementById('result').textContent = '—'; }
-document.addEventListener('keydown', e => {
-  if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
-    e.preventDefault(); pick();
-  }
-});
-</script>
-</body>
-</html>

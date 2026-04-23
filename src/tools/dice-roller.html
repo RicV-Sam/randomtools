@@ -1,33 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1425572131754335" crossorigin="anonymous"></script>
-<title>Dice Roller – Roll D6, D20 &amp; Custom Dice | Spinnit</title>
-<meta name="description" content="Roll virtual dice online. Choose D4, D6, D8, D10, D12, D20 or custom sides. Perfect for board games, RPGs and quick decisions.">
-<link rel="canonical" href="https://spinnit.site/tools/dice-roller.html">
-<meta property="og:title" content="Dice Roller – Roll D6, D20 &amp; Custom Dice | Spinnit">
-<meta property="og:description" content="Roll virtual dice online. Choose D4, D6, D8, D10, D12, D20 or custom sides. Perfect for board games, RPGs and quick decisions.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://spinnit.site/tools/dice-roller.html">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dice Roller | Spinnit">
-<meta name="twitter:description" content="Roll any dice online. D4 to D100 and custom sides. Free and mobile-friendly.">
-<meta name="theme-color" content="#7c6af7">
-<link rel="manifest" href="../manifest.json">
-<link rel="stylesheet" href="../assets/style.css">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"Dice Roller","description":"Roll any dice online — D4, D6, D8, D10, D12, D20, D100 and custom","url":"https://spinnit.site/tools/dice-roller.html","applicationCategory":"UtilityApplication","operatingSystem":"Web"}
-</script>
-</head>
-<body>
-
-<nav class="nav">
-  <a class="nav-back" href="../index.html">← all tools</a>
-  <div class="nav-logo">spinn<span>it</span></div>
-</nav>
-
+---
+layout: layouts/base.njk
+title: "Dice Roller – Roll D6, D20 &amp; Custom Dice | Spinnit"
+description: "Roll virtual dice online. Choose D4, D6, D8, D10, D12, D20 or custom sides. Perfect for board games, RPGs and quick decisions."
+canonical: "https://spinnit.site/tools/dice-roller.html"
+jsonLd: |
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Dice Roller","description":"Roll any dice online — D4, D6, D8, D10, D12, D20, D100 and custom","url":"https://spinnit.site/tools/dice-roller.html","applicationCategory":"UtilityApplication","operatingSystem":"Web"}
+extraHead: |
+  <meta name="twitter:title" content="Dice Roller | Spinnit">
+  <meta name="twitter:description" content="Roll any dice online. D4 to D100 and custom sides. Free and mobile-friendly.">
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I roll multiple dice at once?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Set the 'Number of dice' field to up to 20 and the tool will show each individual result plus a running total." }
+        },
+        {
+          "@type": "Question",
+          "name": "What dice types are available?",
+          "acceptedAnswer": { "@type": "Answer", "text": "D4, D6, D8, D10, D12, D20, and D100 are available as presets. You can also choose Custom and enter any number of sides from 2 to 1000." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool free to use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work on mobile?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
+        }
+      ]
+    }
+  </script>
+pageScript: |
+  
+  const rollHistory = [];
+  
+  document.getElementById('diceType').addEventListener('change', function() {
+    document.getElementById('customGroup').style.display = this.value === 'custom' ? 'block' : 'none';
+  });
+  
+  function getSides() {
+    const type = document.getElementById('diceType').value;
+    return type === 'custom' ? parseInt(document.getElementById('customSides').value) || 6 : parseInt(type);
+  }
+  
+  function rollDice() {
+    const sides = getSides();
+    const count = Math.min(parseInt(document.getElementById('diceCount').value) || 1, 20);
+    const rolls = Array.from({length: count}, () => Math.floor(Math.random() * sides) + 1);
+    const total = rolls.reduce((a,b) => a+b, 0);
+  
+    const resultEl = document.getElementById('result');
+    const totalEl = document.getElementById('totalLabel');
+    const labelEl = document.getElementById('rollLabel');
+  
+    if (count === 1) {
+      resultEl.textContent = rolls[0];
+      totalEl.style.display = 'none';
+      labelEl.textContent = `D${sides} result`;
+    } else {
+      resultEl.textContent = rolls.join(' + ');
+      resultEl.style.fontSize = 'clamp(1rem,5vw,1.8rem)';
+      totalEl.style.display = 'block';
+      totalEl.textContent = `Total: ${total}`;
+      labelEl.textContent = `${count}D${sides}`;
+    }
+  
+    document.getElementById('resultBox').classList.remove('pop');
+    void document.getElementById('resultBox').offsetWidth;
+    document.getElementById('resultBox').classList.add('pop');
+  
+    rollHistory.unshift(`${count}D${sides}: ${total}`);
+    if (rollHistory.length > 8) rollHistory.pop();
+    const sec = document.getElementById('historySection');
+    sec.style.display = 'block';
+    document.getElementById('historyList').innerHTML = rollHistory.map(r => `<span class="history-item">${r}</span>`).join('');
+  }
+  
+  function quickRoll(sides) {
+    document.getElementById('diceType').value = sides;
+    document.getElementById('customGroup').style.display = 'none';
+    document.getElementById('diceCount').value = 1;
+    rollDice();
+  }
+  
+  document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); rollDice(); }});
+---
 <main class="tool-page">
 
   <div class="tool-header">
@@ -131,37 +194,7 @@
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this work on mobile?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, all Spinnit tools are mobile-first and work on any device.</p>
   </section>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can I roll multiple dice at once?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Set the 'Number of dice' field to up to 20 and the tool will show each individual result plus a running total." }
-      },
-      {
-        "@type": "Question",
-        "name": "What dice types are available?",
-        "acceptedAnswer": { "@type": "Answer", "text": "D4, D6, D8, D10, D12, D20, and D100 are available as presets. You can also choose Custom and enter any number of sides from 2 to 1000." }
-      },
-      {
-        "@type": "Question",
-        "name": "Is this tool free to use?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this work on mobile?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
-      }
-    ]
-  }
-  </script>
-
-  <section class="related" style="margin-top:2rem;">
+<section class="related" style="margin-top:2rem;">
     <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
       <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Random Number Generator</a>
@@ -172,62 +205,3 @@
   </section>
 
 </main>
-
-<footer><p>Spinnit &copy; 2026 — <a href="/index.html">all tools</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/about.html">About</a></p></footer>
-
-<script>
-const rollHistory = [];
-
-document.getElementById('diceType').addEventListener('change', function() {
-  document.getElementById('customGroup').style.display = this.value === 'custom' ? 'block' : 'none';
-});
-
-function getSides() {
-  const type = document.getElementById('diceType').value;
-  return type === 'custom' ? parseInt(document.getElementById('customSides').value) || 6 : parseInt(type);
-}
-
-function rollDice() {
-  const sides = getSides();
-  const count = Math.min(parseInt(document.getElementById('diceCount').value) || 1, 20);
-  const rolls = Array.from({length: count}, () => Math.floor(Math.random() * sides) + 1);
-  const total = rolls.reduce((a,b) => a+b, 0);
-
-  const resultEl = document.getElementById('result');
-  const totalEl = document.getElementById('totalLabel');
-  const labelEl = document.getElementById('rollLabel');
-
-  if (count === 1) {
-    resultEl.textContent = rolls[0];
-    totalEl.style.display = 'none';
-    labelEl.textContent = `D${sides} result`;
-  } else {
-    resultEl.textContent = rolls.join(' + ');
-    resultEl.style.fontSize = 'clamp(1rem,5vw,1.8rem)';
-    totalEl.style.display = 'block';
-    totalEl.textContent = `Total: ${total}`;
-    labelEl.textContent = `${count}D${sides}`;
-  }
-
-  document.getElementById('resultBox').classList.remove('pop');
-  void document.getElementById('resultBox').offsetWidth;
-  document.getElementById('resultBox').classList.add('pop');
-
-  rollHistory.unshift(`${count}D${sides}: ${total}`);
-  if (rollHistory.length > 8) rollHistory.pop();
-  const sec = document.getElementById('historySection');
-  sec.style.display = 'block';
-  document.getElementById('historyList').innerHTML = rollHistory.map(r => `<span class="history-item">${r}</span>`).join('');
-}
-
-function quickRoll(sides) {
-  document.getElementById('diceType').value = sides;
-  document.getElementById('customGroup').style.display = 'none';
-  document.getElementById('diceCount').value = 1;
-  rollDice();
-}
-
-document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); rollDice(); }});
-</script>
-</body>
-</html>

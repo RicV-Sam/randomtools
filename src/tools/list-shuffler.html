@@ -1,47 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1425572131754335" crossorigin="anonymous"></script>
-<title>List Shuffler – Randomise Any List Online | Spinnit</title>
-<meta name="description" content="Paste any list and instantly shuffle it into a random order. Free list randomiser for names, tasks, playlists and more.">
-<link rel="canonical" href="https://spinnit.site/tools/list-shuffler.html">
-<meta property="og:title" content="List Shuffler – Randomise Any List Online | Spinnit">
-<meta property="og:description" content="Paste any list and instantly shuffle it into a random order. Free list randomiser for names, tasks, playlists and more.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://spinnit.site/tools/list-shuffler.html">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="List Shuffler | Spinnit">
-<meta name="twitter:description" content="Paste any list and shuffle it into a random order instantly. Free and mobile-friendly.">
-<meta name="theme-color" content="#7c6af7">
-<link rel="manifest" href="../manifest.json">
-<link rel="stylesheet" href="../assets/style.css">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"List Shuffler","description":"Paste any list and instantly shuffle it into a random order","url":"https://spinnit.site/tools/list-shuffler.html","applicationCategory":"UtilityApplication","operatingSystem":"Web"}
-</script>
-<style>
-.output-list { display:flex;flex-direction:column;gap:6px;margin-top:1.25rem; }
-.list-item {
-  display:flex;align-items:center;gap:10px;
-  background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
-  padding:10px 12px;animation:slideIn 0.2s ease both;
-}
-@keyframes slideIn {
-  from { transform:translateX(-10px);opacity:0; }
-  to   { transform:translateX(0);opacity:1; }
-}
-.item-num { font-family:var(--mono);font-size:11px;color:var(--text3);min-width:20px; }
-.item-text { font-size:14px;color:var(--text);flex:1; }
-</style>
-</head>
-<body>
-
-<nav class="nav">
-  <a class="nav-back" href="../index.html">← all tools</a>
-  <div class="nav-logo">spinn<span>it</span></div>
-</nav>
-
+---
+layout: layouts/base.njk
+title: "List Shuffler – Randomise Any List Online | Spinnit"
+description: "Paste any list and instantly shuffle it into a random order. Free list randomiser for names, tasks, playlists and more."
+canonical: "https://spinnit.site/tools/list-shuffler.html"
+jsonLd: |
+  {"@context":"https://schema.org","@type":"WebApplication","name":"List Shuffler","description":"Paste any list and instantly shuffle it into a random order","url":"https://spinnit.site/tools/list-shuffler.html","applicationCategory":"UtilityApplication","operatingSystem":"Web"}
+extraHead: |
+  <meta name="twitter:title" content="List Shuffler | Spinnit">
+  <meta name="twitter:description" content="Paste any list and shuffle it into a random order instantly. Free and mobile-friendly.">
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I pick just the top few items from a longer list?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Enter a number in the 'Pick top N items' field and only the first N items from the shuffled list will be shown." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a limit to how long my list can be?",
+          "acceptedAnswer": { "@type": "Answer", "text": "There is no hard limit. The tool handles hundreds of items without any issues." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool free to use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work on mobile?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
+        }
+      ]
+    }
+  </script>
+pageStyle: |
+  
+  .output-list { display:flex;flex-direction:column;gap:6px;margin-top:1.25rem; }
+  .list-item {
+    display:flex;align-items:center;gap:10px;
+    background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+    padding:10px 12px;animation:slideIn 0.2s ease both;
+  }
+  @keyframes slideIn {
+    from { transform:translateX(-10px);opacity:0; }
+    to   { transform:translateX(0);opacity:1; }
+  }
+  .item-num { font-family:var(--mono);font-size:11px;color:var(--text3);min-width:20px; }
+  .item-text { font-size:14px;color:var(--text);flex:1; }
+pageScript: |
+  
+  let shuffledItems = [];
+  
+  function shuffle() {
+    const raw = document.getElementById('listInput').value.trim();
+    if (!raw) { alert('Please enter a list first'); return; }
+    const items = raw.split('\n').map(i => i.trim()).filter(i => i);
+  
+    // Fisher-Yates shuffle
+    const arr = [...items];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  
+    const topN = parseInt(document.getElementById('topN').value);
+    shuffledItems = isNaN(topN) ? arr : arr.slice(0, topN);
+    const showNums = document.getElementById('showNums').value === 'yes';
+  
+    const out = document.getElementById('output');
+    out.innerHTML = shuffledItems.map((item, i) => `
+      <div class="list-item" style="animation-delay:${i * 40}ms">
+        ${showNums ? `<span class="item-num">${i+1}.</span>` : ''}
+        <span class="item-text">${escapeHtml(item)}</span>
+      </div>
+    `).join('');
+  
+    out.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  
+  function copyList() {
+    if (!shuffledItems.length) return;
+    const text = shuffledItems.join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy shuffled list'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+---
 <main class="tool-page">
 
   <div class="tool-header">
@@ -116,37 +169,7 @@
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this work on mobile?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, all Spinnit tools are mobile-first and work on any device.</p>
   </section>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can I pick just the top few items from a longer list?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Enter a number in the 'Pick top N items' field and only the first N items from the shuffled list will be shown." }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there a limit to how long my list can be?",
-        "acceptedAnswer": { "@type": "Answer", "text": "There is no hard limit. The tool handles hundreds of items without any issues." }
-      },
-      {
-        "@type": "Question",
-        "name": "Is this tool free to use?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this work on mobile?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
-      }
-    ]
-  }
-  </script>
-
-  <section class="related" style="margin-top:2rem;">
+<section class="related" style="margin-top:2rem;">
     <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
       <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Random Team Picker</a>
@@ -157,52 +180,3 @@
   </section>
 
 </main>
-
-<footer><p>Spinnit &copy; 2026 — <a href="/index.html">all tools</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/about.html">About</a></p></footer>
-
-<script>
-let shuffledItems = [];
-
-function shuffle() {
-  const raw = document.getElementById('listInput').value.trim();
-  if (!raw) { alert('Please enter a list first'); return; }
-  const items = raw.split('\n').map(i => i.trim()).filter(i => i);
-
-  // Fisher-Yates shuffle
-  const arr = [...items];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-
-  const topN = parseInt(document.getElementById('topN').value);
-  shuffledItems = isNaN(topN) ? arr : arr.slice(0, topN);
-  const showNums = document.getElementById('showNums').value === 'yes';
-
-  const out = document.getElementById('output');
-  out.innerHTML = shuffledItems.map((item, i) => `
-    <div class="list-item" style="animation-delay:${i * 40}ms">
-      ${showNums ? `<span class="item-num">${i+1}.</span>` : ''}
-      <span class="item-text">${escapeHtml(item)}</span>
-    </div>
-  `).join('');
-
-  out.scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-
-function copyList() {
-  if (!shuffledItems.length) return;
-  const text = shuffledItems.join('\n');
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = 'Copied!'; btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copy shuffled list'; btn.classList.remove('copied'); }, 2000);
-  });
-}
-
-function escapeHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-</script>
-</body>
-</html>

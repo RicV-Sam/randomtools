@@ -1,30 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1425572131754335" crossorigin="anonymous"></script>
-<title>Contact — Spinnit</title>
-<meta name="description" content="Get in touch with Spinnit. Send feedback, suggest a new random tool, or ask a question. We read every message.">
-<meta property="og:title" content="Contact Spinnit">
-<meta property="og:description" content="Send feedback or suggest a new random tool.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://spinnit.site/contact.html">
-<meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#7c6af7">
-<link rel="manifest" href="manifest.json">
-<link rel="canonical" href="https://spinnit.site/contact.html">
-<link rel="stylesheet" href="assets/style.css">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ContactPage",
-  "name": "Contact Spinnit",
-  "url": "https://spinnit.site/contact.html",
-  "isPartOf": { "@type": "WebSite", "name": "Spinnit", "url": "https://spinnit.site/" }
-}
-</script>
-<style>
+---
+layout: layouts/base.njk
+title: "Contact — Spinnit"
+description: "Get in touch with Spinnit. Send feedback, suggest a new random tool, or ask a question. We read every message."
+ogTitle: "Contact Spinnit"
+ogDescription: "Send feedback or suggest a new random tool."
+canonical: "https://spinnit.site/contact.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Spinnit",
+    "url": "https://spinnit.site/contact.html",
+    "isPartOf": { "@type": "WebSite", "name": "Spinnit", "url": "https://spinnit.site/" }
+  }
+pageStyle: |
   .prose { max-width: 640px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
   .prose h1 {
     font-size: clamp(1.6rem, 5vw, 2.4rem);
@@ -83,15 +72,7 @@
     border-radius: var(--radius); padding: 0.85rem 1rem;
     font-size: 13px; color: var(--text3); margin-top: 1rem;
   }
-</style>
-</head>
-<body>
-
-<nav class="nav">
-  <a class="nav-back" href="/index.html">← all tools</a>
-  <div class="nav-logo">spinn<span>it</span></div>
-</nav>
-
+---
 <div class="prose">
   <h1>Get in touch</h1>
   <p class="lede">Feedback, bug reports, tool suggestions, partnership enquiries — we read every message. Pick the channel that suits you.</p>
@@ -148,10 +129,3 @@
   <p><strong style="color:var(--text);">Press, partnership, or advertising enquiries?</strong><br>
   Use the email form with "Press" or "Partnership" in the subject and we'll route it to the right place.</p>
 </div>
-
-<footer>
-  <p>Spinnit &copy; 2026 — free forever &nbsp;|&nbsp; <a href="/tools/">All Tools</a> &nbsp;|&nbsp; <a href="/blog/">Blog</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/terms.html">Terms</a> &nbsp;|&nbsp; <a href="/about.html">About</a> &nbsp;|&nbsp; <a href="/contact.html">Contact</a></p>
-</footer>
-
-</body>
-</html>

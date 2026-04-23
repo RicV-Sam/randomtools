@@ -1,31 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1425572131754335" crossorigin="anonymous"></script>
-<title>Roll d100 Online – Free Percentile Dice Roller | Spinnit</title>
-<meta name="description" content="Roll a d100 online — percentile dice from 1 to 100. Used in Call of Cthulhu, Warhammer, Rolemaster and D&amp;D percentile checks. Free and instant.">
-<link rel="canonical" href="https://spinnit.site/tools/roll-d100.html">
-<meta property="og:title" content="Roll d100 Online | Spinnit">
-<meta property="og:description" content="Free percentile dice roller — a fair 1 to 100 roll for RPGs and percentage checks.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://spinnit.site/tools/roll-d100.html">
-<meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#7c6af7">
-<link rel="manifest" href="../manifest.json">
-<link rel="stylesheet" href="../assets/style.css">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Roll d100","applicationCategory":"GameApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
-</script>
-</head>
-<body>
-
-<nav class="nav">
-  <a class="nav-back" href="../index.html">← all tools</a>
-  <div class="nav-logo">spinn<span>it</span></div>
-</nav>
-
+---
+layout: layouts/base.njk
+title: "Roll d100 Online – Free Percentile Dice Roller | Spinnit"
+description: "Roll a d100 online — percentile dice from 1 to 100. Used in Call of Cthulhu, Warhammer, Rolemaster and D&amp;D percentile checks. Free and instant."
+ogTitle: "Roll d100 Online | Spinnit"
+ogDescription: "Free percentile dice roller — a fair 1 to 100 roll for RPGs and percentage checks."
+canonical: "https://spinnit.site/tools/roll-d100.html"
+jsonLd: |
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Roll d100","applicationCategory":"GameApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is the d100 range 1–100 or 0–99?","acceptedAnswer":{"@type":"Answer","text":"Most modern systems use 1–100 with 00 on physical dice reading as 100. This tool uses 1–100."}},
+      {"@type":"Question","name":"Is rolling low or high better?","acceptedAnswer":{"@type":"Answer","text":"Depends on the system. Call of Cthulhu and Warhammer want you under your skill. Check what your system expects."}},
+      {"@type":"Question","name":"Can I roll multiple d100s at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Set the count up to 100. Each roll is independent."}}
+    ]}
+  </script>
+pageScript: |
+  
+  const history = [];
+  function roll() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * 100) + 1);
+    document.getElementById('result').textContent = results.join(', ');
+    document.getElementById('totalLabel').style.display = 'none';
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); roll(); }});
+---
 <main class="tool-page">
 
   <div class="tool-header">
@@ -86,16 +107,7 @@
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I roll multiple d100s at once?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set the count up to 100. Each roll is independent, so duplicates are possible and expected.</p>
   </section>
-
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"Is the d100 range 1–100 or 0–99?","acceptedAnswer":{"@type":"Answer","text":"Most modern systems use 1–100 with 00 on physical dice reading as 100. This tool uses 1–100."}},
-    {"@type":"Question","name":"Is rolling low or high better?","acceptedAnswer":{"@type":"Answer","text":"Depends on the system. Call of Cthulhu and Warhammer want you under your skill. Check what your system expects."}},
-    {"@type":"Question","name":"Can I roll multiple d100s at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Set the count up to 100. Each roll is independent."}}
-  ]}
-  </script>
-
-  <section class="related" style="margin-top:2rem;">
+<section class="related" style="margin-top:2rem;">
     <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
       <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Full Dice Roller</a>
@@ -106,39 +118,3 @@
   </section>
 
 </main>
-
-<footer><p>Spinnit &copy; 2026 — <a href="/index.html">all tools</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/about.html">About</a></p></footer>
-
-<script>
-const history = [];
-function roll() {
-  const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
-  let results = [];
-  for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * 100) + 1);
-  document.getElementById('result').textContent = results.join(', ');
-  document.getElementById('totalLabel').style.display = 'none';
-  const box = document.getElementById('resultBox');
-  box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
-  history.unshift(results[0]); if (history.length > 10) history.pop();
-  renderHistory();
-}
-function renderHistory() {
-  const sec = document.getElementById('historySection');
-  const list = document.getElementById('historyList');
-  if (!history.length) { sec.style.display = 'none'; return; }
-  sec.style.display = 'block';
-  list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
-}
-function copyResult() {
-  const val = document.getElementById('result').textContent;
-  if (val === '—') return;
-  navigator.clipboard.writeText(val).then(() => {
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = 'Copied!'; btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
-  });
-}
-document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); roll(); }});
-</script>
-</body>
-</html>
