@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="{{ lang or 'en' }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsenseClient }}" crossorigin="anonymous"></script>
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+{%- if noindex %}
+<meta name="robots" content="noindex">
+{%- endif %}
+{%- if ogTitle or title %}
+<meta property="og:title" content="{{ ogTitle or title }}">
+{%- endif %}
+{%- if ogDescription or description %}
+<meta property="og:description" content="{{ ogDescription or description }}">
+{%- endif %}
+<meta property="og:type" content="{{ ogType or 'website' }}">
+{%- if canonical %}
+<meta property="og:url" content="{{ canonical }}">
+{%- endif %}
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="{{ site.themeColor }}">
+<link rel="manifest" href="/manifest.json">
+{%- if canonical %}
+<link rel="canonical" href="{{ canonical }}">
+{%- endif %}
+<link rel="stylesheet" href="/assets/style.css">
+{%- if jsonLd %}
+<script type="application/ld+json">
+{{ jsonLd | safe }}
+</script>
+{%- endif %}
+{%- if extraHead %}
+{{ extraHead | safe }}
+{%- endif %}
+{%- if pageStyle %}
+<style>
+{{ pageStyle | safe }}
+</style>
+{%- endif %}
+</head>
+<body>
+
+{% include "partials/nav.njk" %}
+
+{{ content | safe }}
+
+{% include "partials/footer.njk" %}
+
+{%- if pageScript %}
+<script>
+{{ pageScript | safe }}
+</script>
+{%- endif %}
+
+</body>
+</html>

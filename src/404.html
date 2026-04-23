@@ -1,0 +1,132 @@
+---
+layout: layouts/base.njk
+title: "404 — Page Not Found · Spinnit"
+description: "This page couldn't be found. Head back to Spinnit for 13 free random generators."
+noindex: true
+canonical: "https://spinnit.site/404.html"
+footerVariant: short
+pageStyle: |
+  .not-found {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    text-align: center;
+  }
+  .not-found .code {
+    font-family: var(--mono);
+    font-size: clamp(5rem, 20vw, 9rem);
+    font-weight: 700;
+    color: var(--accent2);
+    line-height: 1;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .not-found h1 {
+    font-size: clamp(1.2rem, 4vw, 1.75rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+  .not-found p {
+    font-size: 14px;
+    color: var(--text2);
+    max-width: 380px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+  .btn-home {
+    display: inline-block;
+    padding: 12px 28px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: var(--radius);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: background 0.2s, box-shadow 0.2s;
+    margin-bottom: 3rem;
+  }
+  .btn-home:hover {
+    background: var(--accent2);
+    box-shadow: 0 4px 20px var(--accent-glow);
+    color: #fff;
+  }
+  .suggestions-label {
+    font-size: 11px;
+    color: var(--text3);
+    font-family: var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .suggestions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    text-align: left;
+  }
+  .suggestion-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .suggestion-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-2px);
+    color: inherit;
+  }
+  .suggestion-card .sug-icon { font-size: 22px; }
+  .suggestion-card .sug-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  .suggestion-card .sug-desc { font-size: 12px; color: var(--text2); line-height: 1.4; }
+  @media (max-width: 400px) { .suggestions { grid-template-columns: 1fr; } }
+pageScript: |
+  const allTools = [
+    { icon: '🎲', name: 'Random Number', desc: 'Any min to max', href: '/tools/random-number.html' },
+    { icon: '⚄', name: 'Dice Roller', desc: 'D6, D20 and custom', href: '/tools/dice-roller.html' },
+    { icon: '🪙', name: 'Coin Flip', desc: 'Heads or tails instantly', href: '/tools/coin-flip.html' },
+    { icon: '👥', name: 'Team Picker', desc: 'Split into random teams', href: '/tools/team-picker.html' },
+    { icon: '🔮', name: 'Yes / No Wheel', desc: 'Spin for an answer', href: '/tools/yes-no-wheel.html' },
+    { icon: '🎡', name: 'Wheel of Names', desc: 'Pick a random winner', href: '/tools/wheel-of-names.html' },
+    { icon: '🎨', name: 'Colour Generator', desc: 'HEX, RGB and HSL', href: '/tools/colour-generator.html' },
+    { icon: '🔐', name: 'Password Generator', desc: 'Strong secure passwords', href: '/tools/password-generator.html' },
+    { icon: '🍀', name: 'Lottery Picker', desc: 'Lucky numbers fast', href: '/tools/lottery-picker.html' },
+    { icon: '📊', name: 'Random Percentage', desc: 'Min, max, decimals', href: '/tools/percentage-generator.html' },
+    { icon: '🔀', name: 'List Shuffler', desc: 'Randomise any list', href: '/tools/list-shuffler.html' },
+    { icon: '🌍', name: 'Random Country', desc: 'All 195 nations', href: '/tools/random-country.html' },
+    { icon: '👤', name: 'Name Generator', desc: '10 cultures supported', href: '/tools/random-name-generator.html' }
+  ];
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+  const picks = shuffle([...allTools]).slice(0, 4);
+  document.getElementById('suggestions').innerHTML = picks.map(t =>
+    `<a class="suggestion-card" href="${t.href}">
+      <span class="sug-icon">${t.icon}</span>
+      <span class="sug-name">${t.name}</span>
+      <span class="sug-desc">${t.desc}</span>
+    </a>`
+  ).join('');
+---
+<div class="not-found">
+  <span class="code">404</span>
+  <h1>This page got lost in the randomness</h1>
+  <p>We couldn't find what you were looking for. Maybe a random tool will help — or just head back home.</p>
+  <a class="btn-home" href="/index.html">← back to homepage</a>
+
+  <div class="suggestions-label">Try one of these</div>
+  <div class="suggestions" id="suggestions"></div>
+</div>
