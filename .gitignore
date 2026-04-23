@@ -8,6 +8,9 @@ yarn-error.log*
 # Eleventy build output
 _site/
 
+# Translation cache (regenerates on demand)
+.translation-cache/
+
 # Editor
 .idea/
 .vscode/

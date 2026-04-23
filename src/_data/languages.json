@@ -1,0 +1,7 @@
+{
+  "default": "en",
+  "available": [
+    { "code": "en", "label": "English", "prefix": "" },
+    { "code": "de", "label": "Deutsch", "prefix": "/de" }
+  ]
+}

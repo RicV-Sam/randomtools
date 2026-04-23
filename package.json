@@ -11,6 +11,10 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
+    "@vitalets/google-translate-api": "^9.2.1",
+    "gray-matter": "^4.0.3",
+    "node-html-parser": "^7.1.0",
+    "p-limit": "^7.3.0",
     "rimraf": "^5.0.5"
   }
 }

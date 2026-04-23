@@ -25,6 +25,21 @@
 {%- if canonical %}
 <link rel="canonical" href="{{ canonical }}">
 {%- endif %}
+{#- hreflang alternates: derive each language's URL from the canonical by
+    stripping any current language prefix and prepending the target's. -#}
+{%- if canonical and languages %}
+{%- set currentLang = lang or languages.default %}
+{%- set basePath = canonical | replace(site.url, "") %}
+{%- if currentLang != languages.default %}
+  {%- set stripped = basePath | replace("/" + currentLang + "/", "/") %}
+{%- else %}
+  {%- set stripped = basePath %}
+{%- endif %}
+{%- for l in languages.available %}
+<link rel="alternate" hreflang="{{ l.code }}" href="{{ site.url }}{{ l.prefix }}{{ stripped }}">
+{%- endfor %}
+<link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ stripped }}">
+{%- endif %}
 <link rel="stylesheet" href="/assets/style.css">
 {%- if jsonLd %}
 <script type="application/ld+json">
