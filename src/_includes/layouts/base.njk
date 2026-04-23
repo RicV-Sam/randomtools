@@ -42,7 +42,9 @@
 </head>
 <body>
 
+{%- if not hideNav %}
 {% include "partials/nav.njk" %}
+{%- endif %}
 
 {{ content | safe }}
 

@@ -1,39 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1425572131754335" crossorigin="anonymous"></script>
-<title>Spinnit — Free Random Generators, Wheels &amp; Pickers</title>
-<meta name="description" content="Free online random generators for everyone. Dice roller, coin flip, wheel of names, password generator, lottery numbers, random country and more. Fast, free, no sign-up needed.">
-<meta property="og:title" content="Spinnit — Free Random Generators, Wheels &amp; Pickers">
-<meta property="og:description" content="Free online random generators for everyone. Dice roller, coin flip, wheel of names, password generator and more.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://spinnit.site/">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spinnit — Free Random Tools">
-<meta name="twitter:description" content="33 free random tools and presets. No sign-up, works on mobile.">
-<meta name="theme-color" content="#7c6af7">
-<link rel="manifest" href="manifest.json">
-<link rel="canonical" href="https://spinnit.site/">
-<link rel="stylesheet" href="assets/style.css">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Spinnit",
-  "url": "https://spinnit.site/",
-  "description": "Free online random generators and tools",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://spinnit.site/?q={search_term_string}",
-    "query-input": "required name=search_term_string"
+---
+layout: layouts/base.njk
+title: "Spinnit — Free Random Generators, Wheels & Pickers"
+description: "Free online random generators for everyone. Dice roller, coin flip, wheel of names, password generator, lottery numbers, random country and more. Fast, free, no sign-up needed."
+ogDescription: "Free online random generators for everyone. Dice roller, coin flip, wheel of names, password generator and more."
+canonical: "https://spinnit.site/"
+hideNav: true
+extraHead: |
+  <meta name="twitter:title" content="Spinnit — Free Random Tools">
+  <meta name="twitter:description" content="33 free random tools and presets. No sign-up, works on mobile.">
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Spinnit",
+    "url": "https://spinnit.site/",
+    "description": "Free online random generators and tools",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://spinnit.site/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
   }
-}
-</script>
-</head>
-<body>
-
+pageScript: |
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+---
 <nav class="nav">
   <div class="nav-logo">spinn<span>it</span></div>
   <a href="/tools/" style="font-size:12px;color:var(--text3);font-family:var(--mono);text-decoration:none;">browse all 33 tools →</a>
@@ -157,15 +149,3 @@
   <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Popular Tools</h2>
   <p style="font-size:14px;color:var(--text2);line-height:1.8;">Our most used tools include the <a href="tools/random-number.html" style="color:var(--accent2);">random number generator</a>, <a href="tools/coin-flip.html" style="color:var(--accent2);">coin flip</a>, <a href="tools/wheel-of-names.html" style="color:var(--accent2);">wheel of names</a>, <a href="tools/team-picker.html" style="color:var(--accent2);">team picker</a>, and <a href="tools/lottery-picker.html" style="color:var(--accent2);">lottery number generator</a>. Each tool is free, fast, and requires no sign-up.</p>
 </section>
-
-<footer>
-  <p>Spinnit &copy; 2026 — free forever &nbsp;|&nbsp; <a href="/tools/">All Tools</a> &nbsp;|&nbsp; <a href="/blog/">Blog</a> &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/terms.html">Terms</a> &nbsp;|&nbsp; <a href="/about.html">About</a> &nbsp;|&nbsp; <a href="/contact.html">Contact</a></p>
-</footer>
-
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
-}
-</script>
-</body>
-</html>
