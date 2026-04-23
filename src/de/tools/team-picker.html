@@ -1,0 +1,189 @@
+---
+layout: layouts/base.njk
+title: Random Team Picker – Teilt in Teams | Spinnit
+description: >-
+  Jede Liste von Namen in gleiche Teams zu teilen. Freier Team-Generator für
+  Sport-, Klassen-, Arbeits- und Gruppenprojekte.
+canonical: 'https://spinnit.site/de/tools/team-picker.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Random Team Picker",
+    "description": "Eine Liste von Namen in zufällige Teams teilen",
+    "url": "https://spinnit.site/de/tools/team-picker.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="Random Team Picker | Spinnit">
+
+  <meta name="twitter:description" content="Teilen Sie jede Liste von Namen in
+  zufällige Teams sofort. Kostenlos und mobil.">
+
+  <script type="application/ld+json">
+
+  {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can teams end up with unequal sizes?",
+          "acceptedAnswer": { "@type": "Answer", "text": "If the number of names doesn't divide evenly by the number of teams, some teams will have one extra member. The tool handles this automatically." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a limit on the number of names?",
+          "acceptedAnswer": { "@type": "Answer", "text": "There is no strict limit. The tool works well with dozens of names and the output scrolls naturally for larger groups." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool free to use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work on mobile?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
+        }
+      ]
+    }
+  </script>
+pageStyle: >
+
+  .teams-output {
+  display:flex;flex-direction:column;gap:10px;margin-top:1.25rem; }
+
+  .team-card { background:var(--bg2);border:1px solid
+  var(--border);border-radius:var(--radius);padding:12px 14px; }
+
+  .team-title {
+  font-family:var(--mono);font-size:12px;color:var(--accent2);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;
+  }
+
+  .team-members { display:flex;flex-wrap:wrap;gap:6px; }
+
+  .member-chip { background:var(--bg3);border:1px solid
+  var(--border);border-radius:20px;padding:4px
+  12px;font-size:13px;color:var(--text); }
+pageScript: |
+
+  function pickTeams() {
+    const raw = document.getElementById('nameList').value.trim();
+    if (!raw) { alert('Please enter some names first'); return; }
+    const names = raw.split('\n').map(n => n.trim()).filter(n => n);
+    const numTeams = Math.min(parseInt(document.getElementById('numTeams').value) || 2, names.length);
+    const prefix = document.getElementById('teamPrefix').value || 'Team';
+
+    // Fisher-Yates shuffle
+    const shuffled = [...names];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    const teams = Array.from({length: numTeams}, () => []);
+    shuffled.forEach((name, i) => teams[i % numTeams].push(name));
+
+    const out = document.getElementById('teamsOutput');
+    const colors = ['#a78bfa','#34d399','#fb923c','#60a5fa','#f472b6','#facc15'];
+    out.innerHTML = teams.map((members, i) => `
+      <div class="team-card">
+        <div class="team-title" style="color:${colors[i % colors.length]}">${prefix} ${i + 1} · ${members.length} players</div>
+        <div class="team-members">${members.map(m => `<span class="member-chip">${m}</span>`).join('')}</div>
+      </div>
+    `).join('');
+
+    out.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">👥</div>
+    <h1>Random Team Picker</h1>
+    <p>Fügen Sie Ihre Liste der Namen, wählen Sie, wie viele Teams</p>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Namen (eines pro Zeile)</label>
+      <textarea id="nameList" placeholder="Alice
+Bob.
+Charlie
+Diana
+Hallo.
+Frank
+Gnade
+Hank"></textarea>
+    </div>
+    <div class="control-row">
+      <div class="control-group">
+        <label>Anzahl der Teams</label>
+        <input type="number" id="numTeams" value="2" min="2" max="20">
+      </div>
+      <div class="control-group">
+        <label>Teamnamen (optional)</label>
+        <input type="text" id="teamPrefix" placeholder="Team" value="Team">
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pickTeams()">PICK TEAMS</button>
+
+  <div id="teamsOutput" class="teams-output"></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Der Random Team Picker teilt jede Liste von Namen in gleiche Teams in Sekunden. Fügen Sie Ihre Namen, wählen Sie, wie viele Teams Sie brauchen, und es verteilt Spieler ziemlich und zufällig jedes Mal. Ideal für PE-Lehrer, Sporttrainer, Trivia-Nacht und Werkstätten.</p>
+
+    <h2>Wie zu benutzen</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Geben Sie Ihre Namensliste in den Textbereich ein, einen Namen pro Zeile.</li>
+      <li>Stellen Sie die Anzahl der Teams mit dem Feld Anzahl der Teams fest.</li>
+      <li>Optional ändern Sie das Team-Label-Präfix (Standard ist "Team") auf etwas Brauchbares.</li>
+      <li>Klicken Sie auf Pick Teams, um die Gruppen sofort zu generieren.</li>
+      <li>Klicken Sie erneut, um neu zu klingen und komplett neue Teams zu produzieren.</li>
+    </ol>
+
+    <h2>Gemeinsame Nutzungen</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>PE-Klasse oder Sporttag Teamauswahl in der Schule</li>
+      <li>Mitarbeiter in Gruppen für Workshops oder Schulungen teilen</li>
+      <li>Spieler organisieren für trivia quiz Nächte</li>
+      <li>Klassenkameraden in Projektgruppen ziemlich</li>
+      <li>Turnierkonsolen für Brettspielabende oder Sportvereine</li>
+      <li>Zufällige Zuweisung von Präsentationsauftrag innerhalb eines Teamtreffens</li>
+    </ul>
+
+    <h2>Warum Spinnit verwenden</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Der hier verwendete Fisher-Yates-Schall garantiert, dass jede mögliche Kombination gleichermaßen wahrscheinlich ist – kein Spieler wird jemals systematisch zusammengefügt. Teams können sofort wieder gekrümmt werden, wenn jemand die Ziehung bestreitet. Keine Daten werden gespeichert, kein Konto benötigt, und es funktioniert genauso gut auf einem Telefon wie auf einem Laptop.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Können Teams mit ungleichen Größen enden?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Wenn die Anzahl der Namen nicht gleichmäßig durch die Anzahl der Teams teilt, werden einige Teams ein zusätzliches Mitglied haben. Das Werkzeug handhabt dies automatisch mit einer Rundrobin-Verteilung.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Gibt es ein Limit für die Anzahl der Namen?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Es gibt keine strenge Grenze. Das Tool funktioniert gut mit Dutzenden von Namen und die Ausgabe scrollt natürlich für größere Gruppen.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist dieses Tool kostenlos zu verwenden?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, völlig kostenlos ohne Anmeldung erforderlich.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Arbeitet das auf Handy?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, alle Spinnit-Tools sind mobil-first und arbeiten an jedem Gerät.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> Liste Shuffler</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Rad der Namen</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> In den Warenkorb</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Ja kein Rad</a>
+    </div>
+  </section>
+
+</main>

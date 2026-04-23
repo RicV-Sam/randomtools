@@ -1,0 +1,142 @@
+---
+layout: layouts/base.njk
+title: Zufallszahl zwischen 1 und 1000 – Freier Generator | Spinnit
+description: >-
+  Generieren Sie sofort eine Zufallszahl zwischen 1 und 1000. Kostenlos, fair
+  und schnell für Giveaways, große Raffeln, Forschungsproben und ID-Zeichnungen.
+  Keine Anmeldung.
+ogTitle: Random Nummer zwischen 1 und 1000 | Spinnit
+ogDescription: >-
+  Kostenlose Zufallszahl von 1 bis 1000 mit einem Hahn. Ideal für große
+  Giveaways und Forschungsproben.
+canonical: 'https://spinnit.site/de/tools/random-number-1-1000.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Zufallszahl zwischen 1 und 1000",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Can the same number come up twice?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each generation is independent so repeats are possible. For unique-only picks, shuffle a list and take the first N."}},
+      {"@type":"Question","name":"Is 1000 included?","acceptedAnswer":{"@type":"Answer","text":"Yes. The range includes both 1 and 1000, and every number in between has equal chance."}},
+      {"@type":"Question","name":"Can I use this as a giveaway draw?","acceptedAnswer":{"@type":"Answer","text":"Yes. The method is fair and unbiased. Record the generation and post a screenshot for transparency."}}
+    ]}
+  </script>
+pageScript: >
+
+  const MIN = 1, MAX = 1000;
+
+  const history = [];
+
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code
+  === 'Enter') { e.preventDefault(); generate(); }});
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🔢</div>
+    <h1>Zufallszahl zwischen 1 und 1000</h1>
+    <p>Eine faire, sofortige Abholung von 1 bis 1000</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">Ihre Nummer (1–1000)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Wie viele Zahlen?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERAT</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Aktuelle Ergebnisse</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Eine Reihe von ein bis tausend ist die süße Stelle für größere Ziehungen: große Giveaways, nummerierte Kundenlisten, Forschungsproben oder die Zuordnung von einzigartigen IDs. Dieser Generator gibt Ihnen eine wirklich zufällige Auswahl in Millisekunden, ohne Konten, Anzeigen im Werkzeugbereich oder Tracking Ihrer Picks.</p>
+
+    <h2>Gute Passform für 1–1000</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Social Media Giveaways mit mehreren hundert Teilnehmern</li>
+      <li>Stichproben zufälliger Datensätze aus einem Datensatz von bis zu 1000 Zeilen</li>
+      <li>Zuweisung von temporären ID-Nummern an Umfrageteilnehmer</li>
+      <li>Abholung einer zufälligen Seite aus einem großen Dokument oder Referenzbuch</li>
+      <li>Lernwahrscheinlichkeit — 1-in-1000 Quoten sind ein gemeinsames Lehrbuch Beispiel</li>
+    </ul>
+
+    <h2>Tipp — Mehrfachauszüge auf einmal</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Sie müssen mehrere Gewinner wählen? Set <em>Wie viele Zahlen?</em> bis zu 100 vor dem Treffer erzeugen. Duplikate können erscheinen — wenn Sie nur einmal wählen, verwenden Sie die <a href="list-shuffler.html">Liste Shuffler</a> statt und nehmen Sie die ersten N Ergebnisse.</p>
+
+    <h2>Sonstige Bereiche</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Vollständig <a href="random-number.html">Sonderangebot</a> verfügbar, oder versuchen <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-20.html">1–20</a>, <a href="random-number-1-6.html">1–6</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann die gleiche Nummer zweimal hochkommen?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Jede Generation ist unabhängig, so dass Wiederholungen möglich sind - vor allem über viele Züge. Für einmalige Picks, schütteln Sie eine Liste und nehmen Sie die erste N statt.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist 1000 enthalten?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Der Bereich umfasst sowohl 1 als auch 1000 und jede Anzahl dazwischen hat gleiche Chancen.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich das als Giveaway-Ziehung verwenden?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja — die Methode ist fair und unvoreingenommen. Für eine voll auditierbare Ziehung, protokollieren Sie die Generation auf Video, benennen Sie die Reichweite und das Datum und posten Sie den Screenshot zusammen mit der Gewinner-Ankündigung.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Individuelle Reichweite Generator</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lotterie Picker</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> Liste Shuffler</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> 1–100 Generator</a>
+    </div>
+  </section>
+
+</main>

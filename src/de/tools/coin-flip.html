@@ -1,0 +1,174 @@
+---
+layout: layouts/base.njk
+title: Coin Flip – Kopf oder Schwanz Online | Spinnit
+description: >-
+  Drehen Sie sofort eine virtuelle Münze online. Kostenlose Köpfe oder Schwänze
+  Münzen Flipper mit Flip-Geschichte und Statistiken. Funktioniert auf allen
+  Geräten.
+canonical: 'https://spinnit.site/de/tools/coin-flip.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "In den Warenkorb",
+    "description": "Virtuelle Münzflip — Köpfe oder Schwänze sofort",
+    "url": "https://spinnit.site/de/tools/coin-flip.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="Coin Flip | Spinnit">
+
+  <meta name="twitter:description" content="Drehen Sie eine Münze online. Kopf
+  oder Schwanz — sofortiges Ergebnis mit Flip-Zähler. Kostenlos und mobil.">
+
+  <script type="application/ld+json">
+
+  {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is the flip truly 50/50?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Each flip is an independent random event with exactly a 50% chance of heads or tails. Previous results have no influence on the next flip." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I flip multiple coins at once?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The coin flip tool flips one coin per tap. For multiple simultaneous results, try the Random Number Generator set to a range of 0–1." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool free to use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work on mobile?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
+        }
+      ]
+    }
+  </script>
+pageStyle: >
+
+  .coin {
+    width: 120px; height: 120px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 52px; margin: 0 auto 1rem;
+    background: var(--bg3); border: 2px solid var(--border2);
+    transition: transform 0.1s;
+  }
+
+  .coin.flipping { animation: flip 0.5s ease; }
+
+  @keyframes flip {
+    0%   { transform: rotateY(0deg) scale(1); }
+    25%  { transform: rotateY(90deg) scale(0.8); }
+    50%  { transform: rotateY(180deg) scale(1.1); }
+    75%  { transform: rotateY(270deg) scale(0.9); }
+    100% { transform: rotateY(360deg) scale(1); }
+  }
+
+  .stats-row { display:grid;grid-template-columns:1fr
+  1fr;gap:10px;margin-bottom:1rem; }
+
+  .stat-box { background:var(--bg2);border:1px solid
+  var(--border);border-radius:var(--radius);padding:12px;text-align:center; }
+
+  .stat-num {
+  font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--accent2);
+  }
+
+  .stat-lbl {
+  font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;
+  }
+pageScript: "\nlet heads = 0, tails = 0;\nconst flipHistory = [];\n\nfunction flip() {\n  const coin = document.getElementById('coin');\n  const result = document.getElementById('result');\n  coin.classList.remove('flipping');\n  void coin.offsetWidth;\n  coin.classList.add('flipping');\n\n  setTimeout(() => {\n    const isHeads = Math.random() < 0.5;\n    if (isHeads) { heads++; coin.textContent = '\U0001F315'; result.textContent = 'Heads!'; flipHistory.unshift('H'); }\n    else { tails++; coin.textContent = '\U0001F311'; result.textContent = 'Tails!'; flipHistory.unshift('T'); }\n    document.getElementById('headsCount').textContent = heads;\n    document.getElementById('tailsCount').textContent = tails;\n    if (flipHistory.length > 15) flipHistory.pop();\n    const sec = document.getElementById('historySection');\n    sec.style.display = 'block';\n    document.getElementById('historyList').innerHTML = flipHistory.map(f => `<span class=\"history-item\" style=\"color:${f==='H'?'#a78bfa':'#fb923c'}\">${f==='H'?'Heads':'Tails'}</span>`).join('');\n  }, 500);\n}\n\nfunction resetStats() {\n  heads = 0; tails = 0; flipHistory.length = 0;\n  document.getElementById('headsCount').textContent = '0';\n  document.getElementById('tailsCount').textContent = '0';\n  document.getElementById('coin').textContent = '\U0001FA99';\n  document.getElementById('result').textContent = 'Tap to flip';\n  document.getElementById('historySection').style.display = 'none';\n}\n\ndocument.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); flip(); }});\n"
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🪙</div>
+    <h1>In den Warenkorb</h1>
+    <p>Tap to flip — Köpfe oder Schwänze?</p>
+  </div>
+
+  <div class="result-box" id="resultBox" onclick="flip()" style="cursor:pointer;user-select:none;">
+    <div class="coin" id="coin">🪙</div>
+    <div class="result-text" id="result">Tippen Sie auf Flip</div>
+    <div class="result-label">Tippen Sie überall, um wieder zu drehen</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num" id="headsCount">0</div>
+      <div class="stat-lbl">Kopf</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="tailsCount">0</div>
+      <div class="stat-lbl">Schnecken</div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="flip()">FLIP COIN</button>
+  <button class="btn-copy" onclick="resetStats()" style="margin-top:8px;">Alle Statistiken zurücksetzen</button>
+
+  <div class="history" id="historySection" style="display:none;margin-top:1rem;">
+    <div class="history-label">Geschichte</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Das Coin Flip Tool gibt Ihnen ein Instant Heads oder Schwänze Ergebnis mit einem einzigen Hahn. Es verfolgt Ihre Flip-Geschichte und zählt Köpfe und Schwänze getrennt, so können Sie irgendwelche Streaks über eine lange Sitzung sehen. Perfekt für schnelle Entscheidungen, Sportkapitän Wahl endet, oder nur befriedigende Neugier über Wahrscheinlichkeit.</p>
+
+    <h2>Wie zu benutzen</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Tippen Sie auf die Münzgrafik oder klicken Sie auf Flip Coin um zu drehen.</li>
+      <li>Das Ergebnis – Heads oder Tails – erscheint sofort mit einer kurzen Animation.</li>
+      <li>Überprüfen Sie die Kopf- und Schwanzzähler, um Ihre Laufsummen zu sehen.</li>
+      <li>Scrollen Sie nach unten, um Ihre volle Flip-Geschichte für die Sitzung anzuzeigen.</li>
+      <li>Verwenden Sie Reset Stats, um die Zähler zu löschen und einen frischen Lauf zu starten.</li>
+    </ol>
+
+    <h2>Gemeinsame Nutzungen</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Entscheiden, wer zuerst in einem Brettspiel oder Kartenspiel geht</li>
+      <li>Sportkapitänen, die sich am Anfang eines Spiels entscheiden</li>
+      <li>Trennung der Beziehungen in Klassenzimmerentscheidungen oder Gruppenabstimmungen</li>
+      <li>Zuweisung von zufälligen Aufgaben oder Pflichten zwischen zwei Personen</li>
+      <li>Schnelle Termin-Nacht-Entscheidungen, wenn Sie wirklich nicht zustimmen können</li>
+      <li>Erweiterte Wahrscheinlichkeit Experimente über viele Flips</li>
+    </ul>
+
+    <h2>Warum Spinnit verwenden</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Jeder Flip verwendet ein wirklich zufälliges Browser-basiertes Ergebnis ohne Muster oder Bias. Der eingebaute Geschichtstracker lässt Sie erweiterte Sessions ausführen, ohne eine Tally von Hand zu halten. Keine Anmeldung, arbeitet sofort auf jedem Gerät einschließlich Mobilgerät, und keine Daten werden je gespeichert.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist der Flip wirklich 50/50?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Jeder Flip ist ein unabhängiges zufälliges Ereignis mit genau 50% Chance auf Köpfe oder Schwänze, mit der eingebauten Zufallsfunktion Ihres Browsers. Bisherige Ergebnisse haben keinen Einfluss auf den nächsten Flip.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich mehrere Münzen auf einmal drehen?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Das Münz-Flip-Tool kippt eine Münze pro Hahn. Für mehrere gleichzeitige Ergebnisse, versuchen Sie den Random Number Generator auf eine Reihe von 0–1 gesetzt.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist dieses Tool kostenlos zu verwenden?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, völlig kostenlos ohne Anmeldung erforderlich.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Arbeitet das auf Handy?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, alle Spinnit-Tools sind mobil-first und arbeiten an jedem Gerät.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Dice Roller</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Ja kein Rad</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Randnummer Generator</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Random Team Picker</a>
+    </div>
+  </section>
+
+</main>

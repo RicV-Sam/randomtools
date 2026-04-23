@@ -1,0 +1,142 @@
+---
+layout: layouts/base.njk
+title: Random Nummer zwischen 1 und 25 – Kostenloser Klassenzimmer Picker | Spinnit
+description: >-
+  Generieren Sie sofort eine Zufallszahl zwischen 1 und 25. Ideal für
+  Klassenzimmer von 25 Studenten, bingo Spalten und Gruppenspiele. Kostenlos,
+  keine Anmeldung.
+ogTitle: Random Nummer zwischen 1 und 25 | Spinnit
+ogDescription: >-
+  Kostenlose faire Auswahl von 1 bis 25 — ideal für Klassenzimmer-Roster und
+  kleine Gruppenspiele.
+canonical: 'https://spinnit.site/de/tools/random-number-1-25.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Nummer zwischen 1 und 25",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Can I avoid picking the same student twice in a row?","acceptedAnswer":{"@type":"Answer","text":"Not from a single generation. For no-repeat order use the List Shuffler on 25 names and work through the shuffled order."}},
+      {"@type":"Question","name":"Does this work on a projector?","acceptedAnswer":{"@type":"Answer","text":"Yes. The result is large and high-contrast, visible from the back of a classroom."}},
+      {"@type":"Question","name":"Is any data stored?","acceptedAnswer":{"@type":"Answer","text":"No. Results are generated in the browser and never sent to a server."}}
+    ]}
+  </script>
+pageScript: >
+
+  const MIN = 1, MAX = 25;
+
+  const history = [];
+
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code
+  === 'Enter') { e.preventDefault(); generate(); }});
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎒</div>
+    <h1>Random Nummer zwischen 1 und 25</h1>
+    <p>Faire Auswahl für Klassenzimmer und kleine Gruppen</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">Ihre Nummer (1–25)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Wie viele Zahlen?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERAT</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Aktuelle Ergebnisse</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Fünfundzwanzig ist die durchschnittliche britische und US-Klassengröße, die eine zufällige Zahl zwischen 1 und 25 einer der am meisten genutzten Bereiche im Bildungswesen macht. Lehrer verwenden es, um Studenten zu wählen, rufen Freiwillige, entscheiden, wer zuerst präsentiert, oder zufällige Sitzplätze. Diese Seite gibt Ihnen eine saubere, faire Auswahl in einem Hahn.</p>
+
+    <h2>Handy für</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Abholung eines Schülers mit Rollennummer von einer Klasse von bis zu 25</li>
+      <li>Zufällige Sitzzuweisungen zu Beginn eines Begriffs</li>
+      <li>Auswahl einer Spaltennummer in einer 5×5 Bingokarte</li>
+      <li>Zufällige Zuordnung von 25 nummerierten Karten oder Aufforderungen</li>
+      <li>Eine Frage aus einer Liste von 25 Review-Fragen</li>
+    </ul>
+
+    <h2>Für größere Gruppen</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Eine Klasse von 30 lehren? Versuch <a href="random-number.html">Benutzerdefinierte Reichweite</a> und setzen Sie das Maximum auf Ihre Klassengröße. Für namenbasierte Picking statt Zahlen, die <a href="wheel-of-names.html">Rad der Namen</a> ist der Klassenzimmer-Liebling.</p>
+
+    <h2>Sonstige Bereiche</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Auch nützlich: <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-50.html">1–50</a>, <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-20.html">1–20</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich sicherstellen, dass derselbe Schüler nicht zweimal hintereinander abgeholt wird?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Nicht von einer einzigen Generation — jede Auswahl ist unabhängig. Verwenden Sie die <a href="list-shuffler.html">Liste Shuffler</a> auf einer Liste von 25 Namen oder Nummern und arbeiten durch die gedämpfte Ordnung.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Arbeitet das an einem Projektor?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Das Ergebnis ist groß, kontrastreich und sichtbar von der Rückseite eines Klassenzimmers, wenn projiziert.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Sind Daten gespeichert?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Nein. Die Ergebnisse werden im Browser generiert und nie an einen Server gesendet. Die Geschichte wird deutlich, wenn Sie die Registerkarte schließen.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Rad der Namen</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> Liste Shuffler</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Benutzerdefinierte Reichweite</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
+    </div>
+  </section>
+
+</main>

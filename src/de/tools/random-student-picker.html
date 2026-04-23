@@ -1,0 +1,184 @@
+---
+layout: layouts/base.njk
+title: Random Student Picker – Kostenloser Klassenzimmer Name Picker | Spinnit
+description: >-
+  Ein freier Schüler Picker für Lehrer. Fügen Sie Ihren Klassen-Roster, tippen
+  Sie einmal, um einen Schüler zu wählen. Arbeiten an Projektoren, Telefonen und
+  Tablets. Keine Anmeldung.
+ogTitle: Random Student Picker | Spinnit
+ogDescription: >-
+  Kostenloser Klassenzimmer Name Picker — Pastennamen, Tippen Sie auf zu wählen.
+  Projektorfreundlich.
+canonical: 'https://spinnit.site/de/tools/random-student-picker.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Zufälliger Student Picker",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is my class list saved anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Names live only in your browser tab. Nothing is sent to a server."}},
+      {"@type":"Question","name":"What happens when every student has been picked?","acceptedAnswer":{"@type":"Answer","text":"The tool announces the list is complete and you can tap Reset to start again."}},
+      {"@type":"Question","name":"Can I use this for a whole-school assembly?","acceptedAnswer":{"@type":"Answer","text":"Yes. There's no roster length limit and the picker runs instantly even on hundreds of names."}}
+    ]}
+  </script>
+pageScript: >
+
+  const DEFAULT_NAMES =
+  ['Alex','Amelia','Ben','Chloe','Daniel','Emma','Ethan','Freya','George','Harry','Isla','Jack','Jessica','Liam','Lily','Mia','Noah','Oliver','Olivia','Poppy','Ruby','Sam','Sophie','Thomas','Zoe'];
+
+  document.getElementById('namesInput').value = DEFAULT_NAMES.join('\n');
+
+
+  let pickedSet = new Set();
+
+  let lastPicked = null;
+
+
+  function getNames() {
+    return document.getElementById('namesInput').value
+      .split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
+  }
+
+
+  function pick() {
+    const names = getNames();
+    if (!names.length) { alert('Add some names to the roster first.'); return; }
+    const removePicked = document.getElementById('removePicked').checked;
+    let pool = removePicked ? names.filter(n => !pickedSet.has(n)) : names;
+
+    if (pool.length === 0) {
+      document.getElementById('result').textContent = 'All picked!';
+      document.getElementById('remainingLabel').textContent = `All ${names.length} students have been picked. Tap Reset to start again.`;
+      document.getElementById('remainingLabel').style.display = 'block';
+      return;
+    }
+
+    const winner = pool[Math.floor(Math.random() * pool.length)];
+    document.getElementById('result').textContent = winner;
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+
+    if (removePicked) {
+      pickedSet.add(winner);
+      const remaining = names.length - pickedSet.size;
+      document.getElementById('remainingLabel').textContent = `${remaining} student${remaining === 1 ? '' : 's'} left in the pool.`;
+      document.getElementById('remainingLabel').style.display = 'block';
+      renderHistory();
+    } else {
+      document.getElementById('remainingLabel').style.display = 'none';
+    }
+    lastPicked = winner;
+  }
+
+
+  function resetList() {
+    pickedSet.clear();
+    lastPicked = null;
+    document.getElementById('result').textContent = '—';
+    document.getElementById('remainingLabel').style.display = 'none';
+    document.getElementById('historySection').style.display = 'none';
+  }
+
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (pickedSet.size === 0) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = [...pickedSet].map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+
+  document.getElementById('namesInput').addEventListener('input', resetList);
+
+  document.addEventListener('keydown', e => {
+    if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault(); pick();
+    }
+  });
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎒</div>
+    <h1>Zufälliger Student Picker</h1>
+    <p>Fügen Sie Ihren Klassen-Roster, tippen Sie einmal, um einen Schüler zu wählen</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">ausgewählter Schüler</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">—</div>
+    <div id="remainingLabel" style="font-size:13px;color:var(--text2);margin-top:6px;display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Klassen-Roster (ein Name pro Zeile)</label>
+      <textarea id="namesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;"></textarea>
+    </div>
+    <div class="control-group" style="margin-top:10px;">
+      <label><input type="checkbox" id="removePicked" checked style="margin-right:6px;vertical-align:middle;"> Wähle nicht zweimal denselben Schüler (bis die Liste zurückgesetzt wird)</label>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">PICK A STUDENT</button>
+  <button class="btn-copy" onclick="resetList()" style="margin-top:8px;">Zurück zur Übersicht</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">bereits ausgewählt</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Ein zufälliger Student Picker ist der ruhigste Weg, um die Klasse anzurufen. Keine Hände auf, keine Favoriten, keine Vermutung, wer still war — das Werkzeug wählt, und jeder nimmt das Ergebnis an. Fügen Sie Ihren Rouster einmal ein, tippen Sie einmal pro Frage, und die "Nicht zweimal wählen" Option sorgt dafür, dass jeder Schüler eine Runde bekommt, bevor jemand wieder gefragt wird.</p>
+
+    <h2>Wie Lehrer es benutzen</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Kalte Berufung</strong> — eine Frage stellen, lassen Sie das Werkzeug wählen, die Antworten</li>
+      <li><strong>Lies laut</strong> — wählen, wer den nächsten Absatz liest</li>
+      <li><strong>Präsentationen</strong> — die Vorlageentscheidung rechtlich</li>
+      <li><strong>Start-Aktivitäten</strong> — wählen Sie einen Schüler, um die gestrige Unterrichtsstunde wieder zu entkleiden</li>
+      <li><strong>Verhaltensneutrale Anrufung</strong> — entfernt die Wahrnehmung, dass Sie bestimmte Studenten ansprechen</li>
+    </ul>
+
+    <h2>Tipps für Projektoren</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Der gewählte Name wird in großem Text wiedergegeben, so dass er von der Rückseite des Raumes liest. Für eine noch größere Anzeige drücken Sie F11, um Vollbild zu gehen. Namen, die im Rouster eingegeben werden, werden nie irgendwo gesendet – das gesamte Tool läuft in Ihrem Browser.</p>
+
+    <h2>Willst du ein visuelles Rad?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Für eine spinnende animierte Version, die Kinder lieben, verwenden Sie die <a href="wheel-of-names.html">Rad der Namen</a>. Es unterstützt die gleiche Name-Liste Eingabe mit einer richtigen Rad-Animation. Versuchen Sie auch die <a href="random-name-picker-no-repeat.html">No-Repeat Name Picker</a>, die <a href="team-picker.html">Team Picker</a> für Gruppenarbeit oder <a href="list-shuffler.html">Liste Shuffler</a> einen Ritter in einen Schlag zu schütteln.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist meine Klassenliste irgendwo gespeichert?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Nein. Die Namen leben nur in diesem Browser-Tab. Schließen Sie die Registerkarte und sie sind weg - nichts wird an einen Server gesendet, und kein Konto ist erforderlich.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Was passiert, wenn jeder Schüler ausgewählt wurde?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Wenn "nicht den gleichen Schüler zweimal auswählen" ist angekreuzt, das Tool kündigt die Liste vollständig an und lässt Sie tippen <em>Zurück zur Übersicht</em> wieder vom vollen Rouster zu starten.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich das für eine Ganzschulversammlung verwenden?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja — es gibt keine Begrenzung auf der Rousterlänge, und der Picker läuft sofort auch auf einer Liste von mehreren hundert Namen.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Rad der Namen</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
+      <a class="related-card" href="random-name-picker-no-repeat.html"><span class="ri">🎯</span> No-Repeat Picker</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> Liste Shuffler</a>
+    </div>
+  </section>
+
+</main>

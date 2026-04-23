@@ -1,0 +1,197 @@
+---
+layout: layouts/base.njk
+title: Random Percentage Generator – Kostenloses Tool | Spinnit
+description: >-
+  Generieren Sie einen zufälligen Prozentsatz oder Dezimal zwischen jedem
+  Bereich. Stellen Sie min, max und dezimale Präzision. Kostenlose
+  Online-Prozent-Tool.
+canonical: 'https://spinnit.site/de/tools/percentage-generator.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Zufälliger Prozentsatz Generator",
+    "description": "Generieren Sie zufällige Prozentsätze und Dezimale zwischen min und max Wert",
+    "url": "https://spinnit.site/de/tools/percentage-generator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="Zufälliger Prozentsatz Generator |
+  Spinnit">
+
+  <meta name="twitter:description" content="Erzeugen Sie einen zufälligen
+  Prozentsatz zwischen min und max. Dezimale Präzision einstellen. Kostenlos und
+  sofort.">
+
+  <script type="application/ld+json">
+
+  {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I set the decimal precision?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The decimal places dropdown lets you choose 0 (whole numbers), 1, 2, or 3 decimal places." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I generate more than one value at a time?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Set the 'How many values?' field to up to 20 and all results will appear together." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool free to use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work on mobile?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
+        }
+      ]
+    }
+  </script>
+pageScript: >
+
+  const history = [];
+
+
+  function generate() {
+    const min = parseFloat(document.getElementById('minVal').value) || 0;
+    const max = parseFloat(document.getElementById('maxVal').value) || 100;
+    const decimals = parseInt(document.getElementById('decimals').value);
+    const count = Math.min(parseInt(document.getElementById('count').value)||1, 20);
+    if (min >= max) { alert('Max must be greater than Min'); return; }
+
+    const results = Array.from({length: count}, () => (Math.random() * (max - min) + min).toFixed(decimals));
+    const display = results.map(r => r + '%').join(', ');
+
+    document.getElementById('result').textContent = display;
+    document.getElementById('resultBox').classList.remove('pop');
+    void document.getElementById('resultBox').offsetWidth;
+    document.getElementById('resultBox').classList.add('pop');
+
+    history.unshift(display);
+    if (history.length > 10) history.pop();
+    const sec = document.getElementById('historySection');
+    sec.style.display = 'block';
+    document.getElementById('historyList').innerHTML = history.map(h => `<span class="history-item">${h}</span>`).join('');
+  }
+
+
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+
+  document.addEventListener('keydown', e => {
+  if(e.code==='Space'){e.preventDefault();generate();}});
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">📊</div>
+    <h1>Zufälliger Prozentsatz Generator</h1>
+    <p>Erzeugen eines zufälligen Prozentsatzes oder Dezimalwerts</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label" id="resultLabel">Ihr Prozentsatz</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-row">
+      <div class="control-group">
+        <label>Mindestgehalt</label>
+        <input type="number" id="minVal" value="0" step="any">
+      </div>
+      <div class="control-group">
+        <label>Höchstgehalt</label>
+        <input type="number" id="maxVal" value="100" step="any">
+      </div>
+    </div>
+    <div class="control-group">
+      <label>Dekorative Plätze</label>
+      <select id="decimals">
+        <option value="0">0 — Gesamtzahl (z.B. 47 %)</option>
+        <option value="1" selected>1 — z.B. 47,3%</option>
+        <option value="2">2 — z.B. 47,38%</option>
+        <option value="3">3 — z.B. 47,381%</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label>Wie viele Werte?</label>
+      <input type="number" id="count" value="1" min="1" max="20">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERKENNUNG</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+
+  <div class="history" id="historySection" style="display:none;margin-top:1rem;">
+    <div class="history-label">Aktuelle Ergebnisse</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Der Random Percentage Generator produziert einen Prozentsatz oder Dezimal zwischen jedem Minimum und Maximum, das Sie definieren, mit Präzision bis zu drei Dezimalstellen. Sie können bis zu 20 Werte auf einmal generieren und die Ergebnisse mit einem Klick kopieren. Praktisch für Tests, Simulationen, Spiele und jedes Szenario, das einen fairen Zufallsanteil benötigt.</p>
+
+    <h2>Wie zu benutzen</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Legen Sie Ihre Mindest- und Maximalwerte fest (Standard ist 0–100).</li>
+      <li>Wählen Sie die Anzahl der Dezimalstellen von 0 bis 3.</li>
+      <li>Stellen Sie fest, wie viele Werte Sie sofort generieren möchten (bis 20).</li>
+      <li>Klicken Sie auf Prozent generieren, um Ihr Ergebnis zu erhalten.</li>
+      <li>Verwenden Sie die Schaltfläche Kopieren, um die Ergebnisse in Ihrer Zwischenablage zu speichern.</li>
+    </ol>
+
+    <h2>Gemeinsame Nutzungen</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Simulieren von Rabatten oder Preismarkups in Geschäftsübungen</li>
+      <li>Zufällige Wahrscheinlichkeitswerte für Codierung oder Spielentwicklung generieren</li>
+      <li>Klassenraumübungen in Wahrscheinlichkeit und Statistik</li>
+      <li>Testen von Datenvisualisierungstools mit realistischen Zufallsprozenteingängen</li>
+      <li>Entscheidungsspiele, bei denen ein Schwellenwert prozentual ein Ergebnis festlegt</li>
+      <li>Random Fertigstellung oder Fortschritt Barwerte für UI Prototyping</li>
+    </ul>
+
+    <h2>Warum Spinnit verwenden</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Jeder Wert wird in Ihrem Browser generiert, ohne dass Daten irgendwo gesendet werden. Die Ergebnishistorie verfolgt Ihre aktuellen Ausgänge, so dass Sie Werte ohne Notizen vergleichen können. Funktioniert auf jedem Gerät ohne Installation oder Anmeldung und unterstützt Reichweiten über 0–100 für volle Flexibilität.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich die Dezimalgenauigkeit einstellen?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Die Dezimalstellen Dropdown können Sie 0 (Lochzahlen), 1, 2 oder 3 Dezimalstellen in jedem generierten Ergebnis auswählen.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich zu einer Zeit mehr als einen Wert generieren?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Setzen Sie das Feld "Wie viele Werte?" auf bis zu 20 und alle Ergebnisse werden zusammen angezeigt, getrennt von Kommas.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist dieses Tool kostenlos zu verwenden?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, völlig kostenlos ohne Anmeldung erforderlich.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Arbeitet das auf Handy?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, alle Spinnit-Tools sind mobil-first und arbeiten an jedem Gerät.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Randnummer Generator</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Dice Roller</a>
+      <a class="related-card" href="colour-generator.html"><span class="ri">🎨</span> Farbgenerator</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> Liste Shuffler</a>
+    </div>
+  </section>
+
+</main>

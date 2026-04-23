@@ -1,0 +1,288 @@
+---
+layout: layouts/base.njk
+title: 'Lottery Number Generator – Großbritannien, US &amp; Mehr | Spinnit'
+description: >-
+  Generieren Sie zufällige Lottozahlen für UK Lotto, EuroMillions, Powerball,
+  Mega Millions und mehr. Kostenlose Glückszahl Picker.
+canonical: 'https://spinnit.site/de/tools/lottery-picker.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Lotterie Nummer Generator",
+    "description": "Generieren Sie zufällige Lottozahlen für große Lotterien weltweit",
+    "url": "https://spinnit.site/de/tools/lottery-picker.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="Lotterie Nummer Generator | Spinnit">
+
+  <meta name="twitter:description" content="Generieren Sie Glückslotteriezahlen
+  für große Lotterien weltweit. Kostenlos und sofort.">
+
+  <script type="application/ld+json">
+
+  {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are these numbers truly random?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The generator uses a random shuffle of all possible numbers, giving every combination an equal chance of appearing." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I generate multiple lines at once?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Set the 'Number of lines' field to up to 6 and all lines will be generated together." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool free to use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work on mobile?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
+        }
+      ]
+    }
+  </script>
+pageStyle: >
+
+  .lottery-balls {
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:1.25rem 0;
+  }
+
+  .ball {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 16px; font-weight: 700;
+    border: 2px solid rgba(255,255,255,0.1);
+    animation: ballPop 0.3s ease both;
+  }
+
+  @keyframes ballPop {
+    from { transform: scale(0) rotate(-20deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  .ball-main { background: linear-gradient(135deg, #7c6af7, #a78bfa); color:
+  #fff; }
+
+  .ball-bonus { background: linear-gradient(135deg, #f59e0b, #fbbf24); color:
+  #1c1000; }
+
+  .ball-label {
+  font-size:11px;color:var(--text3);font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;
+  }
+pageScript: |
+
+  const lotteries = {
+    uklotto:     { name:'UK Lotto', main:6, mainMax:59, bonus:1, bonusMax:59, info:'Draw every Wednesday and Saturday. Match 6 numbers to win the jackpot.' },
+    euromillions:{ name:'EuroMillions', main:5, mainMax:50, bonus:2, bonusMax:12, info:'Played across Europe. Match 5 main numbers + 2 Lucky Stars to win the jackpot.' },
+    powerball:   { name:'Powerball', main:5, mainMax:69, bonus:1, bonusMax:26, info:'US lottery drawn every Monday, Wednesday, Saturday. Jackpot starts at $20 million.' },
+    megamillions:{ name:'Mega Millions', main:5, mainMax:70, bonus:1, bonusMax:25, info:'US lottery drawn every Tuesday and Friday. Record jackpot over $1.5 billion.' },
+    irish:       { name:'Irish Lotto', main:6, mainMax:47, bonus:1, bonusMax:47, info:'Ireland\'s national lottery. Drawn every Wednesday and Saturday.' },
+    auspowerball:{ name:'Australia Powerball', main:7, mainMax:35, bonus:1, bonusMax:20, info:'Australian Powerball. Pick 7 numbers from 1–35 plus 1 Powerball from 1–20. Drawn every Thursday.' },
+    canada649:   { name:'Canada Lotto 6/49', main:6, mainMax:49, bonus:1, bonusMax:49, info:'Canada\'s most popular lottery. Pick 6 numbers from 1–49. Drawn every Wednesday and Saturday.' },
+    india:       { name:'India Lottery', main:6, mainMax:49, bonus:0, bonusMax:49, info:'Standard Indian lottery format. Pick 6 numbers from 1–49.' },
+    sa:          { name:'South Africa Lotto', main:6, mainMax:52, bonus:1, bonusMax:52, info:'South Africa National Lottery. Pick 6 numbers from 1–52 plus 1 bonus ball. Drawn every Wednesday and Saturday.' },
+    custom:      { name:'Custom', main:6, mainMax:49, bonus:0, bonusMax:10, info:'Set your own rules above.' }
+  };
+
+  function updateInfo() {
+    const type = document.getElementById('lotteryType').value;
+    document.getElementById('customOptions').style.display = type === 'custom' ? 'block' : 'none';
+    const l = lotteries[type];
+    document.getElementById('lotteryInfo').textContent = l.info;
+  }
+
+  function getConfig() {
+    const type = document.getElementById('lotteryType').value;
+    if (type === 'custom') return {
+      main: parseInt(document.getElementById('mainCount').value)||6,
+      mainMax: parseInt(document.getElementById('mainMax').value)||49,
+      bonus: parseInt(document.getElementById('bonusCount').value)||0,
+      bonusMax: parseInt(document.getElementById('bonusMax').value)||12
+    };
+    return lotteries[type];
+  }
+
+  function pickLine(cfg) {
+    const pool = Array.from({length:cfg.mainMax}, (_,i) => i+1);
+    const shuffled = pool.sort(() => Math.random()-0.5);
+    const main = shuffled.slice(0, cfg.main).sort((a,b)=>a-b);
+    const bonusBalls = [];
+    if (cfg.bonus > 0) {
+      const bPool = Array.from({length:cfg.bonusMax}, (_,i)=>i+1).sort(()=>Math.random()-0.5);
+      for(let i=0;i<cfg.bonus;i++) bonusBalls.push(bPool[i]);
+      bonusBalls.sort((a,b)=>a-b);
+    }
+    return {main, bonus: bonusBalls};
+  }
+
+  function pick() {
+    const cfg = getConfig();
+    const lines = Math.min(parseInt(document.getElementById('numLines').value)||1, 6);
+    const container = document.getElementById('balls');
+    container.innerHTML = '';
+
+    for (let l = 0; l < lines; l++) {
+      if (lines > 1) {
+        const lbl = document.createElement('div');
+        lbl.style.cssText = 'width:100%;text-align:center;font-size:11px;color:var(--text3);font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;margin-top:'+(l>0?'12px':'0');
+        lbl.textContent = `Line ${l+1}`;
+        container.appendChild(lbl);
+        const row = document.createElement('div');
+        row.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;justify-content:center;width:100%;';
+        const {main, bonus} = pickLine(cfg);
+        main.forEach((n,i) => { const b = makeBall(n,'ball-main',i*60); row.appendChild(b); });
+        if (bonus.length) {
+          const sep = document.createElement('div');
+          sep.style.cssText = 'width:2px;background:var(--border);border-radius:2px;margin:0 2px;';
+          row.appendChild(sep);
+          bonus.forEach((n,i) => { const b = makeBall(n,'ball-bonus',(main.length+i)*60); row.appendChild(b); });
+        }
+        container.appendChild(row);
+      } else {
+        const {main, bonus} = pickLine(cfg);
+        main.forEach((n,i) => container.appendChild(makeBall(n,'ball-main',i*60)));
+        if (bonus.length) {
+          const sep = document.createElement('div');
+          sep.style.cssText = 'display:flex;align-items:center;padding:0 4px;color:var(--text3);font-size:18px;';
+          sep.textContent = '+';
+          container.appendChild(sep);
+          bonus.forEach((n,i) => container.appendChild(makeBall(n,'ball-bonus',(main.length+i)*60)));
+        }
+      }
+    }
+  }
+
+  function makeBall(n, cls, delay) {
+    const b = document.createElement('div');
+    b.className = `ball ${cls}`;
+    b.textContent = n;
+    b.style.animationDelay = delay + 'ms';
+    return b;
+  }
+
+  updateInfo();
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🍀</div>
+    <h1>Lotterie Nummer Generator</h1>
+    <p>Generieren Sie Ihre Glückszahlen für große Lotterien weltweit</p>
+  </div>
+
+  <div class="control-group" style="margin-bottom:1rem;">
+    <label>Lotterie auswählen</label>
+    <select id="lotteryType" onchange="updateInfo()">
+      <option value="uklotto">UK Lotto (6 von 59)</option>
+      <option value="euromillions">EuroMillions (5+2)</option>
+      <option value="powerball">Powerball US (5+1)</option>
+      <option value="megamillions">Mega Millions (5+1)</option>
+      <option value="irish">Irish Lotto (6 von 47)</option>
+      <option value="auspowerball">Australien Powerball (7+1)</option>
+      <option value="canada649">Kanada Lotto 6/49</option>
+      <option value="india">Indien Lotterie (6 von 49)</option>
+      <option value="sa">Südafrika Lotto (6 von 52)</option>
+      <option value="custom">Zoll</option>
+    </select>
+  </div>
+
+  <div id="customOptions" style="display:none;margin-bottom:1rem;">
+    <div class="control-row">
+      <div class="control-group">
+        <label>Hauptkugeln</label>
+        <input type="number" id="mainCount" value="6" min="1" max="10">
+      </div>
+      <div class="control-group">
+        <label>Höchstzahl</label>
+        <input type="number" id="mainMax" value="49" min="10" max="99">
+      </div>
+    </div>
+    <div class="control-row" style="margin-top:10px;">
+      <div class="control-group">
+        <label>Bälle</label>
+        <input type="number" id="bonusCount" value="0" min="0" max="5">
+      </div>
+      <div class="control-group">
+        <label>Bonus max</label>
+        <input type="number" id="bonusMax" value="12" min="1" max="50">
+      </div>
+    </div>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="lottery-balls" id="balls">
+      <div style="color:var(--text3);font-size:13px;">Tippen Sie auf generieren, um Ihre Zahlen auszuwählen</div>
+    </div>
+  </div>
+
+  <div class="control-group" style="margin-bottom:12px;">
+    <label>Anzahl der Zeilen</label>
+    <input type="number" id="numLines" value="1" min="1" max="6">
+  </div>
+
+  <button class="btn-generate" onclick="pick()">PICK MY NUMBERS</button>
+
+  <div id="lotteryInfo" style="margin-top:1.25rem;padding:1rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--text2);line-height:1.6;"></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Der Lottery Number Generator erstellt Sätze von Zufallszahlen für die weltweit größten Lotterien — darunter UK Lotto, EuroMillions, Powerball, Mega Millions und mehr. Wählen Sie Ihre Lotterie, wählen Sie, wie viele Linien Sie wollen, und erhalten Sie Ihre Zahlen sofort. Ein benutzerdefinierter Modus lässt Sie Ihre eigenen Regeln für jede Lotterie nicht bereits in der Liste setzen.</p>
+
+    <h2>Wie zu benutzen</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Wählen Sie Ihre Lotterie aus dem Dropdown-Menü.</li>
+      <li>Stellen Sie fest, wie viele Zeilen Sie wollen (bis zu 6 Zeilen).</li>
+      <li>Klicken Sie auf Wählen Sie Meine Zahlen, um Ihre Auswahl zu generieren.</li>
+      <li>Hauptzahlen erscheinen in lila Kugeln; Bonuskugeln erscheinen in Gold.</li>
+      <li>Für eine benutzerdefinierte Lotterie, wählen Sie Custom und geben Sie Ihre eigene Reichweite und Ballzahl.</li>
+    </ol>
+
+    <h2>Gemeinsame Nutzungen</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Generierte Glückszahlen für die wöchentliche UK Lotto oder EuroMillions-Ziehung</li>
+      <li>Picking Powerball oder Mega Millions Einträge aus den USA</li>
+      <li>Erstellen mehrerer Linien für Bürolotterie-Syndikate</li>
+      <li>Australien Powerball, Irish Lotto und Kanada 6/49 Spieler</li>
+      <li>Lehrer zeigen Wahrscheinlichkeit und Kombinationen in Mathematik Unterricht</li>
+      <li>Schnelle "Lucky Dip" Alternativen beim Kauf von Tickets in der letzten Minute</li>
+    </ul>
+
+    <h2>Warum Spinnit verwenden</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Zahlen werden mit einem fairen zufälligen Shuffle - die gleiche Methode verwendet, um Karten zu behandeln - so dass jede Kombination ist gleichermaßen wahrscheinlich. Das Tool umfasst neun große Lotterien plus einen vollständig konfigurierbaren benutzerdefinierten Modus. Kostenlos, sofort, kein Konto erforderlich, und funktioniert perfekt auf mobile.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Sind diese Zahlen wirklich zufällig?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Der Generator verwendet einen zufälligen Shuffle aller möglichen Zahlen, so dass jede Kombination eine gleiche Chance auf erscheinen. Keine Nummer ist wahrscheinlicher als jede andere.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich mehrere Zeilen gleichzeitig erzeugen?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Setzen Sie das Feld "Anzahl der Zeilen" auf bis zu 6 und alle Zeilen werden zusammen erzeugt, klar markiert und getrennt.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist dieses Tool kostenlos zu verwenden?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, völlig kostenlos ohne Anmeldung erforderlich.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Arbeitet das auf Handy?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, alle Spinnit-Tools sind mobil-first und arbeiten an jedem Gerät.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Randnummer Generator</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Dice Roller</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Ja kein Rad</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> In den Warenkorb</a>
+    </div>
+  </section>
+
+</main>

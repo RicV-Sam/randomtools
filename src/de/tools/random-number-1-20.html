@@ -1,0 +1,140 @@
+---
+layout: layouts/base.njk
+title: Random Nummer zwischen 1 und 20 – Online D20 Roller | Spinnit
+description: >-
+  Wählen Sie eine zufällige Nummer zwischen 1 und 20 – ein fairer
+  Online-D20-Ersatz für Dungeons &amp; Dragons und Tischplatten-RPGs. Sofort,
+  kostenlos, keine Anmeldung.
+ogTitle: Random Nummer zwischen 1 und 20 | Spinnit
+ogDescription: Instant fair D20 roll — wählen Sie eine zufällige Nummer von 1 bis 20 online.
+canonical: 'https://spinnit.site/de/tools/random-number-1-20.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Nummer zwischen 1 und 20",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is the D20 roll truly fair?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each number from 1 to 20 has an equal 5% chance on every roll."}},
+      {"@type":"Question","name":"Can I roll with advantage here?","acceptedAnswer":{"@type":"Answer","text":"Yes. Set How many rolls to 2 and take the higher for advantage or lower for disadvantage."}},
+      {"@type":"Question","name":"What counts as a natural 20?","acceptedAnswer":{"@type":"Answer","text":"Any result showing exactly 20 before bonuses. Natural 1s and 20s trigger critical rules in most systems."}}
+    ]}
+  </script>
+pageScript: >
+
+  const MIN = 1, MAX = 20;
+
+  const history = [];
+
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code
+  === 'Enter') { e.preventDefault(); generate(); }});
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎲</div>
+    <h1>Random Nummer zwischen 1 und 20</h1>
+    <p>Ihre Online D20 – ein fairer Rollen jedes Mal</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">Ihre Rolle (1–20)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Wie viele Rollen?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">ROLL D20</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Letzte Rollen</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Eine Zufallszahl zwischen 1 und 20 ist die klassische D20-Rolle, die in Dungeons &amp; Dragons, Pathfinder und modernsten Tabletop RPGs verwendet wird. Diese Seite gibt Ihnen eine faire, gleichmäßige D20-Rolle in einem einzigen Tipp — keine App installieren, keine Anmeldung, und keine leicht geworbenen physischen Würfel bevorzugen eine Seite.</p>
+
+    <h2>Großartig für</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>D&amp;D-Angriffsrollen, Einsparung von Wurf und Geschicklichkeitskontrollen</li>
+      <li>Jedes RPG-System, das eine d20 als Kernmechanik verwendet</li>
+      <li>Rollen mit Vorteil oder Nachteil (Generieren Sie zwei Walzen, nehmen Sie höchste oder niedrigste)</li>
+      <li>Abholung eines zufälligen Schülers, Sitz oder Aufgabe von einer Gruppe von zwanzig</li>
+      <li>Klassenzimmer Wahrscheinlichkeit Unterricht — 5% Quoten pro Ergebnis ist ein sauberes Lehrbeispiel</li>
+    </ul>
+
+    <h2>Rollen mit Vorteil</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Set <em>Wie viele Rollen?</em> bis 2 Abstichrolle und das höhere Ergebnis für den Vorteil oder das geringere für den Nachteil. Für einen <strong>Natürlich 20</strong> kritisch, jede Rolle von genau 20 zählt.</p>
+
+    <h2>Sonstige Würfel</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Auch versuchen <a href="random-number-1-6.html">1-6 (d6)</a>, <a href="random-number-1-10.html">1–10 (d10)</a>, <a href="random-number-1-100.html">1–100 (prozentig)</a>, oder <a href="dice-roller.html">animierte Würfelwalze</a> für mehrere Würfel auf einmal.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist die D20 wirklich fair?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Jede Zahl von 1 bis 20 hat auf jeder Walze eine gleiche 5% Chance. Physikalische D20s können winzige Vorspannungen aus Fertigungstoleranzen entwickeln – digitale Rollen nicht.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich hier mit Vorteil rollen?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Setzen Sie "Wie viele Rollen?" auf 2 und nehmen Sie das höhere Ergebnis für den Vorteil oder niedriger für den Nachteil.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Was zählt als natürliche 20?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Jedes Ergebnis, das genau 20 zeigt, bevor irgendwelche Boni hinzugefügt werden. Natürliche 1s und natürliche 20s lösen kritische Fehler- und Erfolgsregeln in den meisten Systemen aus.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Visuelle Würfelrolle</a>
+      <a class="related-card" href="random-number-1-6.html"><span class="ri">⚄</span> 1-6 (D6)</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> 1–100 (Prozent)</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Benutzerdefinierte Reichweite</a>
+    </div>
+  </section>
+
+</main>

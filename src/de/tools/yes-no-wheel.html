@@ -1,0 +1,239 @@
+---
+layout: layouts/base.njk
+title: Ja Kein Rad – Random Ja oder Kein Spinner | Spinnit
+description: >-
+  Drehen Sie das ja kein Rad für eine zufällige Antwort. Kostenloser
+  Online-Entscheidungs-Spinner mit ja, nein und vielleicht Optionen. Sofortiges
+  Ergebnis.
+canonical: 'https://spinnit.site/de/tools/yes-no-wheel.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Ja kein Rad",
+    "description": "Drehen Sie das Rad für eine zufällige ja oder keine Antwort",
+    "url": "https://spinnit.site/de/tools/yes-no-wheel.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="Ja Kein Rad | Spinnit">
+
+  <meta name="twitter:description" content="Drehen Sie das ja/nein Rad für eine
+  zufällige Entscheidung. Kostenlos und mobil.">
+
+  <script type="application/ld+json">
+
+  {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I add a Maybe option?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Select 'Yes / No / Maybe' from the mode dropdown and the wheel will be divided equally into three segments." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I weight the result towards yes or no?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The 'Probably Yes' and 'Probably No' modes give a 70% chance to one outcome and 30% to the other." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool free to use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work on mobile?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
+        }
+      ]
+    }
+  </script>
+pageStyle: |
+
+  .wheel-wrap { position:relative;width:min(280px,80vw);margin:0 auto 1.5rem; }
+  .wheel-pointer {
+    position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+    width:0;height:0;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    border-top:20px solid var(--accent2);
+    z-index:10;
+  }
+  canvas { display:block;width:100%;height:auto;border-radius:50%; }
+pageScript: |
+
+  const canvas = document.getElementById('wheel');
+  const ctx = canvas.getContext('2d');
+  let spinning = false;
+  let currentAngle = 0;
+
+  function getSegments() {
+    const mode = document.getElementById('mode').value;
+    if (mode === 'yesno') return [
+      {label:'YES', color:'#4ade80', textColor:'#052e16', size: 0.5},
+      {label:'NO', color:'#f87171', textColor:'#450a0a', size: 0.5}
+    ];
+    if (mode === 'yesnomaybe') return [
+      {label:'YES', color:'#4ade80', textColor:'#052e16', size: 1/3},
+      {label:'NO', color:'#f87171', textColor:'#450a0a', size: 1/3},
+      {label:'MAYBE', color:'#facc15', textColor:'#422006', size: 1/3}
+    ];
+    if (mode === 'heavy-yes') return [
+      {label:'YES', color:'#4ade80', textColor:'#052e16', size: 0.7},
+      {label:'NO', color:'#f87171', textColor:'#450a0a', size: 0.3}
+    ];
+    return [
+      {label:'YES', color:'#4ade80', textColor:'#052e16', size: 0.3},
+      {label:'NO', color:'#f87171', textColor:'#450a0a', size: 0.7}
+    ];
+  }
+
+  function drawWheel(angle = 0) {
+    const segs = getSegments();
+    const cx = 150, cy = 150, r = 140;
+    ctx.clearRect(0,0,300,300);
+    let start = angle;
+    segs.forEach(seg => {
+      const arc = seg.size * 2 * Math.PI;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, start, start + arc);
+      ctx.closePath();
+      ctx.fillStyle = seg.color;
+      ctx.fill();
+      ctx.strokeStyle = '#0a0a0f';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(start + arc / 2);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = seg.textColor;
+      ctx.font = 'bold 22px Space Mono, monospace';
+      ctx.fillText(seg.label, r - 20, 8);
+      ctx.restore();
+      start += arc;
+    });
+
+    // center circle
+    ctx.beginPath();
+    ctx.arc(cx, cy, 18, 0, 2 * Math.PI);
+    ctx.fillStyle = '#0a0a0f';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  function spin() {
+    if (spinning) return;
+    spinning = true;
+    document.getElementById('spinBtn').disabled = true;
+
+    const totalSpins = (5 + Math.random() * 5) * 2 * Math.PI;
+    const duration = 2500 + Math.random() * 1000;
+    const startAngle = currentAngle;
+    const targetAngle = startAngle + totalSpins;
+    const startTime = performance.now();
+
+    function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function frame(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      currentAngle = startAngle + (targetAngle - startAngle) * easeOut(progress);
+      drawWheel(currentAngle);
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        spinning = false;
+        document.getElementById('spinBtn').disabled = false;
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  drawWheel();
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🔮</div>
+    <h1>Ja / Kein Rad</h1>
+    <p>Drehen Sie das Rad — lassen Sie Schicksal entscheiden</p>
+  </div>
+
+  <div class="wheel-wrap">
+    <div class="wheel-pointer"></div>
+    <canvas id="wheel" width="300" height="300"></canvas>
+  </div>
+
+  <div class="control-group" style="margin-bottom:12px;">
+    <label>Modus</label>
+    <select id="mode" onchange="drawWheel()">
+      <option value="yesno">Ja / Nein</option>
+      <option value="yesnomaybe">Ja / Nein / Vielleicht</option>
+      <option value="heavy-yes">Wahrscheinlich Ja (70%)</option>
+      <option value="heavy-no">Wahrscheinlich Nein (70%)</option>
+    </select>
+  </div>
+
+  <button class="btn-generate" id="spinBtn" onclick="spin()">SPIN THE WHEEL</button>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Das Ja No Wheel gibt Ihnen eine befriedigende Spinnenanimation, die entweder auf Ja oder Nein landet - oder vielleicht, wenn Sie eine Drei-Wege-Split bevorzugen. Sie können den Modus anpassen, um das Ergebnis auf eine Antwort zu gewichten, was es vielseitiger macht als ein einfacher Münz-Flip. Es ist der lustigste Weg, eine schnelle Entscheidung zu treffen oder eine Krawatte zu brechen.</p>
+
+    <h2>Wie zu benutzen</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Wählen Sie Ihren bevorzugten Modus aus dem Dropdown (Ja/Nein, Ja/Nein/Maibe, Wahrscheinlich Ja, oder wahrscheinlich Nein).</li>
+      <li>Klicken Sie auf das Rad drehen oder tippen Sie auf die Leinwand direkt.</li>
+      <li>Warten Sie auf das Rad zu langsam und landen auf Ihre Antwort.</li>
+      <li>Drehen Sie wieder so oft wie Sie möchten – es gibt keine Grenze.</li>
+    </ol>
+
+    <h2>Gemeinsame Nutzungen</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Entscheiden, ob Sie einen Takeaway bestellen oder heute kochen</li>
+      <li>Bruch in Gruppenentscheidungen, bei denen niemand zustimmen kann</li>
+      <li>Unterrichtsaktivitäten für zufälliges studentisches Engagement</li>
+      <li>Herausforderungen der täglichen Entscheidung für Content-Autor und Streamer</li>
+      <li>Legen freundliche Argumente zwischen Kollegen oder Hausgenossen</li>
+      <li>Kinderspiele und Party-Aktivitäten, bei denen ein Spaß-Spin zur Atmosphäre hinzukommt</li>
+    </ul>
+
+    <h2>Warum Spinnit verwenden</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Die gewichteten Modi — Wahrscheinlich Ja und wahrscheinlich Nein — machen diese vielseitiger als ein Standard-Münzen-Flip, wenn Sie eine Nudge in einer bestimmten Richtung wollen. Die Radanimation ist glatt und ansprechend auf allen Bildschirmgrößen. Keine Installation, kein Login und keine Daten werden jemals irgendwo gesendet.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich eine Option hinzufügen?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Wählen Sie "Ja / Nein / Vielleicht" aus dem Modus Dropdown und das Rad wird gleich in drei Segmente aufgeteilt.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich das Ergebnis gegen Ja oder Nein gewichten?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Die "wahrscheinlich Ja" und "wahrscheinlich Nein" Moden geben eine 70% Chance auf ein Ergebnis und 30% auf das andere, so dass das Rad noch etwas Spannung hat.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist dieses Tool kostenlos zu verwenden?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, völlig kostenlos ohne Anmeldung erforderlich.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Arbeitet das auf Handy?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, alle Spinnit-Tools sind mobil-first und arbeiten an jedem Gerät.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> In den Warenkorb</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Dice Roller</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Rad der Namen</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Random Team Picker</a>
+    </div>
+  </section>
+
+</main>

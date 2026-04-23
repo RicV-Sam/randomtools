@@ -1,0 +1,142 @@
+---
+layout: layouts/base.njk
+title: Random Nummer zwischen 1 und 10 – kostenlose Instant Picker | Spinnit
+description: >-
+  Wählen Sie eine Zufallszahl zwischen 1 und 10 sofort. Kostenloser fairer
+  Picker für Spiele, Klassenzimmeraktivitäten, Entscheidungen und schnelle
+  Ziehungen. Keine Anmeldung.
+ogTitle: Random Nummer zwischen 1 und 10 | Spinnit
+ogDescription: >-
+  Sofortige faire Zufallszahl von 1 bis 10. Toll für kleine Gruppen, Spiele und
+  schnelle Entscheidungen.
+canonical: 'https://spinnit.site/de/tools/random-number-1-10.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Zufallszahl zwischen 1 und 10",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Are both 1 and 10 possible results?","acceptedAnswer":{"@type":"Answer","text":"Yes. The range is inclusive — 1 and 10 appear just as often as the numbers between."}},
+      {"@type":"Question","name":"How often will each number come up?","acceptedAnswer":{"@type":"Answer","text":"Each number has a 10% chance per roll. Over many rolls the distribution flattens towards equal."}},
+      {"@type":"Question","name":"Is this better than thinking of a number myself?","acceptedAnswer":{"@type":"Answer","text":"Yes. Humans overchoose 7 and underchoose 1 and 10. A generator is genuinely fair."}}
+    ]}
+  </script>
+pageScript: >
+
+  const MIN = 1, MAX = 10;
+
+  const history = [];
+
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code
+  === 'Enter') { e.preventDefault(); generate(); }});
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🔢</div>
+    <h1>Zufallszahl zwischen 1 und 10</h1>
+    <p>Eine schnelle, faire Auswahl von ein bis zehn</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">Ihre Nummer (1–10)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Wie viele Zahlen?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERAT</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Aktuelle Ergebnisse</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Eine zufällige Zahl zwischen 1 und 10 zu finden, ist eine der häufigsten Entscheidungskürzungen. Es ist einfach, unvergesslich und fair – jede Zahl hat genau eine einmalige Chance. Diese Seite gibt Ihnen die Auswahl in einem einzigen Tipp, ohne Setup und nichts zu installieren.</p>
+
+    <h2>Typische Anwendungen</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Sieger von einer kleinen Gruppe von bis zu zehn Personen</li>
+      <li>Auswahl, welche von zehn Aufgaben, Chore oder Aufforderungen zum nächsten zu tun</li>
+      <li>Unterrichtsaktivitäten — wählen Sie einen Schüler, eine Seitennummer, eine Frage</li>
+      <li>Bewertungsvorschläge für Eisbrecher-Spiele ("rate this von 1 bis 10")</li>
+      <li>Setzen einer kleinen Entscheidung, wenn Sie nicht zwischen Optionen wählen können</li>
+    </ul>
+
+    <h2>Wie zu benutzen</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Band <strong>GENERAT</strong> oder drücken Sie Raum – Ihre Nummer erscheint sofort. Generieren Sie bis zu 100 auf einmal, indem Sie das Zählfeld ändern. Die letzten zehn Ergebnisse bleiben für den Vergleich sichtbar.</p>
+
+    <h2>Auf der Suche nach einem anderen Bereich?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Brauchen Sie verschiedene Grenzen? Verwenden Sie die Haupt <a href="random-number.html">Randnummer Generator</a> für jeden benutzerdefinierten Bereich oder <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-1000.html">1–1000</a>, <a href="random-number-1-20.html">1–20</a>, oder <a href="random-number-1-6.html">1–6</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Sind sowohl 1 als auch 10 mögliche Ergebnisse?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Der Bereich ist inklusive — 1 und 10 erscheinen ebenso oft wie die Zahlen zwischen.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Wie oft kommt jede Zahl hoch?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Jede Zahl hat eine 10% Chance pro Rolle. Über viele Walzen schmeichelt die Verteilung nach gleich aus, aber über eine Handvoll sind Streifen normal und erwartet.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist das besser, als selbst an eine Nummer zu denken?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Menschen sind schrecklich bei der Auswahl von "random" Zahlen — die meisten Menschen überholen 7 und unterscheiden 1 oder 10. Ein Generator ist wirklich fair.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Individuelle Reichweite Generator</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> 1–100 Generator</a>
+      <a class="related-card" href="random-number-1-6.html"><span class="ri">⚄</span> 1-6 Generator</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Ja / Kein Rad</a>
+    </div>
+  </section>
+
+</main>

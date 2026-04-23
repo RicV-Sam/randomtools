@@ -25,9 +25,9 @@
 
 const fs = require("fs");
 const path = require("path");
+const { spawn } = require("child_process");
 const matter = require("gray-matter");
 const { parse: parseHtml } = require("node-html-parser");
-const { translate: googleTranslate } = require("@vitalets/google-translate-api");
 
 const ROOT = path.resolve(__dirname, "..");
 const SRC = path.join(ROOT, "src");
@@ -58,60 +58,95 @@ function saveCache() {
   }
 }
 
-// ---------- translate primitives ----------
+// ---------- translate primitive: Argos via persistent Python subprocess ----------
 
-let lastCall = 0;
-const MIN_GAP_MS = 1100; // ~1 req/sec
+let argosProc = null;
+let argosQueue = []; // {resolve, reject}
+let argosBuffer = "";
+let argosReady = null;
 
-async function sleep(ms) {
-  return new Promise((r) => setTimeout(r, ms));
-}
-
-async function throttle() {
-  const gap = Date.now() - lastCall;
-  if (gap < MIN_GAP_MS) await sleep(MIN_GAP_MS - gap);
-  lastCall = Date.now();
-}
-
-async function translateGoogle(text, to) {
-  const res = await googleTranslate(text, { to });
-  return res.text;
-}
-
-async function translateLibre(text, to) {
-  const res = await fetch("https://libretranslate.de/translate", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ q: text, source: "en", target: to, format: "text" }),
+function startArgos(from, to) {
+  argosProc = spawn("python", [path.join(__dirname, "argos_server.py"), from, to], {
+    stdio: ["pipe", "pipe", "pipe"],
   });
-  if (!res.ok) throw new Error(`LibreTranslate HTTP ${res.status}`);
-  const data = await res.json();
-  return data.translatedText;
+  argosProc.stderr.on("data", (d) => process.stderr.write(d));
+  argosProc.on("exit", (code) => {
+    if (argosQueue.length) {
+      const err = new Error(`argos exited with code ${code}`);
+      argosQueue.forEach((q) => q.reject(err));
+      argosQueue = [];
+    }
+  });
+
+  argosProc.stdout.on("data", (chunk) => {
+    argosBuffer += chunk.toString("utf8");
+    let idx;
+    while ((idx = argosBuffer.indexOf("\n")) !== -1) {
+      const line = argosBuffer.slice(0, idx);
+      argosBuffer = argosBuffer.slice(idx + 1);
+      const q = argosQueue.shift();
+      if (!q) continue;
+      try {
+        const text = Buffer.from(line, "base64").toString("utf8");
+        q.resolve(text);
+      } catch (e) {
+        q.reject(e);
+      }
+    }
+  });
+
+  // Wait for "[argos] ready" on stderr before accepting work
+  argosReady = new Promise((resolve) => {
+    let buf = "";
+    const onData = (d) => {
+      buf += d.toString();
+      if (buf.includes("[argos] ready")) {
+        argosProc.stderr.off("data", onData);
+        resolve();
+      }
+    };
+    argosProc.stderr.on("data", onData);
+  });
+}
+
+function argosTranslate(text) {
+  return new Promise((resolve, reject) => {
+    argosQueue.push({ resolve, reject });
+    const b64 = Buffer.from(text, "utf8").toString("base64");
+    argosProc.stdin.write(b64 + "\n");
+  });
+}
+
+// Strings that look like identifiers, URLs, emails, or code-like tokens.
+const SKIP_PATTERN = /^(https?:\/\/|mailto:|tel:|#|\/|[\w.+-]+@[\w.-]+\.\w+$)/i;
+
+function decodeEntities(s) {
+  return s
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, " ");
 }
 
 async function translate(text, to) {
   if (!text || !text.trim()) return text;
+  if (SKIP_PATTERN.test(text.trim())) return text;
   const key = `${to}:${text}`;
   if (cache[key]) return cache[key];
 
-  await throttle();
+  // Argos chokes on HTML entities; decode before sending.
+  const decoded = decodeEntities(text);
 
   try {
-    const out = await translateGoogle(text, to);
+    const out = await argosTranslate(decoded);
     cache[key] = out;
     cacheDirty = true;
     return out;
   } catch (e) {
-    console.warn(`  [google failed: ${e.message}] → fallback to LibreTranslate`);
-    try {
-      const out = await translateLibre(text, to);
-      cache[key] = out;
-      cacheDirty = true;
-      return out;
-    } catch (e2) {
-      console.error(`  [libre also failed: ${e2.message}] keeping original`);
-      return text;
-    }
+    console.error(`  [argos failed: ${e.message}] keeping original`);
+    return text;
   }
 }
 
@@ -306,6 +341,9 @@ async function translatePage(relPath) {
 // ---------- main ----------
 
 (async () => {
+  startArgos("en", LANG);
+  await argosReady;
+
   const files = findHtmlFiles(SRC).filter((f) => !FILTER || f.includes(FILTER));
   console.log(`Translating ${files.length} page(s) to '${LANG}'…\n`);
 
@@ -321,4 +359,5 @@ async function translatePage(relPath) {
   }
   saveCache();
   console.log(`\nDone. Output: src/${LANG}/`);
+  argosProc.stdin.end();
 })();

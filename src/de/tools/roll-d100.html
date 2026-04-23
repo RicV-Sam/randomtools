@@ -1,0 +1,142 @@
+---
+layout: layouts/base.njk
+title: Roll d100 Online – Kostenlose Percentile Dice Roller | Spinnit
+description: >-
+  Rollen Sie eine d100 online – prozentile Würfel von 1 bis 100. Verwendet in
+  Call of Cthulhu, Warhammer, Rolemaster und D&amp; D prozentuale Kontrollen.
+  Kostenlos und sofort.
+ogTitle: Roll d100 Online | Spinnit
+ogDescription: >-
+  Kostenlose prozentile Würfelrolle — eine faire 1 bis 100 Rolle für RPGs und
+  prozentuale Kontrollen.
+canonical: 'https://spinnit.site/de/tools/roll-d100.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Rollstuhlfahrer",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is the d100 range 1–100 or 0–99?","acceptedAnswer":{"@type":"Answer","text":"Most modern systems use 1–100 with 00 on physical dice reading as 100. This tool uses 1–100."}},
+      {"@type":"Question","name":"Is rolling low or high better?","acceptedAnswer":{"@type":"Answer","text":"Depends on the system. Call of Cthulhu and Warhammer want you under your skill. Check what your system expects."}},
+      {"@type":"Question","name":"Can I roll multiple d100s at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Set the count up to 100. Each roll is independent."}}
+    ]}
+  </script>
+pageScript: >
+
+  const history = [];
+
+  function roll() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * 100) + 1);
+    document.getElementById('result').textContent = results.join(', ');
+    document.getElementById('totalLabel').style.display = 'none';
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code
+  === 'Enter') { e.preventDefault(); roll(); }});
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">💯</div>
+    <h1>Roll d100 Online</h1>
+    <p>Prozentsatz Würfel — eine faire Rolle von 1 bis 100</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">Ihre Rolle (1–100)</div>
+    <div class="result-number" id="result">—</div>
+    <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Wie viele Rollen?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="roll()">ROLL d100</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Letzte Rollen</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Die d100 - auch als prozentile Würfel oder d% - ist das Rückgrat jeder RPG, die auf prozentualen Chancen arbeitet. Rollen niedrig, erfolgreich; rollen hoch, scheitern (gewöhnlich). Jede Zahl von 1 bis 100 hat genau eine 1% Chance, so dass es die sauberste statistische sterben in Tischspiele.</p>
+
+    <h2>Systeme, die d100 verwenden</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Call of Cthulhu</strong> — jede Qualifikationsprüfung</li>
+      <li><strong>Warhammer Fantasy / 40K Zoom</strong> — Kernmechanik</li>
+      <li><strong>Rolemaster</strong> und RuneQuest</li>
+      <li><strong>D&amp; D 5e</strong> — Wilde magische Surge, zufällige Tabellen, magische Artikel Rarität</li>
+      <li>Irgendwelche "Rollen auf der zufälligen Begegnungstabelle" Moment</li>
+    </ul>
+
+    <h2>Wie d100 normalerweise physisch gerollt wird</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Physikalische d100s sind tatsächlich zwei d10s: eine "Tens" sterben (00, 10, 20... 90) und eine "ones" sterben (0–9), summiert mit 00+0 Lesen als 100. Dieser Generator überspringt die Zeremonie und gibt Ihnen das letzte 1–100 Ergebnis direkt.</p>
+
+    <h2>Sonstige Würfel</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Versuch <a href="roll-d10.html">D10</a>, <a href="random-number-1-20.html">D20</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-3d6.html">3D6</a>, <a href="roll-4d6-drop-lowest.html">4d6 niedrig</a>, oder <a href="dice-roller.html">Vollständige Dice Roller</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist der d100 Bereich 1–100 oder 0–99?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Die meisten modernen Systeme verwenden 1–100 mit 00 auf physikalische Würfel lesen als 100. Einige ältere Systeme (z.B. Basic Zooming Varianten) verwenden 0–99 für bestimmte Tabellen. Dieses Tool verwendet 1–100.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist das Rollen niedrig oder hoch besser?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Es hängt vom System ab. Call of Cthulhu und Warhammer wollen, dass Sie rollen <em>unter</em> Deine Fähigkeit. Zufällige Tabellen wollen typischerweise einen bestimmten Bereich. Überprüfen Sie immer, was Ihr System erwartet.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich mehrere d100s auf einmal rollen?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Stellen Sie die Zählung bis zu 100. Jede Rolle ist unabhängig, so dass Duplikate möglich und erwartet werden.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Volle Würfelrolle</a>
+      <a class="related-card" href="roll-d10.html"><span class="ri">🎲</span> Rollen d10</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> 1–100 Generator</a>
+      <a class="related-card" href="roll-4d6-drop-lowest.html"><span class="ri">🐉</span> D&D Stat Roller</a>
+    </div>
+  </section>
+
+</main>

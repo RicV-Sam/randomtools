@@ -1,0 +1,189 @@
+---
+layout: layouts/base.njk
+title: Random Name Picker No Repeat – Free Unique Picker | Spinnit
+description: >-
+  Ein zufälliger Name Picker ohne Wiederholungen — jeder Name wird einmal
+  ausgewählt, bevor jemand zweimal ausgewählt wird. Kostenlos, sofort, arbeitet
+  offline in Ihrem Browser.
+ogTitle: Random Name Picker – Keine Wiederholungen | Spinnit
+ogDescription: >-
+  Jeder Name wird einmal ausgewählt, bevor jemand wiederholt. Fairer Drehgeber
+  für Klassenzimmer und Teams.
+canonical: 'https://spinnit.site/de/tools/random-name-picker-no-repeat.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Name Picker No Repeat",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is the order really random each time?","acceptedAnswer":{"@type":"Answer","text":"Yes. A fresh Fisher-Yates shuffle runs on the first pick and on every reset."}},
+      {"@type":"Question","name":"What if I edit the list mid-round?","acceptedAnswer":{"@type":"Answer","text":"Editing resets the round automatically to prevent stale shuffles."}},
+      {"@type":"Question","name":"Is it the same as the List Shuffler?","acceptedAnswer":{"@type":"Answer","text":"Under the hood yes, but this reveals names one at a time; List Shuffler shows the full order at once."}}
+    ]}
+  </script>
+pageScript: >
+
+  const DEFAULT_NAMES =
+  ['Alice','Ben','Clara','David','Emma','Finn','Grace','Henry','Isla','Jack'];
+
+  document.getElementById('namesInput').value = DEFAULT_NAMES.join('\n');
+
+
+  let shuffled = [];
+
+  let index = 0;
+
+  let picked = [];
+
+
+  function getNames() {
+    return document.getElementById('namesInput').value.split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
+  }
+
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+
+  function pick() {
+    const names = getNames();
+    if (!names.length) { alert('Add some names first.'); return; }
+
+    if (shuffled.length === 0 || index >= shuffled.length) {
+      if (index >= shuffled.length && shuffled.length > 0) {
+        document.getElementById('result').textContent = 'Round complete!';
+        document.getElementById('remainingLabel').textContent = `All ${shuffled.length} names picked. Tap Reset for a new shuffled round.`;
+        document.getElementById('remainingLabel').style.display = 'block';
+        return;
+      }
+      shuffled = shuffle(names);
+      index = 0;
+      picked = [];
+    }
+
+    const winner = shuffled[index++];
+    picked.push(winner);
+    document.getElementById('result').textContent = winner;
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+
+    const remaining = shuffled.length - index;
+    document.getElementById('remainingLabel').textContent = `${remaining} name${remaining === 1 ? '' : 's'} left in this round.`;
+    document.getElementById('remainingLabel').style.display = 'block';
+    renderHistory();
+  }
+
+
+  function resetList() {
+    shuffled = []; index = 0; picked = [];
+    document.getElementById('result').textContent = '—';
+    document.getElementById('remainingLabel').style.display = 'none';
+    document.getElementById('historySection').style.display = 'none';
+  }
+
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (picked.length === 0) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = picked.map((n,i) => `<span class="history-item">${i+1}. ${n}</span>`).join('');
+  }
+
+
+  document.getElementById('namesInput').addEventListener('input', resetList);
+
+  document.addEventListener('keydown', e => {
+    if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault(); pick();
+    }
+  });
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎯</div>
+    <h1>Random Name Picker – Keine Wiederholungen</h1>
+    <p>Jeder Name wird einmal ausgewählt, bevor jemand zweimal ausgewählt wird</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">Gepflegt</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">—</div>
+    <div id="remainingLabel" style="font-size:13px;color:var(--text2);margin-top:6px;display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Namen (eines pro Zeile)</label>
+      <textarea id="namesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;"></textarea>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">PICK NEXT</button>
+  <button class="btn-copy" onclick="resetList()" style="margin-top:8px;">Zurück zur Übersicht</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">bereits abgeholt (in Bestellung)</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Die meisten Namenswähler wählen unabhängig — was bedeutet, dass jemand zweimal abgeholt werden kann, während andere nie abgeholt werden. Dieses Tool macht es richtig: es funktioniert durch die vollständige Liste in einer zufälligen Reihenfolge, und <em>Niemand</em> wird ein zweites Mal ausgewählt, bis der Zyklus abgeschlossen ist.</p>
+
+    <h2>Wie es funktioniert</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Im Innern ist es ein Fisher-Yates Schlämmchen. Auf dem ersten Tipp wird die Liste einmal randomisiert. Jeder nachfolgende Tape zeigt einfach den nächsten Namen in der gedämpften Reihenfolge. Wenn die Liste erschöpft ist, fordert das Tool Sie auf, zurückzusetzen (was reshuffles, so dass die zweite Runde eine andere Reihenfolge von der ersten ist).</p>
+
+    <h2>Wo es passt</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Kalter Anruf in der Klasse</strong> — jeder Schüler beantwortet zweimal</li>
+      <li><strong>Präsentationsauftrag</strong> — faire Ordnung, keine "Ich bin schon gegangen" Argumente</li>
+      <li><strong>Der Weihnachtsmann</strong> — assign giver → Empfänger ohne jede Zeichnung selbst</li>
+      <li><strong>Drehrohre</strong> — Pflicht, Leseauftrag, täglicher Helfer</li>
+      <li><strong>Zufälliger Interviewauftrag</strong> — faire Reihenfolge der Bewerber oder Bewerber</li>
+    </ul>
+
+    <h2>Nicht richtig?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Wenn Sie wollen, wählen Sie das <em>können</em> wiederholen (jeder Hahn unabhängig) <a href="wheel-of-names.html">Rad der Namen</a> oder <a href="random-student-picker.html">Schüler</a> mit nicht-repeat unticked. Um die gesamte Liste in einem Klick zu schütteln und die Bestellung auf einmal zu sehen, verwenden Sie <a href="list-shuffler.html">Liste Shuffler</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist die Bestellung wirklich zufällig jedes Mal?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Ein frischer Fisher-Yates Shuffle läuft auf dem ersten Pick und auf jedem Reset, so ist die Bestellung unvoreingenommen und unterschiedlich jede Runde.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Was, wenn ich die Liste mittig bearbeite?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Bearbeiten der Liste setzt die Runde automatisch zurück. Dadurch wird ein versehentliches Picken von einer Stallschläuche verhindert, die nicht mit der sichtbaren Liste übereinstimmt.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist es das gleiche wie die Liste Shuffler?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Unter der Haube, ja — aber die Interaktion ist anders. Dieses Tool zeigt einen Namen zu einer Zeit (gut für Live-Klassenbenutzung). Die <a href="list-shuffler.html">Liste Shuffler</a> zeigt die komplette Liste auf einmal.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> Liste Shuffler</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Rad der Namen</a>
+      <a class="related-card" href="random-student-picker.html"><span class="ri">🎒</span> Schüler</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
+    </div>
+  </section>
+
+</main>

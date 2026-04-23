@@ -1,0 +1,162 @@
+---
+layout: layouts/base.njk
+title: Random Winner Picker – Kostenloses Giveaway Tool | Spinnit
+description: >-
+  Wählen Sie einen zufälligen Gewinner aus jeder Liste von Einträgen.
+  Kostenloses Giveaway-Tool für soziale Medien, Verlosungen und Wettbewerbe.
+  Pick 1 oder mehrere Gewinner, keine Duplikate.
+ogTitle: Random Winner Picker | Spinnit
+ogDescription: >-
+  Free Giveaway Gewinner Picker — Paste Einträge, wählen Sie ein oder viele,
+  keine Duplikate.
+canonical: 'https://spinnit.site/de/tools/random-winner-picker.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Winner Picker",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is the draw fair?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every entry has the same chance. The tool uses an unbiased random number generator."}},
+      {"@type":"Question","name":"Can the same entry win twice in one draw?","acceptedAnswer":{"@type":"Answer","text":"No. Each winner is removed from the pool before drawing the next so no entry can win two prizes in one draw."}},
+      {"@type":"Question","name":"Does this comply with Instagram / Facebook giveaway rules?","acceptedAnswer":{"@type":"Answer","text":"The tool handles the draw. Compliance depends on how you run the giveaway per each platform's promotional policy."}}
+    ]}
+  </script>
+pageScript: |
+
+  function getEntries() {
+    let entries = document.getElementById('entriesInput').value.split(/\n/).map(n => n.trim()).filter(n => n.length > 0);
+    if (document.getElementById('dedupe').checked) entries = [...new Set(entries)];
+    return entries;
+  }
+  function drawWinners() {
+    const entries = getEntries();
+    if (!entries.length) { alert('Paste some entries first.'); return; }
+    const wantCount = parseInt(document.getElementById('winnerCount').value) || 1;
+    const count = Math.min(wantCount, entries.length);
+    const pool = [...entries];
+    const winners = [];
+    for (let i = 0; i < count; i++) {
+      const idx = Math.floor(Math.random() * pool.length);
+      winners.push(pool.splice(idx, 1)[0]);
+    }
+    document.getElementById('result').textContent = winners.map((w,i) => count > 1 ? `${i+1}. ${w}` : w).join('\n');
+    document.getElementById('result').style.whiteSpace = 'pre-line';
+    const label = document.getElementById('entryCount');
+    label.textContent = `Drawn from ${entries.length} entries`;
+    label.style.display = 'block';
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  document.addEventListener('keydown', e => {
+    if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault(); drawWinners();
+    }
+  });
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🏆</div>
+    <h1>Random Winner Picker</h1>
+    <p>Faire, transparente Ziehungen für Giveaways und Wettbewerbe</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">Gewinner</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.4rem,7vw,2.6rem);word-break:break-word;line-height:1.25;">—</div>
+    <div id="entryCount" style="font-size:13px;color:var(--text2);margin-top:6px;display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Einträge (eines pro Zeile — Namen, @handles, E-Mails, alles)</label>
+      <textarea id="entriesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;" placeholder="@first entrant
+@second entrant
+..."></textarea>
+    </div>
+    <div class="control-row" style="margin-top:10px;">
+      <div class="control-group">
+        <label>Wie viele Gewinner?</label>
+        <input type="number" id="winnerCount" value="1" min="1" max="50">
+      </div>
+      <div class="control-group">
+        <label></label>
+        <label style="font-size:13px;"><input type="checkbox" id="dedupe" style="margin-right:6px;vertical-align:middle;"> Entfernen Sie doppelte Einträge</label>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="drawWinners()">GEWINNEN</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Wenn Sie einen Giveaway laufen und einen Gewinner fair wählen müssen? Fügen Sie Ihre Eintragsliste ein (eine pro Zeile), setzen Sie, wie viele Gewinner Sie wollen, und tippen Sie auf die Schaltfläche. Jeder Eintrag hat eine gleiche Chance, kein Eintrag wird zweimal in der gleichen Ziehung ausgewählt, und Sie können das Ergebnis als Beweis Screenshot. Kein Konto erforderlich.</p>
+
+    <h2>Was als Eintragsliste einzufügen ist</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>In den Warenkorb</strong> — die Kommentarliste aus einem Abstreifer oder Export kopieren</li>
+      <li><strong>Twitter/X Antworten</strong> — Kopieren Sie die @Handle von jedem, der eingetragen ist</li>
+      <li><strong>E-Mail Adressen</strong> — aus einem Anmeldeformular oder einer Mailingliste</li>
+      <li><strong>Ticketnummern</strong> — für eine Verlosung</li>
+      <li><strong>Kunden-IDs</strong> — für eine Treuebelohnung</li>
+    </ul>
+
+    <h2>Halten Sie Ihre Ziehung transparent</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Für öffentliche Werbegeschenke auf sozialen Medien benötigen die meisten Plattformen die Ziehung, um überprüfbar zu sein. Die Standardpraxis:</p>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Melden Sie die Eingaberegeln und das Schließdatum vorn an</li>
+      <li>Einträge schließen — die Liste nach dem Schließen nicht bearbeiten</li>
+      <li>Screen-Record oder Screenshot der Picker zeigt die vollständige Eintragsliste und das Ergebnis</li>
+      <li>Geben Sie das Ergebnis mit dem Datum und der Anzahl der Einträge</li>
+    </ol>
+
+    <h2>Duplikate Handhabung</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Standardmäßig hält das Tool Duplikate – manchmal wollen Sie Einträge gewichtet durch Eingabenummer. Tick <em>Entfernen Sie doppelte Einträge</em> zu kollabieren wiederholt, so dass jeder einzigartige Griff nur eine Chance hat.</p>
+
+    <h2>Andere Werkzeuge</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Auch nützlich: <a href="pick-random-name.html">Wählen Sie einen zufälligen Namen</a>, <a href="lottery-picker.html">Lotterie Picker</a>, <a href="wheel-of-names.html">Rad der Namen</a>, <a href="random-number-1-1000.html">Randnummer 1–1000</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist die Messe?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Jeder Eintrag hat genau die gleiche Chance ausgewählt zu werden. Das Tool verwendet den unvoreingenommenen Zufallszahlengenerator des Browsers und zeigt Ihnen die volle Eingangszahl vor jeder Ziehung.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann der gleiche Eintrag zweimal in einer Ziehung gewinnen?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Nein. Bei der Auswahl von mehreren Gewinnern entfernt das Tool jeden Gewinner aus dem Pool, bevor Sie den nächsten ziehen – so kann kein einziger Eintrag zwei Preise in der gleichen Ziehung gewinnen.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Befolgt dies Instagram / Facebook-Geschenkregeln?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Das Werkzeug handhabt die Ziehung selbst — die Einhaltung hängt davon ab, wie Sie das Giveaway ausführen. Immer freigebende Verantwortungsträger von der Plattform, beinhalten Förderregeln und folgen der Werbepolitik jeder Plattform.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">In den Warenkorb</h2>
+    <div class="related-grid">
+      <a class="related-card" href="pick-random-name.html"><span class="ri">🎲</span> Wählen Sie Random Name</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lotterie Picker</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Rad der Namen</a>
+      <a class="related-card" href="random-number-1-1000.html"><span class="ri">🔢</span> 1–1000 Generator</a>
+    </div>
+  </section>
+
+</main>
