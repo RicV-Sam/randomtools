@@ -1,20 +1,17 @@
 ---
 layout: layouts/base.njk
-title: Rad der Namen für Klassenzimmer – Führer des Lehrers | Spinnit
+title: Wheel of Names for Classroom – Teacher's Guide | Spinnit
 description: >-
-  Ein Namensrad für den Klassenraum. Kostenlos, projektorfreundlich,
-  DSGVO-sicher – mit praktischen Tipps von echten Lehrern über die Verwendung
-  eines Namensrad in Unterricht.
-ogTitle: Rad der Namen für Klassenzimmer | Spinnit
-ogDescription: >-
-  Der Führer des Lehrers, ein Namensrad zu verwenden — kostenlos,
-  projektorbereit, keine Anmeldung.
+  A wheel of names made for the classroom. Free, projector-friendly, GDPR-safe —
+  with practical tips from real teachers on using a name wheel in lessons.
+ogTitle: Wheel of Names for Classroom | Spinnit
+ogDescription: 'Teacher''s guide to using a name wheel — free, projector-ready, no sign-up.'
 canonical: 'https://spinnit.site/de/tools/wheel-of-names-for-classroom.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Rad der Namen für Klassenzimmer",
+    "name": "Wheel of Names for Classroom",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -66,70 +63,70 @@ lang: de
 
   <div class="tool-header">
     <div class="tool-icon">🎡</div>
-    <h1>Rad der Namen für den Klassenraum</h1>
-    <p>Ein lehrerfreundliches Namensrad — plus Tipps, die tatsächlich funktionieren</p>
+    <h1>Wheel of Names for the Classroom</h1>
+    <p>A teacher-friendly name wheel — plus tips that actually work</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">Gepflegt</div>
+    <div class="result-label">picked</div>
     <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">—</div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>Klassenliste (ein Name pro Zeile)</label>
+      <label>Class list (one name per line)</label>
       <textarea id="namesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;"></textarea>
     </div>
   </div>
 
   <button class="btn-generate" onclick="pick()">SPIN</button>
-  <button class="btn-copy" onclick="clearResult()" style="margin-top:8px;">Klar.</button>
+  <button class="btn-copy" onclick="clearResult()" style="margin-top:8px;">Clear</button>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Ein Namensrad ist eines der einfachsten Lehrwerkzeuge, um zu Ihrer Routine hinzuzufügen – und eines der effektivsten für faire Studentenbeteiligung. Diese Seite gibt Ihnen einen schnellen Picker oben, und darunter eine praktische Anleitung, um ein Namensrad zu verwenden, ohne dass es in Ihrer Lektion Rauschen wird.</p>
+    <p>A wheel of names is one of the simplest teaching tools to add to your routine — and one of the most effective for fair student participation. This page gives you a quick picker above, and below it, a practical guide to using a name wheel without it becoming noise in your lesson.</p>
 
-    <h2>Warum ein Namensrad in der Klasse verwenden</h2>
+    <h2>Why use a name wheel in class</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li><strong>Anzahl der Stimmen</strong> — ruhige Studenten werden so oft wie die Hand-Raiser aufgerufen</li>
-      <li><strong>Reduzierter Widerstand</strong> — "das Rad hat dich ausgewählt" ist leichter zu akzeptieren als "Ich wähle dich"</li>
-      <li><strong>Achtung</strong> — Studenten bleiben wachsam, weil jemand als nächstes</li>
-      <li><strong>Pace</strong> — ein Hahn, eine Antwort, keine Warte auf die Hände</li>
-      <li><strong>Datenerhebung</strong> — den Überblick behalten, wer beantwortet wird, um Muster zu erkennen</li>
+      <li><strong>Equity of voice</strong> — quiet students get called on as often as the hand-raisers</li>
+      <li><strong>Reduced resistance</strong> — "the wheel picked you" is easier to accept than "I'm picking you"</li>
+      <li><strong>Attention</strong> — students stay alert because anyone could be next</li>
+      <li><strong>Pace</strong> — one tap, one answer, no waiting for hands</li>
+      <li><strong>Data collection</strong> — keep track of who's answered to spot patterns</li>
     </ul>
 
-    <h2>Drei Möglichkeiten, es gut zu nutzen</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;"><strong>1. Der kalte Anruf.</strong> Stellen Sie eine Frage, halten Sie für zehn Sekunden Denken Zeit, <em>dann</em> Tippen Sie auf das Rad. Denkzeit ist nicht verhandelbar – ohne dass man "Ich weiß nicht" anstelle von echten Antworten bekommt.</p>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;"><strong>2. Das Sicherheitsnetz.</strong> Lassen Sie den Schüler antworten, und wenn sie stecken bleiben, lassen Sie sie "über das Rad" zu einem Peer ihrer Wahl. Sie bleiben in der Kontrolle, aber die Aktivität geht weiter.</p>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;"><strong>3. Der Präsentationsauftrag.</strong> Für Gruppenarbeit oder individuelle Präsentationen drehen Sie das Rad einmal pro Slot, um die Bestellung live einzustellen. Entfernt jedes "Sie gehen zuerst" Argument.</p>
+    <h2>Three ways to use it well</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;"><strong>1. The cold call.</strong> Ask a question, pause for ten seconds of thinking time, <em>then</em> tap the wheel. Thinking time is non-negotiable — without it you get "I don't know" instead of real answers.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;"><strong>2. The safety net.</strong> Let the student answer, and if they're stuck, let them "pass the wheel" to a peer of their choice. They stay in control, but the activity moves on.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;"><strong>3. The presentation order.</strong> For group work or individual presentations, spin the wheel once per slot to set the order live. Removes every "you go first" argument.</p>
 
-    <h2>Drei häufige Fehler</h2>
+    <h2>Three common mistakes</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li><strong>Skipping der ausgewählten Schüler</strong> — wenn das Rad einen Namen nennt, begehen Sie es. Skipping bricht den Fairnessvertrag.</li>
-      <li><strong>Verwenden Sie es für High-Stake-Fragen</strong> — niemals das Rad für öffentliche Kennzeichnungs- oder Verhaltensentscheidungen verwenden. Behalten Sie es.</li>
-      <li><strong>Zurücksetzen vergessen</strong> — wenn Sie No-Repeat-Modus verwenden, zurücksetzen Sie nach jeder Lektion oder Klasse Dynamik skew.</li>
+      <li><strong>Skipping the picked student</strong> — once the wheel calls a name, commit to it. Skipping breaks the fairness contract.</li>
+      <li><strong>Using it for high-stakes questions</strong> — never use the wheel for public marking or behaviour decisions. Keep it low-stakes.</li>
+      <li><strong>Forgetting to reset</strong> — if you use no-repeat mode, reset after each lesson or class dynamics skew.</li>
     </ul>
 
-    <h2>Willst du das volle animierte Rad?</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Der Picker oben ist absichtlich schnell - tippen Sie, fertig. Für die volle Spinnen-Animation, die Kinder genießen, die Hauptnutzung <a href="wheel-of-names.html">Rad der Namen</a>. Auch nützlich: die <a href="random-student-picker.html">Zufälliger Student Picker</a> mit No-Repeat-Modus, die <a href="team-picker.html">Team Picker</a> für Gruppenarbeit und <a href="list-shuffler.html">Liste Shuffler</a> für eine einmalige zufällige Reihenfolge.</p>
+    <h2>Want the full animated wheel?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The picker above is intentionally quick — tap, done. For the full spinning animation that kids enjoy, use the main <a href="wheel-of-names.html">Wheel of Names</a>. Also useful: the <a href="random-student-picker.html">Random Student Picker</a> with no-repeat mode, the <a href="team-picker.html">Team Picker</a> for group work, and the <a href="list-shuffler.html">List Shuffler</a> for a one-shot randomised order.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>Häufig gestellte Fragen</h2>
+    <h2>Frequently Asked Questions</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist diese DSGVO-sicher für eine britische Schule?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Namen, die Sie einfügen, verlassen nie den Browser-Tab – kein Upload, kein Konto, keine Cookies, die Sie über Websites verfolgen. Das bedeutet, dass es in Bezug auf dieses Tool keine personenbezogene Datenverarbeitung unter DSGVO gibt.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this GDPR-safe for a UK school?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Names you paste in never leave the browser tab — no upload, no account, no cookies tracking you across sites. That means there's no personal data processing under GDPR as far as this tool is concerned.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Wird es an einem interaktiven Whiteboard arbeiten?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Das Werkzeug ist ansprechend und berührungsfreundlich. Für den saubersten Blick auf eine IWB drücken Sie F11 für Vollbild und verwenden Sie die Haupt <a href="wheel-of-names.html">Rad der Namen</a> für die animierte Version.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Will it work on an interactive whiteboard?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The tool is responsive and touch-friendly. For the cleanest look on an IWB, press F11 for full-screen and use the main <a href="wheel-of-names.html">Wheel of Names</a> for the animated version.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich meine Klassenliste zwischen Lektionen speichern?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Derzeit nicht — aber Sie können eine Liste aus einer Notiz oder Tabellenkalkulation in einer Sekunde einfügen. Viele Lehrer halten eine "Class 7B roster" Notiz auf ihrem Telefon aus diesem genauen Grund.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I save my class list between lessons?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Currently no — but you can paste a list from a note or spreadsheet in under a second. Many teachers keep a "Class 7B roster" note on their phone for this exact reason.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+    <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Volles Rad der Namen</a>
-      <a class="related-card" href="random-student-picker.html"><span class="ri">🎒</span> Schüler</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Full Wheel of Names</a>
+      <a class="related-card" href="random-student-picker.html"><span class="ri">🎒</span> Student Picker</a>
       <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
       <a class="related-card" href="random-name-picker-no-repeat.html"><span class="ri">🎯</span> No-Repeat Picker</a>
     </div>

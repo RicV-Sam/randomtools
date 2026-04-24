@@ -1,17 +1,17 @@
 ---
 layout: layouts/base.njk
-title: Random Nummer zwischen 1 und 6 – Online Dice Alternative | Spinnit
+title: Random Number Between 1 and 6 – Online Dice Alternative | Spinnit
 description: >-
-  Wählen Sie eine Zufallszahl zwischen 1 und 6 – einen fairen Online-Ersatz für
-  einen sechsseitigen Würfel. Sofort, kostenlos, mobil, ohne Anmeldung.
-ogTitle: Random Nummer zwischen 1 und 6 | Spinnit
-ogDescription: Sofortige faire Zufallszahl von 1 bis 6 — ein richtiges online Würfel-Ersatz.
+  Pick a random number between 1 and 6 — a fair online substitute for a
+  six-sided dice. Instant, free, mobile-friendly, no sign-up.
+ogTitle: Random Number Between 1 and 6 | Spinnit
+ogDescription: Instant fair random number from 1 to 6 — a proper online dice replacement.
 canonical: 'https://spinnit.site/de/tools/random-number-1-6.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Random Nummer zwischen 1 und 6",
+    "name": "Random Number Between 1 and 6",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -71,68 +71,68 @@ lang: de
 
   <div class="tool-header">
     <div class="tool-icon">⚄</div>
-    <h1>Random Nummer zwischen 1 und 6</h1>
-    <p>Ein fairer Online-Ersatz für einen sechsseitigen Würfel</p>
+    <h1>Random Number Between 1 and 6</h1>
+    <p>A fair online replacement for a six-sided dice</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">Ihre Rolle (1–6)</div>
+    <div class="result-label">your roll (1–6)</div>
     <div class="result-number" id="result">—</div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>Wie viele Rollen?</label>
+      <label>How many rolls?</label>
       <input type="number" id="count" value="1" min="1" max="100">
     </div>
   </div>
 
   <button class="btn-generate" onclick="generate()">ROLL</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">Letzte Rollen</div>
+    <div class="history-label">Recent rolls</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Wenn die Würfel verschwinden, ist eine zufällige Zahl zwischen 1 und 6 der offensichtliche Ersatz. Dieser Generator spiegelt einen fairen sechsseitigen Stempel genau: jedes Gesicht hat eine 1-in-6 Chance, Rollen sind unabhängig, und das Ergebnis ist bereit, sobald Sie die Taste tippen.</p>
+    <p>When the dice go missing, a random number between 1 and 6 is the obvious substitute. This generator mirrors a fair six-sided die exactly: each face has a 1-in-6 chance, rolls are independent, and the result is ready the instant you tap the button.</p>
 
-    <h2>Wenn eine 1–6 Rolle ist, was Sie brauchen</h2>
+    <h2>When a 1–6 roll is what you need</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>Brettspiele, bei denen Sie die Würfel verloren haben — Monopoly, Ludo, Schlangen &amp; Ladders</li>
-      <li>Tabletop RPGs, die für eine d6 Geschickskontrolle oder Schadensrolle rufen</li>
-      <li>Unterrichtstätigkeiten — sechs Gruppen zuordnen, eine Fragenummer auswählen</li>
-      <li>Trinken und Partyspiele, die eine einzelne Diät verwenden</li>
-      <li>Kodierungsübungen, die eine einfache gleichmäßige Verteilung benötigen</li>
+      <li>Board games where you've lost the dice — Monopoly, Ludo, Snakes &amp; Ladders</li>
+      <li>Tabletop RPGs that call for a d6 skill check or damage roll</li>
+      <li>Classroom activities — assign groups of six, pick a question number</li>
+      <li>Drinking and party games that use a single die</li>
+      <li>Coding exercises that need a simple uniform distribution</li>
     </ul>
 
-    <h2>Brauchen Sie mehrere Würfel?</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Set <em>Wie viele Rollen?</em> bis zu 100 und jedes Ergebnis zeigt zusammen - nützlich für 2d6, 3d6 oder "Rolle mit Vorteil" Kontrollen. Für eine visuelle animierte Rolle mit mehreren Würfeln auf einmal, versuchen Sie die gewidmet <a href="dice-roller.html">Dice Roller</a>.</p>
+    <h2>Need multiple dice?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Set <em>How many rolls?</em> up to 100 and every result shows together — useful for 2d6, 3d6 or "roll with advantage" checks. For a visual animated roll with several dice at once, try the dedicated <a href="dice-roller.html">Dice Roller</a>.</p>
 
-    <h2>Sonstige Bereiche</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Brauchst du stattdessen d20 oder d10? Versuch <a href="random-number-1-20.html">1–20</a>, <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-100.html">1–100</a>, oder einen <a href="random-number.html">Sonderangebot</a>.</p>
+    <h2>Other ranges</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Need d20 or d10 instead? Try <a href="random-number-1-20.html">1–20</a>, <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-100.html">1–100</a>, or build a <a href="random-number.html">custom range</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>Häufig gestellte Fragen</h2>
+    <h2>Frequently Asked Questions</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist das ein fairer Ersatz für eine echte Würfel?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja — in der Tat ist es oft <em>märchen</em>. Real Würfel kann durch unebenes Gewicht oder abgenutzte Kanten vorgespannt werden. Digitale Rollen sind mathematisch gleichförmig: jede Zahl von 1 bis 6 hat genau eine 1-in-6 Chance.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this a fair replacement for a real dice?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes — in fact, it's often <em>fairer</em>. Real dice can be biased by uneven weight or worn edges. Digital rolls are mathematically uniform: each number from 1 to 6 has exactly a 1-in-6 chance.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich zwei Würfel auf einmal (2d6) rollen?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Setzen Sie "Wie viele Rollen?" auf 2 und beide Ergebnisse erscheinen zusammen. Füge sie hinzu, um die 2d6 insgesamt zu erhalten.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I roll two dice at once (2d6)?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set "How many rolls?" to 2 and both results appear together. Add them to get the 2d6 total.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Arbeitet das offline?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Sobald die Seite geladen ist, passieren alle Rollen in Ihrem Browser ohne Netzwerk benötigt.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this work offline?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Once the page has loaded, all rolls happen in your browser with no network needed.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+    <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Visuelle Würfelrolle</a>
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Individuelle Reichweite Generator</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Visual Dice Roller</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Custom Range Generator</a>
       <a class="related-card" href="random-number-1-20.html"><span class="ri">🔢</span> 1–20 (D20)</a>
-      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> In den Warenkorb</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Coin Flip</a>
     </div>
   </section>
 

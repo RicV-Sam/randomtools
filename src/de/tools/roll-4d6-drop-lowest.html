@@ -1,20 +1,17 @@
 ---
 layout: layouts/base.njk
-title: Roll 4d6 Drop Niedrigster – D&amp; D 5e Stat Roller | Spinnit
+title: Roll 4d6 Drop Lowest – D&amp;D 5e Stat Roller | Spinnit
 description: >-
-  Roll 4d6 Drop niedrigsten — die Standard Dungeons &amp; Dragons 5e Fähigkeit
-  Score Methode. Kostenlose Online-Rolle mit allen vier Würfeln gezeigt. Sofort,
-  keine Anmeldung.
-ogTitle: Roll 4d6 Drop Niedrigste | Spinnit
-ogDescription: >-
-  Die D&amp; D 5e stat roll — vier d6, fallen den niedrigsten, summieren den
-  Rest.
+  Roll 4d6 drop lowest — the standard Dungeons &amp; Dragons 5e ability score
+  method. Free online roller with all four dice shown. Instant, no sign-up.
+ogTitle: Roll 4d6 Drop Lowest | Spinnit
+ogDescription: 'The D&amp;D 5e stat roll — four d6, drop the lowest, sum the rest.'
 canonical: 'https://spinnit.site/de/tools/roll-4d6-drop-lowest.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Rolle 4d6 Drop Niedrigste",
+    "name": "Roll 4d6 Drop Lowest",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -89,69 +86,69 @@ lang: de
 
   <div class="tool-header">
     <div class="tool-icon">🐉</div>
-    <h1>Rolle 4d6 Drop Niedrigste</h1>
-    <p>Die Standard-D&amp;D 5e-Fähigkeitsbewertungsmethode</p>
+    <h1>Roll 4d6 Drop Lowest</h1>
+    <p>The standard D&amp;D 5e ability score method</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">Ihre Bewertung</div>
+    <div class="result-label">your score</div>
     <div class="result-number" id="result">—</div>
     <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>Wie viele Punkte? (6 für einen Vollstatenblock)</label>
+      <label>How many scores? (6 for a full stat block)</label>
       <input type="number" id="count" value="6" min="1" max="20">
     </div>
   </div>
 
-  <button class="btn-generate" onclick="roll()">SAMMLUNGEN</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+  <button class="btn-generate" onclick="roll()">ROLL STATS</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">Aktuelle Ergebnisse</div>
+    <div class="history-label">Recent scores</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Vier sechsseitige Würfel, fallen Sie den niedrigsten, summieren Sie den Rest — die Standard-Fähigkeits-Score-Methode in Dungeons &amp; Dragons 5th Edition und Pathfinder. Es ist freundlicher als 3d6: die durchschnittliche Punktzahl ist 12.24, und Punkte von 13+ zeigen mehr als die Hälfte der Zeit, so dass Ihre Helden wirklich heroisch fühlen.</p>
+    <p>Four six-sided dice, drop the lowest, sum the rest — the standard ability score method in Dungeons &amp; Dragons 5th edition and Pathfinder. It's kinder than 3d6: the average score is 12.24, and scores of 13+ show up more than half the time, so your heroes actually feel heroic.</p>
 
-    <h2>Wie man ein 5e Zeichen rollt</h2>
+    <h2>How to roll a 5e character</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>Lassen Sie die Anzahl auf 6 gesetzt - Sie brauchen sechs Fähigkeitspunkte.</li>
-      <li>Band <strong>SAMMLUNGEN</strong>. Vier Würfel werden sechs Mal gerollt; die niedrigste sterben aus jedem Satz wird fallen gelassen.</li>
-      <li>Jedes der sechs Summen wird zu einem Fähigkeitsscore.</li>
-      <li>Zuweisen Sie sie (auf Bestellung oder frei, wenn Ihr DM erlaubt) zu stärken, Dexterity, Verfassung, Intelligenz, Weisheit, Charisma.</li>
-      <li>Bewerben Sie Rassenboni pro Ihre gewählte Spezies.</li>
+      <li>Leave the count set to 6 — you need six ability scores.</li>
+      <li>Tap <strong>ROLL STATS</strong>. Four dice are rolled six times; the lowest die from each set is dropped.</li>
+      <li>Each of the six totals becomes an ability score.</li>
+      <li>Assign them (in order, or freely if your DM allows) to Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma.</li>
+      <li>Apply racial bonuses per your chosen species.</li>
     </ol>
 
-    <h2>Ist es eine gute Rolle?</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Eine nützliche Faustregel: Die Summe aller sechs Punkte sollte mindestens 70 sein, um wettbewerbsfähig zu sein. Unter 65 ist grob; über 80 ist besonders überdurchschnittlich. Die meisten DMs lassen Sie sich einmal registrieren, wenn die Summe unter einem festgelegten Minimum liegt — fragen Sie, bevor Sie beginnen.</p>
+    <h2>Is it a good roll?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">A useful rule of thumb: the sum of all six scores should be at least 70 to be competitive. Under 65 is rough; over 80 is notably above average. Most DMs let you reroll once if the total is below a set minimum — ask before you start.</p>
 
-    <h2>Andere Würfelrollen</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Versuch <a href="roll-3d6.html">3d6 (klassische Statistiken)</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-d100.html">d100</a>, <a href="roll-d10.html">D10</a>, <a href="random-number-1-20.html">D20</a>, oder <a href="dice-roller.html">Dice Roller</a>.</p>
+    <h2>Other dice rollers</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Try <a href="roll-3d6.html">3d6 (classic stats)</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-d100.html">d100</a>, <a href="roll-d10.html">d10</a>, <a href="random-number-1-20.html">d20</a>, or the full <a href="dice-roller.html">Dice Roller</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>Häufig gestellte Fragen</h2>
+    <h2>Frequently Asked Questions</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Was ist der durchschnittliche 4d6 Tropfen niedrig?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">12.24. Modalwert ist 13. Eine 18 erscheint etwa 1,6% der Zeit pro Rolle, so erwarten etwa eine 18 alle zehn Zeichen im Durchschnitt.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What's the average 4d6 drop lowest?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">12.24. Modal value is 13. An 18 appears about 1.6% of the time per roll, so expect roughly one 18 every ten characters on average.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich alle vier Würfel sehen, nicht nur die Summe?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Nach jeder Rolle, die fallenden sterben und gehalten Würfel werden unterhalb der Punktzahl angezeigt, so können Sie die Mathematik überprüfen.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I see all four dice, not just the total?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. After each roll, the dropped die and kept dice are shown below the score so you can verify the math.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Befolgt dies den 5e Player's Handbook Regeln?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Dies ist die "Rolling Scores" Methode aus dem 5e PHB Zeichen Kreation Kapitel. Ihre DM kann stattdessen Nachrollen oder Point-Buy verwenden.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this follow the 5e Player's Handbook rules?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. This is the "Rolling Scores" method from the 5e PHB character creation chapter. Your DM may allow rerolls or use point-buy instead.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+    <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="roll-3d6.html"><span class="ri">🎲</span> Rolle 3d6 (Klassisch)</a>
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Volle Würfelrolle</a>
-      <a class="related-card" href="random-number-1-20.html"><span class="ri">🎲</span> Rollen d20</a>
-      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> Rollstuhlfahrer</a>
+      <a class="related-card" href="roll-3d6.html"><span class="ri">🎲</span> Roll 3d6 (Classic)</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Full Dice Roller</a>
+      <a class="related-card" href="random-number-1-20.html"><span class="ri">🎲</span> Roll d20</a>
+      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> Roll d100</a>
     </div>
   </section>
 

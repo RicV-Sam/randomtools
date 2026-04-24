@@ -1,16 +1,16 @@
 ---
 layout: layouts/base.njk
-title: Random Team Picker – Teilt in Teams | Spinnit
+title: Random Team Picker – Split into Teams | Spinnit
 description: >-
-  Jede Liste von Namen in gleiche Teams zu teilen. Freier Team-Generator für
-  Sport-, Klassen-, Arbeits- und Gruppenprojekte.
+  Randomly split any list of names into equal teams. Free team generator for
+  sports, classrooms, work and group projects.
 canonical: 'https://spinnit.site/de/tools/team-picker.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Random Team Picker",
-    "description": "Eine Liste von Namen in zufällige Teams teilen",
+    "description": "Split a list of names into random teams",
     "url": "https://spinnit.site/de/tools/team-picker.html",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web"
@@ -18,8 +18,8 @@ jsonLd: |-
 extraHead: >
   <meta name="twitter:title" content="Random Team Picker | Spinnit">
 
-  <meta name="twitter:description" content="Teilen Sie jede Liste von Namen in
-  zufällige Teams sofort. Kostenlos und mobil.">
+  <meta name="twitter:description" content="Split any list of names into random
+  teams instantly. Free and mobile-friendly.">
 
   <script type="application/ld+json">
 
@@ -104,28 +104,28 @@ lang: de
   <div class="tool-header">
     <div class="tool-icon">👥</div>
     <h1>Random Team Picker</h1>
-    <p>Fügen Sie Ihre Liste der Namen, wählen Sie, wie viele Teams</p>
+    <p>Paste your list of names, choose how many teams</p>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>Namen (eines pro Zeile)</label>
+      <label>Names (one per line)</label>
       <textarea id="nameList" placeholder="Alice
-Bob.
+Bob
 Charlie
 Diana
-Hallo.
+Eve
 Frank
-Gnade
+Grace
 Hank"></textarea>
     </div>
     <div class="control-row">
       <div class="control-group">
-        <label>Anzahl der Teams</label>
+        <label>Number of teams</label>
         <input type="number" id="numTeams" value="2" min="2" max="20">
       </div>
       <div class="control-group">
-        <label>Teamnamen (optional)</label>
+        <label>Team names (optional)</label>
         <input type="text" id="teamPrefix" placeholder="Team" value="Team">
       </div>
     </div>
@@ -136,53 +136,53 @@ Hank"></textarea>
   <div id="teamsOutput" class="teams-output"></div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Der Random Team Picker teilt jede Liste von Namen in gleiche Teams in Sekunden. Fügen Sie Ihre Namen, wählen Sie, wie viele Teams Sie brauchen, und es verteilt Spieler ziemlich und zufällig jedes Mal. Ideal für PE-Lehrer, Sporttrainer, Trivia-Nacht und Werkstätten.</p>
+    <p>The Random Team Picker splits any list of names into equal teams in seconds. Paste your names, choose how many teams you need, and it distributes players fairly and randomly every time. Great for PE teachers, sports coaches, trivia nights, and work workshops.</p>
 
-    <h2>Wie zu benutzen</h2>
+    <h2>How to Use</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>Geben Sie Ihre Namensliste in den Textbereich ein, einen Namen pro Zeile.</li>
-      <li>Stellen Sie die Anzahl der Teams mit dem Feld Anzahl der Teams fest.</li>
-      <li>Optional ändern Sie das Team-Label-Präfix (Standard ist "Team") auf etwas Brauchbares.</li>
-      <li>Klicken Sie auf Pick Teams, um die Gruppen sofort zu generieren.</li>
-      <li>Klicken Sie erneut, um neu zu klingen und komplett neue Teams zu produzieren.</li>
+      <li>Type or paste your list of names into the text area, one name per line.</li>
+      <li>Set the number of teams using the Number of teams field.</li>
+      <li>Optionally change the team label prefix (default is "Team") to something custom.</li>
+      <li>Click Pick Teams to generate the groups instantly.</li>
+      <li>Click again to re-shuffle and produce completely new teams.</li>
     </ol>
 
-    <h2>Gemeinsame Nutzungen</h2>
+    <h2>Common Uses</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>PE-Klasse oder Sporttag Teamauswahl in der Schule</li>
-      <li>Mitarbeiter in Gruppen für Workshops oder Schulungen teilen</li>
-      <li>Spieler organisieren für trivia quiz Nächte</li>
-      <li>Klassenkameraden in Projektgruppen ziemlich</li>
-      <li>Turnierkonsolen für Brettspielabende oder Sportvereine</li>
-      <li>Zufällige Zuweisung von Präsentationsauftrag innerhalb eines Teamtreffens</li>
+      <li>PE class or sports day team selection at school</li>
+      <li>Splitting employees into groups for workshops or training sessions</li>
+      <li>Organising players for trivia quiz nights</li>
+      <li>Dividing classmates into project groups fairly</li>
+      <li>Tournament brackets for board game nights or sports clubs</li>
+      <li>Randomly assigning presentation order within a team meeting</li>
     </ul>
 
-    <h2>Warum Spinnit verwenden</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Der hier verwendete Fisher-Yates-Schall garantiert, dass jede mögliche Kombination gleichermaßen wahrscheinlich ist – kein Spieler wird jemals systematisch zusammengefügt. Teams können sofort wieder gekrümmt werden, wenn jemand die Ziehung bestreitet. Keine Daten werden gespeichert, kein Konto benötigt, und es funktioniert genauso gut auf einem Telefon wie auf einem Laptop.</p>
+    <h2>Why Use Spinnit</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The Fisher-Yates shuffle used here guarantees every possible combination is equally likely — no player is ever systematically placed together. Teams can be re-shuffled instantly if anyone disputes the draw. No data is stored, no account needed, and it works just as well on a phone as on a laptop.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>Häufig gestellte Fragen</h2>
+    <h2>Frequently Asked Questions</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Können Teams mit ungleichen Größen enden?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Wenn die Anzahl der Namen nicht gleichmäßig durch die Anzahl der Teams teilt, werden einige Teams ein zusätzliches Mitglied haben. Das Werkzeug handhabt dies automatisch mit einer Rundrobin-Verteilung.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can teams end up with unequal sizes?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">If the number of names doesn't divide evenly by the number of teams, some teams will have one extra member. The tool handles this automatically using a round-robin distribution.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Gibt es ein Limit für die Anzahl der Namen?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Es gibt keine strenge Grenze. Das Tool funktioniert gut mit Dutzenden von Namen und die Ausgabe scrollt natürlich für größere Gruppen.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is there a limit on the number of names?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">There is no strict limit. The tool works well with dozens of names and the output scrolls naturally for larger groups.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist dieses Tool kostenlos zu verwenden?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, völlig kostenlos ohne Anmeldung erforderlich.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this tool free to use?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, completely free with no sign-up required.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Arbeitet das auf Handy?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, alle Spinnit-Tools sind mobil-first und arbeiten an jedem Gerät.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this work on mobile?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, all Spinnit tools are mobile-first and work on any device.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+    <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> Liste Shuffler</a>
-      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Rad der Namen</a>
-      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> In den Warenkorb</a>
-      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Ja kein Rad</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Wheel of Names</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Coin Flip</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Yes No Wheel</a>
     </div>
   </section>
 

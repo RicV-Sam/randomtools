@@ -1,20 +1,17 @@
 ---
 layout: layouts/base.njk
-title: Roll 2d6 Online – Kostenlose Zwei-Zwei-Rolle | Spinnit
+title: Roll 2d6 Online – Free Two-Dice Roller | Spinnit
 description: >-
-  Roll 2d6 online — zwei faire sechsseitige Würfel mit dem Gesamt sofort
-  gezeigt. Perfekt für Catan, Monopoly, Backgammon und Tischplatte RPGs.
-  Kostenlos, keine Anmeldung.
+  Roll 2d6 online — two fair six-sided dice with the total shown instantly.
+  Perfect for Catan, Monopoly, Backgammon and tabletop RPGs. Free, no sign-up.
 ogTitle: Roll 2d6 Online | Spinnit
-ogDescription: >-
-  Kostenlos online 2d6 Rolle — zwei sechsseitige Würfel mit insgesamt, sofort
-  Ergebnis.
+ogDescription: 'Free online 2d6 roller — two six-sided dice with total, instant result.'
 canonical: 'https://spinnit.site/de/tools/roll-2d6.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Rolle 2d6",
+    "name": "Roll 2d6",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -86,69 +83,69 @@ lang: de
   <div class="tool-header">
     <div class="tool-icon">⚄</div>
     <h1>Roll 2d6 Online</h1>
-    <p>Zwei faire sechsseitige Würfel mit sofortiger Summe</p>
+    <p>Two fair six-sided dice with instant total</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">Ihre Rolle</div>
+    <div class="result-label">your roll</div>
     <div class="result-number" id="result">—</div>
     <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>Wie oft rollen?</label>
+      <label>How many times to roll?</label>
       <input type="number" id="count" value="1" min="1" max="20">
     </div>
   </div>
 
   <button class="btn-generate" onclick="roll()">ROLL 2d6</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">Letzte Rollen</div>
+    <div class="history-label">Recent rolls</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Rolling 2d6 — zwei sechsseitige Würfel — ist die am meisten benutzte Rolle in Tischspiele. Monopoly, Catan, Backgammon, Risk und unzählige RPGs laufen darauf. Die Summe reicht von 2 bis 12, mit 7 als häufigstes Ergebnis, weil sie sechs Möglichkeiten hat, gerollt zu werden (1+6, 2+5, 3+4 und ihre Spiegel).</p>
+    <p>Rolling 2d6 — two six-sided dice — is the most-used roll in tabletop gaming. Monopoly, Catan, Backgammon, Risk and countless RPGs all run on it. The sum ranges from 2 to 12, with 7 as the most common outcome because it has six ways of being rolled (1+6, 2+5, 3+4 and their mirrors).</p>
 
-    <h2>Spiele, die 2d6 verwenden</h2>
+    <h2>Games that use 2d6</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li><strong>Catan</strong> — Rollen zur Erzeugung von Ressourcen</li>
-      <li><strong>Monopol</strong> — Bewegung, Doppelgänge lösen zusätzliche Windungen aus</li>
-      <li><strong>Backgammon</strong> — Bewegung, mit Doppelverdoppelung</li>
-      <li><strong>Risikopositionen</strong> — Angriffs- und Verteidigungsrollen</li>
-      <li><strong>Powered by the Apocalypse</strong> RPGs — jede Aktionsprüfung</li>
-      <li><strong>Reisende</strong> und viele klassische Wargames</li>
+      <li><strong>Catan</strong> — resource production rolls</li>
+      <li><strong>Monopoly</strong> — movement, doubles trigger extra turns</li>
+      <li><strong>Backgammon</strong> — movement, with doubles doubled</li>
+      <li><strong>Risk</strong> — attack and defence rolls</li>
+      <li><strong>Powered by the Apocalypse</strong> RPGs — every action check</li>
+      <li><strong>Traveller</strong> and many classic wargames</li>
     </ul>
 
-    <h2>2d6 Wahrscheinlichkeit schnelle Referenz</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Die Quoten von insgesamt 36 möglichen Ergebnissen: 2 und 12 erscheinen 1/36 (ca. 2,8%), 7 erscheint 6/36 (16,7%), wobei der Rest eine Glockenkurve bildet. Deshalb ist 7 die magische Zahl in so vielen Spielen – und warum Catan robber Platzierung immer aggressiv fühlt.</p>
+    <h2>2d6 probability quick reference</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The odds of each total out of 36 possible outcomes: 2 and 12 appear 1/36 (about 2.8%), 7 appears 6/36 (16.7%), with the rest forming a bell curve. That's why 7 is the magic number in so many games — and why Catan robber placement always feels aggressive.</p>
 
-    <h2>Andere Würfelrollen</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Brauchen Sie mehr Würfel? Versuch <a href="roll-3d6.html">3D6</a>, <a href="roll-4d6-drop-lowest.html">4d6 niedrig</a> (D&amping-Statistiken), <a href="roll-d100.html">d100</a>, <a href="roll-d10.html">D10</a>, oder <a href="dice-roller.html">Dice Roller</a> für jede Kombination.</p>
+    <h2>Other dice rolls</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Need more dice? Try <a href="roll-3d6.html">3d6</a>, <a href="roll-4d6-drop-lowest.html">4d6 drop lowest</a> (D&amp;D stats), <a href="roll-d100.html">d100</a>, <a href="roll-d10.html">d10</a>, or the full <a href="dice-roller.html">Dice Roller</a> for any combination.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>Häufig gestellte Fragen</h2>
+    <h2>Frequently Asked Questions</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Was ist das häufigste Ergebnis auf 2d6?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Sieben — es hat eine 1-in-6 Chance (16,7%). Die Summen bilden ein Dreieck: 2 und 12 sind selten, 7 ist am häufigsten.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What's the most common result on 2d6?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Seven — it has a 1-in-6 chance (16.7%). The totals form a triangle: 2 and 12 are rarest, 7 is most common.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Sind die Würfelrollen gleichzeitig passiert?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Beide Würfel werden gleichzeitig und unabhängig gerollt, genau wie ein echtes Paar Würfel zusammengeworfen.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Do the dice rolls happen at the same time?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Both dice are rolled simultaneously and independently, exactly like a real pair of dice thrown together.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich sagen, wann ich Doppel gerollt habe?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja — die beiden Würfelwerte sind einzeln über der Summe dargestellt, so sind Doppel leicht zu erkennen.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I tell when I've rolled doubles?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes — the two dice values are shown individually above the total, so doubles are easy to spot.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+    <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Volle Würfelrolle</a>
-      <a class="related-card" href="roll-3d6.html"><span class="ri">🎲</span> Rolle 3d6</a>
-      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> Rollstuhlfahrer</a>
-      <a class="related-card" href="random-number-1-6.html"><span class="ri">🔢</span> 1-6 Generator</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Full Dice Roller</a>
+      <a class="related-card" href="roll-3d6.html"><span class="ri">🎲</span> Roll 3d6</a>
+      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> Roll d100</a>
+      <a class="related-card" href="random-number-1-6.html"><span class="ri">🔢</span> 1–6 Generator</a>
     </div>
   </section>
 

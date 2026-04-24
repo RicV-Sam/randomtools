@@ -1,20 +1,18 @@
 ---
 layout: layouts/base.njk
-title: Roll 3d6 Online – Classic D&D Stat Roller | Spinnit
+title: Roll 3d6 Online – Classic D&amp;D Stat Roller | Spinnit
 description: >-
-  Rollen 3d6 online — drei sechsseitige Würfel summiert, die klassische
-  D&amp;D-Fähigkeits-Score-Methode. Auch in GURPS, Call of Cthulhu und Traveller
-  verwendet. Kostenlos, sofort.
-ogTitle: Rollen 3d6 Online | Spinnit
-ogDescription: >-
-  Drei sechsseitige Würfel zusammengefasst — klassische D&amp; D-Statistik
-  rollen.
+  Roll 3d6 online — three six-sided dice summed, the classic D&amp;D ability
+  score method. Also used in GURPS, Call of Cthulhu and Traveller. Free,
+  instant.
+ogTitle: Roll 3d6 Online | Spinnit
+ogDescription: Three six-sided dice summed — classic D&amp;D stat rolling.
 canonical: 'https://spinnit.site/de/tools/roll-3d6.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Rolle 3d6",
+    "name": "Roll 3d6",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -85,68 +83,68 @@ lang: de
   <div class="tool-header">
     <div class="tool-icon">🎲</div>
     <h1>Roll 3d6 Online</h1>
-    <p>Drei sechsseitige Würfel zusammengefasst — klassisches stat Rolling</p>
+    <p>Three six-sided dice summed — classic stat rolling</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">Ihre Rolle</div>
+    <div class="result-label">your roll</div>
     <div class="result-number" id="result">—</div>
     <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>Wie viele Rollen? (6 für einen Vollstatenblock)</label>
+      <label>How many rolls? (6 for a full stat block)</label>
       <input type="number" id="count" value="1" min="1" max="20">
     </div>
   </div>
 
   <button class="btn-generate" onclick="roll()">ROLL 3d6</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">Letzte Ergebnisse</div>
+    <div class="history-label">Recent totals</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Drei sechsseitige Würfel zusammengefasst ist die ursprüngliche D&amp; D-Fähigkeits-Score-Methode — eine Rolle pro stat, sechs stats, nehmen, was die Würfel gab Ihnen. Alte Schule und ungezwungen. Die Summen reichen von 3 bis 18, mit 10 und 11 am wahrscheinlichsten dank der engen Glockenkurve.</p>
+    <p>Three six-sided dice summed is the original D&amp;D ability score method — one roll per stat, six stats, take what the dice gave you. Old school and unforgiving. Totals range from 3 to 18, with 10 and 11 the most likely thanks to the tight bell curve.</p>
 
-    <h2>Systeme, die 3d6 verwenden</h2>
+    <h2>Systems that use 3d6</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li><strong>Original D&amp; D, AD&amp; D, OSR Retroclone</strong> — gerade Notenwalzen</li>
-      <li><strong>GURCH</strong> — jede einzelne Erfolgsrolle ist 3d6 unter Ziel</li>
-      <li><strong>Call of Cthulhu</strong> — mehrere Merkmale verwenden 3d6</li>
-      <li><strong>Reisende</strong> — Charaktererstellung und -prüfungen</li>
-      <li><strong>Fudge / FATE</strong> Varianten und viele Indie OSR Spiele</li>
+      <li><strong>Original D&amp;D, AD&amp;D, OSR retroclones</strong> — straight ability score rolls</li>
+      <li><strong>GURPS</strong> — every single success roll is 3d6 under target</li>
+      <li><strong>Call of Cthulhu</strong> — several characteristics use 3d6</li>
+      <li><strong>Traveller</strong> — character creation and skill checks</li>
+      <li><strong>Fudge / FATE</strong> variants and many indie OSR games</li>
     </ul>
 
-    <h2>3d6 Wahrscheinlichkeit</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Aus 216 möglichen Kombinationen: 3 und 18 haben jeweils eine 1/216 Chance (0,46%) – das sind die seltenen. Insgesamt von 10 und 11 erscheinen jeweils 27 Mal (12,5%). Eine Punktzahl von 13 oder höher kommt auf nur etwa 26 % der Rollen, weshalb "die höchste von 4d6" die moderne Alternative wurde.</p>
+    <h2>3d6 probability</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Out of 216 possible combinations: 3 and 18 each have a 1/216 chance (0.46%) — those are the rare ones. Totals of 10 and 11 each appear 27 times (12.5%). A score of 13 or higher comes up on only about 26% of rolls, which is why "take the highest of 4d6" became the modern alternative.</p>
 
-    <h2>Andere Rollen</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Versuch <a href="roll-4d6-drop-lowest.html">4d6 niedrig</a> (moderne D&amping-Statistiken), <a href="roll-2d6.html">2d6</a>, <a href="roll-d100.html">d100</a>, <a href="roll-d10.html">D10</a>, oder <a href="dice-roller.html">Dice Roller</a>.</p>
+    <h2>Related rollers</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Try <a href="roll-4d6-drop-lowest.html">4d6 drop lowest</a> (modern D&amp;D stats), <a href="roll-2d6.html">2d6</a>, <a href="roll-d100.html">d100</a>, <a href="roll-d10.html">d10</a>, or the full <a href="dice-roller.html">Dice Roller</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>Häufig gestellte Fragen</h2>
+    <h2>Frequently Asked Questions</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Was sind die Chancen, eine 18 auf 3d6 zu rollen?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">1 in 216, oder etwa 0,46%. Sie erwarten im Durchschnitt etwa eine 18 alle 36 Walzen eines vollen Sechs-Stocks.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What are the odds of rolling an 18 on 3d6?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">1 in 216, or about 0.46%. You'd expect roughly one 18 every 36 rolls of a full six-stat block on average.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Wie rolle ich einen vollen D&amp;D-Charakter auf diese Weise?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Setzen Sie "Wie viele Rollen?" bis 6. Jede Summe ist eine Fähigkeitsbewertung. Geben Sie ihnen Kraft, Dexterity, Verfassung, Intelligenz, Weisheit und Charisma, in welcher Reihenfolge Ihre DM erlaubt.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How do I roll a full D&amp;D character this way?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Set "How many rolls?" to 6. Each total is an ability score. Assign them to Strength, Dexterity, Constitution, Intelligence, Wisdom and Charisma in whatever order your DM allows.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist 3d6 härter als 4d6 niedrig?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, deutlich. Der durchschnittliche 3d6 beträgt 10,5; der durchschnittliche 4d6-Drop-Tiefste beträgt 12,24. Alte Schulfiguren sollen zerbrechlich sein.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is 3d6 harsher than 4d6 drop lowest?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, significantly. The average 3d6 is 10.5; the average 4d6-drop-lowest is 12.24. Old-school characters were meant to be fragile.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+    <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Volle Würfelrolle</a>
-      <a class="related-card" href="roll-4d6-drop-lowest.html"><span class="ri">🎲</span> 4d6 Drop Niedrigster</a>
-      <a class="related-card" href="roll-2d6.html"><span class="ri">⚄</span> Rolle 2d6</a>
-      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> Rollstuhlfahrer</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Full Dice Roller</a>
+      <a class="related-card" href="roll-4d6-drop-lowest.html"><span class="ri">🎲</span> 4d6 Drop Lowest</a>
+      <a class="related-card" href="roll-2d6.html"><span class="ri">⚄</span> Roll 2d6</a>
+      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> Roll d100</a>
     </div>
   </section>
 

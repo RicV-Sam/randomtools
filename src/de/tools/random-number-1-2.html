@@ -1,19 +1,17 @@
 ---
 layout: layouts/base.njk
-title: Random Nummer zwischen 1 und 2 – Fairer Binary Picker | Spinnit
+title: Random Number Between 1 and 2 – Fair Binary Picker | Spinnit
 description: >-
-  Wählen Sie eine zufällige 1 oder 2 sofort – eine faire Münz-Flip Alternative
-  in reiner Zahlenform. Kostenlos, keine Anmeldung, arbeitet mobil.
-ogTitle: Random Nummer zwischen 1 und 2 | Spinnit
-ogDescription: >-
-  Kostenloser Zeitpunkt 1 oder 2 — ein Zahlenform-Münze-Flip für binäre
-  Entscheidungen.
+  Pick a random 1 or 2 instantly — a fair coin-flip alternative in pure number
+  form. Free, no sign-up, works on mobile.
+ogTitle: Random Number Between 1 and 2 | Spinnit
+ogDescription: Free instant 1 or 2 — a number-form coin flip for binary decisions.
 canonical: 'https://spinnit.site/de/tools/random-number-1-2.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Random Nummer zwischen 1 und 2",
+    "name": "Random Number Between 1 and 2",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -73,68 +71,68 @@ lang: de
 
   <div class="tool-header">
     <div class="tool-icon">🪙</div>
-    <h1>Random Nummer zwischen 1 und 2</h1>
-    <p>Eine saubere binäre Pick — die Zahlenform Münz Flip</p>
+    <h1>Random Number Between 1 and 2</h1>
+    <p>A clean binary pick — the number-form coin flip</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">Ihre Nummer (1 oder 2)</div>
+    <div class="result-label">your number (1 or 2)</div>
     <div class="result-number" id="result">—</div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>Wie viele Picks?</label>
+      <label>How many picks?</label>
       <input type="number" id="count" value="1" min="1" max="100">
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">GENERAT</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">Neue Auswahl</div>
+    <div class="history-label">Recent picks</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Eine Zufallszahl zwischen 1 und 2 ist die einfachste faire Chance, die Sie ausführen können – ein 50/50 Split in Zahlenform. Es ist ein Münz-Flip ohne die Münze, die es handlich macht, wenn Sie eine binäre Entscheidung wollen, die als saubere Ziffer anstelle von "Kopf" oder "Tails" niedergeschrieben wird.</p>
+    <p>A random number between 1 and 2 is the simplest fair chance you can run — a 50/50 split in number form. It's a coin flip without the coin, which makes it handy when you want a binary decision written down as a clean digit instead of "heads" or "tails".</p>
 
-    <h2>Wenn ein 1-oder-2 Pick passt</h2>
+    <h2>When a 1-or-2 pick fits</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>Entscheiden zwischen zwei Optionen, wenn Sie wirklich nichts dagegen</li>
-      <li>Zufällige Zuordnung einer von zwei Gruppen, Teams oder Testbedingungen</li>
-      <li>A/B-Testproben in Klassen- oder Forschungsübungen</li>
-      <li>Wahl, wer zuerst in einem Zwei-Spiel-Spiel geht</li>
-      <li>Münzflips in Skripten und Tabellenkalkulation</li>
+      <li>Deciding between two options when you genuinely don't mind</li>
+      <li>Randomly assigning one of two groups, teams or test conditions</li>
+      <li>A/B test sampling in classroom or research exercises</li>
+      <li>Choosing who goes first in a two-player game</li>
+      <li>Simulating coin flips in scripts and spreadsheets</li>
     </ul>
 
-    <h2>Vorziehen von Köpfen oder Schwänzen?</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Wenn Sie das Ergebnis lieber als Münze sehen, verwenden Sie die <a href="coin-flip.html">In den Warenkorb</a> Werkzeug — gleiche Fairness, freundschaftliche Visuals. Für ja/nein Stil Fragen, die <a href="yes-no-wheel.html">Ja / Kein Rad</a> ist dafür gemacht.</p>
+    <h2>Prefer heads or tails?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">If you'd rather see the result as a coin, use the <a href="coin-flip.html">Coin Flip</a> tool — same fairness, friendlier visuals. For yes/no style questions, the <a href="yes-no-wheel.html">Yes / No Wheel</a> is made for it.</p>
 
-    <h2>Andere kleine Bereiche</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Auch versuchen <a href="random-number-1-5.html">1–5</a>, <a href="random-number-1-6.html">1–6 (Indizes)</a>, <a href="random-number-1-10.html">1–10</a>, oder <a href="random-number.html">Sonderangebot</a> Generator.</p>
+    <h2>Other small ranges</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Also try <a href="random-number-1-5.html">1–5</a>, <a href="random-number-1-6.html">1–6 (dice)</a>, <a href="random-number-1-10.html">1–10</a>, or the full <a href="random-number.html">custom range</a> generator.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>Häufig gestellte Fragen</h2>
+    <h2>Frequently Asked Questions</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist das wirklich 50/50?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Jede Generation hat genau eine 50% Chance auf 1 und eine 50% Chance auf 2.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this really 50/50?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Each generation has exactly a 50% chance of 1 and a 50% chance of 2.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Warum sollte ich 1 oder 2 anstelle von Köpfen oder Schwänzen wählen?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Zahlen sind einfacher, in Tabellenkalkulationen einzufügen, sich in Forschungsnotizen einzuloggen, oder die Karte auf jede Zweioptionsliste, die Sie bereits niedergeschrieben haben.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Why would I pick 1 or 2 instead of heads or tails?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Numbers are easier to paste into spreadsheets, log in research notes, or map to any two-option list you already have written down.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Können Streaks der gleichen Zahl passieren?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, und sie sind ganz normal. Über 10 Flips ist ein Lauf von vier oder fünf davon nicht ungewöhnlich. Fairness ist über lange Durchschnittswerte, nicht kurze Streifen.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can streaks of the same number happen?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, and they're completely normal. Over 10 flips, a run of four or five of the same is not unusual. Fairness is about long-run averages, not short streaks.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+    <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> In den Warenkorb</a>
-      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Ja / Kein Rad</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Coin Flip</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Yes / No Wheel</a>
       <a class="related-card" href="random-number-1-10.html"><span class="ri">🔢</span> 1–10 Generator</a>
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Benutzerdefinierte Reichweite</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Custom Range</a>
     </div>
   </section>
 

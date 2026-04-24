@@ -1,20 +1,19 @@
 ---
 layout: layouts/base.njk
-title: Zufallszahl zwischen 1 und 1000 – Freier Generator | Spinnit
+title: Random Number Between 1 and 1000 – Free Generator | Spinnit
 description: >-
-  Generieren Sie sofort eine Zufallszahl zwischen 1 und 1000. Kostenlos, fair
-  und schnell für Giveaways, große Raffeln, Forschungsproben und ID-Zeichnungen.
-  Keine Anmeldung.
-ogTitle: Random Nummer zwischen 1 und 1000 | Spinnit
+  Generate a random number between 1 and 1000 instantly. Free, fair and fast for
+  giveaways, large raffles, research sampling and ID draws. No sign-up.
+ogTitle: Random Number Between 1 and 1000 | Spinnit
 ogDescription: >-
-  Kostenlose Zufallszahl von 1 bis 1000 mit einem Hahn. Ideal für große
-  Giveaways und Forschungsproben.
+  Free random number from 1 to 1000 with one tap. Ideal for large giveaways and
+  research samples.
 canonical: 'https://spinnit.site/de/tools/random-number-1-1000.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Zufallszahl zwischen 1 und 1000",
+    "name": "Random Number Between 1 and 1000",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -74,67 +73,67 @@ lang: de
 
   <div class="tool-header">
     <div class="tool-icon">🔢</div>
-    <h1>Zufallszahl zwischen 1 und 1000</h1>
-    <p>Eine faire, sofortige Abholung von 1 bis 1000</p>
+    <h1>Random Number Between 1 and 1000</h1>
+    <p>A fair, instant pick from 1 to 1000</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">Ihre Nummer (1–1000)</div>
+    <div class="result-label">your number (1–1000)</div>
     <div class="result-number" id="result">—</div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>Wie viele Zahlen?</label>
+      <label>How many numbers?</label>
       <input type="number" id="count" value="1" min="1" max="100">
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">GENERAT</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">Aktuelle Ergebnisse</div>
+    <div class="history-label">Recent results</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Eine Reihe von ein bis tausend ist die süße Stelle für größere Ziehungen: große Giveaways, nummerierte Kundenlisten, Forschungsproben oder die Zuordnung von einzigartigen IDs. Dieser Generator gibt Ihnen eine wirklich zufällige Auswahl in Millisekunden, ohne Konten, Anzeigen im Werkzeugbereich oder Tracking Ihrer Picks.</p>
+    <p>A range of one to one thousand is the sweet spot for bigger draws: large giveaways, numbered customer lists, research samples, or assigning unique IDs. This generator gives you a truly random pick in milliseconds, with no accounts, adverts in the tool area, or tracking of your picks.</p>
 
-    <h2>Gute Passform für 1–1000</h2>
+    <h2>Good fits for 1–1000</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>Social Media Giveaways mit mehreren hundert Teilnehmern</li>
-      <li>Stichproben zufälliger Datensätze aus einem Datensatz von bis zu 1000 Zeilen</li>
-      <li>Zuweisung von temporären ID-Nummern an Umfrageteilnehmer</li>
-      <li>Abholung einer zufälligen Seite aus einem großen Dokument oder Referenzbuch</li>
-      <li>Lernwahrscheinlichkeit — 1-in-1000 Quoten sind ein gemeinsames Lehrbuch Beispiel</li>
+      <li>Social media giveaways with several hundred entrants</li>
+      <li>Sampling random records from a dataset of up to 1000 rows</li>
+      <li>Assigning temporary ID numbers to survey participants</li>
+      <li>Picking a random page from a large document or reference book</li>
+      <li>Teaching probability — 1-in-1000 odds are a common textbook example</li>
     </ul>
 
-    <h2>Tipp — Mehrfachauszüge auf einmal</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Sie müssen mehrere Gewinner wählen? Set <em>Wie viele Zahlen?</em> bis zu 100 vor dem Treffer erzeugen. Duplikate können erscheinen — wenn Sie nur einmal wählen, verwenden Sie die <a href="list-shuffler.html">Liste Shuffler</a> statt und nehmen Sie die ersten N Ergebnisse.</p>
+    <h2>Tip — multiple draws at once</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Need to pick several winners? Set <em>How many numbers?</em> up to 100 before hitting generate. Duplicates can appear — if you need unique-only picks, use the <a href="list-shuffler.html">List Shuffler</a> instead and take the first N results.</p>
 
-    <h2>Sonstige Bereiche</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Vollständig <a href="random-number.html">Sonderangebot</a> verfügbar, oder versuchen <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-20.html">1–20</a>, <a href="random-number-1-6.html">1–6</a>.</p>
+    <h2>Other ranges</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Full <a href="random-number.html">custom range</a> available, or try <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-20.html">1–20</a>, <a href="random-number-1-6.html">1–6</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>Häufig gestellte Fragen</h2>
+    <h2>Frequently Asked Questions</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann die gleiche Nummer zweimal hochkommen?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Jede Generation ist unabhängig, so dass Wiederholungen möglich sind - vor allem über viele Züge. Für einmalige Picks, schütteln Sie eine Liste und nehmen Sie die erste N statt.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can the same number come up twice?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Each generation is independent, so repeats are possible — especially over many draws. For unique-only picks, shuffle a list and take the first N instead.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist 1000 enthalten?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Der Bereich umfasst sowohl 1 als auch 1000 und jede Anzahl dazwischen hat gleiche Chancen.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is 1000 included?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The range includes both 1 and 1000, and every number in between has equal chance.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich das als Giveaway-Ziehung verwenden?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja — die Methode ist fair und unvoreingenommen. Für eine voll auditierbare Ziehung, protokollieren Sie die Generation auf Video, benennen Sie die Reichweite und das Datum und posten Sie den Screenshot zusammen mit der Gewinner-Ankündigung.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this as a giveaway draw?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes — the method is fair and unbiased. For a fully auditable draw, record the generation on video, name the range and date, and post the screenshot alongside the winner announcement.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+    <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Individuelle Reichweite Generator</a>
-      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lotterie Picker</a>
-      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> Liste Shuffler</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Custom Range Generator</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lottery Picker</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
       <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> 1–100 Generator</a>
     </div>
   </section>

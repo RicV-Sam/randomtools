@@ -1,18 +1,17 @@
 ---
 layout: layouts/base.njk
-title: Random Nummer zwischen 1 und 20 – Online D20 Roller | Spinnit
+title: Random Number Between 1 and 20 – Online D20 Roller | Spinnit
 description: >-
-  Wählen Sie eine zufällige Nummer zwischen 1 und 20 – ein fairer
-  Online-D20-Ersatz für Dungeons &amp; Dragons und Tischplatten-RPGs. Sofort,
-  kostenlos, keine Anmeldung.
-ogTitle: Random Nummer zwischen 1 und 20 | Spinnit
-ogDescription: Instant fair D20 roll — wählen Sie eine zufällige Nummer von 1 bis 20 online.
+  Pick a random number between 1 and 20 — a fair online D20 replacement for
+  Dungeons &amp; Dragons and tabletop RPGs. Instant, free, no sign-up.
+ogTitle: Random Number Between 1 and 20 | Spinnit
+ogDescription: Instant fair D20 roll — pick a random number from 1 to 20 online.
 canonical: 'https://spinnit.site/de/tools/random-number-1-20.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Random Nummer zwischen 1 und 20",
+    "name": "Random Number Between 1 and 20",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -72,68 +71,68 @@ lang: de
 
   <div class="tool-header">
     <div class="tool-icon">🎲</div>
-    <h1>Random Nummer zwischen 1 und 20</h1>
-    <p>Ihre Online D20 – ein fairer Rollen jedes Mal</p>
+    <h1>Random Number Between 1 and 20</h1>
+    <p>Your online D20 — a fair roll every time</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">Ihre Rolle (1–20)</div>
+    <div class="result-label">your roll (1–20)</div>
     <div class="result-number" id="result">—</div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>Wie viele Rollen?</label>
+      <label>How many rolls?</label>
       <input type="number" id="count" value="1" min="1" max="100">
     </div>
   </div>
 
   <button class="btn-generate" onclick="generate()">ROLL D20</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">Letzte Rollen</div>
+    <div class="history-label">Recent rolls</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Eine Zufallszahl zwischen 1 und 20 ist die klassische D20-Rolle, die in Dungeons &amp; Dragons, Pathfinder und modernsten Tabletop RPGs verwendet wird. Diese Seite gibt Ihnen eine faire, gleichmäßige D20-Rolle in einem einzigen Tipp — keine App installieren, keine Anmeldung, und keine leicht geworbenen physischen Würfel bevorzugen eine Seite.</p>
+    <p>A random number between 1 and 20 is the classic D20 roll used in Dungeons &amp; Dragons, Pathfinder and most modern tabletop RPGs. This page gives you a fair, uniform D20 roll in a single tap — no app install, no sign-up, and no slightly-worn-down physical dice favouring one side.</p>
 
-    <h2>Großartig für</h2>
+    <h2>Great for</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>D&amp;D-Angriffsrollen, Einsparung von Wurf und Geschicklichkeitskontrollen</li>
-      <li>Jedes RPG-System, das eine d20 als Kernmechanik verwendet</li>
-      <li>Rollen mit Vorteil oder Nachteil (Generieren Sie zwei Walzen, nehmen Sie höchste oder niedrigste)</li>
-      <li>Abholung eines zufälligen Schülers, Sitz oder Aufgabe von einer Gruppe von zwanzig</li>
-      <li>Klassenzimmer Wahrscheinlichkeit Unterricht — 5% Quoten pro Ergebnis ist ein sauberes Lehrbeispiel</li>
+      <li>D&amp;D attack rolls, saving throws and skill checks</li>
+      <li>Any RPG system that uses a d20 as its core mechanic</li>
+      <li>Rolling with advantage or disadvantage (generate two rolls, take highest or lowest)</li>
+      <li>Picking a random student, seat or task from a group of twenty</li>
+      <li>Classroom probability lessons — 5% odds per outcome is a clean teaching example</li>
     </ul>
 
-    <h2>Rollen mit Vorteil</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Set <em>Wie viele Rollen?</em> bis 2 Abstichrolle und das höhere Ergebnis für den Vorteil oder das geringere für den Nachteil. Für einen <strong>Natürlich 20</strong> kritisch, jede Rolle von genau 20 zählt.</p>
+    <h2>Rolling with advantage</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Set <em>How many rolls?</em> to 2, tap roll, and take the higher result for advantage or the lower for disadvantage. For a <strong>natural 20</strong> critical, any roll of exactly 20 counts.</p>
 
-    <h2>Sonstige Würfel</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Auch versuchen <a href="random-number-1-6.html">1-6 (d6)</a>, <a href="random-number-1-10.html">1–10 (d10)</a>, <a href="random-number-1-100.html">1–100 (prozentig)</a>, oder <a href="dice-roller.html">animierte Würfelwalze</a> für mehrere Würfel auf einmal.</p>
+    <h2>Other dice</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Also try <a href="random-number-1-6.html">1–6 (d6)</a>, <a href="random-number-1-10.html">1–10 (d10)</a>, <a href="random-number-1-100.html">1–100 (percentile)</a>, or the full <a href="dice-roller.html">animated Dice Roller</a> for multiple dice at once.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>Häufig gestellte Fragen</h2>
+    <h2>Frequently Asked Questions</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist die D20 wirklich fair?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Jede Zahl von 1 bis 20 hat auf jeder Walze eine gleiche 5% Chance. Physikalische D20s können winzige Vorspannungen aus Fertigungstoleranzen entwickeln – digitale Rollen nicht.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is the D20 roll truly fair?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Each number from 1 to 20 has an equal 5% chance on every roll. Physical D20s can develop tiny biases from manufacturing tolerances — digital rolls don't.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich hier mit Vorteil rollen?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Setzen Sie "Wie viele Rollen?" auf 2 und nehmen Sie das höhere Ergebnis für den Vorteil oder niedriger für den Nachteil.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I roll with advantage here?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set "How many rolls?" to 2 and take the higher result for advantage or lower for disadvantage.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Was zählt als natürliche 20?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Jedes Ergebnis, das genau 20 zeigt, bevor irgendwelche Boni hinzugefügt werden. Natürliche 1s und natürliche 20s lösen kritische Fehler- und Erfolgsregeln in den meisten Systemen aus.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What counts as a natural 20?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Any result that shows exactly 20 before any bonuses are added. Natural 1s and natural 20s trigger critical failure and success rules in most systems.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+    <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Visuelle Würfelrolle</a>
-      <a class="related-card" href="random-number-1-6.html"><span class="ri">⚄</span> 1-6 (D6)</a>
-      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> 1–100 (Prozent)</a>
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Benutzerdefinierte Reichweite</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Visual Dice Roller</a>
+      <a class="related-card" href="random-number-1-6.html"><span class="ri">⚄</span> 1–6 (D6)</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> 1–100 (Percentile)</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Custom Range</a>
     </div>
   </section>
 

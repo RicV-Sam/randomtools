@@ -1,14 +1,11 @@
 ---
 layout: layouts/base.njk
-title: Random Winner Picker – Kostenloses Giveaway Tool | Spinnit
+title: Random Winner Picker – Free Giveaway Tool | Spinnit
 description: >-
-  Wählen Sie einen zufälligen Gewinner aus jeder Liste von Einträgen.
-  Kostenloses Giveaway-Tool für soziale Medien, Verlosungen und Wettbewerbe.
-  Pick 1 oder mehrere Gewinner, keine Duplikate.
+  Pick a random winner from any list of entries. Free giveaway tool for social
+  media, raffles and competitions. Pick 1 or multiple winners, no duplicates.
 ogTitle: Random Winner Picker | Spinnit
-ogDescription: >-
-  Free Giveaway Gewinner Picker — Paste Einträge, wählen Sie ein oder viele,
-  keine Duplikate.
+ogDescription: 'Free giveaway winner picker — paste entries, pick one or many, no duplicates.'
 canonical: 'https://spinnit.site/de/tools/random-winner-picker.html'
 jsonLd: |-
   {
@@ -78,83 +75,83 @@ lang: de
   <div class="tool-header">
     <div class="tool-icon">🏆</div>
     <h1>Random Winner Picker</h1>
-    <p>Faire, transparente Ziehungen für Giveaways und Wettbewerbe</p>
+    <p>Fair, transparent draws for giveaways and competitions</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">Gewinner</div>
+    <div class="result-label">winner</div>
     <div class="result-number" id="result" style="font-size:clamp(1.4rem,7vw,2.6rem);word-break:break-word;line-height:1.25;">—</div>
     <div id="entryCount" style="font-size:13px;color:var(--text2);margin-top:6px;display:none;"></div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>Einträge (eines pro Zeile — Namen, @handles, E-Mails, alles)</label>
-      <textarea id="entriesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;" placeholder="@first entrant
-@second entrant
+      <label>Entries (one per line — names, @handles, emails, anything)</label>
+      <textarea id="entriesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;" placeholder="@first_entrant
+@second_entrant
 ..."></textarea>
     </div>
     <div class="control-row" style="margin-top:10px;">
       <div class="control-group">
-        <label>Wie viele Gewinner?</label>
+        <label>How many winners?</label>
         <input type="number" id="winnerCount" value="1" min="1" max="50">
       </div>
       <div class="control-group">
-        <label></label>
-        <label style="font-size:13px;"><input type="checkbox" id="dedupe" style="margin-right:6px;vertical-align:middle;"> Entfernen Sie doppelte Einträge</label>
+        <label>&nbsp;</label>
+        <label style="font-size:13px;"><input type="checkbox" id="dedupe" style="margin-right:6px;vertical-align:middle;"> Remove duplicate entries</label>
       </div>
     </div>
   </div>
 
-  <button class="btn-generate" onclick="drawWinners()">GEWINNEN</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+  <button class="btn-generate" onclick="drawWinners()">DRAW WINNERS</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Wenn Sie einen Giveaway laufen und einen Gewinner fair wählen müssen? Fügen Sie Ihre Eintragsliste ein (eine pro Zeile), setzen Sie, wie viele Gewinner Sie wollen, und tippen Sie auf die Schaltfläche. Jeder Eintrag hat eine gleiche Chance, kein Eintrag wird zweimal in der gleichen Ziehung ausgewählt, und Sie können das Ergebnis als Beweis Screenshot. Kein Konto erforderlich.</p>
+    <p>Running a giveaway and need to pick a winner fairly? Paste your entry list (one per line), set how many winners you want, and tap the button. Every entry has an equal chance, no entry is picked twice in the same draw, and you can screenshot the result as proof. No account required.</p>
 
-    <h2>Was als Eintragsliste einzufügen ist</h2>
+    <h2>What to paste as an entry list</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li><strong>In den Warenkorb</strong> — die Kommentarliste aus einem Abstreifer oder Export kopieren</li>
-      <li><strong>Twitter/X Antworten</strong> — Kopieren Sie die @Handle von jedem, der eingetragen ist</li>
-      <li><strong>E-Mail Adressen</strong> — aus einem Anmeldeformular oder einer Mailingliste</li>
-      <li><strong>Ticketnummern</strong> — für eine Verlosung</li>
-      <li><strong>Kunden-IDs</strong> — für eine Treuebelohnung</li>
+      <li><strong>Instagram comments</strong> — copy the comment list from a scraper or export</li>
+      <li><strong>Twitter/X replies</strong> — copy the @handles of everyone who entered</li>
+      <li><strong>Email addresses</strong> — from a signup form or mailing list</li>
+      <li><strong>Ticket numbers</strong> — for a raffle draw</li>
+      <li><strong>Customer IDs</strong> — for a loyalty reward</li>
     </ul>
 
-    <h2>Halten Sie Ihre Ziehung transparent</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Für öffentliche Werbegeschenke auf sozialen Medien benötigen die meisten Plattformen die Ziehung, um überprüfbar zu sein. Die Standardpraxis:</p>
+    <h2>Keeping your draw transparent</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For public giveaways on social media, most platforms require the draw to be verifiable. The standard practice:</p>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>Melden Sie die Eingaberegeln und das Schließdatum vorn an</li>
-      <li>Einträge schließen — die Liste nach dem Schließen nicht bearbeiten</li>
-      <li>Screen-Record oder Screenshot der Picker zeigt die vollständige Eintragsliste und das Ergebnis</li>
-      <li>Geben Sie das Ergebnis mit dem Datum und der Anzahl der Einträge</li>
+      <li>Announce the entry rules and closing date up front</li>
+      <li>Close entries — don't edit the list after closing</li>
+      <li>Screen-record or screenshot the picker showing the full entry list and the result</li>
+      <li>Post the result with the date and the number of entries</li>
     </ol>
 
-    <h2>Duplikate Handhabung</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Standardmäßig hält das Tool Duplikate – manchmal wollen Sie Einträge gewichtet durch Eingabenummer. Tick <em>Entfernen Sie doppelte Einträge</em> zu kollabieren wiederholt, so dass jeder einzigartige Griff nur eine Chance hat.</p>
+    <h2>Duplicate handling</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">By default the tool keeps duplicates — sometimes you want entries weighted by submission count. Tick <em>Remove duplicate entries</em> to collapse repeats so each unique handle has one chance only.</p>
 
-    <h2>Andere Werkzeuge</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Auch nützlich: <a href="pick-random-name.html">Wählen Sie einen zufälligen Namen</a>, <a href="lottery-picker.html">Lotterie Picker</a>, <a href="wheel-of-names.html">Rad der Namen</a>, <a href="random-number-1-1000.html">Randnummer 1–1000</a>.</p>
+    <h2>Related tools</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Also useful: <a href="pick-random-name.html">Pick a Random Name</a>, <a href="lottery-picker.html">Lottery Picker</a>, <a href="wheel-of-names.html">Wheel of Names</a>, <a href="random-number-1-1000.html">Random Number 1–1000</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>Häufig gestellte Fragen</h2>
+    <h2>Frequently Asked Questions</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist die Messe?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Jeder Eintrag hat genau die gleiche Chance ausgewählt zu werden. Das Tool verwendet den unvoreingenommenen Zufallszahlengenerator des Browsers und zeigt Ihnen die volle Eingangszahl vor jeder Ziehung.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is the draw fair?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Every entry has exactly the same chance of being picked. The tool uses the browser's unbiased random number generator and shows you the full entry count before each draw.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann der gleiche Eintrag zweimal in einer Ziehung gewinnen?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Nein. Bei der Auswahl von mehreren Gewinnern entfernt das Tool jeden Gewinner aus dem Pool, bevor Sie den nächsten ziehen – so kann kein einziger Eintrag zwei Preise in der gleichen Ziehung gewinnen.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can the same entry win twice in one draw?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. When picking multiple winners, the tool removes each winner from the pool before drawing the next — so no single entry can win two prizes in the same draw.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Befolgt dies Instagram / Facebook-Geschenkregeln?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Das Werkzeug handhabt die Ziehung selbst — die Einhaltung hängt davon ab, wie Sie das Giveaway ausführen. Immer freigebende Verantwortungsträger von der Plattform, beinhalten Förderregeln und folgen der Werbepolitik jeder Plattform.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this comply with Instagram / Facebook giveaway rules?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">The tool handles the draw itself — compliance depends on how you run the giveaway. Always release entrants of responsibility from the platform, include eligibility rules, and follow each platform's promotional policy.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+    <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="pick-random-name.html"><span class="ri">🎲</span> Wählen Sie Random Name</a>
-      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lotterie Picker</a>
-      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Rad der Namen</a>
+      <a class="related-card" href="pick-random-name.html"><span class="ri">🎲</span> Pick Random Name</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lottery Picker</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Wheel of Names</a>
       <a class="related-card" href="random-number-1-1000.html"><span class="ri">🔢</span> 1–1000 Generator</a>
     </div>
   </section>

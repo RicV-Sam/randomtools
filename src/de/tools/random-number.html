@@ -1,88 +1,75 @@
 ---
 layout: layouts/base.njk
-title: Random Number Generator – Kostenlose Online-Tool | Spinnit
-description: >-
-  Generieren Sie zufällige Zahlen sofort zwischen jedem benutzerdefinierten
-  Bereich. Kostenloses Tool für Spiele, Giveaways, Statistiken und
-  Entscheidungsfindung.
-canonical: 'https://spinnit.site/de/tools/random-number.html'
-jsonLd: |-
+title: "Zufallszahlen-Generator — Kostenloses Online-Tool | Spinnit"
+description: "Zufallszahlen sofort erzeugen zwischen frei wählbarem Min und Max. Kostenlos für Spiele, Gewinnspiele, Statistik und Entscheidungen."
+canonical: "https://spinnit.site/de/tools/random-number.html"
+lang: de
+jsonLd: |
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Randnummer Generator",
+    "name": "Zufallszahlen-Generator",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
+    "inLanguage": "de",
     "offers": {
       "@type": "Offer",
       "price": "0",
-      "priceCurrency": "USD"
+      "priceCurrency": "EUR"
     }
   }
-extraHead: >
-  <meta name="twitter:title" content="Random Number Generator | Spinnit">
-
-  <meta name="twitter:description" content="Generieren Sie zufällige Zahlen
-  sofort zwischen min und max. Kostenlos und mobil.">
-
+extraHead: |
+  <meta name="twitter:title" content="Zufallszahlen-Generator | Spinnit">
+  <meta name="twitter:description" content="Zufallszahlen sofort erzeugen zwischen beliebigem Min und Max. Kostenlos und mobil.">
   <script type="application/ld+json">
-
   {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Is the result truly random?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The generator uses your browser's built-in Math.random() function, which produces unpredictable results seeded by system entropy." }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I generate multiple numbers at once?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Set the 'How many numbers?' field to any value between 1 and 100 and all results will appear together." }
-        },
-        {
-          "@type": "Question",
-          "name": "Is this tool free to use?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
-        },
-        {
-          "@type": "Question",
-          "name": "Does this work on mobile?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
-        }
-      ]
-    }
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Ist das Ergebnis wirklich zufällig?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja. Der Generator nutzt die eingebaute Math.random()-Funktion deines Browsers, die unvorhersehbare Ergebnisse auf Basis der System-Entropie liefert." }
+      },
+      {
+        "@type": "Question",
+        "name": "Kann ich mehrere Zahlen gleichzeitig erzeugen?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja. Stelle im Feld „Wie viele Zahlen?" einen Wert zwischen 1 und 100 ein — alle Ergebnisse erscheinen gemeinsam." }
+      },
+      {
+        "@type": "Question",
+        "name": "Ist das Tool kostenlos?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja, komplett kostenlos und ohne Anmeldung." }
+      },
+      {
+        "@type": "Question",
+        "name": "Funktioniert das auf dem Handy?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja, alle Spinnit-Tools sind mobile-first und laufen auf jedem Gerät." }
+      }
+    ]
+  }
   </script>
-pageScript: >
-
+pageScript: |
   const history = [];
-
-
   function generate() {
     const min = parseInt(document.getElementById('minVal').value) || 1;
     const max = parseInt(document.getElementById('maxVal').value) || 100;
     const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
-    if (min >= max) { alert('Max must be greater than Min'); return; }
-
+    if (min >= max) { alert('Max muss größer als Min sein'); return; }
     let results = [];
     for (let i = 0; i < count; i++) {
       results.push(Math.floor(Math.random() * (max - min + 1)) + min);
     }
-
     const resultEl = document.getElementById('result');
     resultEl.textContent = results.join(', ');
     document.getElementById('resultBox').classList.remove('pop');
     void document.getElementById('resultBox').offsetWidth;
     document.getElementById('resultBox').classList.add('pop');
-
     const val = results[0];
     history.unshift(val);
     if (history.length > 10) history.pop();
     renderHistory();
   }
-
-
   function renderHistory() {
     const sec = document.getElementById('historySection');
     const list = document.getElementById('historyList');
@@ -90,48 +77,39 @@ pageScript: >
     sec.style.display = 'block';
     list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
   }
-
-
   function copyResult() {
     const val = document.getElementById('result').textContent;
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = 'Copied!';
+      btn.textContent = 'Kopiert!';
       btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+      setTimeout(() => { btn.textContent = 'Ergebnis kopieren'; btn.classList.remove('copied'); }, 2000);
     });
   }
-
-
-  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code
-  === 'Enter') { e.preventDefault(); generate(); }});
-lang: de
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); generate(); }});
 ---
 <main class="tool-page">
 
   <div class="tool-header">
     <div class="tool-icon">🎲</div>
-    <h1>Randnummer Generator</h1>
-    <p>Erzeugen einer Zufallszahl zwischen zwei Werten sofort</p>
+    <h1>Zufallszahlen-Generator</h1>
+    <p>Zufällige Zahl zwischen zwei beliebigen Werten — sofort</p>
   </div>
 
-  <!-- AdSense -->
-  <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
-
   <div class="result-box" id="resultBox">
-    <div class="result-label">Ihre Nummer</div>
+    <div class="result-label">deine Zahl</div>
     <div class="result-number" id="result">—</div>
   </div>
 
   <div class="controls">
     <div class="control-row">
       <div class="control-group">
-        <label>Mindestens</label>
+        <label>Minimum</label>
         <input type="number" id="minVal" value="1">
       </div>
       <div class="control-group">
-        <label>Höchstmenge</label>
+        <label>Maximum</label>
         <input type="number" id="maxVal" value="100">
       </div>
     </div>
@@ -141,70 +119,68 @@ lang: de
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">GENERGIE</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+  <button class="btn-generate" onclick="generate()">ZAHL GENERIEREN</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Ergebnis kopieren</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">Aktuelle Ergebnisse</div>
+    <div class="history-label">Letzte Ergebnisse</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
-  <!-- AdSense mid -->
-  <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
-
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Mit dem Random Number Generator können Sie sofort jede Anzahl zwischen einem Minimum und maximal Ihrer Wahl auswählen. Egal, ob Sie ein Giveaway, Lehrstatistiken oder ein freundliches Argument betreiben, es gibt Ihnen jedes Mal ein faires, unvoreingenommenes Ergebnis. Setzen Sie einfach Ihre Reichweite, wählen Sie, wie viele Zahlen Sie brauchen, und schlagen generieren.</p>
+    <p>Der Zufallszahlen-Generator liefert dir sofort eine Zahl zwischen einem Minimum und Maximum deiner Wahl. Ob Gewinnspiel, Statistik-Unterricht oder das Beilegen einer freundschaftlichen Diskussion — du bekommst jedes Mal ein faires, unverzerrtes Ergebnis. Bereich einstellen, Anzahl wählen, auf Generieren tippen.</p>
 
-    <h2>Wie zu benutzen</h2>
+    <h2>Anleitung</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>Geben Sie einen Mindestwert im Min-Feld ein (Standard ist 1).</li>
-      <li>Geben Sie im Feld Max einen Maximalwert ein (Standard ist 100).</li>
-      <li>Stellen Sie fest, wie viele Zahlen Sie auf einmal generieren möchten (bis zu 100).</li>
-      <li>Klicken Sie auf Nummer generieren oder drücken Sie Leerzeichen oder Enter.</li>
-      <li>Verwenden Sie die Schaltfläche Kopieren, um Ihre Ergebnisse in der Zwischenablage zu speichern.</li>
+      <li>Minimum im Min-Feld eingeben (Standard ist 1).</li>
+      <li>Maximum im Max-Feld eingeben (Standard ist 100).</li>
+      <li>Festlegen, wie viele Zahlen gleichzeitig erzeugt werden sollen (bis zu 100).</li>
+      <li>Auf „Zahl generieren" tippen oder Leertaste bzw. Enter drücken.</li>
+      <li>Mit dem Kopieren-Button die Ergebnisse in die Zwischenablage übernehmen.</li>
     </ol>
 
-    <h2>Gemeinsame Nutzungen</h2>
+    <h2>Typische Einsätze</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>Abholung eines Verlosungs- oder Giveaway-Siegers aus einer nummerierten Liste</li>
-      <li>Glückszahl Ideen für Lotterie oder Sweepstakes</li>
-      <li>Simulieren von Würfeln in Tischspielen, die ungewöhnliche Zahlenbereiche verwenden</li>
-      <li>Statistische Probenahmen in Klassenräumen oder Forschungsprojekten</li>
-      <li>Argumente festlegen, wenn niemand zustimmen kann — wer Kaffee kauft, zum Beispiel</li>
-      <li>Zuordnen von zufälligen Schülerzahlen oder Sitzpositionen in einem Klassenzimmer</li>
+      <li>Gewinnerziehung aus einer nummerierten Liste</li>
+      <li>Glückszahlen für Lotto oder Gewinnspiele</li>
+      <li>Würfel mit ungewöhnlichem Zahlenraum simulieren</li>
+      <li>Stichproben im Unterricht oder in der Forschung</li>
+      <li>Schnelle Entscheidungen: Wer holt den Kaffee?</li>
+      <li>Zufällige Schülernummern oder Sitzordnung vergeben</li>
     </ul>
 
-    <h2>Warum Spinnit verwenden</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Spinnit's Generator produziert sofortige Ergebnisse in Ihrem Browser ohne Setup oder Konto erforderlich. Alle Zufälligkeit geschieht lokal, so dass nichts, das Sie eingeben, jemals an einen Server gesendet wird. Die Ergebnishistorie verfolgt Ihre letzten zehn Ausgänge, so dass Sie ohne Notizen vergleichen können. Funktioniert perfekt auf Handy, Tablet und Desktop.</p>
+    <h2>Warum Spinnit?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Spinnits Generator liefert Ergebnisse sofort im Browser — ohne Setup, ohne Konto. Die Zufallsauswahl passiert lokal, nichts wird an einen Server gesendet. Der Verlauf merkt sich deine letzten zehn Ergebnisse zum Vergleichen. Funktioniert perfekt auf Handy, Tablet und Desktop.</p>
   </section>
 
   <section class="tool-content" style="margin-top:1.5rem;">
-    <h2>Beliebte Bereiche</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Springen Sie gerade in einen gemeinsamen Bereich: <a href="random-number-1-2.html">1–2</a> · <a href="random-number-1-5.html">1–5</a> · <a href="random-number-1-6.html">1–6 (Indizes)</a> · <a href="random-number-1-10.html">1–10</a> · <a href="random-number-1-20.html">1–20 (D20)</a> · <a href="random-number-1-25.html">1–25</a> · <a href="random-number-1-50.html">1–50</a> · <a href="random-number-1-100.html">1–100</a> · <a href="random-number-1-1000.html">1–1000</a> · <a href="random-number-1-1000000.html">1–1,000,000</a>.</p>
+    <h2>Häufige Zahlenbereiche</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Direkt zu einem häufigen Bereich: <a href="random-number-1-2.html">1–2</a> · <a href="random-number-1-5.html">1–5</a> · <a href="random-number-1-6.html">1–6 (Würfel)</a> · <a href="random-number-1-10.html">1–10</a> · <a href="random-number-1-20.html">1–20 (W20)</a> · <a href="random-number-1-25.html">1–25</a> · <a href="random-number-1-50.html">1–50</a> · <a href="random-number-1-100.html">1–100</a> · <a href="random-number-1-1000.html">1–1000</a> · <a href="random-number-1-1000000.html">1–1.000.000</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Häufig gestellte Fragen</h2>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist das Ergebnis wirklich zufällig?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Der Generator verwendet den eingebauten Browser Ihres Browsers <code style="color:var(--accent2);font-family:var(--mono);font-size:12px;">Math.random()</code> Funktion, die unvorhersehbare Ergebnisse hervorbringt, die von Systementropie gesät werden. Es ist nicht möglich, die nächste Anzahl vorherzusagen.</p>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Der Generator nutzt die eingebaute <code style="color:var(--accent2);font-family:var(--mono);font-size:12px;">Math.random()</code>-Funktion deines Browsers, die unvorhersehbare Ergebnisse auf Basis der System-Entropie liefert. Die nächste Zahl lässt sich nicht vorhersagen.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich mehrere Zahlen gleichzeitig generieren?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Setzen Sie das Feld "Wie viele Zahlen?" auf jeden Wert zwischen 1 und 100 und alle Ergebnisse werden zusammen erscheinen, getrennt von Kommas.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich mehrere Zahlen gleichzeitig erzeugen?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Stelle im Feld „Wie viele Zahlen?" einen Wert zwischen 1 und 100 ein — alle Ergebnisse erscheinen gemeinsam, durch Komma getrennt.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist dieses Tool kostenlos zu verwenden?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, völlig kostenlos ohne Anmeldung erforderlich.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist das Tool kostenlos?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, komplett kostenlos und ohne Anmeldung.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Arbeitet das auf Handy?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, alle Spinnit-Tools sind mobil-first und arbeiten an jedem Gerät.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Funktioniert das auf dem Handy?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, alle Spinnit-Tools sind mobile-first und laufen auf jedem Gerät.</p>
   </section>
-<section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Ähnliche Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Dice Roller</a>
-      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> In den Warenkorb</a>
-      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lotterie Nummer Generator</a>
-      <a class="related-card" href="percentage-generator.html"><span class="ri">📊</span> Zufälliger Prozentsatz</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Würfel online</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Münzwurf</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lottozahlen-Generator</a>
+      <a class="related-card" href="percentage-generator.html"><span class="ri">📊</span> Zufalls-Prozentwert</a>
     </div>
   </section>
 

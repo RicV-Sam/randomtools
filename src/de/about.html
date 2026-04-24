@@ -1,33 +1,25 @@
 ---
 layout: layouts/base.njk
-title: Über Spinnit — Kostenlose Random Generators
-description: >-
-  Über Spinnit — eine kostenlose Sammlung von 33+ Zufallsgeneratoren und
-  Pickern. Würfelrolle, Münzflip, Namensrad, Passwortgenerator und mehr. Keine
-  Anmeldung.
-ogDescription: >-
-  Spinnit ist eine kostenlose Sammlung von zufälligen Werkzeugen. Keine Konten,
-  kein Tracking, funktioniert auf jedem Gerät.
-canonical: 'https://spinnit.site/de/about.html'
-jsonLd: |-
+title: "Über Spinnit — Kostenlose Zufallsgeneratoren"
+description: "Über Spinnit — eine kostenlose Sammlung von 33+ Zufallsgeneratoren und Pickern. Würfel, Münzwurf, Namensrad, Passwortgenerator und mehr. Keine Anmeldung."
+ogDescription: "Spinnit ist eine kostenlose Sammlung von Zufallstools. Keine Konten, kein Tracking, funktioniert auf jedem Gerät."
+canonical: "https://spinnit.site/de/about.html"
+lang: de
+jsonLd: |
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Über Spinnit",
     "url": "https://spinnit.site/de/about.html",
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "Spinnen",
-      "url": "https://spinnit.site/de/"
-    }
+    "inLanguage": "de",
+    "isPartOf": { "@type": "WebSite", "name": "Spinnit", "url": "https://spinnit.site/de/" }
   }
-pageStyle: >
+pageStyle: |
   .prose {
     max-width: 720px;
     margin: 0 auto;
     padding: 2rem 1.5rem 4rem;
   }
-
   .prose h1 {
     font-size: clamp(1.6rem, 5vw, 2.4rem);
     font-weight: 600;
@@ -38,7 +30,6 @@ pageStyle: >
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-
   .prose .eyebrow {
     font-family: var(--mono);
     font-size: 11px;
@@ -47,7 +38,6 @@ pageStyle: >
     color: var(--accent2);
     margin-bottom: 0.75rem;
   }
-
   .prose h2 {
     font-size: 16px;
     font-weight: 600;
@@ -57,31 +47,21 @@ pageStyle: >
     text-transform: uppercase;
     margin: 2.5rem 0 0.75rem;
   }
-
   .prose p, .prose li {
     font-size: 14px;
     color: var(--text2);
     line-height: 1.8;
   }
-
-  .prose ul {
-    padding-left: 1.25rem;
-    margin: 0.5rem 0;
-  }
-
+  .prose ul { padding-left: 1.25rem; margin: 0.5rem 0; }
   .prose li { margin-bottom: 0.3rem; }
-
   .prose a { color: var(--accent2); }
-
   .prose a:hover { color: var(--text); }
-
   .tools-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
     gap: 8px;
     margin: 1rem 0;
   }
-
   .tools-list a {
     background: var(--bg2);
     border: 1px solid var(--border);
@@ -95,30 +75,22 @@ pageStyle: >
     transition: all 0.2s;
     text-decoration: none;
   }
-
   .tools-list a:hover { border-color: var(--border2); color: var(--text); }
-
   .mission-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
     gap: 10px;
     margin: 1rem 0;
   }
-
   .mission-card {
     background: var(--bg2);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 1rem 1.1rem;
   }
-
   .mission-card .icon { font-size: 22px; margin-bottom: 6px; }
-
-  .mission-card strong { display: block; font-size: 13px; font-weight: 600;
-  color: var(--text); margin-bottom: 4px; }
-
+  .mission-card strong { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
   .mission-card span { font-size: 12px; color: var(--text2); line-height: 1.5; }
-
   .coming-soon {
     background: var(--bg2);
     border: 1px dashed var(--border2);
@@ -126,76 +98,75 @@ pageStyle: >
     padding: 1.25rem 1.5rem;
     margin-top: 0.75rem;
   }
-lang: de
 ---
 <div class="prose">
   <p class="eyebrow">Über uns</p>
-  <h1>Zufällige Werkzeuge für alle</h1>
-  <p>Spinnit ist eine kostenlose Sammlung von zufälligen Generatoren für das Web gebaut. Keine Konten. Keine Downloads. Kein Unsinn. Öffnen Sie einfach ein Werkzeug und verwenden Sie es – auf jedem Gerät, überall auf der Welt.</p>
+  <h1>Zufallstools für alle</h1>
+  <p>Spinnit ist eine kostenlose Sammlung von Zufallsgeneratoren — gebaut fürs Web. Keine Konten. Keine Downloads. Kein Schnickschnack. Tool öffnen, Tool nutzen — auf jedem Gerät, überall auf der Welt.</p>
 
   <h2>Unsere Mission</h2>
   <div class="mission-grid">
     <div class="mission-card">
       <div class="icon">🆓</div>
       <strong>Immer kostenlos</strong>
-      <span>Jedes Werkzeug auf Spinnit ist völlig kostenlos zu verwenden, für immer.</span>
+      <span>Jedes Tool auf Spinnit ist dauerhaft und komplett kostenlos.</span>
     </div>
     <div class="mission-card">
       <div class="icon">🚫</div>
-      <strong>Keine Anmeldung</strong>
-      <span>Kein Konto, keine E-Mail, kein Passwort – einfach öffnen und verwenden.</span>
+      <strong>Ohne Anmeldung</strong>
+      <span>Kein Konto, keine E-Mail, kein Passwort — einfach öffnen und loslegen.</span>
     </div>
     <div class="mission-card">
       <div class="icon">📱</div>
-      <strong>Werke auf dem Handy</strong>
-      <span>Entwickelt mobil-first und auf allen Bildschirmgrößen getestet.</span>
+      <strong>Läuft mobil</strong>
+      <span>Mobile-first entwickelt und auf allen Bildschirmgrößen getestet.</span>
     </div>
     <div class="mission-card">
       <div class="icon">🌍</div>
-      <strong>Global</strong>
-      <span>Schnelle weltweit — voll statisch, keine Server-Rundfahrten.</span>
+      <strong>Weltweit schnell</strong>
+      <span>Vollständig statisch — keine Server-Rundreisen, überall blitzschnell.</span>
     </div>
   </div>
 
-  <h2>Die Werkzeuge</h2>
-  <p>Spinnit hat 13 Kernwerkzeuge — Random Number Generator, Dice Roller, Coin Flip, Team Picker, Wheel of Names, Password Generator und mehr — plus 20 zielgerichtete Presets für bestimmte Jobs (Rolling 4d6-Drop-lowest for D&amp;D, Picking ein Klassenzimmer Student ohne Wiederholungen, Zeichnung ein Giveaway-Sieger, und so weiter).</p>
+  <h2>Die Tools</h2>
+  <p>Spinnit hat 13 Kerntools — Zufallszahlen-Generator, Würfel, Münzwurf, Team-Picker, Namensrad, Passwort-Generator und mehr — plus 20 spezielle Presets für konkrete Aufgaben (4W6 niedrigsten streichen für D&amp;D, einen Schüler ohne Wiederholung ziehen, Gewinner bei Gewinnspielen auslosen und so weiter).</p>
   <div class="tools-list">
-    <a href="/de/tools/random-number.html">🎲 Random Number Generator</a>
-    <a href="/de/tools/dice-roller.html">⚄ Würfelwalze</a>
-    <a href="/de/tools/coin-flip.html">🪙 Coin Flip</a>
-    <a href="/de/tools/team-picker.html">👥 Random Team Picker</a>
-    <a href="/de/tools/yes-no-wheel.html">🔮 Ja / Kein Rad</a>
-    <a href="/de/tools/wheel-of-names.html">Rad der Namen</a>
-    <a href="/de/tools/colour-generator.html">🎨 Random Farbgenerator</a>
+    <a href="/de/tools/random-number.html">🎲 Zufallszahlen-Generator</a>
+    <a href="/de/tools/dice-roller.html">⚄ Würfel online</a>
+    <a href="/de/tools/coin-flip.html">🪙 Münzwurf</a>
+    <a href="/de/tools/team-picker.html">👥 Zufalls-Teamgenerator</a>
+    <a href="/de/tools/yes-no-wheel.html">🔮 Ja-Nein-Rad</a>
+    <a href="/de/tools/wheel-of-names.html">🎡 Namensrad</a>
+    <a href="/de/tools/colour-generator.html">🎨 Zufallsfarben-Generator</a>
     <a href="/de/tools/password-generator.html">🔐 Passwort-Generator</a>
-    <a href="/de/tools/lottery-picker.html">🍀 Lotterie Nummer Picker</a>
-    <a href="/de/tools/percentage-generator.html">📊 Random Prozentsatz</a>
-    <a href="/de/tools/list-shuffler.html">🔀 Liste Shuffler</a>
-    <a href="/de/tools/random-country.html">🌍 Random Country Generator</a>
-    <a href="/de/tools/random-name-generator.html">👤 Random Name Generator</a>
+    <a href="/de/tools/lottery-picker.html">🍀 Lottozahlen-Generator</a>
+    <a href="/de/tools/percentage-generator.html">📊 Zufalls-Prozentwert</a>
+    <a href="/de/tools/list-shuffler.html">🔀 Listen-Mischer</a>
+    <a href="/de/tools/random-country.html">🌍 Zufälliges Land</a>
+    <a href="/de/tools/random-name-generator.html">👤 Zufallsnamen-Generator</a>
   </div>
-  <p style="margin-top:1rem;"><a href="/de/tools/" style="color:var(--accent2);font-family:var(--mono);font-size:13px;">→ Durchsuchen Sie die vollständige Liste (13 Werkzeuge + 20 Presets)</a></p>
+  <p style="margin-top:1rem;"><a href="/de/tools/" style="color:var(--accent2);font-family:var(--mono);font-size:13px;">→ Vollständige Liste ansehen (13 Tools + 20 Presets)</a></p>
 
   <h2>Wer steckt dahinter?</h2>
-  <p>Spinnit wird von einem kleinen unabhängigen Team mit Sitz in England gebaut und gepflegt. Wir schreiben den Code selbst, testen jedes Tool auf den Handys, die wir tatsächlich besitzen, und lesen jedes Feedback, das kommt. Kein VC, keine Agentur, keine SEO Farm — nur eine kostenlose Dienststelle, die wir wollten.</p>
-  <p>Wenn Sie eine Idee für ein Werkzeug haben, sollten wir bauen, einen Fehler, den wir beheben sollten, oder eine Korrektur zu machen — schreiben Sie uns an <a href="mailto:hello@spinnit.site">hello@spinnit.site</a> oder durch <a href="/de/contact.html">Kontaktformular</a>.</p>
+  <p>Spinnit wird von einem kleinen, unabhängigen Team in England gebaut und gepflegt. Wir schreiben den Code selbst, testen jedes Tool auf den Handys, die wir tatsächlich benutzen, und lesen jedes Feedback, das reinkommt. Kein VC, keine Agentur, keine SEO-Farm — nur eine kostenlose Website, die wir selbst haben wollten.</p>
+  <p>Wenn du eine Idee für ein neues Tool hast, einen Bug gefunden hast oder eine Korrektur vorschlagen möchtest, schreib uns an <a href="mailto:hello@spinnit.site">hello@spinnit.site</a> oder nutze das <a href="/de/contact.html">Kontaktformular</a>.</p>
 
-  <h2>Weitere Werkzeuge kommen bald</h2>
+  <h2>Weitere Tools in Arbeit</h2>
   <div class="coming-soon">
-    <p>Wir arbeiten an mehr Tools, einschließlich eines zufälligen Zitatgenerators, zufälligen Emoji-Picker, zufälligen Datumsgenerator und mehr. Hast du einen Vorschlag? Lass uns eine Zeile <a href="mailto:hello@spinnit.site">hello@spinnit.site</a> - wir würden gerne hören, was Sie brauchen.</p>
+    <p>Wir arbeiten an weiteren Tools — unter anderem einem Zitat-Generator, einem Emoji-Picker und einem Zufallsdatum-Generator. Hast du einen Vorschlag? Schreib uns eine Zeile an <a href="mailto:hello@spinnit.site">hello@spinnit.site</a> — wir hören gerne, was du brauchst.</p>
   </div>
 
-  <h2>Wie es gebaut wird</h2>
-  <p>Spinnit ist mit reiner <strong style="color:var(--text)">HTML, CSS und JavaScript</strong> — keine Frameworks, keine Build-Tools, keine Tracking-Bibliotheken. Jedes Tool läuft vollständig in Ihrem Browser. Nichts, das Sie tippen oder generieren, wird jemals irgendwo gesendet. Die gesamte Website ist offen und auditierbar.</p>
+  <h2>Wie es gebaut ist</h2>
+  <p>Spinnit ist mit reinem <strong style="color:var(--text)">HTML, CSS und JavaScript</strong> gebaut — keine Frameworks, keine Build-Tools, keine Tracking-Bibliotheken. Jedes Tool läuft komplett in deinem Browser. Nichts, was du eingibst oder erzeugst, wird irgendwohin gesendet. Die gesamte Seite ist offen und überprüfbar.</p>
   <ul>
-    <li>Keine Analytik oder Tracking (nicht standardmäßig — kann mit Zustimmung ändern)</li>
-    <li>Keine Konten oder personenbezogene Daten gespeichert</li>
-    <li>Keine externen JavaScript Abhängigkeiten</li>
-    <li>Installierbar als PWA auf Mobil und Desktop</li>
+    <li>Keine Analytics und kein Tracking (standardmäßig — kann sich mit Einwilligung ändern)</li>
+    <li>Keine Konten, keine gespeicherten personenbezogenen Daten</li>
+    <li>Keine externen JavaScript-Abhängigkeiten</li>
+    <li>Als PWA auf Handy und Desktop installierbar</li>
   </ul>
 
   <h2>Kontakt</h2>
   <p>Allgemeine Anfragen: <a href="mailto:hello@spinnit.site">hello@spinnit.site</a><br>
   Datenschutz: <a href="mailto:privacy@spinnit.site">privacy@spinnit.site</a><br>
-  Datenschutzerklärung: <a href="/de/privacy.html">spinnit.site/privacy.html</a></p>
+  Datenschutzerklärung: <a href="/de/privacy.html">spinnit.site/de/privacy.html</a></p>
 </div>

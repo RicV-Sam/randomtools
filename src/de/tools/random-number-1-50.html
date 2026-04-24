@@ -1,19 +1,17 @@
 ---
 layout: layouts/base.njk
-title: Random Nummer zwischen 1 und 50 – kostenlose Instant Picker | Spinnit
+title: Random Number Between 1 and 50 – Free Instant Picker | Spinnit
 description: >-
-  Generieren Sie sofort eine Zufallszahl zwischen 1 und 50. Kostenloser fairer
-  Picker für Bingo, Giveaways, Gruppenaktivitäten und Klassenzimmerspiele.
-ogTitle: Random Nummer zwischen 1 und 50 | Spinnit
-ogDescription: >-
-  Sofortige faire Zufallsauswahl von 1 bis 50 — ideal für Bingo und
-  Mid-Size-Zeichnungen.
+  Generate a random number between 1 and 50 instantly. Free fair picker for
+  bingo, giveaways, group activities and classroom games.
+ogTitle: Random Number Between 1 and 50 | Spinnit
+ogDescription: Instant fair random pick from 1 to 50 — great for bingo and mid-size draws.
 canonical: 'https://spinnit.site/de/tools/random-number-1-50.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Random Nummer zwischen 1 und 50",
+    "name": "Random Number Between 1 and 50",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -73,68 +71,68 @@ lang: de
 
   <div class="tool-header">
     <div class="tool-icon">🔢</div>
-    <h1>Random Nummer zwischen 1 und 50</h1>
-    <p>Eine faire Auswahl von ein bis fünfzig</p>
+    <h1>Random Number Between 1 and 50</h1>
+    <p>A fair pick from one to fifty</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">Ihre Nummer (1–50)</div>
+    <div class="result-label">your number (1–50)</div>
     <div class="result-number" id="result">—</div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>Wie viele Zahlen?</label>
+      <label>How many numbers?</label>
       <input type="number" id="count" value="1" min="1" max="100">
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">GENERAT</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Kopierergebnis</button>
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">Aktuelle Ergebnisse</div>
+    <div class="history-label">Recent results</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Ein Bereich von 1 bis 50 ist eine der häufigsten Mittelformat-Zeichnungen. Es ist groß genug, um sich wie eine echte Ziehung zu fühlen, klein genug, dass jede Zahl erreichbar ist. Perfekt für Schul-Bingo, Mid-Size-Raffles und jede Gruppe von bis zu fünfzig Personen.</p>
+    <p>A range of 1 to 50 is one of the most common mid-size draws. It's big enough to feel like a real draw, small enough that every number feels reachable. Perfect for school bingo, mid-size raffles, and any group of up to fifty people.</p>
 
-    <h2>Wo 1–50 leuchtet</h2>
+    <h2>Where 1–50 shines</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>Schule oder Büro Bingo (die meisten Bingokarten verwenden 1–50, 1–75 oder 1–90)</li>
-      <li>Raffle zieht bei Fundraisern und lokalen Veranstaltungen</li>
-      <li>Jeden bis zu 50 Teilnehmern eine Nummer zuweisen</li>
-      <li>Halb-und-halb 50/50 Lotto-Stil Spiele</li>
-      <li>Schnelle Wahrscheinlichkeit Demos — "Pick eine Zahl, niemand kann es erraten"</li>
+      <li>School or office bingo (most bingo cards use 1–50, 1–75, or 1–90)</li>
+      <li>Raffle draws at fundraisers and local events</li>
+      <li>Assigning a number to each of up to 50 attendees</li>
+      <li>Half-and-half 50/50 lottery style games</li>
+      <li>Quick probability demos — "pick a number, nobody can guess it"</li>
     </ul>
 
-    <h2>Mehrere Zahlen zeichnen</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Für Bingo-Anrufe oder Multi-Gewinner-Gewinner, Set <em>Wie viele Zahlen?</em> bis 100. Beachten Sie, dass Ziehungen unabhängig sind – Duplikate können erscheinen. Wenn Sie einzigartige Picks benötigen (wie ein echter Bingokäfig), verwenden <a href="list-shuffler.html">Liste Shuffler</a> mit Nummern 1–50.</p>
+    <h2>Draw multiple numbers</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For bingo calls or multi-winner raffles, set <em>How many numbers?</em> up to 100. Note that draws are independent — duplicates can appear. If you need unique-only picks (like a real bingo cage), use <a href="list-shuffler.html">List Shuffler</a> with numbers 1–50.</p>
 
-    <h2>Sonstige Bereiche</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Versuch <a href="random-number-1-25.html">1–25</a>, <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-1000.html">1–1000</a>, oder einen <a href="random-number.html">Sonderangebot</a>.</p>
+    <h2>Other ranges</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Try <a href="random-number-1-25.html">1–25</a>, <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-1000.html">1–1000</a>, or build a <a href="random-number.html">custom range</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>Häufig gestellte Fragen</h2>
+    <h2>Frequently Asked Questions</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Sind beide 1 und 50 möglich?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Die Reichweite ist inklusive — jede Zahl von 1 bis 50 hat eine 2% Chance auf jede Ziehung.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are both 1 and 50 possible?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The range is inclusive — every number from 1 to 50 has a 2% chance on every draw.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich das benutzen, um Bingo zu nennen?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Für 1–50 Bingo-Stil Spiele, ja. Für echtes No-Repeat-Bingo, schütteln Sie eine Liste von 1–50 mit der Liste Shuffler und rufen Sie sie in gedämpfter Reihenfolge.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this to call bingo?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">For 1–50 bingo style games, yes. For real no-repeat bingo, shuffle a list of 1–50 with the List Shuffler and call them in shuffled order.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Erinnert sich der Generator an frühere Picks?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Es zeigt Ihre letzten zehn Picks auf dem Bildschirm, aber wird sie nicht ausschließen. Jede Ziehung ist statistisch unabhängig.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does the generator remember previous picks?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">It shows your last ten picks on screen, but won't exclude them. Each draw is statistically independent.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+    <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Individuelle Reichweite Generator</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Custom Range Generator</a>
       <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> 1–100 Generator</a>
-      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lotterie Picker</a>
-      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> Liste Shuffler</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lottery Picker</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
     </div>
   </section>
 

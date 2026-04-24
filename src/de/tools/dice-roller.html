@@ -1,147 +1,122 @@
 ---
 layout: layouts/base.njk
-title: 'Würfelrolle – Rolle D6, D20 & Custom Dice | Spinnit'
-description: >-
-  Rollen Sie virtuelle Würfel online. Wählen Sie D4, D6, D8, D10, D12, D20 oder
-  benutzerdefinierte Seiten. Perfekt für Brettspiele, RPGs und schnelle
-  Entscheidungen.
-canonical: 'https://spinnit.site/de/tools/dice-roller.html'
-jsonLd: |-
+title: "Würfel online — W6, W20 & benutzerdefinierte Würfel | Spinnit"
+description: "Virtuelle Würfel online rollen. W4, W6, W8, W10, W12, W20 oder beliebige Seitenanzahl wählen. Perfekt für Brettspiele, Rollenspiele und schnelle Entscheidungen."
+canonical: "https://spinnit.site/de/tools/dice-roller.html"
+lang: de
+jsonLd: |
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Dice Roller",
-    "description": "Rollen Sie alle Würfel online — D4, D6, D8, D10, D12, D20, D100 und benutzerdefinierte",
+    "name": "Würfel online",
+    "description": "Beliebige Würfel online rollen — W4, W6, W8, W10, W12, W20, W100 und benutzerdefiniert",
     "url": "https://spinnit.site/de/tools/dice-roller.html",
     "applicationCategory": "UtilityApplication",
-    "operatingSystem": "Web"
+    "operatingSystem": "Web",
+    "inLanguage": "de"
   }
-extraHead: >
-  <meta name="twitter:title" content="Dice Roller | Spinnit">
-
-  <meta name="twitter:description" content="Rollen Sie alle Würfel online. D4
-  bis D100 und benutzerdefinierte Seiten. Kostenlos und mobil.">
-
+extraHead: |
+  <meta name="twitter:title" content="Würfel online | Spinnit">
+  <meta name="twitter:description" content="Beliebige Würfel online rollen. W4 bis W100 und benutzerdefinierte Seiten. Kostenlos und mobil.">
   <script type="application/ld+json">
-
   {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Can I roll multiple dice at once?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Set the 'Number of dice' field to up to 20 and the tool will show each individual result plus a running total." }
-        },
-        {
-          "@type": "Question",
-          "name": "What dice types are available?",
-          "acceptedAnswer": { "@type": "Answer", "text": "D4, D6, D8, D10, D12, D20, and D100 are available as presets. You can also choose Custom and enter any number of sides from 2 to 1000." }
-        },
-        {
-          "@type": "Question",
-          "name": "Is this tool free to use?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
-        },
-        {
-          "@type": "Question",
-          "name": "Does this work on mobile?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
-        }
-      ]
-    }
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Kann ich mehrere Würfel gleichzeitig rollen?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja. Stelle das Feld „Anzahl der Würfel" auf bis zu 20 — das Tool zeigt jedes Einzelergebnis plus die laufende Gesamtsumme." }
+      },
+      {
+        "@type": "Question",
+        "name": "Welche Würfeltypen gibt es?",
+        "acceptedAnswer": { "@type": "Answer", "text": "W4, W6, W8, W10, W12, W20 und W100 stehen als Voreinstellungen bereit. Mit „Benutzerdefiniert" kannst du jede Seitenzahl von 2 bis 1000 eingeben." }
+      },
+      {
+        "@type": "Question",
+        "name": "Ist das Tool kostenlos?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja, komplett kostenlos und ohne Anmeldung." }
+      },
+      {
+        "@type": "Question",
+        "name": "Funktioniert das auf dem Handy?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja, alle Spinnit-Tools sind mobile-first und laufen auf jedem Gerät." }
+      }
+    ]
+  }
   </script>
-pageScript: >
-
+pageScript: |
   const rollHistory = [];
-
-
   document.getElementById('diceType').addEventListener('change', function() {
     document.getElementById('customGroup').style.display = this.value === 'custom' ? 'block' : 'none';
   });
-
-
   function getSides() {
     const type = document.getElementById('diceType').value;
     return type === 'custom' ? parseInt(document.getElementById('customSides').value) || 6 : parseInt(type);
   }
-
-
   function rollDice() {
     const sides = getSides();
     const count = Math.min(parseInt(document.getElementById('diceCount').value) || 1, 20);
     const rolls = Array.from({length: count}, () => Math.floor(Math.random() * sides) + 1);
     const total = rolls.reduce((a,b) => a+b, 0);
-
     const resultEl = document.getElementById('result');
     const totalEl = document.getElementById('totalLabel');
     const labelEl = document.getElementById('rollLabel');
-
     if (count === 1) {
       resultEl.textContent = rolls[0];
       totalEl.style.display = 'none';
-      labelEl.textContent = `D${sides} result`;
+      labelEl.textContent = `W${sides}-Ergebnis`;
     } else {
       resultEl.textContent = rolls.join(' + ');
       resultEl.style.fontSize = 'clamp(1rem,5vw,1.8rem)';
       totalEl.style.display = 'block';
-      totalEl.textContent = `Total: ${total}`;
-      labelEl.textContent = `${count}D${sides}`;
+      totalEl.textContent = `Summe: ${total}`;
+      labelEl.textContent = `${count}W${sides}`;
     }
-
     document.getElementById('resultBox').classList.remove('pop');
     void document.getElementById('resultBox').offsetWidth;
     document.getElementById('resultBox').classList.add('pop');
-
-    rollHistory.unshift(`${count}D${sides}: ${total}`);
+    rollHistory.unshift(`${count}W${sides}: ${total}`);
     if (rollHistory.length > 8) rollHistory.pop();
     const sec = document.getElementById('historySection');
     sec.style.display = 'block';
     document.getElementById('historyList').innerHTML = rollHistory.map(r => `<span class="history-item">${r}</span>`).join('');
   }
-
-
   function quickRoll(sides) {
     document.getElementById('diceType').value = sides;
     document.getElementById('customGroup').style.display = 'none';
     document.getElementById('diceCount').value = 1;
     rollDice();
   }
-
-
-  document.addEventListener('keydown', e => { if (e.code === 'Space') {
-  e.preventDefault(); rollDice(); }});
-lang: de
+  document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); rollDice(); }});
 ---
 <main class="tool-page">
 
   <div class="tool-header">
     <div class="tool-icon">⚄</div>
-    <h1>Dice Roller</h1>
-    <p>Rollen Sie jede Art von Würfel, jede Anzahl von Zeiten</p>
+    <h1>Würfel online</h1>
+    <p>Jede Art von Würfel, beliebig oft — sofort</p>
   </div>
 
-  <!-- AdSense -->
-  <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
-
   <div class="result-box" id="resultBox">
-    <div class="result-label" id="rollLabel">Rollen Sie die Würfel</div>
+    <div class="result-label" id="rollLabel">Würfel rollen</div>
     <div class="result-number" id="result" style="font-size:clamp(1.8rem,10vw,4rem);">—</div>
     <div id="totalLabel" style="font-size:13px;color:var(--text2);display:none;"></div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>Gewürztyp</label>
+      <label>Würfeltyp</label>
       <select id="diceType">
-        <option value="4">D4 (4-seitig)</option>
-        <option value="6" selected>D6 (6-seitig)</option>
-        <option value="8">D8 (8-seitig)</option>
-        <option value="10">D10 (10-seitig)</option>
-        <option value="12">D12 (12-seitig)</option>
-        <option value="20">D20 (20-seitig)</option>
-        <option value="100">D100 (prozentig)</option>
-        <option value="custom">Zoll</option>
+        <option value="4">W4 (4-seitig)</option>
+        <option value="6" selected>W6 (6-seitig)</option>
+        <option value="8">W8 (8-seitig)</option>
+        <option value="10">W10 (10-seitig)</option>
+        <option value="12">W12 (12-seitig)</option>
+        <option value="20">W20 (20-seitig)</option>
+        <option value="100">W100 (Prozentwürfel)</option>
+        <option value="custom">Benutzerdefiniert</option>
       </select>
     </div>
     <div class="control-group" id="customGroup" style="display:none">
@@ -154,75 +129,75 @@ lang: de
     </div>
   </div>
 
-  <!-- Quick dice buttons -->
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
-    <button onclick="quickRoll(6)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D6</button>
-    <button onclick="quickRoll(20)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D20</button>
-    <button onclick="quickRoll(100)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D100</button>
-    <button onclick="quickRoll(4)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D4</button>
-    <button onclick="quickRoll(12)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D12</button>
+    <button onclick="quickRoll(6)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">W6</button>
+    <button onclick="quickRoll(20)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">W20</button>
+    <button onclick="quickRoll(100)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">W100</button>
+    <button onclick="quickRoll(4)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">W4</button>
+    <button onclick="quickRoll(12)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">W12</button>
   </div>
 
-  <button class="btn-generate" onclick="rollDice()">SAMMLUNG</button>
+  <button class="btn-generate" onclick="rollDice()">WÜRFELN</button>
 
   <div class="history" id="historySection" style="display:none;margin-top:1rem;">
-    <div class="history-label">Rollengeschichte</div>
+    <div class="history-label">Verlauf</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Die Dice Roller lässt Sie jede Art von Die rollen – von einem klassischen D6 bis zu einem D100 oder einem beliebigen benutzerdefinierten sterben Sie definieren. Wählen Sie, wie viele Würfel auf einmal rollen und erhalten Sie Ihre Gesamt sofort. Egal, ob Sie Mitten in einer Tischplatte RPG sind oder nur ein schnelles zufälliges Ergebnis benötigen, dieses Tool hat Sie abgedeckt.</p>
+    <p>Mit dem Würfel-Tool rollst du jede Art von Würfel — vom klassischen W6 über den W100 bis zu eigenen Seitenzahlen. Wähle, wie viele Würfel gleichzeitig fallen sollen, und bekomme die Summe sofort. Ob mitten in einer Rollenspielrunde oder für eine schnelle Zufallsentscheidung: dieses Tool ist dein digitaler Würfelbecher.</p>
 
-    <h2>Wie zu benutzen</h2>
+    <h2>Anleitung</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>Wählen Sie Ihren Würfeltyp aus dem Dropdown (D4, D6, D8, D10, D12, D20, D100 oder Custom).</li>
-      <li>Geben Sie die Anzahl der Seiten ein, die Sie benötigen.</li>
-      <li>Stellen Sie, wie viele Würfel auf einmal rollen (bis 20).</li>
-      <li>Klicken Sie auf Roll Dice oder verwenden Sie die Schnelllauftasten für die häufigsten Typen.</li>
-      <li>Drücken Sie Raum, um sofort ohne die Maus wieder zu rollen.</li>
+      <li>Würfeltyp aus dem Menü wählen (W4, W6, W8, W10, W12, W20, W100 oder benutzerdefiniert).</li>
+      <li>Bei „Benutzerdefiniert" die gewünschte Seitenzahl eingeben.</li>
+      <li>Festlegen, wie viele Würfel gleichzeitig fallen (bis zu 20).</li>
+      <li>Auf „Würfeln" tippen oder eine der Schnellwahl-Tasten nutzen.</li>
+      <li>Leertaste drücken, um ohne Maus erneut zu würfeln.</li>
     </ol>
 
-    <h2>Gemeinsame Nutzungen</h2>
+    <h2>Typische Einsätze</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>Dungeons &amp; Dragons und andere Tabletop RPG-Sitzungen</li>
-      <li>Brettspiele, die bestimmte Würfel nicht in der Box benötigen</li>
-      <li>Klassenraumwahrscheinlichkeit oder Statistiken Demonstrationen</li>
-      <li>Spielabend, wenn physische Würfel sind nicht zur Hand</li>
-      <li>Testen von Spielmechanik und Wahrscheinlichkeitsverteilungen</li>
-      <li>In-Game-Entscheidungen bei Videospieldurchführungen lösen</li>
+      <li>Dungeons &amp; Dragons und andere Pen-and-Paper-Rollenspiele</li>
+      <li>Brettspiele, bei denen die passenden Würfel fehlen</li>
+      <li>Wahrscheinlichkeits- und Statistikunterricht</li>
+      <li>Spieleabende, wenn keine echten Würfel zur Hand sind</li>
+      <li>Spielmechaniken und Wahrscheinlichkeitsverteilungen testen</li>
+      <li>Zufallsentscheidungen in Videospielen auswürfeln</li>
     </ul>
 
-    <h2>Warum Spinnit verwenden</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Alle Rollen passieren lokal in Ihrem Browser – keine App zu installieren und keine Ladezeiten. Das Tool unterstützt bis zu 20 Würfel auf einmal mit einer automatischen Summe Gesamt, so dass es ideal für RPG-Spieler, die schnelle Ergebnisse Midsession benötigen. Keine Anmeldung, keine Daten gespeichert, funktioniert auf jedem Gerät.</p>
+    <h2>Warum Spinnit?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Alle Würfe laufen lokal im Browser — keine App, keine Ladezeiten. Das Tool unterstützt bis zu 20 Würfel gleichzeitig mit automatischer Summe und ist damit ideal für Rollenspieler, die mitten in der Sitzung schnelle Ergebnisse brauchen. Keine Anmeldung, keine Datenspeicherung, läuft auf jedem Gerät.</p>
   </section>
 
   <section class="tool-content" style="margin-top:1.5rem;">
-    <h2>Beliebte Würfelvoreinstellungen</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Überspringen Sie das Setup für gemeinsame Rollen: <a href="roll-2d6.html">Rolle 2d6</a> · <a href="roll-3d6.html">Rolle 3d6</a> · <a href="roll-4d6-drop-lowest.html">4d6 sinken niedrig (D&amping-Statistiken)</a> · <a href="roll-d100.html">Rollstuhlfahrer</a> · <a href="roll-d10.html">Rollen d10</a> · <a href="random-number-1-20.html">Rollen d20</a> · <a href="random-number-1-6.html">Rollen d6</a>.</p>
+    <h2>Beliebte Würfel-Voreinstellungen</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Direkt zu häufigen Würfen: <a href="roll-2d6.html">2W6 rollen</a> · <a href="roll-3d6.html">3W6 rollen</a> · <a href="roll-4d6-drop-lowest.html">4W6 niedrigsten streichen (D&amp;D-Werte)</a> · <a href="roll-d100.html">W100 rollen</a> · <a href="roll-d10.html">W10 rollen</a> · <a href="random-number-1-20.html">W20 rollen</a> · <a href="random-number-1-6.html">W6 rollen</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Häufig gestellte Fragen</h2>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Kann ich mehrere Würfel gleichzeitig rollen?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Setzen Sie das Feld "Anzahl der Würfel" auf bis zu 20 und das Werkzeug zeigt jedes einzelne Ergebnis plus eine laufende Gesamt.</p>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Stelle das Feld „Anzahl der Würfel" auf bis zu 20 — das Tool zeigt jedes Einzelergebnis plus die laufende Gesamtsumme.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Welche Würfeltypen sind verfügbar?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">D4, D6, D8, D10, D12, D20 und D100 sind als Voreinstellungen erhältlich. Sie können auch wählen Benutzerdefinierte und geben Sie jede Anzahl von Seiten von 2 bis 1000.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Welche Würfeltypen gibt es?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">W4, W6, W8, W10, W12, W20 und W100 stehen als Voreinstellungen bereit. Mit „Benutzerdefiniert" kannst du jede Seitenzahl von 2 bis 1000 eingeben.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist dieses Tool kostenlos zu verwenden?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, völlig kostenlos ohne Anmeldung erforderlich.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist das Tool kostenlos?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, komplett kostenlos und ohne Anmeldung.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Arbeitet das auf Handy?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, alle Spinnit-Tools sind mobil-first und arbeiten an jedem Gerät.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Funktioniert das auf dem Handy?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja, alle Spinnit-Tools sind mobile-first und laufen auf jedem Gerät.</p>
   </section>
-<section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">In den Warenkorb</h2>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Ähnliche Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Randnummer Generator</a>
-      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> In den Warenkorb</a>
-      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Ja kein Rad</a>
-      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lotterie Nummer Generator</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Zufallszahlen-Generator</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Münzwurf</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Ja-Nein-Rad</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lottozahlen-Generator</a>
     </div>
   </section>
 
