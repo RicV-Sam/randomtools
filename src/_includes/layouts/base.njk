@@ -27,7 +27,7 @@
 {%- endif %}
 {#- hreflang alternates: derive each language's URL from the canonical by
     stripping any current language prefix and prepending the target's. -#}
-{%- if canonical and languages %}
+{%- if canonical and languages and not noAlternates %}
 {%- set currentLang = lang or languages.default %}
 {%- set basePath = canonical | replace(site.url, "") %}
 {%- if currentLang != languages.default %}

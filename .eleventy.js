@@ -2,6 +2,7 @@ module.exports = function (eleventyConfig) {
   // Passthrough copy for assets that don't need processing.
   // These files are copied as-is to _site/ preserving their paths.
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
+  eleventyConfig.addPassthroughCopy({ "src/ai/assets": "ai/assets" });
   eleventyConfig.addPassthroughCopy({ "src/icons": "icons" });
   eleventyConfig.addPassthroughCopy({ "src/manifest.json": "manifest.json" });
   eleventyConfig.addPassthroughCopy({ "src/sw.js": "sw.js" });
