@@ -78,8 +78,7 @@ pageScript: >
     });
   }
 
-  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code
-  === 'Enter') { e.preventDefault(); roll(); }});
+  bindGlobalShortcut(roll);
 lang: de
 ---
 <main class="tool-page">

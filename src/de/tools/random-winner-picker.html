@@ -63,11 +63,7 @@ pageScript: |
       setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
     });
   }
-  document.addEventListener('keydown', e => {
-    if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
-      e.preventDefault(); drawWinners();
-    }
-  });
+  bindGlobalShortcut(drawWinners);
 lang: de
 ---
 <main class="tool-page">

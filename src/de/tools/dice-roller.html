@@ -26,12 +26,12 @@ extraHead: |
       {
         "@type": "Question",
         "name": "Kann ich mehrere Würfel gleichzeitig rollen?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Ja. Stelle das Feld „Anzahl der Würfel" auf bis zu 20 — das Tool zeigt jedes Einzelergebnis plus die laufende Gesamtsumme." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja. Stelle das Feld „Anzahl der Würfel\" auf bis zu 20 — das Tool zeigt jedes Einzelergebnis plus die laufende Gesamtsumme." }
       },
       {
         "@type": "Question",
         "name": "Welche Würfeltypen gibt es?",
-        "acceptedAnswer": { "@type": "Answer", "text": "W4, W6, W8, W10, W12, W20 und W100 stehen als Voreinstellungen bereit. Mit „Benutzerdefiniert" kannst du jede Seitenzahl von 2 bis 1000 eingeben." }
+        "acceptedAnswer": { "@type": "Answer", "text": "W4, W6, W8, W10, W12, W20 und W100 stehen als Voreinstellungen bereit. Mit „Benutzerdefiniert\" kannst du jede Seitenzahl von 2 bis 1000 eingeben." }
       },
       {
         "@type": "Question",
@@ -89,7 +89,7 @@ pageScript: |
     document.getElementById('diceCount').value = 1;
     rollDice();
   }
-  document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); rollDice(); }});
+  bindGlobalShortcut(rollDice, { keys: ['Space'] });
 ---
 <main class="tool-page">
 

@@ -65,6 +65,29 @@
 
 {% include "partials/footer.njk" %}
 
+<script>
+window.bindGlobalShortcut = function (action, options) {
+  const opts = options || {};
+  const keys = opts.keys || ["Space", "Enter"];
+  const allowTextarea = Boolean(opts.allowTextarea);
+  document.addEventListener("keydown", function (e) {
+    const t = e.target;
+    if (t) {
+      const isInput = t.tagName === "INPUT";
+      const isTextarea = t.tagName === "TEXTAREA";
+      const isSelect = t.tagName === "SELECT";
+      if (isInput || isSelect || t.isContentEditable || (!allowTextarea && isTextarea)) {
+        return;
+      }
+    }
+    if (keys.includes(e.code)) {
+      e.preventDefault();
+      action(e);
+    }
+  });
+};
+</script>
+
 {%- if pageScript %}
 <script>
 {{ pageScript | safe }}

@@ -82,7 +82,7 @@ pageScript: |
     });
   }
   
-  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); generate(); }});
+  bindGlobalShortcut(generate);
 ---
 <main class="tool-page">
 
