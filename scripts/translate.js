@@ -217,6 +217,48 @@ function prefixPath(urlPath, lang) {
   return `/${lang}${urlPath}`;
 }
 
+function localizeSiteUrl(value, lang) {
+  if (typeof value !== "string") return value;
+  if (!value.startsWith("https://spinnit.site")) return value;
+  try {
+    const u = new URL(value);
+    u.pathname = prefixPath(u.pathname, lang);
+    return u.toString();
+  } catch {
+    return value;
+  }
+}
+
+async function translateStructuredObject(o, lang) {
+  if (Array.isArray(o)) {
+    for (let i = 0; i < o.length; i++) {
+      o[i] = await translateStructuredObject(o[i], lang);
+    }
+    return o;
+  }
+  if (!o || typeof o !== "object") return o;
+
+  for (const k of Object.keys(o)) {
+    const v = o[k];
+    if (typeof v === "string") {
+      // Translate human-facing text fields.
+      if (["name", "description", "headline", "text"].includes(k)) {
+        o[k] = await translate(v, lang);
+        continue;
+      }
+      // Keep structured URLs locale-aware.
+      if (k.toLowerCase().includes("url") || k === "mainEntityOfPage") {
+        o[k] = localizeSiteUrl(v, lang);
+        continue;
+      }
+      o[k] = v;
+      continue;
+    }
+    o[k] = await translateStructuredObject(v, lang);
+  }
+  return o;
+}
+
 function rewriteInternalLinks(html, lang) {
   const root = parseHtml(html, { comment: true });
   for (const a of root.querySelectorAll("a[href]")) {
@@ -279,32 +321,16 @@ async function translatePage(relPath) {
     } catch {}
   }
 
+  // Rewrite locale-sensitive front matter links.
+  if (typeof data.navBackHref === "string" && data.navBackHref.startsWith("/")) {
+    data.navBackHref = prefixPath(data.navBackHref, LANG);
+  }
+
   // JSON-LD: translate name + description, rewrite url
   if (data.jsonLd && typeof data.jsonLd === "string") {
     try {
       const obj = JSON.parse(data.jsonLd);
-      async function walk(o) {
-        if (Array.isArray(o)) {
-          for (const x of o) await walk(x);
-          return;
-        }
-        if (o && typeof o === "object") {
-          if (typeof o.name === "string") o.name = await translate(o.name, LANG);
-          if (typeof o.description === "string") o.description = await translate(o.description, LANG);
-          if (typeof o.headline === "string") o.headline = await translate(o.headline, LANG);
-          if (typeof o.url === "string" && o.url.startsWith("https://spinnit.site")) {
-            try {
-              const u = new URL(o.url);
-              u.pathname = prefixPath(u.pathname, LANG);
-              o.url = u.toString();
-            } catch {}
-          }
-          for (const k of Object.keys(o)) {
-            if (!["name", "description", "headline", "url"].includes(k)) await walk(o[k]);
-          }
-        }
-      }
-      await walk(obj);
+      await translateStructuredObject(obj, LANG);
       data.jsonLd = JSON.stringify(obj, null, 2);
     } catch (e) {
       console.warn(`  [jsonLd parse skip: ${e.message}]`);
@@ -319,8 +345,24 @@ async function translatePage(relPath) {
       if (/title|description/.test(name)) {
         const v = m.getAttribute("content");
         if (v && v.trim()) m.setAttribute("content", await translate(v, LANG));
+      } else if (/url/.test(name)) {
+        const v = m.getAttribute("content");
+        if (v) m.setAttribute("content", localizeSiteUrl(v, LANG));
       }
     }
+
+    for (const s of root.querySelectorAll('script[type="application/ld+json"]')) {
+      const raw = (s.text || s.innerHTML || s.rawText || "").trim();
+      if (!raw) continue;
+      try {
+        const obj = JSON.parse(raw);
+        await translateStructuredObject(obj, LANG);
+        s.set_content(JSON.stringify(obj, null, 2));
+      } catch (e) {
+        console.warn(`  [extraHead jsonLd parse skip: ${e.message}]`);
+      }
+    }
+
     data.extraHead = root.toString();
   }
 

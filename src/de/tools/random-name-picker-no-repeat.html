@@ -108,11 +108,7 @@ pageScript: >
 
   document.getElementById('namesInput').addEventListener('input', resetList);
 
-  document.addEventListener('keydown', e => {
-    if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
-      e.preventDefault(); pick();
-    }
-  });
+  bindGlobalShortcut(pick);
 lang: de
 ---
 <main class="tool-page">

@@ -7,7 +7,8 @@
     "build": "eleventy",
     "start": "eleventy --serve",
     "watch": "eleventy --watch",
-    "clean": "rimraf _site"
+    "clean": "rimraf _site",
+    "check:content": "node scripts/check-content.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",

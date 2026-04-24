@@ -34,7 +34,7 @@ extraHead: |
       {
         "@type": "Question",
         "name": "Kann ich mehrere Zahlen gleichzeitig erzeugen?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Ja. Stelle im Feld „Wie viele Zahlen?" einen Wert zwischen 1 und 100 ein — alle Ergebnisse erscheinen gemeinsam." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja. Stelle im Feld „Wie viele Zahlen?\" einen Wert zwischen 1 und 100 ein — alle Ergebnisse erscheinen gemeinsam." }
       },
       {
         "@type": "Question",
@@ -87,7 +87,7 @@ pageScript: |
       setTimeout(() => { btn.textContent = 'Ergebnis kopieren'; btn.classList.remove('copied'); }, 2000);
     });
   }
-  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); generate(); }});
+  bindGlobalShortcut(generate);
 ---
 <main class="tool-page">
 

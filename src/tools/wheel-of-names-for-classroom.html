@@ -32,11 +32,7 @@ pageScript: |
     box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
   }
   function clearResult() { document.getElementById('result').textContent = '—'; }
-  document.addEventListener('keydown', e => {
-    if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
-      e.preventDefault(); pick();
-    }
-  });
+  bindGlobalShortcut(pick);
 ---
 <main class="tool-page">
 
