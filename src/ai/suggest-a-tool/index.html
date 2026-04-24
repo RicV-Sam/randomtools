@@ -1,15 +1,28 @@
 ---
 layout: layouts/base.njk
-title: "Suggest a Tool | AI Tool Radar"
-description: "Suggest an AI tool for future coverage on AI Tool Radar and see what makes a submission genuinely useful for readers."
-canonical: "https://spinnit.site/ai/suggest-a-tool/"
-navBackHref: "/ai/"
-navBackLabel: "AI tools"
+title: Suggest a Tool | AI Tool Radar
+description: Suggest an AI tool for future coverage on AI Tool Radar and see what makes a submission genuinely useful for readers.
+canonical: https://spinnit.site/ai/suggest-a-tool/
+navBackHref: /ai/
+navBackLabel: AI tools
 noAlternates: true
 extraHead: |
   <link rel="stylesheet" href="/ai/assets/css/style.css">
   <meta name="twitter:title" content="Suggest a Tool | AI Tool Radar">
   <meta name="twitter:description" content="Suggest an AI tool for future coverage on AI Tool Radar and see what makes a submission genuinely useful for readers.">
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Suggest a Tool | AI Tool Radar",
+    "description": "Suggest an AI tool for future coverage on AI Tool Radar and see what makes a submission genuinely useful for readers.",
+    "url": "https://spinnit.site/ai/suggest-a-tool/",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Spinnit",
+      "url": "https://spinnit.site/"
+    }
+  }
 ---
 <main class="page-main">
       <div class="container">
@@ -48,4 +61,9 @@ extraHead: |
           </div>
         </section>
       </div>
-    </main>
+    
+<section class="content-section">
+  <h2>Also useful on Spinnit</h2>
+  <p>If you also need randomization utilities, try the <a href="/tools/random-number.html">Random Number Generator</a> or read <a href="/blog/how-to-pick-random-teams-fairly.html">how to run fair random picks</a>.</p>
+</section>
+</main>

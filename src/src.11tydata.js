@@ -4,6 +4,8 @@
 module.exports = {
   eleventyComputed: {
     permalink: (data) => {
+      // Explicit opt-out for template-only pages.
+      if (data.permalink === false) return false;
       // If a page explicitly set a permalink in front matter, respect it.
       if (data.permalink) return data.permalink;
       // Otherwise preserve the source path (/privacy.html stays /privacy.html).

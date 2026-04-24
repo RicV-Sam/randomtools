@@ -1,15 +1,28 @@
 ---
 layout: layouts/base.njk
-title: "AI Image Tools Directory | AI Tool Radar"
-description: "Explore AI image tools for image generation, concept art, and visual content workflows, including Midjourney and related comparison paths."
-canonical: "https://spinnit.site/ai/categories/ai-image-tools.html"
-navBackHref: "/ai/"
-navBackLabel: "AI tools"
+title: AI Image Tools Directory | AI Tool Radar
+description: Explore AI image tools for image generation, concept art, and visual content workflows, including Midjourney and related comparison paths.
+canonical: https://spinnit.site/ai/categories/ai-image-tools.html
+navBackHref: /ai/
+navBackLabel: AI tools
 noAlternates: true
 extraHead: |
   <link rel="stylesheet" href="/ai/assets/css/style.css">
   <meta name="twitter:title" content="AI Image Tools Directory | AI Tool Radar">
   <meta name="twitter:description" content="Explore AI image tools for image generation, concept art, and visual content workflows, including Midjourney and related comparison paths.">
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "AI Image Tools Directory | AI Tool Radar",
+    "description": "Explore AI image tools for image generation, concept art, and visual content workflows, including Midjourney and related comparison paths.",
+    "url": "https://spinnit.site/ai/categories/ai-image-tools.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Spinnit",
+      "url": "https://spinnit.site/"
+    }
+  }
 ---
 <main class="page-main"><div class="container">
       <div class="internal-hero">
@@ -22,4 +35,9 @@ extraHead: |
         <section class="content-section"><h2>FAQs</h2><div class="faq-list"><article class="faq-item"><h3>Which AI image tool is best for visual quality?</h3><p>Midjourney is often the first choice when style and visual polish matter most.</p></article><article class="faq-item"><h3>Which AI image tool is better for creators who also make video?</h3><p>Runway makes more sense if image generation is just one part of a broader creator stack.</p></article><article class="faq-item"><h3>Should beginners start with image-only tools?</h3><p>Not always. If your workflow includes video, social clips, or creative production, a broader creator tool may be more useful.</p></article></div></section>
       </article>
       <section class="related-pages"><p class="eyebrow">Related Pages</p><h2>Explore more visual AI workflows</h2><div class="card-grid four-up"><article class="card"><span class="pill">Tool</span><h3><a href="../tools/midjourney.html">Midjourney</a></h3><p>Read the full image-tool overview.</p></article><article class="card"><span class="pill">Tool</span><h3><a href="../tools/runway.html">Runway</a></h3><p>See where video and image workflows overlap.</p></article><article class="card"><span class="pill">Compare</span><h3><a href="../compare/midjourney-vs-runway.html">Midjourney vs Runway</a></h3><p>Compare visual quality and workflow flexibility.</p></article><article class="card"><span class="pill">Best page</span><h3><a href="../best/best-ai-tools-for-content-creators.html">Best AI Tools for Content Creators</a></h3><p>See how image tools fit into creator stacks.</p></article></div></section>
-    </div></main>
+    </div>
+<section class="content-section">
+  <h2>Also useful on Spinnit</h2>
+  <p>If you also need randomization utilities, try the <a href="/tools/random-number.html">Random Number Generator</a> or read <a href="/blog/how-to-pick-random-teams-fairly.html">how to run fair random picks</a>.</p>
+</section>
+</main>
