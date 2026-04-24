@@ -1,0 +1,152 @@
+---
+layout: layouts/base.njk
+title: "Spinnit — Kostenlose Zufallsgeneratoren, Glücksräder & Picker"
+description: "Kostenlose Online-Zufallsgeneratoren für alle. Würfel, Münzwurf, Namensrad, Passwortgenerator, Lottozahlen, Zufallsland und mehr. Schnell, kostenlos, keine Anmeldung nötig."
+ogDescription: "Kostenlose Online-Zufallsgeneratoren für alle. Würfel, Münzwurf, Namensrad, Passwortgenerator und mehr."
+canonical: "https://spinnit.site/de/"
+hideNav: true
+lang: de
+extraHead: |
+  <meta name="twitter:title" content="Spinnit — Kostenlose Zufallstools">
+  <meta name="twitter:description" content="33 kostenlose Zufallstools und Presets. Keine Anmeldung, funktioniert mobil.">
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Spinnit",
+    "url": "https://spinnit.site/de/",
+    "description": "Kostenlose Online-Zufallsgeneratoren und Tools",
+    "inLanguage": "de",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://spinnit.site/de/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+pageScript: |
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
+---
+<nav class="nav">
+  <div class="nav-logo">spinn<span>it</span></div>
+  <a href="/de/tools/" style="font-size:12px;color:var(--text3);font-family:var(--mono);text-decoration:none;">alle 33 tools →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">kostenlos · schnell · ohne Anmeldung</div>
+  <h1>Kostenlose Zufallsgeneratoren &amp; Tools</h1>
+  <p>Dreizehn Kerntools plus 20 spezielle Presets für Entscheidungen, Spiele, Passwörter, Namen und mehr. Läuft perfekt auf Mobilgeräten.</p>
+  <p style="margin-top:0.75rem;"><a href="/de/tools/" style="color:var(--accent2);font-family:var(--mono);font-size:13px;text-decoration:none;">→ Alle 33 Tools &amp; Presets ansehen</a></p>
+</section>
+
+<!-- AdSense Banner -->
+<div style="max-width:960px;margin:0 auto 1.5rem;padding:0 1.5rem;">
+  <!-- ADSENSE: Replace with your ad unit -->
+</div>
+
+<main class="tools-grid">
+
+  <a class="tool-card" href="tools/random-number.html">
+    <div class="tool-icon">🎲</div>
+    <h3>Zufallszahlen-Generator</h3>
+    <p>Zufallszahlen zwischen Min und Max erzeugen. Einzeln oder in Serie.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+  <a class="tool-card" href="tools/dice-roller.html">
+    <div class="tool-icon">⚄</div>
+    <h3>Würfel online</h3>
+    <p>Beliebig viele Würfel mit beliebigen Seiten rollen. W6, W20, W100 und Custom.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+  <a class="tool-card" href="tools/coin-flip.html">
+    <div class="tool-icon">🪙</div>
+    <h3>Münzwurf online</h3>
+    <p>Münze online werfen. Kopf oder Zahl — sofortiges Ergebnis mit Zähler.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+  <a class="tool-card" href="tools/team-picker.html">
+    <div class="tool-icon">👥</div>
+    <h3>Zufalls-Teamgenerator</h3>
+    <p>Namensliste in zufällige Teams aufteilen. Ideal für Sport, Schule, Arbeit.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+  <a class="tool-card" href="tools/yes-no-wheel.html">
+    <div class="tool-icon">🔮</div>
+    <h3>Ja-Nein-Rad</h3>
+    <p>Unentschlossen? Dreh das Rad und hol dir eine zufällige Ja/Nein-Antwort.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+  <a class="tool-card" href="tools/wheel-of-names.html">
+    <div class="tool-icon">🎡</div>
+    <h3>Namensrad / Glücksrad</h3>
+    <p>Namensliste eingeben und das Rad drehen — fairer Zufallsgewinner in Sekunden.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+  <a class="tool-card" href="tools/colour-generator.html">
+    <div class="tool-icon">🎨</div>
+    <h3>Zufallsfarben-Generator</h3>
+    <p>Zufällige Farben mit HEX-, RGB- und HSL-Werten. Ein Tipp zum Kopieren.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+  <a class="tool-card" href="tools/password-generator.html">
+    <div class="tool-icon">🔐</div>
+    <h3>Passwort-Generator</h3>
+    <p>Starke, sichere Zufallspasswörter. Länge, Symbole und Ziffern frei wählbar.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+  <a class="tool-card" href="tools/lottery-picker.html">
+    <div class="tool-icon">🍀</div>
+    <h3>Lottozahlen-Generator</h3>
+    <p>Zufällige Lottozahlen für Lotto 6aus49, EuroJackpot, Powerball und mehr.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+  <a class="tool-card" href="tools/percentage-generator.html">
+    <div class="tool-icon">📊</div>
+    <h3>Zufalls-Prozentwert</h3>
+    <p>Zufälliger Prozentwert oder Dezimalwert. Min, Max und Nachkommastellen einstellbar.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+  <a class="tool-card" href="tools/list-shuffler.html">
+    <div class="tool-icon">🔀</div>
+    <h3>Listen-Mischer</h3>
+    <p>Beliebige Liste einfügen und sofort in eine zufällige Reihenfolge bringen.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+  <a class="tool-card" href="tools/random-country.html">
+    <div class="tool-icon">🌍</div>
+    <h3>Zufälliges Land</h3>
+    <p>Entdecke ein zufälliges Land aus allen 195 Nationen. Nach Kontinent filtern.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+  <a class="tool-card" href="tools/random-name-generator.html">
+    <div class="tool-icon">👤</div>
+    <h3>Zufallsnamen-Generator</h3>
+    <p>Realistische Namen aus 10 Kulturen: Deutsch, Englisch, Japanisch, Arabisch und mehr.</p>
+    <div class="tool-arrow">tool öffnen →</div>
+  </a>
+
+</main>
+
+<section aria-label="Über Spinnit" style="max-width:960px;margin:0 auto 3rem;padding:0 1.5rem;">
+  <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Kostenlose Zufallsgeneratoren online</h2>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Spinnit bietet kostenlose Zufallsgeneratoren für Zahlen, Namen, Teams, Passwörter, Farben und mehr. Jedes Tool läuft direkt im Browser — keine Downloads, keine Konten, kein Tracking.</p>
+
+  <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Für jeden, überall</h2>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Ob Würfel für den Spieleabend, ein Namensrad für den Unterricht oder ein Passwortgenerator für mehr Sicherheit — Spinnit hat das passende kostenlose Tool. Alle Tools funktionieren weltweit perfekt auf Mobilgeräten. Du kannst <a href="/de/tools/" style="color:var(--accent2);">die vollständige Liste</a> durchstöbern, um genau den Picker oder Generator zu finden, den du brauchst.</p>
+
+  <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Beliebte Tools</h2>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;">Unsere meistgenutzten Tools sind der <a href="tools/random-number.html" style="color:var(--accent2);">Zufallszahlen-Generator</a>, der <a href="tools/coin-flip.html" style="color:var(--accent2);">Münzwurf</a>, das <a href="tools/wheel-of-names.html" style="color:var(--accent2);">Namensrad</a>, der <a href="tools/team-picker.html" style="color:var(--accent2);">Team-Picker</a> und der <a href="tools/lottery-picker.html" style="color:var(--accent2);">Lottozahlen-Generator</a>. Jedes Tool ist kostenlos, schnell und ohne Anmeldung nutzbar.</p>
+</section>

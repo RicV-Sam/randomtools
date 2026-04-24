@@ -1,0 +1,135 @@
+---
+layout: layouts/base.njk
+title: Pick a Random Name – Free Instant Name Picker | Spinnit
+description: >-
+  Pick a random name from any list instantly. Free online name picker for
+  giveaways, meetings, classrooms and parties. No sign-up, works on mobile.
+ogTitle: Pick a Random Name | Spinnit
+ogDescription: 'Free instant name picker — paste any list, tap once to pick.'
+canonical: 'https://spinnit.site/de/tools/pick-random-name.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Pick a Random Name",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is the pick really random?","acceptedAnswer":{"@type":"Answer","text":"Yes. The tool uses the browser's built-in random number generator — unbiased and unpredictable."}},
+      {"@type":"Question","name":"Are duplicates removed from my list?","acceptedAnswer":{"@type":"Answer","text":"No. Every line is treated as a separate entry, so duplicates have double the chance."}},
+      {"@type":"Question","name":"Can I prove the draw was fair for a public giveaway?","acceptedAnswer":{"@type":"Answer","text":"Screen-record or screenshot the pick with a timestamp and post it with the entry list."}}
+    ]}
+  </script>
+pageScript: |
+
+  function getNames() {
+    return document.getElementById('namesInput').value.split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
+  }
+  function pick() {
+    const names = getNames();
+    if (!names.length) { alert('Paste some names first.'); return; }
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, Math.min(50, names.length));
+    const pool = [...names];
+    const picks = [];
+    for (let i = 0; i < count; i++) {
+      const idx = Math.floor(Math.random() * pool.length);
+      picks.push(pool.splice(idx, 1)[0]);
+    }
+    document.getElementById('result').textContent = picks.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  document.addEventListener('keydown', e => {
+    if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault(); pick();
+    }
+  });
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎲</div>
+    <h1>Pick a Random Name</h1>
+    <p>Paste any list, tap once — a fair pick in a heartbeat</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your pick</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Names (one per line or comma-separated)</label>
+      <textarea id="namesInput" rows="7" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;" placeholder="Paste your list here..."></textarea>
+    </div>
+    <div class="control-group" style="margin-top:10px;">
+      <label>How many to pick?</label>
+      <input type="number" id="count" value="1" min="1" max="50">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">PICK</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>This is the fastest way to pick a random name from a list on the internet. No account, no pop-ups, no 30-second wheel animation — just paste, tap, done. Every name has an equal chance, each pick is independent, and nothing you type is sent anywhere.</p>
+
+    <h2>What people use this for</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Giveaway winners</strong> — paste your entry list, tap, screenshot the winner</li>
+      <li><strong>Meeting icebreakers</strong> — "random person shares first"</li>
+      <li><strong>Who goes first</strong> — games, presentations, who makes the coffee</li>
+      <li><strong>Secret Santa pairings</strong> — quick draws without paper slips</li>
+      <li><strong>Choosing a restaurant</strong> — list the options, let chance decide</li>
+      <li><strong>Research sampling</strong> — pick a random respondent from a shortlist</li>
+    </ul>
+
+    <h2>Pick several at once</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Need multiple winners? Set <em>How many to pick?</em> up to 50 and the tool gives you that many unique names (no duplicates within a single pick). Tap again for a fresh pick.</p>
+
+    <h2>Other picker styles</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For an animated wheel experience, use the <a href="wheel-of-names.html">Wheel of Names</a>. For classroom use with no-repeat protection, try the <a href="random-name-picker-no-repeat.html">No-Repeat Picker</a> or the <a href="random-student-picker.html">Student Picker</a>. To shuffle a whole list at once, use the <a href="list-shuffler.html">List Shuffler</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is the pick really random?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The tool uses the browser's built-in random number generator, which is unbiased and unpredictable. No name is secretly favoured.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are duplicates removed from my list?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No — the tool treats every line as a separate entry. If a name appears twice in your list, it has double the chance of winning, which is sometimes what you want.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I prove the draw was fair for a public giveaway?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Screen-record the pick or take a time-stamped screenshot. Post it with the final entry list and the date. That's the same level of transparency real draws use.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Wheel of Names</a>
+      <a class="related-card" href="random-winner-picker.html"><span class="ri">🏆</span> Winner Picker</a>
+      <a class="related-card" href="random-name-picker-no-repeat.html"><span class="ri">🎯</span> No-Repeat Picker</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
+    </div>
+  </section>
+
+</main>

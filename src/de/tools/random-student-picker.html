@@ -1,0 +1,181 @@
+---
+layout: layouts/base.njk
+title: Random Student Picker – Free Classroom Name Picker | Spinnit
+description: >-
+  A free random student picker for teachers. Paste your class roster, tap once
+  to pick a student. Works on projectors, phones and tablets. No sign-up.
+ogTitle: Random Student Picker | Spinnit
+ogDescription: 'Free classroom name picker — paste names, tap to pick. Projector-friendly.'
+canonical: 'https://spinnit.site/de/tools/random-student-picker.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Student Picker",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is my class list saved anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Names live only in your browser tab. Nothing is sent to a server."}},
+      {"@type":"Question","name":"What happens when every student has been picked?","acceptedAnswer":{"@type":"Answer","text":"The tool announces the list is complete and you can tap Reset to start again."}},
+      {"@type":"Question","name":"Can I use this for a whole-school assembly?","acceptedAnswer":{"@type":"Answer","text":"Yes. There's no roster length limit and the picker runs instantly even on hundreds of names."}}
+    ]}
+  </script>
+pageScript: >
+
+  const DEFAULT_NAMES =
+  ['Alex','Amelia','Ben','Chloe','Daniel','Emma','Ethan','Freya','George','Harry','Isla','Jack','Jessica','Liam','Lily','Mia','Noah','Oliver','Olivia','Poppy','Ruby','Sam','Sophie','Thomas','Zoe'];
+
+  document.getElementById('namesInput').value = DEFAULT_NAMES.join('\n');
+
+
+  let pickedSet = new Set();
+
+  let lastPicked = null;
+
+
+  function getNames() {
+    return document.getElementById('namesInput').value
+      .split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
+  }
+
+
+  function pick() {
+    const names = getNames();
+    if (!names.length) { alert('Add some names to the roster first.'); return; }
+    const removePicked = document.getElementById('removePicked').checked;
+    let pool = removePicked ? names.filter(n => !pickedSet.has(n)) : names;
+
+    if (pool.length === 0) {
+      document.getElementById('result').textContent = 'All picked!';
+      document.getElementById('remainingLabel').textContent = `All ${names.length} students have been picked. Tap Reset to start again.`;
+      document.getElementById('remainingLabel').style.display = 'block';
+      return;
+    }
+
+    const winner = pool[Math.floor(Math.random() * pool.length)];
+    document.getElementById('result').textContent = winner;
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+
+    if (removePicked) {
+      pickedSet.add(winner);
+      const remaining = names.length - pickedSet.size;
+      document.getElementById('remainingLabel').textContent = `${remaining} student${remaining === 1 ? '' : 's'} left in the pool.`;
+      document.getElementById('remainingLabel').style.display = 'block';
+      renderHistory();
+    } else {
+      document.getElementById('remainingLabel').style.display = 'none';
+    }
+    lastPicked = winner;
+  }
+
+
+  function resetList() {
+    pickedSet.clear();
+    lastPicked = null;
+    document.getElementById('result').textContent = '—';
+    document.getElementById('remainingLabel').style.display = 'none';
+    document.getElementById('historySection').style.display = 'none';
+  }
+
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (pickedSet.size === 0) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = [...pickedSet].map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+
+  document.getElementById('namesInput').addEventListener('input', resetList);
+
+  document.addEventListener('keydown', e => {
+    if ((e.code === 'Space' || e.code === 'Enter') && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault(); pick();
+    }
+  });
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎒</div>
+    <h1>Random Student Picker</h1>
+    <p>Paste your class roster, tap once to pick a student</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">picked student</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">—</div>
+    <div id="remainingLabel" style="font-size:13px;color:var(--text2);margin-top:6px;display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Class roster (one name per line)</label>
+      <textarea id="namesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;"></textarea>
+    </div>
+    <div class="control-group" style="margin-top:10px;">
+      <label><input type="checkbox" id="removePicked" checked style="margin-right:6px;vertical-align:middle;"> Don't pick the same student twice (until list resets)</label>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">PICK A STUDENT</button>
+  <button class="btn-copy" onclick="resetList()" style="margin-top:8px;">Reset list</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Already picked</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>A random student picker is the calmest way to call on the class. No hands up, no favourites, no guessing who's been quiet — the tool picks, and everyone accepts the result. Paste your roster once, tap once per question, and the "don't pick twice" option makes sure every student gets a turn before anyone gets asked again.</p>
+
+    <h2>How teachers use it</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Cold calling</strong> — ask a question, let the tool pick who answers</li>
+      <li><strong>Reading aloud</strong> — pick who reads the next paragraph</li>
+      <li><strong>Presentations</strong> — decide presentation order fairly</li>
+      <li><strong>Starter activities</strong> — pick a student to recap yesterday's lesson</li>
+      <li><strong>Behaviour-neutral calling</strong> — removes the perception that you're targeting specific students</li>
+    </ul>
+
+    <h2>Projector tips</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The picked name is rendered in large text so it reads from the back of the room. For an even bigger display, press F11 to go full-screen. Names entered in the roster are never sent anywhere — the whole tool runs in your browser.</p>
+
+    <h2>Want a visual wheel?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For a spinning animated version that kids love, use the <a href="wheel-of-names.html">Wheel of Names</a>. It supports the same name-list input with a proper wheel animation. Also try the <a href="random-name-picker-no-repeat.html">no-repeat name picker</a>, the <a href="team-picker.html">Team Picker</a> for group work, or the <a href="list-shuffler.html">List Shuffler</a> to shuffle a roster in one go.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is my class list saved anywhere?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. The names live only in this browser tab. Close the tab and they're gone — nothing is sent to a server, and no account is required.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What happens when every student has been picked?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">If "Don't pick the same student twice" is ticked, the tool announces the list is complete and lets you tap <em>Reset list</em> to start again from the full roster.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this for a whole-school assembly?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes — there's no limit on the roster length, and the picker runs instantly even on a list of several hundred names.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Wheel of Names</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
+      <a class="related-card" href="random-name-picker-no-repeat.html"><span class="ri">🎯</span> No-Repeat Picker</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
+    </div>
+  </section>
+
+</main>

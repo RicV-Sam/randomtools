@@ -1,0 +1,246 @@
+---
+layout: layouts/base.njk
+title: Random Country Generator – 195 Nations | Spinnit
+description: >-
+  Discover a random country from all 195 nations. Filter by continent. Free
+  random country picker for geography and travel.
+canonical: 'https://spinnit.site/de/tools/random-country.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Random Country Generator",
+    "description": "Pick a random country from all 195 countries in the world",
+    "url": "https://spinnit.site/de/tools/random-country.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="Random Country Generator | Spinnit">
+
+  <meta name="twitter:description" content="Pick a random country from all 195
+  countries in the world. Filter by continent.">
+
+  <script type="application/ld+json">
+
+  {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I filter by continent?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the continent filter buttons to restrict results to Africa, Asia, Europe, the Americas, or Oceania." }
+        },
+        {
+          "@type": "Question",
+          "name": "How many countries are included?",
+          "acceptedAnswer": { "@type": "Answer", "text": "All 195 UN-recognised sovereign nations are included, complete with capital cities, continents, and population figures." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool free to use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work on mobile?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
+        }
+      ]
+    }
+  </script>
+pageStyle: |
+
+  .continent-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1rem;
+  }
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--text2);
+    font-size: 12px;
+    font-family: var(--mono);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--border2); color: var(--text); }
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .country-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    transition: border-color 0.3s;
+  }
+  .country-flag {
+    font-size: 72px;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    display: block;
+    animation: pop 0.3s ease;
+  }
+  .country-name {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+  .country-continent {
+    display: inline-block;
+    font-size: 11px;
+    font-family: var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    background: rgba(124,106,247,0.12);
+    border: 1px solid rgba(124,106,247,0.25);
+    border-radius: 20px;
+    padding: 3px 12px;
+    margin-bottom: 1.25rem;
+  }
+  .country-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 1.25rem;
+  }
+  .stat-cell {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 8px;
+  }
+  .stat-cell-label {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .stat-cell-val {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+    word-break: break-word;
+  }
+  .wiki-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--text3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    transition: all 0.2s;
+  }
+  .wiki-link:hover { color: var(--text); border-color: var(--border2); }
+  .empty-state {
+    color: var(--text3);
+    font-size: 14px;
+    padding: 2rem 0;
+  }
+  @media (max-width: 380px) {
+    .country-stats { grid-template-columns: 1fr 1fr; }
+  }
+pageScript: "\nlet activeContinent = 'All';\n\nconst COUNTRIES = [\n  // Africa (54)\n  {flag:'\U0001F1E9\U0001F1FF',name:'Algeria',continent:'Africa',capital:'Algiers',pop:44700000,region:'North Africa'},\n  {flag:'\U0001F1E6\U0001F1F4',name:'Angola',continent:'Africa',capital:'Luanda',pop:33900000,region:'Central Africa'},\n  {flag:'\U0001F1E7\U0001F1EF',name:'Benin',continent:'Africa',capital:'Porto-Novo',pop:12100000,region:'West Africa'},\n  {flag:'\U0001F1E7\U0001F1FC',name:'Botswana',continent:'Africa',capital:'Gaborone',pop:2600000,region:'Southern Africa'},\n  {flag:'\U0001F1E7\U0001F1EB',name:'Burkina Faso',continent:'Africa',capital:'Ouagadougou',pop:21500000,region:'West Africa'},\n  {flag:'\U0001F1E7\U0001F1EE',name:'Burundi',continent:'Africa',capital:'Gitega',pop:11900000,region:'East Africa'},\n  {flag:'\U0001F1E8\U0001F1F2',name:'Cameroon',continent:'Africa',capital:'Yaoundé',pop:26500000,region:'Central Africa'},\n  {flag:'\U0001F1E8\U0001F1FB',name:'Cape Verde',continent:'Africa',capital:'Praia',pop:560000,region:'West Africa'},\n  {flag:'\U0001F1E8\U0001F1EB',name:'Central African Republic',continent:'Africa',capital:'Bangui',pop:4800000,region:'Central Africa'},\n  {flag:'\U0001F1F9\U0001F1E9',name:'Chad',continent:'Africa',capital:\"N'Djamena\",pop:16900000,region:'Central Africa'},\n  {flag:'\U0001F1F0\U0001F1F2',name:'Comoros',continent:'Africa',capital:'Moroni',pop:870000,region:'East Africa'},\n  {flag:'\U0001F1E8\U0001F1E9',name:'DR Congo',continent:'Africa',capital:'Kinshasa',pop:92400000,region:'Central Africa'},\n  {flag:'\U0001F1E8\U0001F1EC',name:'Republic of the Congo',continent:'Africa',capital:'Brazzaville',pop:5600000,region:'Central Africa'},\n  {flag:'\U0001F1E9\U0001F1EF',name:'Djibouti',continent:'Africa',capital:'Djibouti',pop:1000000,region:'East Africa'},\n  {flag:'\U0001F1EA\U0001F1EC',name:'Egypt',continent:'Africa',capital:'Cairo',pop:102300000,region:'North Africa'},\n  {flag:'\U0001F1EC\U0001F1F6',name:'Equatorial Guinea',continent:'Africa',capital:'Malabo',pop:1400000,region:'Central Africa'},\n  {flag:'\U0001F1EA\U0001F1F7',name:'Eritrea',continent:'Africa',capital:'Asmara',pop:3500000,region:'East Africa'},\n  {flag:'\U0001F1F8\U0001F1FF',name:'Eswatini',continent:'Africa',capital:'Mbabane',pop:1200000,region:'Southern Africa'},\n  {flag:'\U0001F1EA\U0001F1F9',name:'Ethiopia',continent:'Africa',capital:'Addis Ababa',pop:120300000,region:'East Africa'},\n  {flag:'\U0001F1EC\U0001F1E6',name:'Gabon',continent:'Africa',capital:'Libreville',pop:2200000,region:'Central Africa'},\n  {flag:'\U0001F1EC\U0001F1F2',name:'Gambia',continent:'Africa',capital:'Banjul',pop:2400000,region:'West Africa'},\n  {flag:'\U0001F1EC\U0001F1ED',name:'Ghana',continent:'Africa',capital:'Accra',pop:31700000,region:'West Africa'},\n  {flag:'\U0001F1EC\U0001F1F3',name:'Guinea',continent:'Africa',capital:'Conakry',pop:13100000,region:'West Africa'},\n  {flag:'\U0001F1EC\U0001F1FC',name:'Guinea-Bissau',continent:'Africa',capital:'Bissau',pop:1900000,region:'West Africa'},\n  {flag:'\U0001F1E8\U0001F1EE',name:'Ivory Coast',continent:'Africa',capital:'Yamoussoukro',pop:26400000,region:'West Africa'},\n  {flag:'\U0001F1F0\U0001F1EA',name:'Kenya',continent:'Africa',capital:'Nairobi',pop:54000000,region:'East Africa'},\n  {flag:'\U0001F1F1\U0001F1F8',name:'Lesotho',continent:'Africa',capital:'Maseru',pop:2100000,region:'Southern Africa'},\n  {flag:'\U0001F1F1\U0001F1F7',name:'Liberia',continent:'Africa',capital:'Monrovia',pop:5000000,region:'West Africa'},\n  {flag:'\U0001F1F1\U0001F1FE',name:'Libya',continent:'Africa',capital:'Tripoli',pop:7000000,region:'North Africa'},\n  {flag:'\U0001F1F2\U0001F1EC',name:'Madagascar',continent:'Africa',capital:'Antananarivo',pop:27700000,region:'East Africa'},\n  {flag:'\U0001F1F2\U0001F1FC',name:'Malawi',continent:'Africa',capital:'Lilongwe',pop:19100000,region:'East Africa'},\n  {flag:'\U0001F1F2\U0001F1F1',name:'Mali',continent:'Africa',capital:'Bamako',pop:21900000,region:'West Africa'},\n  {flag:'\U0001F1F2\U0001F1F7',name:'Mauritania',continent:'Africa',capital:'Nouakchott',pop:4500000,region:'West Africa'},\n  {flag:'\U0001F1F2\U0001F1FA',name:'Mauritius',continent:'Africa',capital:'Port Louis',pop:1300000,region:'East Africa'},\n  {flag:'\U0001F1F2\U0001F1E6',name:'Morocco',continent:'Africa',capital:'Rabat',pop:37100000,region:'North Africa'},\n  {flag:'\U0001F1F2\U0001F1FF',name:'Mozambique',continent:'Africa',capital:'Maputo',pop:31300000,region:'East Africa'},\n  {flag:'\U0001F1F3\U0001F1E6',name:'Namibia',continent:'Africa',capital:'Windhoek',pop:2600000,region:'Southern Africa'},\n  {flag:'\U0001F1F3\U0001F1EA',name:'Niger',continent:'Africa',capital:'Niamey',pop:24200000,region:'West Africa'},\n  {flag:'\U0001F1F3\U0001F1EC',name:'Nigeria',continent:'Africa',capital:'Abuja',pop:211400000,region:'West Africa'},\n  {flag:'\U0001F1F7\U0001F1FC',name:'Rwanda',continent:'Africa',capital:'Kigali',pop:13200000,region:'East Africa'},\n  {flag:'\U0001F1F8\U0001F1F9',name:'São Tomé and Príncipe',continent:'Africa',capital:'São Tomé',pop:220000,region:'Central Africa'},\n  {flag:'\U0001F1F8\U0001F1F3',name:'Senegal',continent:'Africa',capital:'Dakar',pop:16900000,region:'West Africa'},\n  {flag:'\U0001F1F8\U0001F1E8',name:'Seychelles',continent:'Africa',capital:'Victoria',pop:100000,region:'East Africa'},\n  {flag:'\U0001F1F8\U0001F1F1',name:'Sierra Leone',continent:'Africa',capital:'Freetown',pop:7900000,region:'West Africa'},\n  {flag:'\U0001F1F8\U0001F1F4',name:'Somalia',continent:'Africa',capital:'Mogadishu',pop:17100000,region:'East Africa'},\n  {flag:'\U0001F1FF\U0001F1E6',name:'South Africa',continent:'Africa',capital:'Pretoria',pop:60000000,region:'Southern Africa'},\n  {flag:'\U0001F1F8\U0001F1F8',name:'South Sudan',continent:'Africa',capital:'Juba',pop:11300000,region:'East Africa'},\n  {flag:'\U0001F1F8\U0001F1E9',name:'Sudan',continent:'Africa',capital:'Khartoum',pop:43800000,region:'North Africa'},\n  {flag:'\U0001F1F9\U0001F1FF',name:'Tanzania',continent:'Africa',capital:'Dodoma',pop:61500000,region:'East Africa'},\n  {flag:'\U0001F1F9\U0001F1EC',name:'Togo',continent:'Africa',capital:'Lomé',pop:8300000,region:'West Africa'},\n  {flag:'\U0001F1F9\U0001F1F3',name:'Tunisia',continent:'Africa',capital:'Tunis',pop:11800000,region:'North Africa'},\n  {flag:'\U0001F1FA\U0001F1EC',name:'Uganda',continent:'Africa',capital:'Kampala',pop:45700000,region:'East Africa'},\n  {flag:'\U0001F1FF\U0001F1F2',name:'Zambia',continent:'Africa',capital:'Lusaka',pop:18400000,region:'East Africa'},\n  {flag:'\U0001F1FF\U0001F1FC',name:'Zimbabwe',continent:'Africa',capital:'Harare',pop:15000000,region:'East Africa'},\n  // Asia (48)\n  {flag:'\U0001F1E6\U0001F1EB',name:'Afghanistan',continent:'Asia',capital:'Kabul',pop:38900000,region:'South Asia'},\n  {flag:'\U0001F1E6\U0001F1F2',name:'Armenia',continent:'Asia',capital:'Yerevan',pop:3000000,region:'West Asia'},\n  {flag:'\U0001F1E6\U0001F1FF',name:'Azerbaijan',continent:'Asia',capital:'Baku',pop:10100000,region:'West Asia'},\n  {flag:'\U0001F1E7\U0001F1ED',name:'Bahrain',continent:'Asia',capital:'Manama',pop:1700000,region:'West Asia'},\n  {flag:'\U0001F1E7\U0001F1E9',name:'Bangladesh',continent:'Asia',capital:'Dhaka',pop:166300000,region:'South Asia'},\n  {flag:'\U0001F1E7\U0001F1F9',name:'Bhutan',continent:'Asia',capital:'Thimphu',pop:770000,region:'South Asia'},\n  {flag:'\U0001F1E7\U0001F1F3',name:'Brunei',continent:'Asia',capital:'Bandar Seri Begawan',pop:440000,region:'Southeast Asia'},\n  {flag:'\U0001F1F0\U0001F1ED',name:'Cambodia',continent:'Asia',capital:'Phnom Penh',pop:16700000,region:'Southeast Asia'},\n  {flag:'\U0001F1E8\U0001F1F3',name:'China',continent:'Asia',capital:'Beijing',pop:1439323776,region:'East Asia'},\n  {flag:'\U0001F1E8\U0001F1FE',name:'Cyprus',continent:'Asia',capital:'Nicosia',pop:1200000,region:'West Asia'},\n  {flag:'\U0001F1EC\U0001F1EA',name:'Georgia',continent:'Asia',capital:'Tbilisi',pop:4000000,region:'West Asia'},\n  {flag:'\U0001F1EE\U0001F1F3',name:'India',continent:'Asia',capital:'New Delhi',pop:1380004385,region:'South Asia'},\n  {flag:'\U0001F1EE\U0001F1E9',name:'Indonesia',continent:'Asia',capital:'Jakarta',pop:273500000,region:'Southeast Asia'},\n  {flag:'\U0001F1EE\U0001F1F7',name:'Iran',continent:'Asia',capital:'Tehran',pop:85000000,region:'West Asia'},\n  {flag:'\U0001F1EE\U0001F1F6',name:'Iraq',continent:'Asia',capital:'Baghdad',pop:40200000,region:'West Asia'},\n  {flag:'\U0001F1EE\U0001F1F1',name:'Israel',continent:'Asia',capital:'Jerusalem',pop:9200000,region:'West Asia'},\n  {flag:'\U0001F1EF\U0001F1F5',name:'Japan',continent:'Asia',capital:'Tokyo',pop:125700000,region:'East Asia'},\n  {flag:'\U0001F1EF\U0001F1F4',name:'Jordan',continent:'Asia',capital:'Amman',pop:10200000,region:'West Asia'},\n  {flag:'\U0001F1F0\U0001F1FF',name:'Kazakhstan',continent:'Asia',capital:'Astana',pop:18800000,region:'Central Asia'},\n  {flag:'\U0001F1F0\U0001F1FC',name:'Kuwait',continent:'Asia',capital:'Kuwait City',pop:4300000,region:'West Asia'},\n  {flag:'\U0001F1F0\U0001F1EC',name:'Kyrgyzstan',continent:'Asia',capital:'Bishkek',pop:6600000,region:'Central Asia'},\n  {flag:'\U0001F1F1\U0001F1E6',name:'Laos',continent:'Asia',capital:'Vientiane',pop:7200000,region:'Southeast Asia'},\n  {flag:'\U0001F1F1\U0001F1E7',name:'Lebanon',continent:'Asia',capital:'Beirut',pop:6800000,region:'West Asia'},\n  {flag:'\U0001F1F2\U0001F1FE',name:'Malaysia',continent:'Asia',capital:'Kuala Lumpur',pop:32400000,region:'Southeast Asia'},\n  {flag:'\U0001F1F2\U0001F1FB',name:'Maldives',continent:'Asia',capital:'Malé',pop:540000,region:'South Asia'},\n  {flag:'\U0001F1F2\U0001F1F3',name:'Mongolia',continent:'Asia',capital:'Ulaanbaatar',pop:3300000,region:'East Asia'},\n  {flag:'\U0001F1F2\U0001F1F2',name:'Myanmar',continent:'Asia',capital:'Naypyidaw',pop:54400000,region:'Southeast Asia'},\n  {flag:'\U0001F1F3\U0001F1F5',name:'Nepal',continent:'Asia',capital:'Kathmandu',pop:29100000,region:'South Asia'},\n  {flag:'\U0001F1F0\U0001F1F5',name:'North Korea',continent:'Asia',capital:'Pyongyang',pop:25800000,region:'East Asia'},\n  {flag:'\U0001F1F4\U0001F1F2',name:'Oman',continent:'Asia',capital:'Muscat',pop:4500000,region:'West Asia'},\n  {flag:'\U0001F1F5\U0001F1F0',name:'Pakistan',continent:'Asia',capital:'Islamabad',pop:220900000,region:'South Asia'},\n  {flag:'\U0001F1F5\U0001F1ED',name:'Philippines',continent:'Asia',capital:'Manila',pop:109600000,region:'Southeast Asia'},\n  {flag:'\U0001F1F6\U0001F1E6',name:'Qatar',continent:'Asia',capital:'Doha',pop:2900000,region:'West Asia'},\n  {flag:'\U0001F1F8\U0001F1E6',name:'Saudi Arabia',continent:'Asia',capital:'Riyadh',pop:35000000,region:'West Asia'},\n  {flag:'\U0001F1F8\U0001F1EC',name:'Singapore',continent:'Asia',capital:'Singapore',pop:5900000,region:'Southeast Asia'},\n  {flag:'\U0001F1F0\U0001F1F7',name:'South Korea',continent:'Asia',capital:'Seoul',pop:51700000,region:'East Asia'},\n  {flag:'\U0001F1F1\U0001F1F0',name:'Sri Lanka',continent:'Asia',capital:'Sri Jayawardenepura Kotte',pop:21900000,region:'South Asia'},\n  {flag:'\U0001F1F8\U0001F1FE',name:'Syria',continent:'Asia',capital:'Damascus',pop:20400000,region:'West Asia'},\n  {flag:'\U0001F1F9\U0001F1FC',name:'Taiwan',continent:'Asia',capital:'Taipei',pop:23600000,region:'East Asia'},\n  {flag:'\U0001F1F9\U0001F1EF',name:'Tajikistan',continent:'Asia',capital:'Dushanbe',pop:9500000,region:'Central Asia'},\n  {flag:'\U0001F1F9\U0001F1ED',name:'Thailand',continent:'Asia',capital:'Bangkok',pop:69800000,region:'Southeast Asia'},\n  {flag:'\U0001F1F9\U0001F1F1',name:'Timor-Leste',continent:'Asia',capital:'Dili',pop:1300000,region:'Southeast Asia'},\n  {flag:'\U0001F1F9\U0001F1F7',name:'Turkey',continent:'Asia',capital:'Ankara',pop:84300000,region:'West Asia'},\n  {flag:'\U0001F1F9\U0001F1F2',name:'Turkmenistan',continent:'Asia',capital:'Ashgabat',pop:6000000,region:'Central Asia'},\n  {flag:'\U0001F1E6\U0001F1EA',name:'United Arab Emirates',continent:'Asia',capital:'Abu Dhabi',pop:9900000,region:'West Asia'},\n  {flag:'\U0001F1FA\U0001F1FF',name:'Uzbekistan',continent:'Asia',capital:'Tashkent',pop:33500000,region:'Central Asia'},\n  {flag:'\U0001F1FB\U0001F1F3',name:'Vietnam',continent:'Asia',capital:'Hanoi',pop:97300000,region:'Southeast Asia'},\n  {flag:'\U0001F1FE\U0001F1EA',name:'Yemen',continent:'Asia',capital:\"Sana'a\",pop:30500000,region:'West Asia'},\n  // Europe (45)\n  {flag:'\U0001F1E6\U0001F1F1',name:'Albania',continent:'Europe',capital:'Tirana',pop:2800000,region:'Southern Europe'},\n  {flag:'\U0001F1E6\U0001F1E9',name:'Andorra',continent:'Europe',capital:'Andorra la Vella',pop:77000,region:'Southern Europe'},\n  {flag:'\U0001F1E6\U0001F1F9',name:'Austria',continent:'Europe',capital:'Vienna',pop:9000000,region:'Western Europe'},\n  {flag:'\U0001F1E7\U0001F1FE',name:'Belarus',continent:'Europe',capital:'Minsk',pop:9400000,region:'Eastern Europe'},\n  {flag:'\U0001F1E7\U0001F1EA',name:'Belgium',continent:'Europe',capital:'Brussels',pop:11600000,region:'Western Europe'},\n  {flag:'\U0001F1E7\U0001F1E6',name:'Bosnia and Herzegovina',continent:'Europe',capital:'Sarajevo',pop:3300000,region:'Southern Europe'},\n  {flag:'\U0001F1E7\U0001F1EC',name:'Bulgaria',continent:'Europe',capital:'Sofia',pop:6500000,region:'Eastern Europe'},\n  {flag:'\U0001F1ED\U0001F1F7',name:'Croatia',continent:'Europe',capital:'Zagreb',pop:4000000,region:'Southern Europe'},\n  {flag:'\U0001F1E8\U0001F1FF',name:'Czech Republic',continent:'Europe',capital:'Prague',pop:10700000,region:'Eastern Europe'},\n  {flag:'\U0001F1E9\U0001F1F0',name:'Denmark',continent:'Europe',capital:'Copenhagen',pop:5800000,region:'Northern Europe'},\n  {flag:'\U0001F1EA\U0001F1EA',name:'Estonia',continent:'Europe',capital:'Tallinn',pop:1300000,region:'Northern Europe'},\n  {flag:'\U0001F1EB\U0001F1EE',name:'Finland',continent:'Europe',capital:'Helsinki',pop:5500000,region:'Northern Europe'},\n  {flag:'\U0001F1EB\U0001F1F7',name:'France',continent:'Europe',capital:'Paris',pop:67400000,region:'Western Europe'},\n  {flag:'\U0001F1E9\U0001F1EA',name:'Germany',continent:'Europe',capital:'Berlin',pop:83900000,region:'Western Europe'},\n  {flag:'\U0001F1EC\U0001F1F7',name:'Greece',continent:'Europe',capital:'Athens',pop:10700000,region:'Southern Europe'},\n  {flag:'\U0001F1ED\U0001F1FA',name:'Hungary',continent:'Europe',capital:'Budapest',pop:9700000,region:'Eastern Europe'},\n  {flag:'\U0001F1EE\U0001F1F8',name:'Iceland',continent:'Europe',capital:'Reykjavik',pop:370000,region:'Northern Europe'},\n  {flag:'\U0001F1EE\U0001F1EA',name:'Ireland',continent:'Europe',capital:'Dublin',pop:4900000,region:'Northern Europe'},\n  {flag:'\U0001F1EE\U0001F1F9',name:'Italy',continent:'Europe',capital:'Rome',pop:60400000,region:'Southern Europe'},\n  {flag:'\U0001F1FD\U0001F1F0',name:'Kosovo',continent:'Europe',capital:'Pristina',pop:1800000,region:'Southern Europe'},\n  {flag:'\U0001F1F1\U0001F1FB',name:'Latvia',continent:'Europe',capital:'Riga',pop:1900000,region:'Northern Europe'},\n  {flag:'\U0001F1F1\U0001F1EE',name:'Liechtenstein',continent:'Europe',capital:'Vaduz',pop:38000,region:'Western Europe'},\n  {flag:'\U0001F1F1\U0001F1F9',name:'Lithuania',continent:'Europe',capital:'Vilnius',pop:2800000,region:'Northern Europe'},\n  {flag:'\U0001F1F1\U0001F1FA',name:'Luxembourg',continent:'Europe',capital:'Luxembourg City',pop:630000,region:'Western Europe'},\n  {flag:'\U0001F1F2\U0001F1F9',name:'Malta',continent:'Europe',capital:'Valletta',pop:520000,region:'Southern Europe'},\n  {flag:'\U0001F1F2\U0001F1E9',name:'Moldova',continent:'Europe',capital:'Chișinău',pop:2600000,region:'Eastern Europe'},\n  {flag:'\U0001F1F2\U0001F1E8',name:'Monaco',continent:'Europe',capital:'Monaco',pop:39000,region:'Western Europe'},\n  {flag:'\U0001F1F2\U0001F1EA',name:'Montenegro',continent:'Europe',capital:'Podgorica',pop:620000,region:'Southern Europe'},\n  {flag:'\U0001F1F3\U0001F1F1',name:'Netherlands',continent:'Europe',capital:'Amsterdam',pop:17500000,region:'Western Europe'},\n  {flag:'\U0001F1F2\U0001F1F0',name:'North Macedonia',continent:'Europe',capital:'Skopje',pop:2100000,region:'Southern Europe'},\n  {flag:'\U0001F1F3\U0001F1F4',name:'Norway',continent:'Europe',capital:'Oslo',pop:5400000,region:'Northern Europe'},\n  {flag:'\U0001F1F5\U0001F1F1',name:'Poland',continent:'Europe',capital:'Warsaw',pop:37800000,region:'Eastern Europe'},\n  {flag:'\U0001F1F5\U0001F1F9',name:'Portugal',continent:'Europe',capital:'Lisbon',pop:10300000,region:'Southern Europe'},\n  {flag:'\U0001F1F7\U0001F1F4',name:'Romania',continent:'Europe',capital:'Bucharest',pop:19200000,region:'Eastern Europe'},\n  {flag:'\U0001F1F7\U0001F1FA',name:'Russia',continent:'Europe',capital:'Moscow',pop:145900000,region:'Eastern Europe'},\n  {flag:'\U0001F1F8\U0001F1F2',name:'San Marino',continent:'Europe',capital:'City of San Marino',pop:34000,region:'Southern Europe'},\n  {flag:'\U0001F1F7\U0001F1F8',name:'Serbia',continent:'Europe',capital:'Belgrade',pop:6900000,region:'Southern Europe'},\n  {flag:'\U0001F1F8\U0001F1F0',name:'Slovakia',continent:'Europe',capital:'Bratislava',pop:5500000,region:'Eastern Europe'},\n  {flag:'\U0001F1F8\U0001F1EE',name:'Slovenia',continent:'Europe',capital:'Ljubljana',pop:2100000,region:'Southern Europe'},\n  {flag:'\U0001F1EA\U0001F1F8',name:'Spain',continent:'Europe',capital:'Madrid',pop:46700000,region:'Southern Europe'},\n  {flag:'\U0001F1F8\U0001F1EA',name:'Sweden',continent:'Europe',capital:'Stockholm',pop:10100000,region:'Northern Europe'},\n  {flag:'\U0001F1E8\U0001F1ED',name:'Switzerland',continent:'Europe',capital:'Bern',pop:8700000,region:'Western Europe'},\n  {flag:'\U0001F1FA\U0001F1E6',name:'Ukraine',continent:'Europe',capital:'Kyiv',pop:43500000,region:'Eastern Europe'},\n  {flag:'\U0001F1EC\U0001F1E7',name:'United Kingdom',continent:'Europe',capital:'London',pop:67200000,region:'Northern Europe'},\n  {flag:'\U0001F1FB\U0001F1E6',name:'Vatican City',continent:'Europe',capital:'Vatican City',pop:800,region:'Southern Europe'},\n  // Americas (35)\n  {flag:'\U0001F1E6\U0001F1EC',name:'Antigua and Barbuda',continent:'Americas',capital:\"St. John's\",pop:98000,region:'Caribbean'},\n  {flag:'\U0001F1E6\U0001F1F7',name:'Argentina',continent:'Americas',capital:'Buenos Aires',pop:45200000,region:'South America'},\n  {flag:'\U0001F1E7\U0001F1F8',name:'Bahamas',continent:'Americas',capital:'Nassau',pop:393000,region:'Caribbean'},\n  {flag:'\U0001F1E7\U0001F1E7',name:'Barbados',continent:'Americas',capital:'Bridgetown',pop:287000,region:'Caribbean'},\n  {flag:'\U0001F1E7\U0001F1FF',name:'Belize',continent:'Americas',capital:'Belmopan',pop:398000,region:'Central America'},\n  {flag:'\U0001F1E7\U0001F1F4',name:'Bolivia',continent:'Americas',capital:'Sucre',pop:11700000,region:'South America'},\n  {flag:'\U0001F1E7\U0001F1F7',name:'Brazil',continent:'Americas',capital:'Brasília',pop:213000000,region:'South America'},\n  {flag:'\U0001F1E8\U0001F1E6',name:'Canada',continent:'Americas',capital:'Ottawa',pop:38000000,region:'North America'},\n  {flag:'\U0001F1E8\U0001F1F1',name:'Chile',continent:'Americas',capital:'Santiago',pop:19100000,region:'South America'},\n  {flag:'\U0001F1E8\U0001F1F4',name:'Colombia',continent:'Americas',capital:'Bogotá',pop:51000000,region:'South America'},\n  {flag:'\U0001F1E8\U0001F1F7',name:'Costa Rica',continent:'Americas',capital:'San José',pop:5100000,region:'Central America'},\n  {flag:'\U0001F1E8\U0001F1FA',name:'Cuba',continent:'Americas',capital:'Havana',pop:11300000,region:'Caribbean'},\n  {flag:'\U0001F1E9\U0001F1F2',name:'Dominica',continent:'Americas',capital:'Roseau',pop:72000,region:'Caribbean'},\n  {flag:'\U0001F1E9\U0001F1F4',name:'Dominican Republic',continent:'Americas',capital:'Santo Domingo',pop:10900000,region:'Caribbean'},\n  {flag:'\U0001F1EA\U0001F1E8',name:'Ecuador',continent:'Americas',capital:'Quito',pop:17900000,region:'South America'},\n  {flag:'\U0001F1F8\U0001F1FB',name:'El Salvador',continent:'Americas',capital:'San Salvador',pop:6500000,region:'Central America'},\n  {flag:'\U0001F1EC\U0001F1E9',name:'Grenada',continent:'Americas',capital:\"St. George's\",pop:113000,region:'Caribbean'},\n  {flag:'\U0001F1EC\U0001F1F9',name:'Guatemala',continent:'Americas',capital:'Guatemala City',pop:17100000,region:'Central America'},\n  {flag:'\U0001F1EC\U0001F1FE',name:'Guyana',continent:'Americas',capital:'Georgetown',pop:787000,region:'South America'},\n  {flag:'\U0001F1ED\U0001F1F9',name:'Haiti',continent:'Americas',capital:'Port-au-Prince',pop:11400000,region:'Caribbean'},\n  {flag:'\U0001F1ED\U0001F1F3',name:'Honduras',continent:'Americas',capital:'Tegucigalpa',pop:10300000,region:'Central America'},\n  {flag:'\U0001F1EF\U0001F1F2',name:'Jamaica',continent:'Americas',capital:'Kingston',pop:3000000,region:'Caribbean'},\n  {flag:'\U0001F1F2\U0001F1FD',name:'Mexico',continent:'Americas',capital:'Mexico City',pop:128900000,region:'North America'},\n  {flag:'\U0001F1F3\U0001F1EE',name:'Nicaragua',continent:'Americas',capital:'Managua',pop:6600000,region:'Central America'},\n  {flag:'\U0001F1F5\U0001F1E6',name:'Panama',continent:'Americas',capital:'Panama City',pop:4300000,region:'Central America'},\n  {flag:'\U0001F1F5\U0001F1FE',name:'Paraguay',continent:'Americas',capital:'Asunción',pop:7100000,region:'South America'},\n  {flag:'\U0001F1F5\U0001F1EA',name:'Peru',continent:'Americas',capital:'Lima',pop:32900000,region:'South America'},\n  {flag:'\U0001F1F0\U0001F1F3',name:'Saint Kitts and Nevis',continent:'Americas',capital:'Basseterre',pop:53000,region:'Caribbean'},\n  {flag:'\U0001F1F1\U0001F1E8',name:'Saint Lucia',continent:'Americas',capital:'Castries',pop:184000,region:'Caribbean'},\n  {flag:'\U0001F1FB\U0001F1E8',name:'Saint Vincent and the Grenadines',continent:'Americas',capital:'Kingstown',pop:111000,region:'Caribbean'},\n  {flag:'\U0001F1F8\U0001F1F7',name:'Suriname',continent:'Americas',capital:'Paramaribo',pop:612000,region:'South America'},\n  {flag:'\U0001F1F9\U0001F1F9',name:'Trinidad and Tobago',continent:'Americas',capital:'Port of Spain',pop:1400000,region:'Caribbean'},\n  {flag:'\U0001F1FA\U0001F1F8',name:'United States',continent:'Americas',capital:'Washington D.C.',pop:331000000,region:'North America'},\n  {flag:'\U0001F1FA\U0001F1FE',name:'Uruguay',continent:'Americas',capital:'Montevideo',pop:3500000,region:'South America'},\n  {flag:'\U0001F1FB\U0001F1EA',name:'Venezuela',continent:'Americas',capital:'Caracas',pop:28700000,region:'South America'},\n  // Oceania (14)\n  {flag:'\U0001F1E6\U0001F1FA',name:'Australia',continent:'Oceania',capital:'Canberra',pop:25700000,region:'Australasia'},\n  {flag:'\U0001F1EB\U0001F1EF',name:'Fiji',continent:'Oceania',capital:'Suva',pop:896000,region:'Melanesia'},\n  {flag:'\U0001F1F0\U0001F1EE',name:'Kiribati',continent:'Oceania',capital:'South Tarawa',pop:119000,region:'Micronesia'},\n  {flag:'\U0001F1F2\U0001F1ED',name:'Marshall Islands',continent:'Oceania',capital:'Majuro',pop:53000,region:'Micronesia'},\n  {flag:'\U0001F1EB\U0001F1F2',name:'Micronesia',continent:'Oceania',capital:'Palikir',pop:115000,region:'Micronesia'},\n  {flag:'\U0001F1F3\U0001F1F7',name:'Nauru',continent:'Oceania',capital:'Yaren',pop:10800,region:'Micronesia'},\n  {flag:'\U0001F1F3\U0001F1FF',name:'New Zealand',continent:'Oceania',capital:'Wellington',pop:5000000,region:'Australasia'},\n  {flag:'\U0001F1F5\U0001F1FC',name:'Palau',continent:'Oceania',capital:'Ngerulmud',pop:18000,region:'Micronesia'},\n  {flag:'\U0001F1F5\U0001F1EC',name:'Papua New Guinea',continent:'Oceania',capital:'Port Moresby',pop:9100000,region:'Melanesia'},\n  {flag:'\U0001F1FC\U0001F1F8',name:'Samoa',continent:'Oceania',capital:'Apia',pop:200000,region:'Polynesia'},\n  {flag:'\U0001F1F8\U0001F1E7',name:'Solomon Islands',continent:'Oceania',capital:'Honiara',pop:700000,region:'Melanesia'},\n  {flag:'\U0001F1F9\U0001F1F4',name:'Tonga',continent:'Oceania',capital:\"Nuku'alofa\",pop:100000,region:'Polynesia'},\n  {flag:'\U0001F1F9\U0001F1FB',name:'Tuvalu',continent:'Oceania',capital:'Funafuti',pop:11000,region:'Polynesia'},\n  {flag:'\U0001F1FB\U0001F1FA',name:'Vanuatu',continent:'Oceania',capital:'Port Vila',pop:300000,region:'Melanesia'},\n];\n\nfunction setContinent(c, btn) {\n  activeContinent = c;\n  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));\n  btn.classList.add('active');\n}\n\nfunction formatPop(n) {\n  if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';\n  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';\n  if (n >= 1e3) return (n / 1e3).toFixed(0) + 'K';\n  return n.toString();\n}\n\nfunction pick() {\n  const pool = activeContinent === 'All'\n    ? COUNTRIES\n    : COUNTRIES.filter(c => c.continent === activeContinent);\n  if (!pool.length) return;\n  const c = pool[Math.floor(Math.random() * pool.length)];\n  const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(c.name)}`;\n  document.getElementById('countryCard').innerHTML = `\n    <span class=\"country-flag\">${c.flag}</span>\n    <div class=\"country-name\">${c.name}</div>\n    <span class=\"country-continent\">${c.continent}</span>\n    <div class=\"country-stats\">\n      <div class=\"stat-cell\">\n        <div class=\"stat-cell-label\">Capital</div>\n        <div class=\"stat-cell-val\">${c.capital}</div>\n      </div>\n      <div class=\"stat-cell\">\n        <div class=\"stat-cell-label\">Population</div>\n        <div class=\"stat-cell-val\">${formatPop(c.pop)}</div>\n      </div>\n      <div class=\"stat-cell\">\n        <div class=\"stat-cell-label\">Region</div>\n        <div class=\"stat-cell-val\">${c.region}</div>\n      </div>\n    </div>\n    <a class=\"wiki-link\" href=\"${wikiUrl}\" target=\"_blank\" rel=\"noopener noreferrer\">\n      \U0001F4D6 Learn more on Wikipedia\n    </a>\n  `;\n}\n\nif ('serviceWorker' in navigator) {\n  navigator.serviceWorker.register('../sw.js').catch(() => {});\n}\n"
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🌍</div>
+    <h1>Random Country Generator</h1>
+    <p>Discover a random country from across the world</p>
+  </div>
+
+  <!-- AdSense placeholder -->
+  <!-- ADSENSE: <ins class="adsbygoogle" data-ad-slot="XXXXXXXX"></ins> -->
+
+  <div class="control-group" style="margin-bottom:0.75rem;">
+    <label>Filter by continent</label>
+  </div>
+  <div class="continent-filters" id="filters">
+    <button class="filter-btn active" onclick="setContinent('All',this)">🌐 All</button>
+    <button class="filter-btn" onclick="setContinent('Africa',this)">🌍 Africa</button>
+    <button class="filter-btn" onclick="setContinent('Asia',this)">🌏 Asia</button>
+    <button class="filter-btn" onclick="setContinent('Europe',this)">🇪🇺 Europe</button>
+    <button class="filter-btn" onclick="setContinent('Americas',this)">🌎 Americas</button>
+    <button class="filter-btn" onclick="setContinent('Oceania',this)">🌊 Oceania</button>
+  </div>
+
+  <div id="countryCard" class="country-card">
+    <div class="empty-state">Press the button to pick a random country</div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">PICK RANDOM COUNTRY</button>
+
+  <!-- AdSense placeholder -->
+  <div class="ad-slot"><!-- ADSENSE: ad unit here --></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>The Random Country Generator picks one of the world's 195 recognised nations at random. You can filter by continent to focus on a specific region, and each result shows the country's capital city, continent, and population. Great for geography revision, travel inspiration, or just satisfying curiosity about the world.</p>
+
+    <h2>How to Use</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Choose a continent filter from the buttons, or leave it on All for any country.</li>
+      <li>Click Pick Random Country to get your result.</li>
+      <li>View the country name, capital city, continent, and population.</li>
+      <li>Click again to discover another country from anywhere in the world.</li>
+    </ol>
+
+    <h2>Common Uses</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Geography revision and classroom quizzes on world capitals</li>
+      <li>Travel inspiration when you can't decide where to visit next</li>
+      <li>World history or culture research starting points</li>
+      <li>Pub quiz preparation across nations and capitals</li>
+      <li>"Where in the world?" guessing games with friends or family</li>
+      <li>Daily country-of-the-day challenges for social media or learning</li>
+    </ul>
+
+    <h2>Why Use Spinnit</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The full list of 195 nations is built into the tool, so it works offline after first load with no external API calls. Continent filtering means you can focus on a specific region for study or travel planning. Free, instant, and no sign-up required.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I filter by continent?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Use the continent filter buttons to restrict results to Africa, Asia, Europe, the Americas, or Oceania. Select All to pick from every country worldwide.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How many countries are included?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">All 195 UN-recognised sovereign nations are included, complete with capital cities, continents, and population figures.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this tool free to use?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, completely free with no sign-up required.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this work on mobile?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, all Spinnit tools are mobile-first and work on any device.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-name-generator.html"><span class="ri">👤</span> Random Name Generator</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Random Number Generator</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Dice Roller</a>
+    </div>
+  </section>
+
+</main>

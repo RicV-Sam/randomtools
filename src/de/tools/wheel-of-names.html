@@ -1,0 +1,242 @@
+---
+layout: layouts/base.njk
+title: Wheel of Names – Random Name Picker Wheel | Spinnit
+description: >-
+  Add any names and spin the wheel to pick a random winner. Free name picker
+  wheel for classrooms, giveaways and competitions.
+canonical: 'https://spinnit.site/de/tools/wheel-of-names.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Wheel of Names",
+    "description": "Spinning wheel that picks a random name from a user-defined list",
+    "url": "https://spinnit.site/de/tools/wheel-of-names.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="Wheel of Names | Spinnit">
+
+  <meta name="twitter:description" content="Spin the wheel to pick a random name
+  from your list. Free and mobile-friendly.">
+
+  <script type="application/ld+json">
+
+  {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I save my list of names?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your name list is automatically saved to your browser's local storage and will still be there the next time you open the tool." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a limit on how many names I can add?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The wheel supports up to 60 names. Beyond that, segments become too small to read clearly." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool free to use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work on mobile?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
+        }
+      ]
+    }
+  </script>
+pageStyle: |
+
+  .wheel-wrap {
+    position: relative;
+    width: min(340px, 88vw);
+    margin: 0 auto 1rem;
+    user-select: none;
+  }
+  .wheel-pointer {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 22px solid var(--accent2);
+    z-index: 10;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  }
+  canvas#wonCanvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    cursor: pointer;
+    touch-action: none;
+    box-shadow: 0 0 40px rgba(124,106,247,0.2);
+  }
+  .winner-display {
+    text-align: center;
+    font-size: clamp(1.6rem, 8vw, 2.8rem);
+    font-weight: 700;
+    min-height: 56px;
+    font-family: var(--mono);
+    transition: color 0.3s;
+    padding: 0.25rem 0.5rem;
+    word-break: break-word;
+  }
+  .winner-sub {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text3);
+    margin-bottom: 1.25rem;
+    min-height: 20px;
+    font-family: var(--mono);
+  }
+  .names-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0.75rem 0;
+    min-height: 28px;
+  }
+  .name-chip {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 10px 4px 12px;
+    font-size: 12px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: pop 0.2s ease;
+  }
+  .chip-remove {
+    cursor: pointer;
+    color: var(--text3);
+    font-size: 14px;
+    line-height: 1;
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+  .chip-remove:hover { color: #f87171; }
+  .names-count {
+    font-size: 11px;
+    color: var(--text3);
+    font-family: var(--mono);
+    margin-bottom: 4px;
+  }
+  .btn-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+pageScript: "\nconst STORAGE_KEY = 'won-names';\nconst COLORS = [\n  {bg:'#7c6af7',fg:'#fff'},{bg:'#a78bfa',fg:'#fff'},\n  {bg:'#34d399',fg:'#052e16'},{bg:'#fb923c',fg:'#1c0a00'},\n  {bg:'#f472b6',fg:'#1c0011'},{bg:'#60a5fa',fg:'#001c3a'},\n  {bg:'#facc15',fg:'#422006'},{bg:'#f87171',fg:'#1c0000'},\n  {bg:'#4ade80',fg:'#001c00'},{bg:'#38bdf8',fg:'#001c2a'},\n  {bg:'#fb7185',fg:'#1c0008'},{bg:'#a3e635',fg:'#0a1c00'},\n];\n\nconst canvas = document.getElementById('wonCanvas');\nconst ctx = canvas.getContext('2d');\nlet names = [];\nlet spinning = false;\nlet currentAngle = 0;\n\nfunction load() {\n  try { names = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { names = []; }\n  if (!names.length) names = ['Alice','Bob','Charlie','Diana','Eve','Frank','Grace','Hank'];\n  renderChips();\n  drawWheel(currentAngle);\n}\n\nfunction save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(names)); }\n\nfunction addNames() {\n  const raw = document.getElementById('nameInput').value;\n  const added = raw.split('\\n').map(n => n.trim()).filter(n => n && n.length <= 40);\n  if (!added.length) return;\n  names = [...names, ...added].slice(0, 60);\n  document.getElementById('nameInput').value = '';\n  save();\n  renderChips();\n  drawWheel(currentAngle);\n}\n\nfunction removeName(i) {\n  names.splice(i, 1);\n  save();\n  renderChips();\n  drawWheel(currentAngle);\n}\n\nfunction clearAll() {\n  if (!confirm('Remove all names?')) return;\n  names = [];\n  save();\n  renderChips();\n  drawWheel(currentAngle);\n  document.getElementById('winnerDisplay').textContent = '—';\n  document.getElementById('winnerSub').textContent = 'Add names to get started';\n}\n\nfunction renderChips() {\n  const container = document.getElementById('namesChips');\n  const count = document.getElementById('namesCount');\n  count.textContent = names.length ? `${names.length} name${names.length !== 1 ? 's' : ''} on the wheel` : 'No names added yet';\n  container.innerHTML = names.map((n, i) => `\n    <span class=\"name-chip\">\n      <span style=\"color:${COLORS[i % COLORS.length].bg};font-size:10px;\">●</span>\n      ${escHtml(n)}\n      <button class=\"chip-remove\" onclick=\"removeName(${i})\" title=\"Remove\">✕</button>\n    </span>`).join('');\n}\n\nfunction escHtml(s) {\n  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');\n}\n\nfunction drawWheel(angle) {\n  const n = names.length;\n  const W = canvas.width;\n  const cx = W / 2, cy = W / 2, r = W / 2 - 4;\n  ctx.clearRect(0, 0, W, W);\n\n  if (!n) {\n    ctx.beginPath();\n    ctx.arc(cx, cy, r, 0, 2 * Math.PI);\n    ctx.fillStyle = '#1c1c26';\n    ctx.fill();\n    ctx.fillStyle = '#5a5a72';\n    ctx.font = '14px DM Sans, sans-serif';\n    ctx.textAlign = 'center';\n    ctx.fillText('Add names above', cx, cy);\n    return;\n  }\n\n  const arc = (2 * Math.PI) / n;\n  for (let i = 0; i < n; i++) {\n    const start = angle + i * arc;\n    const end = start + arc;\n    const col = COLORS[i % COLORS.length];\n\n    ctx.beginPath();\n    ctx.moveTo(cx, cy);\n    ctx.arc(cx, cy, r, start, end);\n    ctx.closePath();\n    ctx.fillStyle = col.bg;\n    ctx.fill();\n    ctx.strokeStyle = 'rgba(10,10,15,0.6)';\n    ctx.lineWidth = 2;\n    ctx.stroke();\n\n    ctx.save();\n    ctx.translate(cx, cy);\n    ctx.rotate(start + arc / 2);\n    ctx.textAlign = 'right';\n    ctx.fillStyle = col.fg;\n    const fontSize = n <= 8 ? 14 : n <= 20 ? 11 : 9;\n    ctx.font = `bold ${fontSize}px Space Mono, monospace`;\n    const maxLen = r - 18;\n    let label = names[i];\n    while (ctx.measureText(label).width > maxLen - 10 && label.length > 1) {\n      label = label.slice(0, -1);\n    }\n    if (label !== names[i]) label += '…';\n    ctx.fillText(label, r - 10, fontSize / 3);\n    ctx.restore();\n  }\n\n  ctx.beginPath();\n  ctx.arc(cx, cy, 16, 0, 2 * Math.PI);\n  ctx.fillStyle = '#0a0a0f';\n  ctx.fill();\n  ctx.strokeStyle = 'rgba(255,255,255,0.15)';\n  ctx.lineWidth = 2;\n  ctx.stroke();\n}\n\nfunction getWinner() {\n  const n = names.length;\n  const arc = (2 * Math.PI) / n;\n  const normalised = ((currentAngle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);\n  const pointerAt = ((3 * Math.PI / 2 - normalised) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);\n  return names[Math.floor(pointerAt / arc) % n];\n}\n\nfunction spin() {\n  if (spinning || !names.length) return;\n  spinning = true;\n  document.getElementById('spinBtn').disabled = true;\n  document.getElementById('winnerDisplay').textContent = '…';\n  document.getElementById('winnerDisplay').style.color = 'var(--text2)';\n  document.getElementById('winnerSub').textContent = '';\n\n  const totalRot = (6 + Math.random() * 6) * 2 * Math.PI;\n  const duration = 3000 + Math.random() * 1500;\n  const startAngle = currentAngle;\n  const targetAngle = startAngle + totalRot;\n  const startTime = performance.now();\n\n  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }\n\n  function frame(now) {\n    const elapsed = now - startTime;\n    const t = Math.min(elapsed / duration, 1);\n    currentAngle = startAngle + (targetAngle - startAngle) * easeOut(t);\n    drawWheel(currentAngle);\n    if (t < 1) {\n      requestAnimationFrame(frame);\n    } else {\n      spinning = false;\n      document.getElementById('spinBtn').disabled = false;\n      const winner = getWinner();\n      const winIdx = names.indexOf(winner);\n      const winColor = COLORS[winIdx % COLORS.length].bg;\n      const el = document.getElementById('winnerDisplay');\n      el.textContent = winner;\n      el.style.color = winColor;\n      document.getElementById('winnerSub').textContent = '\U0001F389 Spin again to pick another';\n    }\n  }\n  requestAnimationFrame(frame);\n}\n\ncanvas.addEventListener('click', () => { if (!spinning) spin(); });\ncanvas.addEventListener('touchstart', e => { e.preventDefault(); if (!spinning) spin(); }, {passive: false});\n\ndocument.getElementById('nameInput').addEventListener('keydown', e => {\n  if (e.key === 'Enter' && e.ctrlKey) addNames();\n});\n\nload();\n\nif ('serviceWorker' in navigator) {\n  navigator.serviceWorker.register('../sw.js').catch(() => {});\n}\n"
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎡</div>
+    <h1>Wheel of Names</h1>
+    <p>Add names, spin the wheel, let fate decide</p>
+  </div>
+
+  <!-- AdSense placeholder -->
+  <!-- ADSENSE: <ins class="adsbygoogle" data-ad-slot="XXXXXXXX"></ins> -->
+
+  <div class="wheel-wrap">
+    <div class="wheel-pointer"></div>
+    <canvas id="wonCanvas" width="340" height="340"></canvas>
+  </div>
+
+  <div class="winner-display" id="winnerDisplay">—</div>
+  <div class="winner-sub" id="winnerSub">Tap the wheel or press Spin</div>
+
+  <button class="btn-generate" id="spinBtn" onclick="spin()">SPIN THE WHEEL</button>
+
+  <div style="margin-top:1.25rem;">
+    <div class="control-group">
+      <label>Add names (one per line)</label>
+      <textarea id="nameInput" placeholder="Alice
+Bob
+Charlie
+Diana
+Eve" rows="5"></textarea>
+    </div>
+    <div class="btn-row" style="margin-top:8px;">
+      <button class="btn-copy" onclick="addNames()">+ Add to wheel</button>
+      <button class="btn-copy" onclick="clearAll()">Clear all</button>
+    </div>
+  </div>
+
+  <div class="names-count" id="namesCount"></div>
+  <div class="names-chips" id="namesChips"></div>
+
+  <!-- AdSense placeholder -->
+  <div class="ad-slot"><!-- ADSENSE: ad unit here --></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>The Wheel of Names lets you add any list of names or items and spin to pick one at random. Up to 60 entries can sit on the wheel at once, and you can remove individual names at any time. Perfect for classroom pick-a-student moments, prize draws, competition finals, and any group decision that deserves a bit of theatre.</p>
+
+    <h2>How to Use</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Type names into the text area (one per line) and click Add to wheel.</li>
+      <li>Remove individual names by clicking the × on their chip below the wheel.</li>
+      <li>Click Spin the Wheel or tap the canvas to start the spin.</li>
+      <li>The winner's name appears below the wheel when it stops.</li>
+      <li>Spin again without removing names, or clear the winner to narrow the field.</li>
+    </ol>
+
+    <h2>Common Uses</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Classroom activities where the teacher picks a student to answer</li>
+      <li>Giveaway and prize draws at events or on social media streams</li>
+      <li>Choosing who goes first in board or party games</li>
+      <li>Random chore or task assignment in a shared household</li>
+      <li>Competition draws at sports clubs or community events</li>
+      <li>Conference door-prize draws and raffle nights</li>
+    </ul>
+
+    <h2>Why Use Spinnit</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Your name list is saved automatically in your browser between sessions — you don't need to re-enter it each time you come back. The wheel supports up to 60 names with colour-coded segments for easy reading. All data stays on your device; nothing is ever sent to a server.</p>
+
+    <h2>Faster picker variants</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Need something specific? Try the <a href="wheel-of-names-for-classroom.html">Classroom Wheel guide</a>, the <a href="random-student-picker.html">Student Picker</a> with no-repeat, the <a href="random-name-picker-no-repeat.html">No-Repeat Name Picker</a>, the <a href="random-winner-picker.html">Winner Picker</a> for giveaways, or the generic <a href="pick-random-name.html">Pick a Random Name</a> tool.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I save my list of names?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Your name list is automatically saved to your browser's local storage and will still be there the next time you open the tool on the same device.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is there a limit on how many names I can add?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">The wheel supports up to 60 names. Beyond that, segments become too small to read clearly, so the list is capped at 60 for a good experience.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this tool free to use?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, completely free with no sign-up required.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this work on mobile?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, all Spinnit tools are mobile-first and work on any device.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Yes No Wheel</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Random Team Picker</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> Coin Flip</a>
+    </div>
+  </section>
+
+</main>

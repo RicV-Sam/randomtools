@@ -1,0 +1,141 @@
+---
+layout: layouts/base.njk
+title: Random Number Between 1 and 10 – Free Instant Picker | Spinnit
+description: >-
+  Pick a random number between 1 and 10 instantly. Free fair picker for games,
+  classroom activities, decisions and quick draws. No sign-up.
+ogTitle: Random Number Between 1 and 10 | Spinnit
+ogDescription: >-
+  Instant fair random number from 1 to 10. Great for small groups, games and
+  quick decisions.
+canonical: 'https://spinnit.site/de/tools/random-number-1-10.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Number Between 1 and 10",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Are both 1 and 10 possible results?","acceptedAnswer":{"@type":"Answer","text":"Yes. The range is inclusive — 1 and 10 appear just as often as the numbers between."}},
+      {"@type":"Question","name":"How often will each number come up?","acceptedAnswer":{"@type":"Answer","text":"Each number has a 10% chance per roll. Over many rolls the distribution flattens towards equal."}},
+      {"@type":"Question","name":"Is this better than thinking of a number myself?","acceptedAnswer":{"@type":"Answer","text":"Yes. Humans overchoose 7 and underchoose 1 and 10. A generator is genuinely fair."}}
+    ]}
+  </script>
+pageScript: >
+
+  const MIN = 1, MAX = 10;
+
+  const history = [];
+
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code
+  === 'Enter') { e.preventDefault(); generate(); }});
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🔢</div>
+    <h1>Random Number Between 1 and 10</h1>
+    <p>A quick, fair pick from one to ten</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your number (1–10)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>How many numbers?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Recent results</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Picking a random number between 1 and 10 is one of the most common everyday decision shortcuts. It's simple, memorable and fair — each number has exactly a one-in-ten chance. This page gives you that pick in a single tap, with no setup and nothing to install.</p>
+
+    <h2>Typical uses</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Picking a winner from a small group of up to ten people</li>
+      <li>Choosing which of ten tasks, chores or prompts to do next</li>
+      <li>Classroom activities — pick a student, a page number, a question</li>
+      <li>Rating prompts for icebreaker games ("rate this from 1 to 10")</li>
+      <li>Settling a small decision when you can't pick between options</li>
+    </ul>
+
+    <h2>How to use</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Tap <strong>GENERATE</strong> or press Space — your number appears instantly. Generate up to 100 at once by changing the count field. The last ten results stay visible for comparison.</p>
+
+    <h2>Looking for another range?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Need different bounds? Use the main <a href="random-number.html">Random Number Generator</a> for any custom range, or jump to <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-1000.html">1–1000</a>, <a href="random-number-1-20.html">1–20</a>, or <a href="random-number-1-6.html">1–6</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are both 1 and 10 possible results?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The range is inclusive — 1 and 10 appear just as often as the numbers between.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How often will each number come up?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Each number has a 10% chance per roll. Over many rolls, the distribution flattens out towards equal — but over a handful, streaks are normal and expected.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this better than thinking of a number myself?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Humans are terrible at picking "random" numbers — most people overchoose 7 and underchoose 1 or 10. A generator is genuinely fair.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Custom Range Generator</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> 1–100 Generator</a>
+      <a class="related-card" href="random-number-1-6.html"><span class="ri">⚄</span> 1–6 Generator</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> Yes / No Wheel</a>
+    </div>
+  </section>
+
+</main>

@@ -1,0 +1,154 @@
+---
+layout: layouts/base.njk
+title: Roll d10 Online – Free Ten-Sided Dice Roller | Spinnit
+description: >-
+  Roll a d10 online — a fair ten-sided die for RPGs, World of Darkness, Vampire:
+  The Masquerade and d100 tens rolls. Free, instant, no sign-up.
+ogTitle: Roll d10 Online | Spinnit
+ogDescription: Free ten-sided dice roller — fair 1 to 10 for RPGs and percentile rolls.
+canonical: 'https://spinnit.site/de/tools/roll-d10.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Roll d10",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is a d10 numbered 0–9 or 1–10?","acceptedAnswer":{"@type":"Answer","text":"Physical d10s usually show 0–9 with 0 treated as 10. This tool rolls 1–10 directly."}},
+      {"@type":"Question","name":"How do I roll a dice pool here?","acceptedAnswer":{"@type":"Answer","text":"Set How many rolls to your pool size and tick Count successes. The total shows how many rolled 8+."}},
+      {"@type":"Question","name":"Can I use two d10 rolls as a d100?","acceptedAnswer":{"@type":"Answer","text":"Yes. Roll twice, read one as tens and the other as ones. Or use the d100 roller directly."}}
+    ]}
+  </script>
+pageScript: >
+
+  const history = [];
+
+  function roll() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    const countSuccesses = document.getElementById('countSuccesses').checked;
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * 10) + 1);
+    document.getElementById('result').textContent = results.join(', ');
+    const totalEl = document.getElementById('totalLabel');
+    if (countSuccesses) {
+      const successes = results.filter(r => r >= 8).length;
+      totalEl.textContent = `${successes} success${successes === 1 ? '' : 'es'} (rolls ≥ 8)`;
+      totalEl.style.display = 'block';
+    } else if (count > 1) {
+      const sum = results.reduce((a,b)=>a+b,0);
+      totalEl.textContent = `Sum: ${sum}`;
+      totalEl.style.display = 'block';
+    } else {
+      totalEl.style.display = 'none';
+    }
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code
+  === 'Enter') { e.preventDefault(); roll(); }});
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎲</div>
+    <h1>Roll d10 Online</h1>
+    <p>A fair ten-sided die — 1 to 10</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your roll (1–10)</div>
+    <div class="result-number" id="result">—</div>
+    <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>How many rolls?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+    <div class="control-group" style="margin-top:8px;">
+      <label><input type="checkbox" id="countSuccesses" style="margin-right:6px;vertical-align:middle;"> Count successes (roll ≥ 8) — for World of Darkness</label>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="roll()">ROLL d10</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Recent rolls</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>The d10 is the workhorse of dice pool systems. World of Darkness, Vampire: The Masquerade, Exalted, Shadowrun (via d6s) and many indie RPGs use pools of d10s — roll a handful, count the ones that beat a target number. It's also half of every d100 roll in percentile systems.</p>
+
+    <h2>Where you'll use a d10</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>World of Darkness / Chronicles of Darkness</strong> — dice pools, 8+ succeeds</li>
+      <li><strong>Vampire: The Masquerade</strong> 5th edition — hunger dice and action rolls</li>
+      <li><strong>Exalted</strong> — large dice pools with varying thresholds</li>
+      <li><strong>D&amp;D 5e</strong> — weapon damage (longsword d10, warhammer d10, etc.)</li>
+      <li>Percentile rolls — two d10s combined for a d100</li>
+    </ul>
+
+    <h2>Dice pools with the success counter</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Tick the <em>Count successes</em> box, set how many d10s to roll, and the tool tells you how many hit 8 or higher — the standard World of Darkness threshold. For a quick pool of five d10s, set count to 5 and tick the box.</p>
+
+    <h2>Other dice</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Try <a href="roll-d100.html">d100</a>, <a href="random-number-1-20.html">d20</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-3d6.html">3d6</a>, <a href="roll-4d6-drop-lowest.html">4d6 drop lowest</a>, or the <a href="dice-roller.html">full Dice Roller</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is a d10 numbered 0–9 or 1–10?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Physical d10s usually have 0–9, with 0 treated as 10 in most systems. This tool rolls 1–10 directly to match how most people read results.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How do I roll a dice pool here?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Set "How many rolls?" to your pool size and tick the "Count successes" box. The total will show how many dice rolled 8 or higher.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use two d10 rolls as a d100?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes — roll twice, read one as tens (×10) and the other as ones. Or skip the ceremony and use the <a href="roll-d100.html">d100 roller</a>.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Full Dice Roller</a>
+      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> Roll d100</a>
+      <a class="related-card" href="random-number-1-10.html"><span class="ri">🔢</span> 1–10 Generator</a>
+      <a class="related-card" href="roll-2d6.html"><span class="ri">⚄</span> Roll 2d6</a>
+    </div>
+  </section>
+
+</main>

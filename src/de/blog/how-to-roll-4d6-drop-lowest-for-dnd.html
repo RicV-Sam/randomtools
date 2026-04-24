@@ -1,0 +1,188 @@
+---
+layout: layouts/base.njk
+title: Wie man 4d6 Tropfen niedrigsten für D&D rollt — Character Stats Erklärt
+description: >-
+  Der vollständige Leitfaden zum Abrollen von 4d6-drop-lowest für D&D
+  5e-Zeichenstatistiken. Was die Methode ist, warum es 3d6 schlägt und wie es
+  mit Standard-Array und Punkt-Buy vergleicht.
+ogDescription: >-
+  4d6-drop-lowest in vollem Umfang: die Mathematik, die Kompromisse und die
+  Hausregeln, die es fair halten.
+ogType: article
+canonical: 'https://spinnit.site/de/blog/how-to-roll-4d6-drop-lowest-for-dnd.html'
+navBackHref: /blog/
+navBackLabel: blog
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Wie man 4d6 Tropfen niedrigsten für D&D rollt — Character Stats Erklärt",
+    "description": "Vollständiger Leitfaden für die 4d6-drop-lowest D&D-Statistik: die Mathematik, die Abschlüsse und gemeinsame Hausregeln.",
+    "author": {
+      "@type": "Organization",
+      "name": "Spinnen"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Spinnen",
+      "url": "https://spinnit.site/de/"
+    },
+    "datePublished": "2026-04-22",
+    "dateModified": "2026-04-22",
+    "mainEntityOfPage": "https://spinnit.site/blog/how-to-roll-4d6-drop-lowest-for-dnd.html"
+  }
+extraHead: |
+  <meta name="twitter:card" content="summary_large_image">
+pageStyle: >
+  .prose { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .prose .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing:
+  0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom:
+  0.75rem; }
+
+  .prose h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); font-weight: 600;
+  letter-spacing: -0.03em; margin-bottom: 0.5rem; background:
+  linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; }
+
+  .prose .byline { font-family: var(--mono); font-size: 12px; color:
+  var(--text3); margin-bottom: 2.5rem; }
+
+  .prose h2 { font-size: 18px; font-weight: 600; color: var(--text);
+  letter-spacing: -0.01em; margin: 2.25rem 0 0.75rem; }
+
+  .prose h3 { font-size: 15px; font-weight: 600; color: var(--accent2);
+  font-family: var(--mono); letter-spacing: 0.03em; margin: 1.75rem 0 0.5rem; }
+
+  .prose p, .prose li { font-size: 15px; color: var(--text2); line-height: 1.75;
+  }
+
+  .prose ul, .prose ol { padding-left: 1.35rem; margin: 0.5rem 0 1rem; }
+
+  .prose li { margin-bottom: 0.35rem; }
+
+  .prose a { color: var(--accent2); }
+
+  .prose a:hover { color: var(--text); }
+
+  .prose strong { color: var(--text); }
+
+  .prose code { font-family: var(--mono); font-size: 13px; color:
+  var(--accent2); background: var(--bg2); padding: 2px 6px; border-radius: 4px;
+  }
+
+  table.stats { width: 100%; border-collapse: collapse; margin: 1rem 0;
+  font-size: 13px; font-family: var(--mono); }
+
+  table.stats th, table.stats td { border: 1px solid var(--border); padding: 8px
+  12px; text-align: left; color: var(--text2); }
+
+  table.stats th { background: var(--bg2); color: var(--accent2); font-weight:
+  600; letter-spacing: 0.05em; text-transform: uppercase; font-size: 11px; }
+
+  .method-box { background: var(--bg2); border-left: 3px solid var(--accent2);
+  border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1.25rem 0;
+  font-size: 14px; color: var(--text2); }
+
+  .cta-card { background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 2rem 0; }
+
+  .cta-card h3 { margin-top: 0; color: var(--text); font-family: inherit;
+  text-transform: none; letter-spacing: -0.01em; font-size: 16px; }
+
+  .cta-card p { margin: 0.4rem 0; font-size: 14px; }
+
+  .cta-card a { font-family: var(--mono); font-size: 13px; }
+lang: de
+---
+<article class="prose">
+  <p class="eyebrow">Tabelle</p>
+  <h1>Wie man 4d6 Tropfen niedrig für D&amp; D Zeichen Statistiken rollt</h1>
+  <p class="byline">Veröffentlicht 22 April 2026 &middot; 7 min gelesen</p>
+
+  <p>Sie sitzen auf der Sitzung Null, die DM sagt "Rollen Sie Ihre Statistiken", und plötzlich müssen Sie sich erinnern, ob es 3d6, 4d6-drop-lowest, sechs mal nach der Linie, oder eine Variante, wo eine 7 löst ein Reroll. Dieser Beitrag ist die, die Sie Lesezeichen, so dass Sie nie wieder fragen müssen.</p>
+
+  <p>Wir werden decken, was 4d6-drop-lowest tatsächlich ist, die Mathematik von dem, was Sie am Ende mit, wie es mit Standard-Array und Punkt-Buy vergleicht, und das Haus Regeln die meisten Tische ruhig verwenden, um die schlimmsten Ergebnisse zu glätten.</p>
+
+  <h2>Das Verfahren in einem Absatz</h2>
+
+  <p>Rollen Sie vier sechsseitige Würfel. Lassen Sie die niedrigste Single sterben. Fügen Sie die restlichen drei hinzu. Das ist eine Fähigkeit. Wiederholen Sie den gesamten Prozess sechs Mal, um alle sechs Fähigkeiten zu füllen — Stärke, Dexterity, Verfassung, Intelligenz, Weisheit, Charisma — dann die sechs resultierenden Zahlen zu, zu welchen Fähigkeiten Sie wollen (sofern Ihr DM erfordert "unter die Linie", wo die erste Rolle geht an Stärke, zweiten zu Dex, und so weiter).</p>
+
+  <div class="method-box">
+    <strong>Beispielrolle:</strong> Land als Würfel <code>6, 3, 4, 2</code>2. Halten Sie 6+3+4 = <strong>13</strong>Das ist eine Partitur. Noch fünfmal.
+  </div>
+
+  <h2>Warum 4d6-drop-lowest statt 3d6?</h2>
+
+  <p>Die historische Methode, zurück zu den frühesten Ausgaben, war 3d6 gerade. Rollen Sie drei Würfel, summen Sie sie, das ist Ihre Punktzahl. Es ist rechnerisch sauber und gibt einen Durchschnitt von 10,5 - das ist der Durchschnitt für den Menschen.</p>
+
+  <p>Das Problem: <strong>eine 3d6 Rolle produziert eine Menge durchschnittliche und unterdurchschnittliche Zeichen</strong>Du wirst wahrscheinlich heroisch sein. An einem Tisch sitzen, wo Ihr Kämpfer STR 9 hat, weil die Würfel kalt waren, ist nicht heroisch, es ist traurig.</p>
+
+  <p>4d6-drop-lowest skews die Verteilung nach oben, ohne das Spiel zu brechen. Indem Sie eine zusätzliche Düse rollen und das Schlimmste verwerfen, fragen Sie im Wesentlichen "was waren drei Ihrer vier Versuche wert?" - die Antwort ist fast immer besser als drei gerade Rollen.</p>
+
+  <h3>Die tatsächlichen Zahlen</h3>
+
+  <p>Hier sind die Durchschnittswerte und die Chance, bestimmte Meilensteine unter jeder Methode zu rollen:</p>
+
+  <table class="stats">
+    <thead><tr><th>Methode</th><th>Mittel pro Punkt</th><th>P(score &ge)</th><th>P(score &ge)</th></tr></thead>
+    <tbody>
+      <tr><td>3D6</td><td>10.5</td><td>~9.3%</td><td>~0.46%</td></tr>
+      <tr><td>4d6 niedrig</td><td>~12.24</td><td>~25.5%</td><td>~1.62%</td></tr>
+    </tbody>
+  </table>
+
+  <p>Über sechs Walzen sind Sie ungefähr dreimal wahrscheinlicher, um ein 15+ mit 4d6-Drop-niedrigster zu sehen, und ungefähr viermal wahrscheinlicher, um ein 18 zu landen. Der durchschnittliche Gesamthaushalt der Statistik springt von ~63 bis ~73.4.</p>
+
+  <p>Für den Kontext maxiert das 5e Standard-Array 72 (15, 14, 13, 12, 10, 8) und 27-Punkt-Punkt-Buy auf insgesamt 75 vor Rassenboni. So ist der gewalzte Durchschnitt <em>sehr nah</em> Der Unterschied ist die Varianz.</p>
+
+  <h2>Rollen: der praktische Fluss</h2>
+
+  <p>An einem physischen Tisch wollen Sie, dass jeder jede Rolle beobachtet. Rollen Sie eine Punktzahl zu einer Zeit, verkünden Sie die vier Würfel, fallen Sie die niedrigsten sichtbar, rufen Sie die Gesamt. Wiederholen Sie sechs Mal. Kein Taschen-Rollen, kein Re-picking-up fiel Würfel.</p>
+
+  <p>Online oder solo, die einfachste Sache ist eine Würfelrolle, die die Drop-lowest-Operation automatisch macht und zeigt Ihnen, welche sterben entfernt wurde. The Spinnit <a href="/de/tools/roll-4d6-drop-lowest.html">4d6-drop-niedrigste Rolle</a> rollt alle sechs Fähigkeitspunkte in einem Klick und markiert die fallenden sterben auf jedem so gibt es keine Mehrdeutigkeit.</p>
+
+  <p>Wenn Sie mit der klassischen Methode für eine grittier Kampagne bleiben möchten, gibt es auch eine gerade <a href="/de/tools/roll-3d6.html">3d6 Rolle</a>Und für Ein-Aus-Statistik-Rollen oder Rollen für Schlagpunkte auf Ebene, ein General <a href="/de/tools/dice-roller.html">Würfelrolle</a> Griffe jeder <code>NdX</code> Kombination, die Sie brauchen.</p>
+
+  <h2>Varianten, die Ihr DM verwenden könnte</h2>
+
+  <h3>Unter der Linie</h3>
+  <p>Sechs Mal in Ordnung. Die erste Partitur ist Stärke, zweite ist Dex, dritte ist Con, vierte ist Int, fünft ist Wis, sechst ist Cha. Keine Zuweisung. Erzeugt Zeichen, die durch Zufall geformt werden, anstatt Optimierung zu erstellen. Old-school und überraschend lustig, wenn der ganze Tisch sich verpflichtet.</p>
+
+  <h3>7 oder 8 ein Nachlauf</h3>
+  <p>Wenn jede einzelne Fähigkeit punktet Rollen 7 oder niedriger, rerollen Sie diese Punktzahl. Weicht die Klippe von einem abysmalen Statistiken, die Ihren Charakter unspielbar macht. Gemeinsam genug, dass viele DMs es als Standard betrachten.</p>
+
+  <h3>Zurückrollen, wenn die Summe zu niedrig ist</h3>
+  <p>Klassische Rettung: "Wenn Ihre sechs Punkte unter 60 oder Ihre höchste Punktzahl unter 14 ist, rerollt das ganze Set." Hört auf, mit einem völlig nassen Charakter durch keine eigene Schuld zu stecken.</p>
+
+  <h3>Roll 7, fallen Sie die schlechteste Punktzahl</h3>
+  <p>Rollen Sie sieben Fähigkeiten Punkte mit 4d6-drop-lowest, dann verwerfen Sie den niedrigsten der sieben. Generell — schiebt die erwartete Gesamtsumme näher an 76–77. Toll für heroische Kampagnen; zu viel für grittige.</p>
+
+  <h3>Rollen Sie zwei komplette Sets, wählen Sie ein</h3>
+  <p>Rollen Sie sechs Punkte zweimal, verwenden Sie, was Sie bevorzugen. Hohe Varianzminderer ohne Erhöhung der Decke die Art "Rolle 7 Drop 1" tut.</p>
+
+  <h2>Wenn Sie vs rollen, wenn Sie Standard-Array oder Punkt-Buy verwenden</h2>
+
+  <ul>
+    <li><strong>Rolling ist am besten</strong> wenn die Gruppe einander vertraut, die Kampagne soll sich wie Legende oder Folklore fühlen, und niemand wird sich zerquetscht fühlen, wenn ihr Charakter schwächer ist als jemand anderes.</li>
+    <li><strong>Standard-Array ist am besten</strong> wenn Sie identische Startbudgets, minimale Session-Null-Zeit und eine vorhersehbare Basis für die Begegnungsbilanz wünschen.</li>
+    <li><strong>Point-buy ist am besten</strong> wenn Spieler optimieren wollen und die DM perfekte Fairness will.</li>
+  </ul>
+
+  <p>Es gibt keine richtige Antwort. Viele Long-Läufer-Tabellen ruhig mischen: neue Spieler erhalten Standard-Array, bis sie das System kennen, Veteranen rollen 4d6-drop-lowest mit einer Reroll-Klausel, und die DM verwendet feste Statistiken für alle NPCs unabhängig.</p>
+
+  <div class="cta-card">
+    <h3>Rollen Sie jetzt Ihren nächsten Charakter</h3>
+    <p>→ <a href="/de/tools/roll-4d6-drop-lowest.html">4d6 Drop Lowest — rollt alle 6 Leistungspunkte</a></p>
+    <p>→ <a href="/de/tools/roll-3d6.html">3d6 Roller — klassische altschulische Statistiken</a></p>
+    <p>→ <a href="/de/tools/dice-roller.html">Full Dice Roller — jede NdX Kombination</a></p>
+  </div>
+
+  <h2>Endnote zur Fairness</h2>
+
+  <p>Der ganze Punkt des Rollens ist, dass Sie das Ergebnis akzeptieren. Wenn Ihr Tisch jedes Mal, wenn jemand mit einer 7 endet, Sie nicht will Zufall - Sie wollen Standard-Array mit Würfel-Theater. Beide sind in Ordnung. Wähle einfach einen ehrlich auf der Session-Nove, schreibe die Regel nach unten und höre auf, darüber zu streiten.</p>
+
+  <p>Jetzt rollen Sie einen Barbaren mit einer 18 in Kraft und eine 7 in Intelligenz. Das ist der ganze Punkt.</p>
+
+</article>

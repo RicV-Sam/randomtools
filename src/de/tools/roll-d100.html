@@ -1,0 +1,141 @@
+---
+layout: layouts/base.njk
+title: Roll d100 Online – Free Percentile Dice Roller | Spinnit
+description: >-
+  Roll a d100 online — percentile dice from 1 to 100. Used in Call of Cthulhu,
+  Warhammer, Rolemaster and D&amp;D percentile checks. Free and instant.
+ogTitle: Roll d100 Online | Spinnit
+ogDescription: >-
+  Free percentile dice roller — a fair 1 to 100 roll for RPGs and percentage
+  checks.
+canonical: 'https://spinnit.site/de/tools/roll-d100.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Roll d100",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is the d100 range 1–100 or 0–99?","acceptedAnswer":{"@type":"Answer","text":"Most modern systems use 1–100 with 00 on physical dice reading as 100. This tool uses 1–100."}},
+      {"@type":"Question","name":"Is rolling low or high better?","acceptedAnswer":{"@type":"Answer","text":"Depends on the system. Call of Cthulhu and Warhammer want you under your skill. Check what your system expects."}},
+      {"@type":"Question","name":"Can I roll multiple d100s at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Set the count up to 100. Each roll is independent."}}
+    ]}
+  </script>
+pageScript: >
+
+  const history = [];
+
+  function roll() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * 100) + 1);
+    document.getElementById('result').textContent = results.join(', ');
+    document.getElementById('totalLabel').style.display = 'none';
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code
+  === 'Enter') { e.preventDefault(); roll(); }});
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">💯</div>
+    <h1>Roll d100 Online</h1>
+    <p>Percentile dice — a fair roll from 1 to 100</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your roll (1–100)</div>
+    <div class="result-number" id="result">—</div>
+    <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>How many rolls?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="roll()">ROLL d100</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Recent rolls</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>The d100 — also called percentile dice or d% — is the backbone of any RPG that works on percentage chances. Roll low, succeed; roll high, fail (usually). Every number from 1 to 100 has exactly a 1% chance, making it the cleanest statistical die in tabletop gaming.</p>
+
+    <h2>Systems that use d100</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Call of Cthulhu</strong> — every skill check</li>
+      <li><strong>Warhammer Fantasy / 40K Roleplay</strong> — core mechanic</li>
+      <li><strong>Rolemaster</strong> and RuneQuest</li>
+      <li><strong>D&amp;D 5e</strong> — Wild Magic Surge, random tables, magic item rarity</li>
+      <li>Any "roll on the random encounter table" moment</li>
+    </ul>
+
+    <h2>How d100 is usually rolled physically</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Physical d100s are actually two d10s: a "tens" die (00, 10, 20… 90) and a "ones" die (0–9), summed with 00+0 reading as 100. This generator skips the ceremony and gives you the final 1–100 result directly.</p>
+
+    <h2>Other dice</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Try <a href="roll-d10.html">d10</a>, <a href="random-number-1-20.html">d20</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-3d6.html">3d6</a>, <a href="roll-4d6-drop-lowest.html">4d6 drop lowest</a>, or the <a href="dice-roller.html">full Dice Roller</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is the d100 range 1–100 or 0–99?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Most modern systems use 1–100 with 00 on physical dice reading as 100. A few older systems (e.g. Basic Roleplaying variants) use 0–99 for specific tables. This tool uses 1–100.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is rolling low or high better?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">It depends on the system. Call of Cthulhu and Warhammer want you to roll <em>under</em> your skill. Random tables typically want a specific range. Always check what your system expects.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I roll multiple d100s at once?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set the count up to 100. Each roll is independent, so duplicates are possible and expected.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Full Dice Roller</a>
+      <a class="related-card" href="roll-d10.html"><span class="ri">🎲</span> Roll d10</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> 1–100 Generator</a>
+      <a class="related-card" href="roll-4d6-drop-lowest.html"><span class="ri">🐉</span> D&amp;D Stat Roller</a>
+    </div>
+  </section>
+
+</main>

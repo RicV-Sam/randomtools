@@ -1,0 +1,141 @@
+---
+layout: layouts/base.njk
+title: Random Number Between 1 and 25 – Free Classroom Picker | Spinnit
+description: >-
+  Generate a random number between 1 and 25 instantly. Ideal for classrooms of
+  25 students, bingo columns and group games. Free, no sign-up.
+ogTitle: Random Number Between 1 and 25 | Spinnit
+ogDescription: >-
+  Free fair pick from 1 to 25 — ideal for classroom rosters and small group
+  games.
+canonical: 'https://spinnit.site/de/tools/random-number-1-25.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Number Between 1 and 25",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Can I avoid picking the same student twice in a row?","acceptedAnswer":{"@type":"Answer","text":"Not from a single generation. For no-repeat order use the List Shuffler on 25 names and work through the shuffled order."}},
+      {"@type":"Question","name":"Does this work on a projector?","acceptedAnswer":{"@type":"Answer","text":"Yes. The result is large and high-contrast, visible from the back of a classroom."}},
+      {"@type":"Question","name":"Is any data stored?","acceptedAnswer":{"@type":"Answer","text":"No. Results are generated in the browser and never sent to a server."}}
+    ]}
+  </script>
+pageScript: >
+
+  const MIN = 1, MAX = 25;
+
+  const history = [];
+
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code
+  === 'Enter') { e.preventDefault(); generate(); }});
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎒</div>
+    <h1>Random Number Between 1 and 25</h1>
+    <p>Fair picks for classrooms and small groups</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your number (1–25)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>How many numbers?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Recent results</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>Twenty-five is the average UK and US class size, which makes a random number between 1 and 25 one of the most-used ranges in education. Teachers use it to pick students, call on volunteers, decide who presents first, or randomise seating. This page gives you a clean, fair pick in one tap.</p>
+
+    <h2>Handy for</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Picking a student by roll number from a class of up to 25</li>
+      <li>Randomising seat assignments at the start of a term</li>
+      <li>Choosing a column number in a 5×5 bingo card</li>
+      <li>Randomly allocating 25 numbered cards or prompts</li>
+      <li>Picking a question from a list of 25 review questions</li>
+    </ul>
+
+    <h2>For bigger groups</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Teaching a class of 30? Try <a href="random-number.html">Custom Range</a> and set the max to your class size. For name-based picking instead of numbers, the <a href="wheel-of-names.html">Wheel of Names</a> is the classroom favourite.</p>
+
+    <h2>Other ranges</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Also useful: <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-50.html">1–50</a>, <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-20.html">1–20</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I make sure the same student isn't picked twice in a row?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Not from a single generation — each pick is independent. For no-repeat order, use the <a href="list-shuffler.html">List Shuffler</a> on a list of 25 names or numbers and work through the shuffled order.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this work on a projector?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The result is large, high-contrast, and visible from the back of a classroom when projected.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is any data stored?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. Results are generated in the browser and never sent to a server. The history clears when you close the tab.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Wheel of Names</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Custom Range</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
+    </div>
+  </section>
+
+</main>

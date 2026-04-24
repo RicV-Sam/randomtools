@@ -1,0 +1,139 @@
+---
+layout: layouts/base.njk
+title: Random Number Between 1 and 50 – Free Instant Picker | Spinnit
+description: >-
+  Generate a random number between 1 and 50 instantly. Free fair picker for
+  bingo, giveaways, group activities and classroom games.
+ogTitle: Random Number Between 1 and 50 | Spinnit
+ogDescription: Instant fair random pick from 1 to 50 — great for bingo and mid-size draws.
+canonical: 'https://spinnit.site/de/tools/random-number-1-50.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Number Between 1 and 50",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Are both 1 and 50 possible?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every number from 1 to 50 has a 2% chance on every draw."}},
+      {"@type":"Question","name":"Can I use this to call bingo?","acceptedAnswer":{"@type":"Answer","text":"Yes for 1–50 bingo. For no-repeat draws, shuffle a list of 1–50 and call them in shuffled order."}},
+      {"@type":"Question","name":"Does the generator remember previous picks?","acceptedAnswer":{"@type":"Answer","text":"It shows your last ten picks but won't exclude them. Each draw is statistically independent."}}
+    ]}
+  </script>
+pageScript: >
+
+  const MIN = 1, MAX = 50;
+
+  const history = [];
+
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  document.addEventListener('keydown', e => { if (e.code === 'Space' || e.code
+  === 'Enter') { e.preventDefault(); generate(); }});
+lang: de
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🔢</div>
+    <h1>Random Number Between 1 and 50</h1>
+    <p>A fair pick from one to fifty</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your number (1–50)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>How many numbers?</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">Recent results</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>A range of 1 to 50 is one of the most common mid-size draws. It's big enough to feel like a real draw, small enough that every number feels reachable. Perfect for school bingo, mid-size raffles, and any group of up to fifty people.</p>
+
+    <h2>Where 1–50 shines</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>School or office bingo (most bingo cards use 1–50, 1–75, or 1–90)</li>
+      <li>Raffle draws at fundraisers and local events</li>
+      <li>Assigning a number to each of up to 50 attendees</li>
+      <li>Half-and-half 50/50 lottery style games</li>
+      <li>Quick probability demos — "pick a number, nobody can guess it"</li>
+    </ul>
+
+    <h2>Draw multiple numbers</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For bingo calls or multi-winner raffles, set <em>How many numbers?</em> up to 100. Note that draws are independent — duplicates can appear. If you need unique-only picks (like a real bingo cage), use <a href="list-shuffler.html">List Shuffler</a> with numbers 1–50.</p>
+
+    <h2>Other ranges</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Try <a href="random-number-1-25.html">1–25</a>, <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-1000.html">1–1000</a>, or build a <a href="random-number.html">custom range</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are both 1 and 50 possible?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The range is inclusive — every number from 1 to 50 has a 2% chance on every draw.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this to call bingo?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">For 1–50 bingo style games, yes. For real no-repeat bingo, shuffle a list of 1–50 with the List Shuffler and call them in shuffled order.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does the generator remember previous picks?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">It shows your last ten picks on screen, but won't exclude them. Each draw is statistically independent.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> Custom Range Generator</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> 1–100 Generator</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> Lottery Picker</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
+    </div>
+  </section>
+
+</main>

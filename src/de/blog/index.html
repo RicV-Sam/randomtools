@@ -1,0 +1,120 @@
+---
+layout: layouts/base.njk
+title: Blog — Spinnit
+description: >-
+  Anleitungen, Tipps und Ideen für die Verwendung von zufälligen Werkzeugen in
+  Klassenzimmern, Giveaways, D&D-Spielen und alltäglichen Entscheidungen. Vom
+  Team hinter Spinnit.
+ogTitle: Spinnit Blog — Guides für zufällige Werkzeuge
+ogDescription: >-
+  Praktische Anleitungen für Lehrer, Spielmeister und Giveaway Läufer mit
+  kostenlosen zufälligen Werkzeugen.
+canonical: 'https://spinnit.site/de/blog/'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Die Liebe zum Leben",
+    "url": "https://spinnit.site/de/blog/",
+    "description": "Anleitungen und Tipps für die Verwendung von zufälligen Generatoren in Klassenzimmern, Giveaways und Spielen.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Spinnen",
+      "url": "https://spinnit.site/de/"
+    }
+  }
+pageStyle: >
+  .prose { max-width: 760px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .prose h1 {
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .prose .lede { font-size: 15px; color: var(--text2); line-height: 1.7;
+  margin-bottom: 2.5rem; }
+
+  .post-list { display: grid; gap: 14px; }
+
+  .post-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    transition: border-color 0.15s, transform 0.15s;
+    text-decoration: none;
+    display: block;
+  }
+
+  .post-card:hover { border-color: var(--accent2); transform: translateY(-1px);
+  }
+
+  .post-card .meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 8px;
+  }
+
+  .post-card h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .post-card p { font-size: 14px; color: var(--text2); line-height: 1.6; margin:
+  0; }
+
+  .coming-soon {
+    background: var(--bg2); border: 1px dashed var(--border2);
+    border-radius: var(--radius-lg); padding: 1rem 1.25rem;
+    font-size: 13px; color: var(--text3); margin-top: 1.5rem;
+  }
+lang: de
+---
+<div class="prose">
+  <h1>The Spinnit Blog</h1>
+  <p class="lede">Kurze, praktische Anleitungen für Lehrer, Spielmeister, Giveaway Läufer und alle anderen, die an ihrem Tag zufällige Werkzeuge verwenden.</p>
+
+  <div class="post-list">
+    <a class="post-card" href="/de/blog/how-to-use-a-wheel-of-names-for-classroom.html">
+      <div class="meta">Lehre &middot; April 2026</div>
+      <h2>Wie man ein Rad der Namen im Klassenzimmer verwendet</h2>
+      <p>Ein Lehrer-geprüfter Leitfaden, um Studenten fair zu holen, das Engagement hoch zu halten und das "never-picked Kind" Problem zu vermeiden.</p>
+    </a>
+    <a class="post-card" href="/de/blog/running-a-fair-giveaway-with-a-random-winner-picker.html">
+      <div class="meta">Giveaways &middot; April 2026</div>
+      <h2>Laufen eines fairen Giveaway: Wie man einen Gewinner wählt, kann niemand bestreiten</h2>
+      <p>Wie Sie Ihre Eintragsliste reinigen, die Ziehung aufnehmen und einen Gewinner in einer Weise verkünden, die einem skeptischen Publikum entspricht.</p>
+    </a>
+    <a class="post-card" href="/de/blog/how-to-roll-4d6-drop-lowest-for-dnd.html">
+      <div class="meta">Tabletop &middot; April 2026</div>
+      <h2>Wie man 4d6 Tropfen niedrig für D&amp; D Zeichen Statistiken rollt</h2>
+      <p>Die Mathematik hinter 4d6-drop-lowest, wie es mit Standard-Array und Punkt-Buy, plus das Haus Regeln die meisten Tische ruhig verwenden.</p>
+    </a>
+    <a class="post-card" href="/de/blog/how-to-pick-random-teams-fairly.html">
+      <div class="meta">Spiele &amp; Sport &middot; April 2026</div>
+      <h2>Wie man zufällige Teams ziemlich</h2>
+      <p>Drei faire Methoden, um eine Gruppe in Teams zu teilen – ohne das öffentliche Schauspiel von Kapitänen, die sich zuletzt entscheiden.</p>
+    </a>
+    <a class="post-card" href="/de/blog/strong-memorable-passwords-with-a-generator.html">
+      <div class="meta">Sicherheit &middot; April 2026</div>
+      <h2>Starke, unvergessliche Passwörter: wie man einen Generator richtig verwendet</h2>
+      <p>Warum Länge schlägt Komplexität, wenn man eine Passphrase verwendet, und den langweiligen täglichen Workflow, der Sie tatsächlich sicher hält.</p>
+    </a>
+  </div>
+
+  <div class="coming-soon">
+    <strong style="color:var(--text)">Mehr Beiträge kommen bald</strong> — Farbpaletten, Lotteriestatistiken und die ehrliche Wahrheit über "random" im Browser.
+  </div>
+</div>
