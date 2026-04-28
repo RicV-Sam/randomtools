@@ -15,8 +15,8 @@ extraHead: |
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Is the result truly random?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The generator uses your browser's built-in Math.random() function, which produces unpredictable results seeded by system entropy." }
+          "name": "Is the result suitable for everyday random picks?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The generator uses your browser's built-in pseudo-random number function, which is suitable for games, classroom activities, giveaways and everyday decisions. It is not intended for cryptographic security." }
         },
         {
           "@type": "Question",
@@ -152,6 +152,17 @@ pageScript: |
 
     <h2>Why Use Spinnit</h2>
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">Spinnit's generator produces instant results in your browser with no setup or account needed. All randomisation happens locally, so nothing you enter is ever sent to a server. The result history tracks your last ten outputs so you can compare without taking notes. Works perfectly on mobile, tablet, and desktop.</p>
+
+    <h2>Randomness and Fairness</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">This tool is built for everyday random choices: classroom numbers, game rolls, raffle ticket IDs, quick samples and friendly decisions. It uses browser-based pseudo-randomness, which is fast and fair for normal use, but it should not be used for security keys, gambling systems, legal drawings or anything that requires audited randomness.</p>
+
+    <h2>Examples</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong style="color:var(--text);">Giveaway draw:</strong> set the range to 1-250 if you have 250 numbered entries, then generate one number.</li>
+      <li><strong style="color:var(--text);">Classroom question:</strong> use 1-25 to pick a student number without calling on the same volunteers every time.</li>
+      <li><strong style="color:var(--text);">Game setup:</strong> generate three numbers at once to assign turn order, map position or random events.</li>
+      <li><strong style="color:var(--text);">Simple sampling:</strong> generate several numbers from a spreadsheet row range to inspect random records.</li>
+    </ul>
   </section>
 
   <section class="tool-content" style="margin-top:1.5rem;">
@@ -162,8 +173,8 @@ pageScript: |
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Frequently Asked Questions</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is the result truly random?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The generator uses your browser's built-in <code style="color:var(--accent2);font-family:var(--mono);font-size:12px;">Math.random()</code> function, which produces unpredictable results seeded by system entropy. It is not possible to predict the next number in advance.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is the result suitable for everyday random picks?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The generator uses your browser's built-in pseudo-random number function, which is suitable for games, classroom activities, giveaways and everyday decisions. It is not intended for cryptographic security.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate multiple numbers at once?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set the "How many numbers?" field to any value between 1 and 100 and all results will appear together, separated by commas.</p>

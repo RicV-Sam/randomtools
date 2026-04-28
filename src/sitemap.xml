@@ -35,6 +35,11 @@
   <url><loc>https://spinnit.site/tools/random-country.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://spinnit.site/tools/random-name-generator.html</loc><lastmod>2026-04-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://spinnit.site/tools/</loc><lastmod>2026-04-22</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/tools/dice/</loc><lastmod>2026-04-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/tools/classroom/</loc><lastmod>2026-04-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/tools/giveaway/</loc><lastmod>2026-04-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/tools/decision-makers/</loc><lastmod>2026-04-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/tools/password-security/</loc><lastmod>2026-04-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://spinnit.site/blog/</loc><lastmod>2026-04-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://spinnit.site/blog/how-to-use-a-wheel-of-names-for-classroom.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://spinnit.site/blog/running-a-fair-giveaway-with-a-random-winner-picker.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -45,40 +50,49 @@
   <url><loc>https://spinnit.site/about.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://spinnit.site/terms.html</loc><lastmod>2026-04-22</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://spinnit.site/contact.html</loc><lastmod>2026-04-22</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://spinnit.site/ai/all-tools/</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/best/best-ai-tools-for-content-creators.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/best/best-ai-tools-for-productivity.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/best/best-ai-tools-for-small-business.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/best/best-ai-tools-for-students.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/blog/best-ai-tools-for-marketing-teams.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/blog/best-ai-tools-for-research-workflows.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/blog/best-ai-tools-for-solopreneurs.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/blog/best-free-ai-tools-2026.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/blog/chatgpt-alternatives-worth-trying.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/blog/how-to-choose-the-right-ai-tool.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/blog/which-ai-tool-should-you-pay-for-first.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/categories/ai-audio-tools.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/categories/ai-coding-tools.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/categories/ai-image-tools.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/categories/ai-productivity-tools.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/categories/ai-research-tools.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/categories/ai-video-tools.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/categories/ai-writing-tools.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/compare/chatgpt-vs-claude.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/compare/chatgpt-vs-perplexity.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/compare/claude-vs-gemini.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/compare/midjourney-vs-runway.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/directory/</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/how-we-review/</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/picker/</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/suggest-a-tool/</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/tools/chatgpt.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/tools/claude.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/tools/cursor.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/tools/elevenlabs.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/tools/gemini.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/tools/midjourney.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/tools/perplexity.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://spinnit.site/ai/tools/runway.html</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://spinnit.site/de/</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spinnit.site/de/tools/</loc><lastmod>2026-04-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-number.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-number-1-10.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-number-1-100.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-number-1-1000.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-number-1-6.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-number-1-20.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-number-1-2.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-number-1-5.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-number-1-25.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-number-1-50.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-number-1-1000000.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://spinnit.site/de/tools/roll-2d6.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/roll-3d6.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/roll-4d6-drop-lowest.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/roll-d100.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/roll-d10.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-student-picker.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/wheel-of-names-for-classroom.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-name-picker-no-repeat.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/pick-random-name.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-winner-picker.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/tools/dice-roller.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/coin-flip.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/team-picker.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/yes-no-wheel.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/wheel-of-names.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/colour-generator.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/password-generator.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/lottery-picker.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/percentage-generator.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/list-shuffler.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-country.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/tools/random-name-generator.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spinnit.site/de/blog/</loc><lastmod>2026-04-22</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://spinnit.site/de/blog/how-to-use-a-wheel-of-names-for-classroom.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://spinnit.site/de/blog/running-a-fair-giveaway-with-a-random-winner-picker.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://spinnit.site/de/blog/how-to-roll-4d6-drop-lowest-for-dnd.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://spinnit.site/de/blog/how-to-pick-random-teams-fairly.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://spinnit.site/de/blog/strong-memorable-passwords-with-a-generator.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://spinnit.site/de/privacy.html</loc><lastmod>2026-04-22</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://spinnit.site/de/about.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://spinnit.site/de/terms.html</loc><lastmod>2026-04-22</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://spinnit.site/de/contact.html</loc><lastmod>2026-04-22</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
