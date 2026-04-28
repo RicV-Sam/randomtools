@@ -91,7 +91,18 @@ pageScript: |
     document.getElementById('historySection').style.display = 'none';
   }
   
-  document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); flip(); }});
+  document.addEventListener('keydown', e => {
+    if ((e.code === 'Space' || e.code === 'Enter') && e.target === document.body) {
+      e.preventDefault();
+      flip();
+    }
+  });
+  document.getElementById('resultBox').addEventListener('keydown', e => {
+    if (e.code === 'Space' || e.code === 'Enter') {
+      e.preventDefault();
+      flip();
+    }
+  });
 ---
 <main class="tool-page">
 
@@ -101,7 +112,7 @@ pageScript: |
     <p>Tap to flip — heads or tails?</p>
   </div>
 
-  <div class="result-box" id="resultBox" onclick="flip()" style="cursor:pointer;user-select:none;">
+  <div class="result-box" id="resultBox" onclick="flip()" role="button" tabindex="0" aria-label="Flip coin" aria-live="polite" aria-atomic="true" style="cursor:pointer;user-select:none;">
     <div class="coin" id="coin">🪙</div>
     <div class="result-text" id="result">Tap to flip</div>
     <div class="result-label">tap anywhere to flip again</div>

@@ -1,13 +1,16 @@
 {
+  "id": "/",
   "name": "Spinnit — Random Tools",
   "short_name": "Spinnit",
   "description": "Free online random generators and pickers — dice, coins, passwords, names and more",
-  "start_url": "https://spinnit.site/",
-  "scope": "https://spinnit.site/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#0a0a0f",
   "theme_color": "#7c6af7",
+  "lang": "en",
+  "categories": ["utilities", "productivity"],
   "icons": [
     {
       "src": "/icons/icon-192.png",

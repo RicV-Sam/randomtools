@@ -1,9 +1,14 @@
-const CACHE = 'randomtools-v1';
+const CACHE = 'spinnit-v2';
+const OFFLINE_URL = '/offline.html';
 const ASSETS = [
   '/',
   '/index.html',
+  OFFLINE_URL,
   '/assets/style.css',
   '/manifest.json',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/tools/',
   '/tools/random-number.html',
   '/tools/dice-roller.html',
   '/tools/coin-flip.html',
@@ -17,19 +22,27 @@ const ASSETS = [
   '/tools/wheel-of-names.html',
   '/tools/random-country.html',
   '/tools/random-name-generator.html',
+  '/tools/dice/',
+  '/tools/classroom/',
+  '/tools/giveaway/',
+  '/tools/decision-makers/',
+  '/tools/password-security/',
+  '/blog/',
 ];
 
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE)
-      .then(c => c.addAll(ASSETS))
+      .then(c => c.addAll(ASSETS.map(url => new Request(url, { cache: 'reload' }))))
       .then(() => self.skipWaiting())
   );
 });
 
 self.addEventListener('activate', e => {
   e.waitUntil(
-    caches.keys()
+    Promise.resolve()
+      .then(() => self.registration.navigationPreload ? self.registration.navigationPreload.enable() : undefined)
+      .then(() => caches.keys())
       .then(keys => Promise.all(
         keys.filter(k => k !== CACHE).map(k => caches.delete(k))
       ))
@@ -38,8 +51,23 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  // Only cache same-origin GET requests
   if (e.request.method !== 'GET' || !e.request.url.startsWith(self.location.origin)) return;
+
+  if (e.request.mode === 'navigate') {
+    e.respondWith(
+      fetch(e.request)
+        .then(res => {
+          if (res && res.status === 200 && res.type === 'basic') {
+            const clone = res.clone();
+            caches.open(CACHE).then(c => c.put(e.request, clone));
+          }
+          return res;
+        })
+        .catch(() => caches.match(e.request).then(cached => cached || caches.match(OFFLINE_URL)))
+    );
+    return;
+  }
+
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;

@@ -114,6 +114,21 @@ pageScript: |
     ctx.stroke();
   }
   
+  function getResultForAngle(angle) {
+    const pointerAngle = (Math.PI * 1.5 - angle + Math.PI * 2) % (Math.PI * 2);
+    let start = 0;
+    for (const seg of getSegments()) {
+      const end = start + seg.size * Math.PI * 2;
+      if (pointerAngle >= start && pointerAngle < end) return seg.label;
+      start = end;
+    }
+    return getSegments()[0].label;
+  }
+  
+  function resetAnswer() {
+    document.getElementById('answerResult').textContent = 'Spin to decide';
+  }
+  
   function spin() {
     if (spinning) return;
     spinning = true;
@@ -138,10 +153,19 @@ pageScript: |
       } else {
         spinning = false;
         document.getElementById('spinBtn').disabled = false;
+        document.getElementById('answerResult').textContent = getResultForAngle(currentAngle);
       }
     }
     requestAnimationFrame(frame);
   }
+  
+  canvas.addEventListener('click', () => { if (!spinning) spin(); });
+  canvas.addEventListener('keydown', e => {
+    if (e.code === 'Space' || e.code === 'Enter') {
+      e.preventDefault();
+      if (!spinning) spin();
+    }
+  });
   
   drawWheel();
 ---
@@ -155,17 +179,22 @@ pageScript: |
 
   <div class="wheel-wrap">
     <div class="wheel-pointer"></div>
-    <canvas id="wheel" width="300" height="300"></canvas>
+    <canvas id="wheel" width="300" height="300" role="button" tabindex="0" aria-label="Spin the yes no wheel"></canvas>
   </div>
 
   <div class="control-group" style="margin-bottom:12px;">
     <label>Mode</label>
-    <select id="mode" onchange="drawWheel()">
+    <select id="mode" onchange="drawWheel(); resetAnswer();">
       <option value="yesno">Yes / No</option>
       <option value="yesnomaybe">Yes / No / Maybe</option>
       <option value="heavy-yes">Probably Yes (70%)</option>
       <option value="heavy-no">Probably No (70%)</option>
     </select>
+  </div>
+
+  <div class="result-box" aria-live="polite" aria-atomic="true" style="margin-bottom:12px;">
+    <div class="result-label">answer</div>
+    <div class="result-text" id="answerResult">Spin to decide</div>
   </div>
 
   <button class="btn-generate" id="spinBtn" onclick="spin()">SPIN THE WHEEL</button>

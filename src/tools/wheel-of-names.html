@@ -313,6 +313,12 @@ pageScript: |
   
   canvas.addEventListener('click', () => { if (!spinning) spin(); });
   canvas.addEventListener('touchstart', e => { e.preventDefault(); if (!spinning) spin(); }, {passive: false});
+  canvas.addEventListener('keydown', e => {
+    if (e.code === 'Space' || e.code === 'Enter') {
+      e.preventDefault();
+      if (!spinning) spin();
+    }
+  });
   
   document.getElementById('nameInput').addEventListener('keydown', e => {
     if (e.key === 'Enter' && e.ctrlKey) addNames();
@@ -337,10 +343,10 @@ pageScript: |
 
   <div class="wheel-wrap">
     <div class="wheel-pointer"></div>
-    <canvas id="wonCanvas" width="340" height="340"></canvas>
+    <canvas id="wonCanvas" width="340" height="340" role="button" tabindex="0" aria-label="Spin the wheel of names"></canvas>
   </div>
 
-  <div class="winner-display" id="winnerDisplay">—</div>
+  <div class="winner-display" id="winnerDisplay" aria-live="polite" aria-atomic="true">—</div>
   <div class="winner-sub" id="winnerSub">Tap the wheel or press Spin</div>
 
   <button class="btn-generate" id="spinBtn" onclick="spin()">SPIN THE WHEEL</button>
