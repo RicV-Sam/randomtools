@@ -1,14 +1,14 @@
 ---
 layout: layouts/base.njk
-title: "Random Name Generator – 10 Cultures | Spinnit"
-description: "Generate realistic random names from 10 cultures including English, Japanese, Arabic and more. Free fake name generator."
+title: "Random Name Generator – First & Last Names | Spinnit"
+description: "Generate realistic random first and last names from 10 cultures. Free name generator for characters, writing prompts, games and test data."
 canonical: "https://spinnit.site/tools/random-name-generator.html"
 jsonLd: |
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Random Name Generator",
-    "description": "Generate random first and last names from 10 cultures worldwide",
+    "description": "Generate realistic random first and last names from 10 cultures worldwide",
     "url": "https://spinnit.site/tools/random-name-generator.html",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web"
@@ -30,6 +30,16 @@ extraHead: |
           "@type": "Question",
           "name": "Are the names realistic?",
           "acceptedAnswer": { "@type": "Answer", "text": "Yes. Each culture's name list is drawn from real first names and surnames used in those regions, so generated names sound authentic." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use these names for characters or test data?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The generated names are useful for fictional characters, writing prompts, tabletop games, prototypes and placeholder test data." }
+        },
+        {
+          "@type": "Question",
+          "name": "Are the generated names saved?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Names are generated locally in your browser and are not saved by Spinnit." }
         },
         {
           "@type": "Question",
@@ -279,7 +289,7 @@ pageScript: |
 
   <button class="btn-generate" onclick="generate()">GENERATE NAMES</button>
 
-  <div id="namesOutput" class="names-output" style="margin-top:1rem;"></div>
+  <div id="namesOutput" class="names-output" style="margin-top:1rem;" aria-live="polite" aria-atomic="true"></div>
 
   <button id="copyAllBtn" class="btn-copy" onclick="copyAll()" style="display:none;margin-bottom:0.5rem;">Copy all names</button>
 
@@ -287,7 +297,10 @@ pageScript: |
   <div class="ad-slot"><!-- ADSENSE: ad unit here --></div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>The Random Name Generator produces realistic-sounding names from ten different cultural traditions — English, Spanish, French, German, Japanese, Arabic, Indian, Chinese, Russian, and Italian. You can filter by gender and generate up to 10 names at a time. Useful for writers, game designers, and developers who need believable placeholder names fast.</p>
+    <p>The Random Name Generator produces realistic-sounding first and last names from ten different cultural traditions — English, Spanish, French, German, Japanese, Arabic, Indian, Chinese, Russian, and Italian. You can filter by gender and generate up to 10 names at a time. Useful for writers, game designers, teachers, and developers who need believable placeholder names fast.</p>
+
+    <h2>What this name generator is best for</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Use it for fictional characters, tabletop RPG NPCs, sample user profiles, classroom prompts, game prototypes and creative exercises. If you want to pick from your own list of real people, use <a href="pick-random-name.html">Pick a Random Name</a> or the <a href="wheel-of-names.html">Wheel of Names</a> instead.</p>
 
     <h2>How to Use</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -308,8 +321,11 @@ pageScript: |
       <li>Social media or creative writing prompts and challenges</li>
     </ul>
 
+    <h2>Choosing a culture or region</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Each region combines given names and surnames from the same naming tradition so the result feels more natural than a fully mixed list. For fantasy, sci-fi or placeholder data, generate several sets and copy the names that match your tone.</p>
+
     <h2>Why Use Spinnit</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Each culture uses authentic given names and surnames drawn from real naming traditions, so results sound natural rather than generated. Nothing you produce is ever saved or associated with you. Works fully offline after first load, with no account required.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Each culture uses authentic given names and surnames drawn from real naming traditions, so results sound natural rather than generated. Nothing you produce is ever saved or associated with you. Works offline after first load, with no account required.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
@@ -320,6 +336,12 @@ pageScript: |
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are the names realistic?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Each culture's name list is drawn from real first names and surnames used in those regions, so generated names sound authentic rather than random strings.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use these names for characters or test data?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. They are useful for fictional characters, writing prompts, tabletop games, prototypes and placeholder test data. Avoid using them to impersonate a real person.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are the generated names saved?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. Names are generated locally in your browser and are not saved by Spinnit.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this tool free to use?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, completely free with no sign-up required.</p>

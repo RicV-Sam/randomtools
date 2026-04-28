@@ -19,6 +19,7 @@ const ASSETS = [
   '/tools/lottery-picker.html',
   '/tools/percentage-generator.html',
   '/tools/list-shuffler.html',
+  '/tools/random-winner-picker.html',
   '/tools/wheel-of-names.html',
   '/tools/random-country.html',
   '/tools/random-name-generator.html',

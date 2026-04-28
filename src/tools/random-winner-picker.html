@@ -1,18 +1,20 @@
 ---
 layout: layouts/base.njk
-title: "Random Winner Picker – Free Giveaway Tool | Spinnit"
-description: "Pick a random winner from any list of entries. Free giveaway tool for social media, raffles and competitions. Pick 1 or multiple winners, no duplicates."
-ogTitle: "Random Winner Picker | Spinnit"
-ogDescription: "Free giveaway winner picker — paste entries, pick one or many, no duplicates."
+title: "Giveaway Winner Picker – Random Winner Tool | Spinnit"
+description: "Pick a random giveaway winner from any list of names, handles, emails or ticket numbers. Free winner picker with duplicate removal and multiple winners."
+ogTitle: "Giveaway Winner Picker | Spinnit"
+ogDescription: "Paste entries, remove duplicates if needed, and draw one or many random giveaway winners."
 canonical: "https://spinnit.site/tools/random-winner-picker.html"
 jsonLd: |
-  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Winner Picker","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Giveaway Winner Picker","alternateName":"Random Winner Picker","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 extraHead: |
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
       {"@type":"Question","name":"Is the draw fair?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every entry has the same chance. The tool uses an unbiased random number generator."}},
       {"@type":"Question","name":"Can the same entry win twice in one draw?","acceptedAnswer":{"@type":"Answer","text":"No. Each winner is removed from the pool before drawing the next so no entry can win two prizes in one draw."}},
-      {"@type":"Question","name":"Does this comply with Instagram / Facebook giveaway rules?","acceptedAnswer":{"@type":"Answer","text":"The tool handles the draw. Compliance depends on how you run the giveaway per each platform's promotional policy."}}
+      {"@type":"Question","name":"Does this comply with Instagram / Facebook giveaway rules?","acceptedAnswer":{"@type":"Answer","text":"The tool handles the draw. Compliance depends on how you run the giveaway per each platform's promotional policy."}},
+      {"@type":"Question","name":"Can I pick backup winners?","acceptedAnswer":{"@type":"Answer","text":"Yes. Increase the winner count to draw multiple winners at once, then use the ordered result as primary winner followed by backups."}},
+      {"@type":"Question","name":"Are entries uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Entries stay in your browser while you use the page and are not sent to Spinnit."}}
     ]}
   </script>
 pageScript: |
@@ -56,11 +58,11 @@ pageScript: |
 
   <div class="tool-header">
     <div class="tool-icon">🏆</div>
-    <h1>Random Winner Picker</h1>
-    <p>Fair, transparent draws for giveaways and competitions</p>
+    <h1>Giveaway Winner Picker</h1>
+    <p>Draw random winners from names, handles, emails or ticket numbers</p>
   </div>
 
-  <div class="result-box" id="resultBox">
+  <div class="result-box" id="resultBox" aria-live="polite" aria-atomic="true">
     <div class="result-label">winner</div>
     <div class="result-number" id="result" style="font-size:clamp(1.4rem,7vw,2.6rem);word-break:break-word;line-height:1.25;">—</div>
     <div id="entryCount" style="font-size:13px;color:var(--text2);margin-top:6px;display:none;"></div>
@@ -89,6 +91,9 @@ pageScript: |
   <section class="tool-content" style="margin-top:2rem;">
     <p>Running a giveaway and need to pick a winner fairly? Paste your entry list (one per line), set how many winners you want, and tap the button. Every entry has an equal chance, no entry is picked twice in the same draw, and you can screenshot the result as proof. No account required.</p>
 
+    <h2>Best for giveaways, raffles and comment draws</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Use this page when you already have a list of entrants from Instagram comments, newsletter sign-ups, raffle tickets, Discord usernames, form submissions or customer IDs. If you want a more visual reveal, use the <a href="wheel-of-names.html">Wheel of Names</a>. If you only need to randomize a list order, use the <a href="list-shuffler.html">List Shuffler</a>.</p>
+
     <h2>What to paste as an entry list</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
       <li><strong>Instagram comments</strong> — copy the comment list from a scraper or export</li>
@@ -110,8 +115,14 @@ pageScript: |
     <h2>Duplicate handling</h2>
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">By default the tool keeps duplicates — sometimes you want entries weighted by submission count. Tick <em>Remove duplicate entries</em> to collapse repeats so each unique handle has one chance only.</p>
 
+    <h2>Primary and backup winners</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For prize draws, set the winner count higher than one. The first name can be your main winner and the remaining names can be backups if the winner is ineligible, does not reply, or declines the prize. Because each winner is removed from the pool before the next draw, the same entry cannot occupy multiple winner slots.</p>
+
+    <h2>Privacy note</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Your pasted list is processed in the browser and is not uploaded to Spinnit. For public screenshots, consider hiding email addresses or private customer IDs and using display names, order numbers or anonymized ticket IDs instead.</p>
+
     <h2>Related tools</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Also useful: <a href="pick-random-name.html">Pick a Random Name</a>, <a href="lottery-picker.html">Lottery Picker</a>, <a href="wheel-of-names.html">Wheel of Names</a>, <a href="random-number-1-1000.html">Random Number 1–1000</a>.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Also useful: <a href="pick-random-name.html">Pick a Random Name</a>, <a href="lottery-picker.html">Lottery Picker</a>, <a href="wheel-of-names.html">Wheel of Names</a>, <a href="random-number-1-1000.html">Random Number 1–1000</a>, and the <a href="giveaway/">Giveaway Random Tools hub</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
@@ -125,6 +136,12 @@ pageScript: |
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this comply with Instagram / Facebook giveaway rules?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">The tool handles the draw itself — compliance depends on how you run the giveaway. Always release entrants of responsibility from the platform, include eligibility rules, and follow each platform's promotional policy.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I pick backup winners?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Increase the winner count to draw multiple winners at once. Treat the first result as the main winner and the remaining results as ordered backups.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are entries uploaded anywhere?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. Entries stay in your browser while you use the page. Spinnit does not receive or store your pasted list.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">Related Tools</h2>
