@@ -1,0 +1,174 @@
+---
+layout: layouts/base.njk
+title: د. 10 على الإنترنت - Dice roller - Spinnit Free Ten-Sided
+description: >-
+  أديري د. 10 على شبكة الإنترنت - موت عادل من عشرة جوانب لـ RPGs, World of
+  Darkness, Vampire: The Masquerade and d100 tens rolls. مجاناً، فوراً، لا
+  إشارة.
+ogTitle: د. 10 على الإنترنت
+ogDescription: رف النرد الحر ذو العشرة جوانب - منصف من 1 إلى 10 لفائف RPG ولفائف الموازين.
+canonical: 'https://spinnit.site/ar/tools/roll-d10.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "الجولة 10",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل رقم 10 هو 0-9 أو 1-10؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "وعادة ما يظهر الـ (دي 10) الفيزيائية 0-9 مع معاملة صفر على أنه 10. هذه الأداة تدور من 1 إلى 10 مباشرة"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "كيف أفتح بركة النرد هنا؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "حددي كم عدد الدفاتر لحجم مسبحك و دغدغ الكونت النجاحات ويبيّن المجموع عدد الأشخاص الذين دُفعت أسماؤهم بعد 8 سنوات."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكنني استخدام لفاتين دي 10 كD100؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم تدحرج مرتين وتقرأ واحدة كعشرات والأخرى أَو يَستعملُ د.100 مباشرةً."
+        }
+      }
+    ]
+  }</script>
+pageScript: |
+
+  const history = [];
+  function roll() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    const countSuccesses = document.getElementById('countSuccesses').checked;
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * 10) + 1);
+    document.getElementById('result').textContent = results.join(', ');
+    const totalEl = document.getElementById('totalLabel');
+    if (countSuccesses) {
+      const successes = results.filter(r => r >= 8).length;
+      totalEl.textContent = `${successes} success${successes === 1 ? '' : 'es'} (rolls ≥ 8)`;
+      totalEl.style.display = 'block';
+    } else if (count > 1) {
+      const sum = results.reduce((a,b)=>a+b,0);
+      totalEl.textContent = `Sum: ${sum}`;
+      totalEl.style.display = 'block';
+    } else {
+      totalEl.style.display = 'none';
+    }
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  bindGlobalShortcut(roll);
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎲</div>
+    <h1>على الإنترنت</h1>
+    <p>A fair ten-sided die — 1 to 10</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">لفة الخاص بك (1-10)</div>
+    <div class="result-number" id="result">—</div>
+    <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>كم عدد اللفات؟</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+    <div class="control-group" style="margin-top:8px;">
+      <label><input type="checkbox" id="countSuccesses" style="margin-right:6px;vertical-align:middle;"> النجاحات الكونية )النتيجة ٨( - لعالم الظلام</label>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="roll()">ROLL d10</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">القوائم الأخيرة</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>الـ (دي 10) هي مجموعة العمل من نظم المسبح World of Darkness, Vampire: The Masquerade, Exalted, Shadowrun (via d6s) and many indie RPGs use pools of d10s - roll a handful, count the ones that beat a target number. هو أيضاً نصف كُلّ د.100 رول في نظامِ الموازناتِ.</p>
+
+    <h2>حيث ستستخدمين دي 10</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>عالم الظلام/مجلات الظلام</strong> - صناديق النرد، 8+ تنجح</li>
+      <li><strong>مصاص الدماء:</strong> الطبعة الخامسة - دفاتر الجوع ولفائف العمل</li>
+      <li><strong>المنفى</strong> - مجمعات كبيرة من النرد ذات عتبات مختلفة</li>
+      <li><strong>DD 5e</strong> - تلف الأسلحة )الكلمة رقم ١٠، ومطرقة الحرب ١٠، وما إلى ذلك(</li>
+      <li>الدفاتر المرنة - 2 d10s مجتمعة لD100</li>
+    </ul>
+
+    <h2>مجمّعات مُحقّقة من النجاح</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">اضرب <em>النجاحات</em> صندوق، حدد كم عدد الـ (دي 10) لتدحرجه، والأداة تخبرك كم ضرب 8 أو أعلى - عتبة عالم الظلام القياسية. من أجل بركة سريعة من 5 د 10، وضع العد إلى 5 وتدغدغ الصندوق.</p>
+
+    <h2>صول أخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">حاول <a href="roll-d100.html">d100</a>, <a href="random-number-1-20.html">d20</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-3d6.html">3d6</a>, <a href="roll-4d6-drop-lowest.html">4d6 drop lowest</a>أو <a href="dice-roller.html">(دايس رولدر)</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل رقم 10 هو 0-9 أو 1-10؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">وعادة ما يكون للديوكسينات الفيزيائية ٠-٩، مع معاملة صفر على أنه ١٠ في معظم النظم. هذه الأداة تُدوّن من 1 إلى 10 مباشرة لتطابق كيف يقرأ معظم الناس النتائج</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">كيف أفتح بركة النرد هنا؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">حددي "كم عدد اللفافات؟" لحجم مسبحك و دغدغ صندوق "النجاحات الكبيرة" سيظهر المجموع عدد النرد المتدفق 8 أو أكثر</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني استخدام لفاتين دي 10 كD100؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">أجل، مرّتين، قرأ واحد كعشرات (10) والآخرين. أو تخطي المراسم واستخدام <a href="roll-d100.html">D100</a>.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> كامل Dice roller</a>
+      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> د.</a>
+      <a class="related-card" href="random-number-1-10.html"><span class="ri">🔢</span> ١-١٠ مولدات</a>
+      <a class="related-card" href="roll-2d6.html"><span class="ri">⚄</span> الجولة 2d6</a>
+    </div>
+  </section>
+
+</main>

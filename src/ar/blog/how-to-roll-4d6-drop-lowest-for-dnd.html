@@ -1,0 +1,188 @@
+---
+layout: layouts/base.njk
+title: How to roll 4d6 drop Lowest for DD — Character Stats Explained
+description: >-
+  الدليل الكامل لـ 4d6-drop-lowest لـ DD 5e character stats. ما هي الطريقة،
+  لماذا يضرب 3d6، وكيف يقارنها بالصفوفة القياسية وبواسطة النقاط.
+ogDescription: >-
+  4d6-drop-lowest in full: the maths, the tradeoffs, and the house rules that
+  keep it fair.
+ogType: article
+canonical: 'https://spinnit.site/ar/blog/how-to-roll-4d6-drop-lowest-for-dnd.html'
+navBackHref: /ar/blog/
+navBackLabel: المدونة
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to roll 4d6 drop Lowest for DD — Character Stats Explained",
+    "description": "دليل كامل لرقم 46-drop-lowest DD stat rolling: the maths, the tradeoffs, and common house rules.",
+    "author": {
+      "@type": "Organization",
+      "name": "سبينيت"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "سبينيت",
+      "url": "https://spinnit.site/ar/"
+    },
+    "datePublished": "2026-04-22",
+    "dateModified": "2026-04-22",
+    "mainEntityOfPage": "https://spinnit.site/ar/blog/how-to-roll-4d6-drop-lowest-for-dnd.html"
+  }
+extraHead: |
+  <meta name="twitter:card" content="summary_large_image">
+pageStyle: >
+  .prose { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .prose .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing:
+  0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom:
+  0.75rem; }
+
+  .prose h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); font-weight: 600;
+  letter-spacing: -0.03em; margin-bottom: 0.5rem; background:
+  linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; }
+
+  .prose .byline { font-family: var(--mono); font-size: 12px; color:
+  var(--text3); margin-bottom: 2.5rem; }
+
+  .prose h2 { font-size: 18px; font-weight: 600; color: var(--text);
+  letter-spacing: -0.01em; margin: 2.25rem 0 0.75rem; }
+
+  .prose h3 { font-size: 15px; font-weight: 600; color: var(--accent2);
+  font-family: var(--mono); letter-spacing: 0.03em; margin: 1.75rem 0 0.5rem; }
+
+  .prose p, .prose li { font-size: 15px; color: var(--text2); line-height: 1.75;
+  }
+
+  .prose ul, .prose ol { padding-left: 1.35rem; margin: 0.5rem 0 1rem; }
+
+  .prose li { margin-bottom: 0.35rem; }
+
+  .prose a { color: var(--accent2); }
+
+  .prose a:hover { color: var(--text); }
+
+  .prose strong { color: var(--text); }
+
+  .prose code { font-family: var(--mono); font-size: 13px; color:
+  var(--accent2); background: var(--bg2); padding: 2px 6px; border-radius: 4px;
+  }
+
+  table.stats { width: 100%; border-collapse: collapse; margin: 1rem 0;
+  font-size: 13px; font-family: var(--mono); }
+
+  table.stats th, table.stats td { border: 1px solid var(--border); padding: 8px
+  12px; text-align: left; color: var(--text2); }
+
+  table.stats th { background: var(--bg2); color: var(--accent2); font-weight:
+  600; letter-spacing: 0.05em; text-transform: uppercase; font-size: 11px; }
+
+  .method-box { background: var(--bg2); border-left: 3px solid var(--accent2);
+  border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1.25rem 0;
+  font-size: 14px; color: var(--text2); }
+
+  .cta-card { background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 2rem 0; }
+
+  .cta-card h3 { margin-top: 0; color: var(--text); font-family: inherit;
+  text-transform: none; letter-spacing: -0.01em; font-size: 16px; }
+
+  .cta-card p { margin: 0.4rem 0; font-size: 14px; }
+
+  .cta-card a { font-family: var(--mono); font-size: 13px; }
+lang: ar
+dir: rtl
+---
+<article class="prose">
+  <p class="eyebrow">الجدول</p>
+  <h1>How to roll 4d6 drop lowest for DD character stats</h1>
+  <p class="byline">نُشرت في 22 نيسان/أبريل 2026 &quot; ميدوت &quot; ؛</p>
+
+  <p>أنت تجلس في الجلسة صفر، يقول دي إم أحصائياتك، وفجأة عليك أن تتذكر ما إذا كان 3d6, 4d6-drop-lowest، ست مرات أسفل الخط، أو بعض المتغيرات حيث يقوم 7 بإعادة ترتيب. هذه الوظيفة هي التي تحجزينها حتى لا تضطرين للسؤال مجدداً</p>
+
+  <p>نحن سَنَغطّي ما 4d6-drop-lowest في الحقيقة، الرياضيات ما أنت يُرجّحُ أَنْ تَنتهي مَع، كَمْ يُقارنُ إلى صفيفةِ قياسيةِ وa نَصْرفُ،</p>
+
+  <h2>الطريقة في فقرة واحدة</h2>
+
+  <p>أدر أربعة نرد من ستة جوانب أسقطْ أقل واحد يَمُوتُ. أضف الثلاثة المتبقية هذا هو واحد من نتائج القدرة. كرر العملية بأكملها ست مرات لملء كل القدرات الستة - القوة، الدكسترية، الدستور، الاستخبارات، ويسميدوم، شاريستا - ثم تعيين الأعداد الستة الناتجة عن ذلك إلى أي القدرات التي تريد (ما لم تتطلب إدارة الشؤون الإدارية الخاصة بك &quot; أسفل الخط &quot; حيث يذهب أول جولة إلى سترنغث، والثاني إلى ديكس، وما إلى ذلك).</p>
+
+  <div class="method-box">
+    <strong>ملفوف:</strong> الأراضي الرطبة <code>6, 3, 4, 2</code>اخفض صوتك <strong>13</strong>هذه نقطة واحدة افعلها خمس مرات
+  </div>
+
+  <h2>لماذا 4d6-drop-lowest بدلا من 3d6؟</h2>
+
+  <p>The historical method, going back to the earliest editions, was 3d6 straight. در ثلاثة نرد، ولخص لهم، وهذا هو النتيجة الخاصة بك. إنه نظيف رياضياً ويعطي متوسطاً قدره 10.5 والذي يُفترض أن يكون المتوسط للبشر</p>
+
+  <p>المشكلة: <strong>a 3d6 roll produces a lot of average and below-average characters</strong>من المتوقع أن تكون بطلاً الجلوس على طاولة حيث مقاتلك لديه STR 9 لأن النرد كان باردا ليس بطوليا، هو حزين.</p>
+
+  <p>4d6-drop-lows the distribution upward without breaking the game. عن طريق خوض موت إضافي و التخلص من الأسوأ، كنت أساسا تسأل "ما كان ثلاثة من محاولاتك الأربعة قيمة؟" - الجواب هو تقريبا أفضل من ثلاث لفائف مستقيمة.</p>
+
+  <h3>الأعداد الفعلية</h3>
+
+  <p>وها هي المتوسطات وفرصة إدخال علامات بارزة محددة تحت كل طريقة:</p>
+
+  <table class="stats">
+    <thead><tr><th>المنهجية</th><th>Avg per score</th><th>P(score &ge; 15)</th><th>P(score &apos; 18)</th></tr></thead>
+    <tbody>
+      <tr><td>3d6</td><td>10.5</td><td>~9.3%</td><td>~0.46%</td></tr>
+      <tr><td>4d6 drop lowest</td><td>~12.24</td><td>~25.5%</td><td>~1.62%</td></tr>
+    </tbody>
+  </table>
+
+  <p>أكثر من ستّة لفائف، أنت تقريباً ثلاثة أضعاف على الأرجح رؤية 15+ مع 4d6-drop-lowest، وحوالي أربع مرات أكثر احتمالاً أن تهبط في 18 The average total stat budget jumps from ~63 to ~73.4.</p>
+
+  <p>وبالنسبة للسياق، يبلغ مجموع الصفائف المعيارية 5 72 (15 و14 و13 و12 و10 و8) و27 نقطة حد أقصى في 75 نقطة قبل العلاوات العنصرية. إذاً المعدل المتجدد هو <em>قريب جدا</em> والفرق هو الفرق.</p>
+
+  <h2>التدفق العملي</h2>
+
+  <p>على طاولة مادية، تريد الجميع مشاهدة كل لفافة. ابدأوا بنتيجة واحدة في وقت واحد، اعلنوا النرد الأربعة، اسقطوا الأقل بشكل واضح أكرر ست مرات لا سطو على الجيب، لا إعادة تصوير النرد المسقط.</p>
+
+  <p>على الإنترنت أو منفرداً، أسهل شيء هو لفة النرد الذي يُسجّلُ أقل عملية تلقائياً ويُشوّفُك الذي يَمُوتُ أُزيلَ. السبينيت <a href="/ar/tools/roll-4d6-drop-lowest.html">4d6-drop-lower</a> يلفّ كلّ ستّة درجاتِ قدرةِ في نقرةِ واحدة ويُوقّعُ السقطَ يَمُوتُ على كُلّ لذا ليس هناك غموض.</p>
+
+  <p>إذا كنت تريد التمسك بالأسلوب الكلاسيكي لحملة جراتير، هناك أيضا مستقيم <a href="/ar/tools/roll-3d6.html">3d6 roller</a>و لـ (إم تي) أو لـ (تدويل) أو لـ (مـنـازل) <a href="/ar/tools/dice-roller.html">دحرجة النرد</a> التعامل مع أي <code>NdX</code> مزيج تحتاجه</p>
+
+  <h2>قد تستخدمها</h2>
+
+  <h3>أسفل الخط</h3>
+  <p>ست مرات في الترتيب النتيجة الأولى هي " سترينجث " والثاني هو " ديكس " الثالث هو " كون " الرابع هو " إنت " الخامس " ويس " السادس هو " تشا لا تعيين. خلق شخصيات مُشكلة بالصدفة بدلاً من البناء الأمثل المدرسة القديمة والمتعة المفاجئة إذا ألتزمت الطاولة كلها</p>
+
+  <h3>7 أو 8 هو إعادة ترتيب</h3>
+  <p>إذا كانت أيّة قدرة واحدة تُسجل 7 أو أقل، يُعاد تسجيل تلك النتيجة. مما يجعل شخصيتك غير مجدية شائعة بما فيه الكفاية أن العديد من أجهزة إدارة الديون تعتبره التخلف.</p>
+
+  <h3>Reroll if the total is too low</h3>
+  <p>الإنقاذ الكلاسيكي: "إذا كان مجموع درجاتك الستة أقل من 60، أو أعلى درجاتك أقل من 14، راجع المجموعة كلها." يتوقّف أن تكون عالقاً مع شخصية مبللة تماماً من خلال عدم خطأك</p>
+
+  <h3>الجولة 7، إسقاط أسوأ النتيجة</h3>
+  <p>تدحرج 7 درجات من القدرة مع 4d6-drop-lowest، ثم التخلص من أقل من السبعة. ويدفع الوراثة المجموع المتوقع إلى ما يقرب من ٧٦ إلى ٧٧. عظيم للحملات البطولية، أكثر من اللازم للطمع</p>
+
+  <h3>اجمع مجموعتين كاملتين واختار واحدة</h3>
+  <p>أدر ستّة درجات مرّتين، إستعملْ أيّهما تُفضّلُ. مُحدّد فروق كبير بدون زيادة السقف كما يفعل "الإنزال السابع"</p>
+
+  <h2>متى يَدْومُ ضدّ متى يَستعملُ صفيفةَ قياسيةَ أَو بضاعةِ نقطةِ</h2>
+
+  <ul>
+    <li><strong>التدحرج الأفضل</strong> عندما تثق المجموعة ببعضها البعض، الحملة يُقصد بها أن تشعر وكأنها أسطورة أو شعبية، ولا أحد سيشعر بالسحق إذا كان شخصهم أضعف من شخص آخر.</li>
+    <li><strong>الصفوف القياسية هي الأفضل</strong> عندما تُريدُ ميزانياتَ بدايةَ متطابقةَ، حدّ أدنى وقتِ الدورةِ - صفر، وخط أساس قابل للتنبؤِ لتوازنِ اللقاءاتِ.</li>
+    <li><strong>أفضل طريقة</strong> عندما يُريد اللاعبونَ أَنْ يَفْهموا ويُريدُ دي إم عدالةَ مثاليةَ.</li>
+  </ul>
+
+  <p>لا يوجد إجابة صحيحة Many long-running tables silently mix: new players get standard array until they know the system, veterans roll 4d6-drop-lowest with a reroll clause, and the DM uses fixed stats for all NPCs regardless.</p>
+
+  <div class="cta-card">
+    <h3>شغلي الشخصية التالية الآن</h3>
+    <p>→ <a href="/ar/tools/roll-4d6-drop-lowest.html">4d6 drop Lowest - rolls all 6 ability scores</a></p>
+    <p>→ <a href="/ar/tools/roll-3d6.html">3d6 Roller - Class old-school stat</a></p>
+    <p>→ <a href="/ar/tools/dice-roller.html">(دوس رولر) - أي مزيج من الـ (إند إكس)</a></p>
+  </div>
+
+  <h2>مذكرة نهائية بشأن العدالة</h2>
+
+  <p>المغزى هو أن تقبل النتيجة إذا كانت طاولتك تريد إعادة ترتيب كل مرة ينتهي بها شخص ما مع 7، كنت لا تريد عشوائيا - تريد صفيفة موحدة مع مسرح النرد. كلاهما بخير اختر واحداً بصدق في الجلسة صفر و اكتب القاعدة وتوقف عن الجدال حولها</p>
+
+  <p>الان اذهب الى بربري مع 18 في سترينج و 7 في الاستخبارات هذا هو المغزى</p>
+
+</article>

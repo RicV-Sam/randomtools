@@ -1,0 +1,157 @@
+---
+layout: layouts/base.njk
+title: عدد الوفيات بين 1 و2 - فير بيناري بيكر
+description: >-
+  اختر رقماً عشوائياً أو 2 فوراً - بديلاً عادلاً لقطع العملة في شكل رقم نقي. حر،
+  لا إشارة، يعمل على متن متنقل.
+ogTitle: عدد الوفيات بين 1 و2
+ogDescription: لحظــة حرــة ١ أو ٢ - قلب عملة رقمية لاتخاذ قرارات ثنائية.
+canonical: 'https://spinnit.site/ar/tools/random-number-1-2.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "عدد الوفيات بين 1 و2",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل هذا حقا 50/50؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم كل جيل لديه بالضبط 50٪ فرصة 1 و 50٪ فرصة 2."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "لماذا تستخدم 1 أو 2 بدلا من الرأس أو ذيل؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "والأرقام أسهل على الرعي في صحائف أو خريطة إلى أي قائمة ذات فتحتين."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكن أن يحدث هذا العدد نفسه؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، وهم طبيعيون. النزاهة هي متوسطات بعيدة المدى ليست قصيرة"
+        }
+      }
+    ]
+  }</script>
+pageScript: |
+
+  const MIN = 1, MAX = 2;
+  const history = [];
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  bindGlobalShortcut(generate);
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🪙</div>
+    <h1>عدد الوفيات بين 1 و2</h1>
+    <p>إختيار ثنائي نظيف</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">رقمك (1 أو 2)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>كم عدد الإختيارات؟</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">الإختيارات الأخيرة</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>عدد عشوائي بين 1 و 2 هو أبسط فرصة عادلة يمكنك تشغيلها - 50/50 في شكل عدد. إنها قشرة عملة بدون عملة مما يجعلها مفيدة عندما تريد قرار ثنائي مكتوب كرقم نظيف</p>
+
+    <h2>عندما يلتقط 1 أو 2</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>اتخاذ قرار بين خيارين عندما لا تمانع حقا</li>
+      <li>تعيين إحدى المجموعتين أو الفرق أو شروط الاختبار</li>
+      <li>عينات اختبار من الفئة ألف/باء في الفصول الدراسية أو التدريبات البحثية</li>
+      <li>الإختيار الذي يذهب أولا في لعبة لاعبين</li>
+      <li>محاكاة العملات المعدنية في النصوص وصحائف النشر</li>
+    </ul>
+
+    <h2>رؤوس أو ذيول؟</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">إذا كنت تفضّل رؤية النتيجة كعملة عملة، إستخدم <a href="coin-flip.html">عملة الوجه</a> أداة - نفس النزاهة، ورؤية صديقة. من أجل نعم لا أسئلة نمطية <a href="yes-no-wheel.html">نعم / لا عجلة</a> مصنوع من أجله</p>
+
+    <h2>النطاقات الصغيرة الأخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">حاول أيضاً <a href="random-number-1-5.html">1–5</a>, <a href="random-number-1-6.html">١-٦)د(</a>, <a href="random-number-1-10.html">1–10</a>أو بالكامل <a href="random-number.html">النطاق العرفي</a> المولد</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذا حقا 50/50؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم كل جيل لديه بالضبط 50٪ فرصة 1 و 50٪ فرصة 2.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">لماذا أختار واحد أو اثنين بدلا من الرأس أو ذيل؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">الأرقام أسهل من العضلات في صحائف النشر، تسجيل في الملاحظات البحثية، أو خريطة إلى أي قائمة اثنين من الخيارات التي كتبتها بالفعل.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكن أن يحدث هذا العدد نفسه؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، وهي طبيعية تماما. أكثر من 10 قنابل، ركض أربعة أو خمسة من نفس الشيء ليس غير عادي. النزاهة هي عن متوسطات طويلة الأجل، وليس قصيرة.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> عملة الوجه</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم / لا عجلة</a>
+      <a class="related-card" href="random-number-1-10.html"><span class="ri">🔢</span> ١-١٠ مولدات</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> الزبون العرفي</a>
+    </div>
+  </section>
+
+</main>

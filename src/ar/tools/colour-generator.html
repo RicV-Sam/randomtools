@@ -1,0 +1,259 @@
+---
+layout: layouts/base.njk
+title: 'مولدات لون لحوم الرنة - HEX, RGB HSL | Spinnit'
+description: 'تولد الألوان العشوائية على الفور مع HEX, RGB and HSL codes. مصممون ومطورون'
+canonical: 'https://spinnit.site/ar/tools/colour-generator.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "مولدات ملونة",
+    "description": "توليد الألوان العشوائية مع قيم HEX, RGB and HSL",
+    "url": "https://spinnit.site/ar/tools/colour-generator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="مولدات لون الديدان">
+
+  <meta name="twitter:description" content="تولد ألوان عشوائية مع قيم HEX, RGB
+  and HSL. نسخة نقية مجانيّة ومتنقلة.">
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل يمكنني الرش باللون؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم إنخفاض مظهر الألوان يسمح لك بتقييد النتائج إلى الألوان المشرقة/الكبيرة، المعجنات الناعمة، النغمات المظلمة، أو النطاق الكامل."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "كيف أنسخ رمز الألوان؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "انقري على أي من الصفوف الثلاثة للشكل (HEX, RGB, or HSL) ونسخ القيمة لوحتك على الفور."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يعمل هذا على الهاتف؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+        }
+      }
+    ]
+  }</script>
+pageScript: >
+
+  const history = [];
+
+
+  function randInt(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
+
+
+  function generate() {
+    const mode = document.getElementById('colourMode').value;
+    let r, g, b;
+    if (mode === 'bright') {
+      const h = randInt(0,359), s = randInt(70,100), l = randInt(45,60);
+      [r,g,b] = hslToRgb(h,s,l);
+    } else if (mode === 'pastel') {
+      const h = randInt(0,359), s = randInt(30,60), l = randInt(75,92);
+      [r,g,b] = hslToRgb(h,s,l);
+    } else if (mode === 'dark') {
+      const h = randInt(0,359), s = randInt(20,80), l = randInt(10,35);
+      [r,g,b] = hslToRgb(h,s,l);
+    } else {
+      r = randInt(0,255); g = randInt(0,255); b = randInt(0,255);
+    }
+
+    const hex = rgbToHex(r,g,b);
+    const [h,s,l] = rgbToHsl(r,g,b);
+
+    document.getElementById('swatch').style.backgroundColor = hex;
+
+    const fmts = document.getElementById('formats');
+    const formats = [
+      {label:'HEX', val: hex.toUpperCase()},
+      {label:'RGB', val: `rgb(${r}, ${g}, ${b})`},
+      {label:'HSL', val: `hsl(${h}, ${s}%, ${l}%)`}
+    ];
+    fmts.innerHTML = formats.map(f => `
+      <div class="color-format" onclick="copyText('${f.val}', this)" style="cursor:pointer" title="Click to copy">
+        <span class="color-format-label">${f.label}</span>
+        <span class="color-format-val" id="fmt-${f.label}">${f.val}</span>
+      </div>
+    `).join('');
+
+    history.unshift({hex, r, g, b});
+    if (history.length > 10) history.pop();
+    renderHistory();
+  }
+
+
+  function copyText(val, el) {
+    navigator.clipboard.writeText(val).then(() => {
+      const orig = el.querySelector('.color-format-val').textContent;
+      el.querySelector('.color-format-val').textContent = '!';
+      setTimeout(() => el.querySelector('.color-format-val').textContent = orig, 1500);
+    });
+  }
+
+
+  function renderHistory() {
+    const h = document.getElementById('swatchHistory');
+    h.innerHTML = history.map(c => `
+      <div onclick="applyColor('${c.hex}')" title="${c.hex.toUpperCase()}"
+        style="width:36px;height:36px;border-radius:8px;background:${c.hex};cursor:pointer;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;"></div>
+    `).join('');
+  }
+
+
+  function applyColor(hex) {
+    document.getElementById('swatch').style.backgroundColor = hex;
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+    const [h,s,l] = rgbToHsl(r,g,b);
+    document.getElementById('formats').innerHTML = [
+      {label:'HEX', val:hex.toUpperCase()},
+      {label:'RGB', val:`rgb(${r}, ${g}, ${b})`},
+      {label:'HSL', val:`hsl(${h}, ${s}%, ${l}%)`}
+    ].map(f => `
+      <div class="color-format" onclick="copyText('${f.val}', this)" style="cursor:pointer">
+        <span class="color-format-label">${f.label}</span>
+        <span class="color-format-val">${f.val}</span>
+      </div>`).join('');
+  }
+
+
+  function rgbToHex(r,g,b) { return '#' + [r,g,b].map(v =>
+  v.toString(16).padStart(2,'0')).join(''); }
+
+  function rgbToHsl(r,g,b) {
+    r/=255; g/=255; b/=255;
+    const max=Math.max(r,g,b), min=Math.min(r,g,b);
+    let h,s,l=(max+min)/2;
+    if(max===min){h=s=0;}else{
+      const d=max-min; s=l>0.5?d/(2-max-min):d/(max+min);
+      switch(max){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;default:h=((r-g)/d+4)/6;}
+    }
+    return [Math.round(h*360),Math.round(s*100),Math.round(l*100)];
+  }
+
+  function hslToRgb(h,s,l) {
+    h/=360; s/=100; l/=100;
+    let r,g,b;
+    if(s===0){r=g=b=l;}else{
+      const q=l<0.5?l*(1+s):l+s-l*s, p=2*l-q;
+      const hue2rgb=(p,q,t)=>{if(t<0)t+=1;if(t>1)t-=1;if(t<1/6)return p+(q-p)*6*t;if(t<1/2)return q;if(t<2/3)return p+(q-p)*(2/3-t)*6;return p;};
+      r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3);
+    }
+    return [Math.round(r*255),Math.round(g*255),Math.round(b*255)];
+  }
+
+
+  generate();
+
+  document.addEventListener('keydown', e => {
+  if(e.code==='Space'){e.preventDefault();generate();}});
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎨</div>
+    <h1>مولدات ملونة</h1>
+    <p>تولد ألوان عشوائية جميلة مع كل رموز الألوان</p>
+  </div>
+
+  <div class="color-swatch" id="swatch"></div>
+
+  <div class="color-formats" id="formats"></div>
+
+  <div style="margin:1rem 0;">
+    <div class="control-group">
+      <label>طريقة البلاء</label>
+      <select id="colourMode">
+        <option value="any">أي لون</option>
+        <option value="bright">Bright / vivid only</option>
+        <option value="pastel">باستل/ضوء فقط</option>
+        <option value="dark">النغمات المظلمة فقط</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">الموارد الطبيعية</button>
+
+  <div style="margin-top:1.25rem;">
+    <div class="history-label" style="font-size:11px;color:var(--text3);font-family:var(--mono);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">تاريخ العقيدة</div>
+    <div id="swatchHistory" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>مولد محرقة الراندوم يخلق لونًا جديدًا على كل نقر ويعطيكِ مُعدّات (هيكس) و(آر جي بي) و(إتش إس إل) جاهزة للنسخ ويمكنكم أن تتقيأوا بالمزاج - أي المعجنات المشرقة والناعمة، أو النغمات المظلمة - مما يجعلها مفيدة حقا كمساعدة تصميم بدلا من مجرد رواية عشوائية. الألوان العشرة الأخيرة تظهر في شريط التاريخ من أجل المقارنة السهلة</p>
+
+    <h2>????? ?????????</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>(كليك جينرات كولور) للحصول على لون عشوائي جديد</li>
+      <li>اختر أسلوب لون - أي، برايت، باستيل، أو مظلم - لتصفية النطاق.</li>
+      <li>اضغطي على أي صف للشكل (HEX, RGB, أو HSL) لنسخ تلك القيمة إلى مشبكك</li>
+      <li>إستخدم شريط التاريخ الألوان في القاع لإعادة النظر في أي من ألوانك العشرة الأخيرة</li>
+      <li>اضغط الفضاء لتوليد لون جديد بدون استخدام الفأر</li>
+    </ol>
+
+    <h2>الاستخدامات المشتركة</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>العثور على ألوان نقطة البداية لمشاريع التصميم التصويري أو الرسوم البيانية</li>
+      <li>توليد ألوان اللهجة للعمل على تطوير الشبكة</li>
+      <li>:: إيجاد شحوم ملونة عشوائية من أجل التجارب الإيضاحية أو التجارب التجارية</li>
+      <li>الاستخدام التعليمي في فصول التصميم الفني أو الرقمي</li>
+      <li>التمارين النظرية للعقيدات ودورات الإلهام الإبداعية</li>
+      <li>اختيار ألوان المعلومات الأساسية لمراكز وسائط الإعلام الاجتماعية أو الإبهام</li>
+    </ul>
+
+    <h2>لماذا تستخدم سبينيت</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">رموز الألوان تُنسخُ إلى المشبكِ في نقرةِ واحدة بدون إعلاناتِ تُقاطعُ سيرَ العملَ. وتظهر في نفس الوقت ثلاثة أنواع من الأشكال - HEX, RGB, and HSL - حتى يكون لديك دائما القيمة التي تحتاج إليها. يعمل خارجا بعد الحمل الأول، مع عدم الحاجة إلى أي إشارة على الإطلاق.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني الرش باللون؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم إنخفاض مظهر الألوان يسمح لك بتقييد النتائج إلى الألوان المشرقة/الكبيرة، المعجنات الناعمة، النغمات المظلمة،</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">كيف أنسخ رمز الألوان؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">انقري على أي من الصفوف الثلاثة للشكل (HEX, RGB, or HSL) ونسخ القيمة لوحتك على الفور. يبدو أن رسالة تأكيد قصيرة تؤكد النسخة</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> عدد المولدات</a>
+      <a class="related-card" href="password-generator.html"><span class="ri">🔐</span> مولد كلمة المرور</a>
+      <a class="related-card" href="percentage-generator.html"><span class="ri">📊</span> نسبة عشوائية</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+    </div>
+  </section>
+
+</main>

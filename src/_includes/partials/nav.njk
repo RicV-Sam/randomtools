@@ -1,9 +1,7 @@
 <nav class="nav">
-  {%- set localePrefix = '' -%}
-  {%- if lang and languages and lang != languages.default -%}
-    {%- set localePrefix = '/' + lang -%}
-  {%- endif -%}
-  <a class="nav-back" href="{{ navBackHref or (localePrefix + '/index.html') }}">&larr; {{ navBackLabel or 'all tools' }}</a>
+  {%- set localePrefix = locale.prefix or '' -%}
+  {%- set labels = locale.labels or {} -%}
+  <a class="nav-back" href="{{ navBackHref or (localePrefix + '/index.html') }}"><span aria-hidden="true">&larr;</span> {{ navBackLabel or labels.allTools or 'all tools' }}</a>
   <div class="nav-logo">spinn<span>it</span></div>
-  <a class="nav-back" href="{{ localePrefix }}/blog/">blog</a>
+  <a class="nav-back" href="{{ localePrefix }}/blog/">{{ labels.blog or 'blog' }}</a>
 </nav>

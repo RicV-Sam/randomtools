@@ -1,0 +1,156 @@
+---
+layout: layouts/base.njk
+title: عجلات الأسماء لغرفة الصف دليل المعلم
+description: >-
+  عجله من الأسماء صنعت للصف :: توفير معلومات مجانية وسهلة للعرض عن سلامة الناتج
+  المحلي الإجمالي - مع تقديم معلومات عملية من المدرسين الحقيقيين بشأن استخدام
+  عجلة الاسم في الدروس.
+ogTitle: Wheel of Names for Classroom  of Spinnit
+ogDescription: دليل المعلم لاستخدام عجلات الإسم مجاناً، قراءتها، لا إشارة
+canonical: 'https://spinnit.site/ar/tools/wheel-of-names-for-classroom.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Wheel of Names for Classroom",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هَلْ هذا مَنْ مِنْ مِنْ قِبَلِ مِنْ الناتجِ المحلي الإجماليِ إلى a مدرسة المملكة المتحدة؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم الاسماء التي تم إسترجاعها لا تترك أبداً تابوت المروج لا تحميل ولا حساب ولا كوكيز تتبع"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل ستعمل على لوحة بيضاء تفاعلية؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم الأداة مستجيبة وسهلة التأثر. إضغطوا F11 للشاشة الكاملة"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكنني ان احفظ قائمتي بين الدروس؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ليس حالياً ويحتفظ كثير من المعلمين بسجل على هاتفهم إلى معجون في ثواني."
+        }
+      }
+    ]
+  }</script>
+pageScript: >
+
+  const DEFAULT_NAMES =
+  ['Aisha','Benjamin','Chloe','Daniel','Eva','Finn','Grace','Harry','Ivy','Jack','Kai','Leo','Mia','Nina','Oliver','Poppy','Quinn','Ruby','Samuel','Tara','Umar','Violet','Willow','Xander','Yasmin','Zane'];
+
+  document.getElementById('namesInput').value = DEFAULT_NAMES.join('"');
+
+
+  function getNames() {
+    return document.getElementById('namesInput').value.split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
+  }
+
+  function pick() {
+    const names = getNames();
+    if (!names.length) { alert('أضف بعض الأسماء أولاً'); return; }
+    const winner = names[Math.floor(Math.random() * names.length)];
+    document.getElementById('result').textContent = winner;
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  }
+
+  function clearResult() { document.getElementById('result').textContent = '—';
+  }
+
+  bindGlobalShortcut(pick);
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎡</div>
+    <h1>Wheel of Names for the Classroom</h1>
+    <p>عجلة اسم صديقة للمدرسين بالإضافة إلى النصائح التي تعمل</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">مختار</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>قائمة الرتبة (اسم واحد لكل خط)</label>
+      <textarea id="namesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;"></textarea>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">SPIN</button>
+  <button class="btn-copy" onclick="clearResult()" style="margin-top:8px;">آمن</button>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>وعجلة من الأسماء هي واحدة من أبسط أدوات التدريس لتضيف إلى روتينك - وواحدة من أكثر الوسائل فعالية للمشاركة الطلابية العادلة. هذه الصفحة تعطيك مخلل سريع فوق، وتحتها، دليل عملي لاستخدام عجلة الاسم دون أن تصبح ضوضاء في درسك.</p>
+
+    <h2>لماذا تستخدم عجلة الاسم في الفصل</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>إنصاف الصوت</strong> - الطلبة الهادئين يتم استدعاؤهم في كثير من الأحيان</li>
+      <li><strong>انخفاض المقاومة</strong> "العجلة اختارتك" أسهل من قبول "أنا أختارك"</li>
+      <li><strong>إنتباه</strong> -الطلاب يبقون في حالة تأهب</li>
+      <li><strong>Pace</strong> - صنبور واحد، جواب واحد، لا انتظار الأيدي</li>
+      <li><strong>جمع البيانات</strong> -ابقِ على المسار الذي يُجيب على الأنماط</li>
+    </ul>
+
+    <h2>ثلاث طرق لاستخدامها بشكل جيد</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;"><strong>1. The cold call.</strong> اسأل سؤالاً، توقف لعشر ثوان من وقت التفكير <em>ثم</em> اضغط على العجلة وقت التفكير غير قابل للتفاوض بدون أن تحصل على "لا أعرف" بدلاً من إجابات حقيقية</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;"><strong>2 - شبكة الأمان.</strong> دع الطالب يجيب، وإن كانوا عالقين، دعهم يجتازون العجلة إلى من يختارونه. هم يَبْقونَ في السيطرةِ، لكن النشاط يَتحرّكُ.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;"><strong>3 - طلب العرض.</strong> بالنسبة للعمل الجماعي أو العروض الفردية، تدور العجلة مرة واحدة لكل فترة من أجل وضع النظام على الهواء. يزيل كل حجة "تذهب أولاً"</p>
+
+    <h2>ثلاثة أخطاء مشتركة</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>تزلج الطالب المختار</strong> - بمجرد أن تنادي العجلة باسمها، إلتزم بها. التزلج يكسر عقد العدالة</li>
+      <li><strong>استخدامه من أجل الأسئلة العالية</strong> - لا تستخدم أبدا العجلة من أجل الوسم العام أو قرارات السلوك. أبقيها منخفضة</li>
+      <li><strong>ننسى العودة</strong> - إذا كنت تستخدم أسلوب عدم تكرار، إعادة بعد كل درس أو حركية لطبقة التزلج.</li>
+    </ul>
+
+    <h2>هل تريد العجلة كاملة؟</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">المختار فوق سريع بشكل متعمد من أجل الطموح الكامل الذي يستمتع به الأطفال <a href="wheel-of-names.html">عجلة الأسماء</a>مفيد أيضا: <a href="random-student-picker.html">راندوند بيكر</a> مع عدم تكرار <a href="team-picker.html">منتقي الفريق</a> للعمل الجماعي <a href="list-shuffler.html">قائمة المتثاقل</a> من أجل طلب عشوائي</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هَلْ هذا مَنْ مِنْ مِنْ قِبَلِ مِنْ الناتجِ المحلي الإجماليِ إلى a مدرسة المملكة المتحدة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم يُسمّيُك عجينةَ في أبداً مَا تَتْركُ تابوتَ مُتَجَرَّبَ - لا تحميل، لا حساب، لا كوكيز يَتعقّبُك عبر المواقعِ. هذا يعني أنه لا يوجد تجهيز بيانات شخصية تحت الناتج المحلي الإجمالي بقدر ما يتعلق الأمر بهذه الأداة</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل ستعمل على لوحة بيضاء تفاعلية؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم الأداة مستجيبة وسهلة التأثر. من أجل النظرة الأكثر نظافة لجهاز إي دبليو بي، إضغطوا F11 للشاشة الكاملة وإستعمال الرئيس <a href="wheel-of-names.html">عجلة الأسماء</a> للنسخة المتحركة</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني ان احفظ قائمتي بين الدروس؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">في الوقت الراهن لا - ولكن يمكنك تقديم قائمة من ملاحظة أو نشر صحيفة في أقل من ثانية. الكثير من المعلمين يحتفظون بقائمة "الكلاب 7B" على هاتفهم لهذا السبب بالتحديد</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> العجلات الكاملة للأسماء</a>
+      <a class="related-card" href="random-student-picker.html"><span class="ri">🎒</span> الطالب بيكر</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> منتقي الفريق</a>
+      <a class="related-card" href="random-name-picker-no-repeat.html"><span class="ri">🎯</span> لا كرر بيكر</a>
+    </div>
+  </section>
+
+</main>

@@ -1,0 +1,251 @@
+---
+layout: layouts/base.njk
+title: 'Dice roller - roll D6, D20 &apos; Custom Dice | Spinnit'
+description: >-
+  تشغيل النرد الافتراضي على الإنترنت. اختر D4, D6, D8, D10, D12, D20 أو الجوانب
+  الجمركية. مثالية لألعاب الألواح، و RPG و قرارات سريعة.
+canonical: 'https://spinnit.site/ar/tools/dice-roller.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "بكرة النرد",
+    "description": "تشغيل أي نرد على الإنترنت - D4, D6, D8, D10, D12, D20, D100 and custom",
+    "url": "https://spinnit.site/ar/tools/dice-roller.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="Dice roller   Spinnit">
+
+  <meta name="twitter:description" content="تشغيل أي النرد على الإنترنت. D4 to
+  D100 and custom sides. مجانيّة ومتحركة.">
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل يمكنني أن ألعب النرد المتعدد في آن واحد؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم جهزوا حقل النرد حتى 20 و ستظهر الأداة كل نتيجة فردية بالإضافة إلى المجموع"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "ما نوع النرد المتاح؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "D4, D6, D8, D10, D12, D20, and D100 are available as presets. يمكنك أيضاً اختيار العرف و الدخول إلى أي عدد من الجوانب من 2 إلى 1000"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يعمل هذا على الهاتف؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+        }
+      }
+    ]
+  }</script>
+pageScript: >
+
+  const rollHistory = [];
+
+
+  document.getElementById('diceType').addEventListener('change', function() {
+    document.getElementById('customGroup').style.display = this.value === 'custom' ? 'block' : 'none';
+  });
+
+
+  function getSides() {
+    const type = document.getElementById('diceType').value;
+    return type === 'custom' ? parseInt(document.getElementById('customSides').value) || 6 : parseInt(type);
+  }
+
+
+  function rollDice() {
+    const sides = getSides();
+    const count = Math.min(parseInt(document.getElementById('diceCount').value) || 1, 20);
+    const rolls = Array.from({length: count}, () => Math.floor(Math.random() * sides) + 1);
+    const total = rolls.reduce((a,b) => a+b, 0);
+
+    const resultEl = document.getElementById('result');
+    const totalEl = document.getElementById('totalLabel');
+    const labelEl = document.getElementById('rollLabel');
+
+    if (count === 1) {
+      resultEl.textContent = rolls[0];
+      totalEl.style.display = 'none';
+      labelEl.textContent = `D${sides} result`;
+    } else {
+      resultEl.textContent = rolls.join(' + ');
+      resultEl.style.fontSize = 'clamp(1rem,5vw,1.8rem)';
+      totalEl.style.display = 'block';
+      totalEl.textContent = `Total: ${total}`;
+      labelEl.textContent = `${count}D${sides}`;
+    }
+
+    document.getElementById('resultBox').classList.remove('pop');
+    void document.getElementById('resultBox').offsetWidth;
+    document.getElementById('resultBox').classList.add('pop');
+
+    rollHistory.unshift(`${count}D${sides}: ${total}`);
+    if (rollHistory.length > 8) rollHistory.pop();
+    const sec = document.getElementById('historySection');
+    sec.style.display = 'block';
+    document.getElementById('historyList').innerHTML = rollHistory.map(r => `<span class="history-item">${r}</span>`).join('');
+  }
+
+
+  function quickRoll(sides) {
+    document.getElementById('diceType').value = sides;
+    document.getElementById('customGroup').style.display = 'none';
+    document.getElementById('diceCount').value = 1;
+    rollDice();
+  }
+
+
+  document.addEventListener('keydown', e => { if (e.code === 'Space') {
+  e.preventDefault(); rollDice(); }});
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">⚄</div>
+    <h1>بكرة النرد</h1>
+    <p>تدحرج أي نوع من النرد، أي عدد من الأوقات</p>
+  </div>
+
+  <!-- AdSense -->
+  <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
+
+  <div class="result-box" id="resultBox" aria-live="polite" aria-atomic="true">
+    <div class="result-label" id="rollLabel">أدر النرد</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.8rem,10vw,4rem);">—</div>
+    <div id="totalLabel" style="font-size:13px;color:var(--text2);display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>نوع الجنس</label>
+      <select id="diceType">
+        <option value="4">D4 (4-sided)</option>
+        <option value="6" selected>D6 (6-sided)</option>
+        <option value="8">D8 (8-sided)</option>
+        <option value="10">D10 (10-sided)</option>
+        <option value="12">D12 (12-sided)</option>
+        <option value="20">D20 (20-sided)</option>
+        <option value="100">D100 (نسبة مئوية)</option>
+        <option value="custom">العرف</option>
+      </select>
+    </div>
+    <div class="control-group" id="customGroup" style="display:none">
+      <label>الجوانب العرفية</label>
+      <input type="number" id="customSides" value="30" min="2" max="1000">
+    </div>
+    <div class="control-group">
+      <label>عدد النرد</label>
+      <input type="number" id="diceCount" value="1" min="1" max="20">
+    </div>
+  </div>
+
+  <!-- Quick dice buttons -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+    <button onclick="quickRoll(6)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D6</button>
+    <button onclick="quickRoll(20)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D20</button>
+    <button onclick="quickRoll(100)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D100</button>
+    <button onclick="quickRoll(4)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D4</button>
+    <button onclick="quickRoll(12)" style="flex:1;min-width:60px;padding:10px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:var(--mono);font-size:12px;cursor:pointer;">D12</button>
+  </div>
+
+  <button class="btn-generate" onclick="rollDice()">DOLL</button>
+
+  <div class="history" id="historySection" style="display:none;margin-top:1rem;">
+    <div class="history-label">التاريخ</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>(دايس رولر) يدعك تدحرج أي نوع من الموت من الـ (دي 6) الكلاسيكية إلى (دي 100) أو أي موت معتاد اختر كم من النرد لتدحرج في آن واحد و احصل على كل ما لديك على الفور سواء كنتِ في منتصف الدورة في طاولة أو تحتاجي إلى نتيجة عشوائية سريعة هذه الأداة قد غطيتك</p>
+
+    <h2>????? ?????????</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>اختيار نوع النرد الخاص بك من الهبوط (D4, D6, D8, D10, D12, D20, D100, or Custom).</li>
+      <li>إذا إخترتَ (كوزتوم) إدخل عدد الأطراف التي تحتاجها</li>
+      <li>تحديد عدد النرد الذي يجب أن يتدحرج في الحال (حتى 20).</li>
+      <li>قم بلعق (رول دايس) أو استخدام أزرار العجلات لأشهر الأنواع</li>
+      <li>اضغطوا على الفضاء للدحرج فوراً بدون استخدام الفأر</li>
+    </ol>
+
+    <h2>الاستخدامات المشتركة</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>دورات دنيونز ودورات أخرى منضدية</li>
+      <li>ألعاب المجلس التي تحتاج إلى نرد محدد ليس في الصندوق</li>
+      <li>احتمالية الغرف أو المظاهرات الإحصائية</li>
+      <li>ليلة لعبة عندما النرد الفيزيائي ليس بيدي</li>
+      <li>ميكانيكيي لعبة الاختبار وتوزيع الاحتمالات</li>
+      <li>حل القرارات في اللعبة أثناء ألعاب الفيديو</li>
+    </ul>
+
+    <h2>لماذا تستخدم سبينيت</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">كل اللفات تحدث محلياً في منظفك لا يوجد تطبيق للتركيب ولا أوقات التحميل The tool supports up to 20 dice at once with an automatic sum total, making it ideal for RPG players who need fast results mid-session. لا إشارة، لا بيانات مخزنة، يعمل على أي جهاز.</p>
+  </section>
+
+  <section class="tool-content" style="margin-top:1.5rem;">
+    <h2>Dice Probability Basics</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">الموت الوحيد يعطي كل وجه نفس الفرصة D6 لديه فرصة واحدة في 6 لكل نتيجة، في حين أن D20 لديه فرصة واحدة في 20 فرصة. عندما تُدرّبُ النردَ المتعددَ وتُضافُهم سوية، المجاميع المتوسطة تَصْبَحُ أكثر شيوعاً: مع 2d6, a 7 يَبْدو أكثر بكثير مِنْ a 2 أو 12 لأن هناك تركيبات أكثرِ التي تُنتجُه.</p>
+
+    <h2>RPG and Board Game Examples</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong style="color:var(--text);">DD check:</strong> إختر (دي 20) و(د رول) مرة واحدة لدحرجة الهجوم، وإنقاذ الرمي أو فحص القدرة.</li>
+      <li><strong style="color:var(--text);">سجل الأضرار:</strong> حددوا D6، D8 أو D10، وزيادة عدد النرد للتعويض أو الأسلحة أو الهجمات الوحشية.</li>
+      <li><strong style="color:var(--text);">ألعاب المجلس:</strong> الاستخدام <a href="roll-2d6.html">2d6</a> للألعاب التي تحتاج إلى نردين من ستة جوانب</li>
+      <li><strong style="color:var(--text);">الجداول المناسبة:</strong> الاستخدام <a href="roll-d100.html">d100</a> لطاولات السقوط، ولقاءات عشوائية، ونُظُم صواريخ RPG.</li>
+    </ul>
+  </section>
+
+  <section class="tool-content" style="margin-top:1.5rem;">
+    <h2>النرد الشعبي</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تزلج على مجموعة القوائم المشتركة: <a href="roll-2d6.html">الجولة 2d6</a> · <a href="roll-3d6.html">الجولة 3d6</a> · <a href="roll-4d6-drop-lowest.html">4d6 drop lowest (Dstats)</a> · <a href="roll-d100.html">د.</a> · <a href="roll-d10.html">الجولة 10</a> · <a href="random-number-1-20.html">د.</a> · <a href="random-number-1-6.html">د.</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني أن ألعب النرد المتعدد في آن واحد؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم جهز حقل "عدّة النرد" حتى 20 والأداة ستظهر كلّ نتيجة فردية إضافةً إلى المجموع الجاهز</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ما نوع النرد المتاح؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">D4, D6, D8, D10, D12, D20, and D100 are available as presets. يمكنك أيضاً اختيار العرف و الدخول إلى أي عدد من الجوانب من 2 إلى 1000</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> عدد المولدات</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> عملة الوجه</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم لا</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> عدد المولدات الكهربائية</a>
+    </div>
+  </section>
+
+</main>

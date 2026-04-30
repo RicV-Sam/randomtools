@@ -1,0 +1,201 @@
+---
+layout: layouts/base.njk
+title: راندل ستيدر بيكر - الاسم في الصف الأول
+description: >-
+  مختار طالب عشوائي مجاني للمعلمين إستعير قائمة طلابك، إستخدم مرة واحدة لاختيار
+  طالب. يعمل على المُشغّلات والهواتف والأقراص. لا إشارة.
+ogTitle: طالب راندل بيكر
+ogDescription: حرّة اسم مُختار - أسماء العجينة، نقرّ للاختيار. مُناسبة للمُبادرة.
+canonical: 'https://spinnit.site/ar/tools/random-student-picker.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "راندوند بيكر",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل قائمة طلابي في أي مكان؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "لا الاسماء تعيش فقط في قصتك لا شيء يرسل إلى خادم"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "ماذا يحدث عندما يتم اختيار كل طالب؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "تُعلنُ الأداةُ القائمةَ كاملةً وأنت يُمْكِنُ أَنْ تَسْحبَ ريست للبدء ثانيةً."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكنني استخدام هذا لجمعية مدرسية كاملة؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم لا يوجد حد للقائمة و المختار يعمل على الفور حتى على مئات الأسماء"
+        }
+      }
+    ]
+  }</script>
+pageScript: >
+
+  const DEFAULT_NAMES =
+  ['Alex','Amelia','Ben','Chloe','Daniel','Emma','Ethan','Freya','George','Harry','Isla','Jack','Jessica','Liam','Lily','Mia','Noah','Oliver','Olivia','Poppy','Ruby','Sam','Sophie','Thomas','Zoe'];
+
+  document.getElementById('namesInput').value = DEFAULT_NAMES.join('"');
+
+
+  let pickedSet = new Set();
+
+  let lastPicked = null;
+
+
+  function getNames() {
+    return document.getElementById('namesInput').value
+      .split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
+  }
+
+
+  function pick() {
+    const names = getNames();
+    if (!names.length) { alert('أضف بعض الأسماء للقائمة أولاً'); return; }
+    const removePicked = document.getElementById('removePicked').checked;
+    let pool = removePicked ? names.filter(n => !pickedSet.has(n)) : names;
+
+    if (pool.length === 0) {
+      document.getElementById('result').textContent = 'جميعهم مختارون';
+      document.getElementById('remainingLabel').textContent = `All ${names.length} students have been picked. Tap Reset to start again.`;
+      document.getElementById('remainingLabel').style.display = 'block';
+      return;
+    }
+
+    const winner = pool[Math.floor(Math.random() * pool.length)];
+    document.getElementById('result').textContent = winner;
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+
+    if (removePicked) {
+      pickedSet.add(winner);
+      const remaining = names.length - pickedSet.size;
+      document.getElementById('remainingLabel').textContent = `${remaining} student${remaining === 1 ? '' : 's'} left in the pool.`;
+      document.getElementById('remainingLabel').style.display = 'block';
+      renderHistory();
+    } else {
+      document.getElementById('remainingLabel').style.display = 'none';
+    }
+    lastPicked = winner;
+  }
+
+
+  function resetList() {
+    pickedSet.clear();
+    lastPicked = null;
+    document.getElementById('result').textContent = '—';
+    document.getElementById('remainingLabel').style.display = 'none';
+    document.getElementById('historySection').style.display = 'none';
+  }
+
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (pickedSet.size === 0) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = [...pickedSet].map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+
+  document.getElementById('namesInput').addEventListener('input', resetList);
+
+  bindGlobalShortcut(pick);
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎒</div>
+    <h1>راندوند بيكر</h1>
+    <p>إستعير قائمة الصف الخاص بك، نقر مرة واحدة لاختيار طالب</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">مختار</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">—</div>
+    <div id="remainingLabel" style="font-size:13px;color:var(--text2);margin-top:6px;display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>قائمة الرتبة (اسم واحد لكل خط)</label>
+      <textarea id="namesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;"></textarea>
+    </div>
+    <div class="control-group" style="margin-top:10px;">
+      <label><input type="checkbox" id="removePicked" checked style="margin-right:6px;vertical-align:middle;"> لا تَختارْ نفس الطالبِ مرّتين (حتى قائمةِ ريتس)</label>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">PICK a STUDENT</button>
+  <button class="btn-copy" onclick="resetList()" style="margin-top:8px;">قائمة إعادة التوطين</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">تم اختياره</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>مختار طالب عشوائي هو أهدأ طريقة للاتصال بالصف لا أيدي فوق، لا محاباة، لا تخمين الذي كان هادئاً... الأداة تلتقط، والجميع يقبل النتيجة. إستعير قائمتك مرّة، إعتمد مرة على السؤال، وخيار "لا تختار مرّتين" يُتأكّدُ كُلّ طالب يَحْصلُ على a دور قبل أي واحد يُسْألُ ثانيةً.</p>
+
+    <h2>كيف يستخدمه المعلمون</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>نداء بارد</strong> - اسأل سؤالاً، دع الأداة تختار من يجيب</li>
+      <li><strong>القراءة بصوت عال</strong> - اختيار من يقرأ الفقرة التالية</li>
+      <li><strong>العروض</strong> - تقرير ترتيب العرض</li>
+      <li><strong>أنشطة البداية</strong> - اختيار طالب لاستخلاص درس الأمس</li>
+      <li><strong>سلوكك المحايد</strong> - يزيل التصور أنك تستهدف طلابا محددين</li>
+    </ul>
+
+    <h2>معلومة للمساهمين</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">ويصدر الاسم المختار في نص كبير بحيث يقرأ من خلف الغرفة. من أجل عرض أكبر، إضغطوا على "إف 11" لفحص كامل فالأسماء المدرجة في القائمة لا ترسل أبدا إلى أي مكان - فالأداة كلها تعمل في مصففكم.</p>
+
+    <h2>هل تريد عجلة بصرية؟</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">للنسخة المتحركة التي يحبها الأطفال <a href="wheel-of-names.html">عجلة الأسماء</a>وهي تدعم نفس مدخلات قائمة الأسماء مع تقدير عجلات مناسب. حاول أيضاً <a href="random-name-picker-no-repeat.html">لا كرر اسم مختار</a>.. <a href="team-picker.html">منتقي الفريق</a> للعمل الجماعي، أو <a href="list-shuffler.html">قائمة المتثاقل</a> لسحب قائمة في واحدة.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل قائمة طلابي في أي مكان؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">لا الاسماء تعيش فقط في هذه المقصورة اغلق التابوت وذهبوا لا شيء يرسل الى خادم ولا يوجد حساب مطلوب</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ماذا يحدث عندما يتم اختيار كل طالب؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">إذا "لا تختاري نفس الطالب مرّتين" دغدغة، الأداة تُعلن أن القائمة مكتملة <em>قائمة إعادة التوطين</em> ليبدأ من جديد من القائمة الكاملة</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني استخدام هذا لجمعية مدرسية كاملة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، ليس هناك حدود على طول القائمة، والمختار يعمل على الفور حتى على قائمة من عدة مئات من الأسماء.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> عجلة الأسماء</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> منتقي الفريق</a>
+      <a class="related-card" href="random-name-picker-no-repeat.html"><span class="ri">🎯</span> لا كرر بيكر</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+    </div>
+  </section>
+
+</main>

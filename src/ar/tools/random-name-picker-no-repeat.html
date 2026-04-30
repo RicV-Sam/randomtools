@@ -1,0 +1,206 @@
+---
+layout: layouts/base.njk
+title: الاسم المستعار رقم Repeat - Free Unique Becker   Spinnit
+description: >-
+  مختار اسم عشوائي بدون تكرار - كل اسم يتم اختياره مرة واحدة قبل أن يتم اختيار
+  أي شخص مرتين. مجاناً، فوراً، يعمل خارجاً في منظفك
+ogTitle: الاسم المستعار بيكر - لا أكرر
+ogDescription: كل اسم يتم اختياره مرة واحدة قبل أي شخص يكرر. مختار تناوب عادل للفصول والفرق
+canonical: 'https://spinnit.site/ar/tools/random-name-picker-no-repeat.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "الاسم المستعار رقم Repeat",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل الأمر عشوائي في كل مرة؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم (فيشر-يتس) الطازج يركض في الإختيار الأول وفي كل إعادة"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "ماذا لو قمت بتحرير القائمة في منتصف الطريق؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "إعادة تحرير الجولة تلقائياً لمنع شظايا العجلات"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل هو مثل القائمة شوفلر؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "تحت غطاء الرأس نعم، ولكن هذا يكشف عن اسم واحد في كل مرة؛ القائمة شوفلر تظهر النظام الكامل في آن واحد."
+        }
+      }
+    ]
+  }</script>
+pageScript: >
+
+  const DEFAULT_NAMES =
+  ['Alice','Ben','Clara','David','Emma','Finn','Grace','Henry','Isla','Jack'];
+
+  document.getElementById('namesInput').value = DEFAULT_NAMES.join('"');
+
+
+  let shuffled = [];
+
+  let index = 0;
+
+  let picked = [];
+
+
+  function getNames() {
+    return document.getElementById('namesInput').value.split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
+  }
+
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+
+  function pick() {
+    const names = getNames();
+    if (!names.length) { alert('أضف بعض الأسماء أولاً'); return; }
+
+    if (shuffled.length === 0 || index >= shuffled.length) {
+      if (index >= shuffled.length && shuffled.length > 0) {
+        document.getElementById('result').textContent = 'الجولة كاملة!';
+        document.getElementById('remainingLabel').textContent = `All ${shuffled.length} names picked. Tap Reset for a new shuffled round.`;
+        document.getElementById('remainingLabel').style.display = 'block';
+        return;
+      }
+      shuffled = shuffle(names);
+      index = 0;
+      picked = [];
+    }
+
+    const winner = shuffled[index++];
+    picked.push(winner);
+    document.getElementById('result').textContent = winner;
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+
+    const remaining = shuffled.length - index;
+    document.getElementById('remainingLabel').textContent = `${remaining} name${remaining === 1 ? '' : 's'} left in this round.`;
+    document.getElementById('remainingLabel').style.display = 'block';
+    renderHistory();
+  }
+
+
+  function resetList() {
+    shuffled = []; index = 0; picked = [];
+    document.getElementById('result').textContent = '—';
+    document.getElementById('remainingLabel').style.display = 'none';
+    document.getElementById('historySection').style.display = 'none';
+  }
+
+
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (picked.length === 0) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = picked.map((n,i) => `<span class="history-item">${i+1}. ${n}</span>`).join('');
+  }
+
+
+  document.getElementById('namesInput').addEventListener('input', resetList);
+
+  bindGlobalShortcut(pick);
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎯</div>
+    <h1>اسم مستعار - لا تكرار</h1>
+    <p>كل اسم يتم اختياره مرة واحدة قبل أن يتم اختيار أي شخص مرتين</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">مختار</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">—</div>
+    <div id="remainingLabel" style="font-size:13px;color:var(--text2);margin-top:6px;display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>الأسماء (واحدة لكل خط)</label>
+      <textarea id="namesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;"></textarea>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">PICK NEXT</button>
+  <button class="btn-copy" onclick="resetList()" style="margin-top:8px;">قائمة إعادة التوطين</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">تم اختياره بالفعل (من أجل)</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>ومعظم مختاري الأسماء يختارون بشكل مستقل - مما يعني أن شخص ما يمكن أن يتم اختياره مرتين في حين لا يتم اختيار الآخرين على الإطلاق. وهذه الأداة تعمل بشكل صحيح: فهي تعمل من خلال القائمة الكاملة بترتيب عشوائي، <em>لا أحد</em> يتم اختيار مرة ثانية حتى تكتمل الدورة</p>
+
+    <h2>كيف يعمل</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">داخليّاً، إنّه (فيشر ياتس) في أول صنبور، القائمة عشوائية مرة. كل صنبور تالٍ يكشف الاسم التالي حسب الترتيب وعندما تُستنفد القائمة، تدفعك الأداة إلى إعادة ضبطها (التي تُعاد صياغتها، لذا فإن الجولة الثانية أمر مختلف عن الأول).</p>
+
+    <h2>حيث تناسب</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>بارد ينادي في الصف</strong> - كل إجابات طالب قبل أن يجيب أحد مرتين</li>
+      <li><strong>طلب العرض</strong> - نظام عادل، لا حجج "لقد ذهبت"</li>
+      <li><strong>سانتا</strong> - مرسل مستلم دون أن يرسم نفسه</li>
+      <li><strong>قوائم التناوب</strong> - التناوب، طلب القراءة، مساعدة يومية</li>
+      <li><strong>أمر بالمقابلة</strong> - تسلسل عادل للمرشحين أو مقدمي الطلبات</li>
+    </ul>
+
+    <h2>ليس على ما يرام؟</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">إذا أردت أن تختار <em>يمكن</em> كرر (كل نقر مستقل)، استخدم <a href="wheel-of-names.html">عجلة الأسماء</a> أو <a href="random-student-picker.html">الطالب بيكر</a> بدون تكرار لتصفيق القائمة بأكملها في نقطه واحده ورؤية النظام في الحال <a href="list-shuffler.html">قائمة المتثاقل</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل الأمر عشوائي في كل مرة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم (فيشر-يتس) الطازج يركض في أول إختيار وفي كل إعادة، لذا الأمر غير متحيز ومختلف في كل جولة.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ماذا لو قمت بتحرير القائمة في منتصف الطريق؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">تحرير القائمة يعيد ترتيب الجولة تلقائياً هذا يحول دون الإصطدام عن طريق الخطأ من الشوفان الذي لا يطابق القائمة المرئية</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هو مثل القائمة شوفلر؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">تحت الغطاء، نعم - ولكن التفاعل مختلف. This tool reveals one name at a time (good for live classes use). The <a href="list-shuffler.html">قائمة المتثاقل</a> يُظهرُ القائمةَ الكاملةَ في آن واحد.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> عجلة الأسماء</a>
+      <a class="related-card" href="random-student-picker.html"><span class="ri">🎒</span> الطالب بيكر</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> منتقي الفريق</a>
+    </div>
+  </section>
+
+</main>

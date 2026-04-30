@@ -1,0 +1,213 @@
+---
+layout: layouts/base.njk
+title: فائز وينر بيكر
+description: >-
+  اختر فائزاً عشوائياً من أي قائمة أسماء أو مقبض أو بريد إلكتروني أو أرقام تذكرة
+  مختار فائز بالمجان مع ازدواج عمليات الإزالة وفائزين متعددين
+ogTitle: فائز فائز
+ogDescription: >-
+  دخول المعكرونة، إزالة الازدواج إذا لزم الأمر، ورسم واحد أو العديد من الفائزين
+  بالجائزة العشوائية.
+canonical: 'https://spinnit.site/ar/tools/random-winner-picker.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "معبر الفائز",
+    "alternateName": "Random Winner Picker",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل السحب عادل؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم كل دخول له نفس الفرصة تستخدم الأداة مولداً عشوائياً غير متحيز"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكن أن يفوز نفس المدخل مرتين في سحب واحد؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "لا كل فائز يتم إزالته من المسبح قبل أن يرسم القادم حتى لا يفوز أي مدخل بجوائين في سحب واحد"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل هذا يتوافق مع قواعد انستغرام/فيسبوك؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "الأداة تتعامل مع السحب الإمتثال يعتمد على كيفية إدارة العطاء لكل برنامج سياسة ترويجية"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكنني اختيار الفائزين؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم زيادة عدد الفائزين لسحب فائزين متعددين في وقت واحد، ثم استخدام النتيجة المطلوبة كفائز رئيسي يليه الدعم."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل تم تحميل القيود في أي مكان؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "لا يَبْقى الضيوف في بروزرِكَ بينما تَستعملُ الصفحةَ ولا تُرسلُ إلى سبينيت."
+        }
+      }
+    ]
+  }</script>
+pageScript: |
+
+  function getEntries() {
+    let entries = document.getElementById('entriesInput').value.split(/\n/).map(n => n.trim()).filter(n => n.length > 0);
+    if (document.getElementById('dedupe').checked) entries = [...new Set(entries)];
+    return entries;
+  }
+  function drawWinners() {
+    const entries = getEntries();
+    if (!entries.length) { alert('أرعى بعض القيود أولاً'); return; }
+    const wantCount = parseInt(document.getElementById('winnerCount').value) || 1;
+    const count = Math.min(wantCount, entries.length);
+    const pool = [...entries];
+    const winners = [];
+    for (let i = 0; i < count; i++) {
+      const idx = Math.floor(Math.random() * pool.length);
+      winners.push(pool.splice(idx, 1)[0]);
+    }
+    document.getElementById('result').textContent = winners.map((w,i) => count > 1 ? `${i+1}. ${w}` : w).join('"');
+    document.getElementById('result').style.whiteSpace = 'pre-line';
+    const label = document.getElementById('entryCount');
+    label.textContent = `Drawn from ${entries.length} entries`;
+    label.style.display = 'block';
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  bindGlobalShortcut(drawWinners);
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🏆</div>
+    <h1>معبر الفائز</h1>
+    <p>فائزون عشوائيين من الأسماء أو المقبض أو البريد الإلكتروني أو أرقام التذاكر</p>
+  </div>
+
+  <div class="result-box" id="resultBox" aria-live="polite" aria-atomic="true">
+    <div class="result-label">الفائز</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.4rem,7vw,2.6rem);word-break:break-word;line-height:1.25;">—</div>
+    <div id="entryCount" style="font-size:13px;color:var(--text2);margin-top:6px;display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Entries (one per line — names, @handles,mails, anything)</label>
+      <textarea id="entriesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;" placeholder="@first entrant
+@second entrant
+..."></textarea>
+    </div>
+    <div class="control-row" style="margin-top:10px;">
+      <div class="control-group">
+        <label>كم عدد الفائزين؟</label>
+        <input type="number" id="winnerCount" value="1" min="1" max="50">
+      </div>
+      <div class="control-group">
+        <label></label>
+        <label style="font-size:13px;"><input type="checkbox" id="dedupe" style="margin-right:6px;vertical-align:middle;"> إزالة القيود المزدوجة</label>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="drawWinners()">DRAW WINNERS</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>تُديرُ a عطاء ويَحتاجُ لتَختارُ a فائز بشكل عادل؟ قدم قائمة الدخول الخاصة بك (واحد لكل خط)، حدد كم عدد الفائزين الذي تريده، واضغط على الزر. كل دخول لديه فرصة متكافئة، لا يوجد دخول في نفس السحب، ويمكنك فرز النتيجة كدليل. لا حاجة إلى حساب.</p>
+
+    <h2>أفضل لـ "الطرقات" و "القضبان" و "التعليق"</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">استعمل هذه الصفحة عندما يكون لديك بالفعل قائمة بالمنضمين من تعليقات انستغرام، واشتراكات في النشرة الإخبارية، وتذكرات الرافعة، واسم مستخدمي الاختلاف، وورقات الاستمارة، أو بطاقات هوية العملاء. إذا كنت تريد كشف أكثر بصرية، استخدام <a href="wheel-of-names.html">عجلة الأسماء</a>إذا كنت بحاجة فقط إلى عشوائي ترتيب القائمة، استخدام <a href="list-shuffler.html">قائمة المتثاقل</a>.</p>
+
+    <h2>ماذا عن العجين كقائمة دخول</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Instagram comments</strong> - نسخ قائمة التعليقات من الخردة أو التصدير</li>
+      <li><strong>ردود تويتر/X</strong> - نسخ @handles كل من دخل</li>
+      <li><strong>عناوين البريد الإلكتروني</strong> - من استمارة الاشتراك أو قائمة البريد</li>
+      <li><strong>أرقام التذاكر</strong> - لسحب الرافعة</li>
+      <li><strong>هويات العملاء</strong> - لمكافأة الولاء</li>
+    </ul>
+
+    <h2>الحفاظ على شفافيتك</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">أما بالنسبة للمعطيات العامة في وسائط الإعلام الاجتماعية، فإن معظم المنابر تتطلب التحقق من السحب. الممارسة المعتادة:</p>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>إعلان قواعد الدخول وإغلاق الموعد</li>
+      <li>اغلقوا القيد لا تحرروا القائمة بعد إغلاقها</li>
+      <li>التسجيل أو الشاشة الملتقطة التي تظهر قائمة الدخول الكاملة والنتيجة</li>
+      <li>نشر النتيجة في التاريخ وعدد القيود</li>
+    </ol>
+
+    <h2>المناولة المزدوجة</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">عن طريق التقصير، تُبقي الأداة مُزدوجة - أحياناً تُريدُ القيودَ مُرجّمةً بحسابِ التقديمِ. Tick <em>إزالة القيود المزدوجة</em> حتى ينهار كل مقبض فريد لديه فرصة واحدة فقط</p>
+
+    <h2>الفائزون الأساسيون والاحتياطيون</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">من أجل جائزه الجائزة، اجعل الفائز أكثر من واحد الإسم الأول يمكن أن يكون الفائز الرئيسي والأسماء المتبقية يمكن أن تكون احتياطية إذا كان الفائز غير مؤهل، لا يرد، أو يرفض الجائزة. لأن كل فائز يتم إزالته من المسبح قبل السحب التالي لا يمكن أن يحتل نفس القيد فائز متعدد</p>
+
+    <h2>مذكرة خاصة</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">قائمتك السابقة مجهزة في المسبح ولا يتم تحميلها على سبينيت For public screenshots, consider hiding email addresses or private client IDs and using display names, order numbers or anonymized tripDs instead.</p>
+
+    <h2>الأدوات ذات الصلة</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">مفيد أيضا: <a href="pick-random-name.html">إختر اسم راندوم</a>, <a href="lottery-picker.html">منتقي اليانصيب</a>, <a href="wheel-of-names.html">عجلة الأسماء</a>, <a href="random-number-1-1000.html">عدد الوفيات</a>و <a href="giveaway/">راندوم محور الأدوات</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل السحب عادل؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم كل دخول لديه نفس الفرصة للاختيار الأداة تستخدم المولد العشوائي الغير متحيّز و تُظهر لك إحصاء الدخول الكامل قبل كل رسم</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكن أن يفوز نفس المدخل مرتين في سحب واحد؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">لا عندما تختار فائزين متعددين، تزيل الأداة كل فائز من المسبح قبل أن تسحب المسبح التالي، لذا لا يمكن لأي دخول أن يفوز بجوائزتين في نفس السحب.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذا يتوافق مع قواعد انستغرام/فيسبوك؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">وتعالج هذه الأداة نفسها - يتوقف الامتثال على كيفية إدارة العطاء. دائماً يُطلق سراح مُدخلات المسؤولية من المنصّة، يتضمّن قواعد الأهلية، ويتبع كلّ سياسة الترويج.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني اختيار الفائزين؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم زيادة عدد الفائزين لسحب فائزين متعددين في آن واحد عالج النتيجة الأولى كفائز رئيسي والنتائج المتبقية كما طلب الدعم.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل تم تحميل القيود في أي مكان؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">لا يَبْقى الضيوف في منظفِكَ بينما تَستعملُ الصفحةَ. (سبينيت) لا يتلقى أو يخزن قائمتك القديمة</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="pick-random-name.html"><span class="ri">🎲</span> اسم راندل</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> منتقي اليانصيب</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> عجلة الأسماء</a>
+      <a class="related-card" href="random-number-1-1000.html"><span class="ri">🔢</span> ١-٠٠٠ ١ مولد كهربائي</a>
+    </div>
+  </section>
+
+</main>

@@ -1,0 +1,159 @@
+---
+layout: layouts/base.njk
+title: عدد الوفيات بين ١ و ٠٠٠ ١ - المولدات الحرة
+description: >-
+  يولد رقماً عشوائياً بين 1 و1000 فوراً حر ونزيه وسريع من أجل العطاءات، والقضبان
+  الكبيرة، وأخذ العينات البحثية، والهوية. لا إشارة.
+ogTitle: عدد الوفيات بين 1 و 1000 سبينيت
+ogDescription: >-
+  رقم عشوائي مجاني من 1 إلى 1000 مع صنبور واحد. مثالية للمعطيات الكبيرة وعينات
+  البحث
+canonical: 'https://spinnit.site/ar/tools/random-number-1-1000.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "عدد الوفيات بين 1 و 1000",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل يمكن أن يرتفع نفس الرقم مرتين؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم كل جيل مستقل لذا يمكن تكراره لاختيارات فريدة فقط، اربط قائمة وخذ أول N."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل 1000 مشمول؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم ويشمل النطاق ما بين 1 و1000 على حد سواء، ويتمتع كل عدد فيما بين البلدان بفرص متساوية."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكنني استخدام هذا كسحب مسرع؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم الطريقة عادلة وغير متحيزة. سجلوا الجيل و ضعوا الشاشة للشفافية"
+        }
+      }
+    ]
+  }</script>
+pageScript: |
+
+  const MIN = 1, MAX = 1000;
+  const history = [];
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  bindGlobalShortcut(generate);
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🔢</div>
+    <h1>عدد الوفيات بين 1 و 1000</h1>
+    <p>اختيار عادل فوري من 1 إلى 1000</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">رقمك (1-1000)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>كم عدد الأرقام؟</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">النتائج الأخيرة</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>مجموعة من الألف إلى الألف هي البقعة الحلوّة لجذبات أكبر: عطاءات كبيرة، قوائم زبون مرقمة، عينات بحث، أو تعيين هويات فريدة. هذا المولد يعطيك اختياراً عشوائياً حقاً في ثواني مع عدم وجود حسابات أو إعلانات في منطقة الأدوات</p>
+
+    <h2>تجهيزات جيدة ل ١-٠٠٠ ١</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>وسائل الإعلام الاجتماعية التي تضم عدة مئات من الداخلين</li>
+      <li>عينة سجلات عشوائية من مجموعة بيانات تصل إلى 000 1 صف</li>
+      <li>تعيين أعداد مؤقتة من بطاقات الهوية للمشاركين في الاستقصاء</li>
+      <li>اختيار صفحة عشوائية من وثيقة كبيرة أو كتاب مرجعي</li>
+      <li>احتمال التعليم - ١ في المائة - ٠٠٠ ١ مثال كتابي مشترك</li>
+    </ul>
+
+    <h2>Tip - multiple draws at once</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">هل تريد أن تختار عدة فائزين؟ المجموعة <em>كم عدد الأرقام؟</em> حتى 100 قبل أن يولد الضرب الدوبليتس يُمكنُ أَنْ يَظْهرَ - إذا تَحتاجُ إختياراتَ فريدةَ فقط، إستعملْ <a href="list-shuffler.html">قائمة المتثاقل</a> وبدلاً من ذلك، خذ النتائج الأولى</p>
+
+    <h2>النطاقات الأخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">كاملة <a href="random-number.html">النطاق العرفي</a> متاحة أو تحاول <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-20.html">1–20</a>, <a href="random-number-1-6.html">1–6</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكن أن يرتفع نفس الرقم مرتين؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم ويتمتع كل جيل بالاستقلال، وبالتالي يمكن تكراره - لا سيما على كثير من الجسور. لاختيارات فريدة فقط، اربط قائمة وخذ أول N بدلا من ذلك.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل 1000 مشمول؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم ويشمل النطاق ما بين 1 و1000 على حد سواء، ويتمتع كل عدد فيما بين البلدان بفرص متساوية.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني استخدام هذا كسحب مسرع؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم - الطريقة عادلة وغير متحيزة. وللاطلاع على رسم قابل للمراجعة تماماً، سجل الجيل على الفيديو، واسم النطاق والتاريخ، ونشر الشاشة إلى جانب الإعلان الفائز.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> المولدات المولدة</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> منتقي اليانصيب</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> ١-١٠٠ مولد كهربائي</a>
+    </div>
+  </section>
+
+</main>

@@ -32,9 +32,14 @@ const { parse: parseHtml } = require("node-html-parser");
 const ROOT = path.resolve(__dirname, "..");
 const SRC = path.join(ROOT, "src");
 const CACHE_DIR = path.join(ROOT, ".translation-cache");
+const LANGUAGES_FILE = path.join(SRC, "_data", "languages.json");
+const LANGUAGE_DIRS = fs.existsSync(LANGUAGES_FILE)
+  ? new Set(JSON.parse(fs.readFileSync(LANGUAGES_FILE, "utf8")).available.map((l) => l.code).filter((code) => code !== "en"))
+  : new Set();
 
 const LANG = process.argv[2];
 const FILTER = process.argv[3]; // optional substring match on relative path
+const RTL_LANGS = new Set(["ar", "fa", "he", "ur"]);
 
 if (!LANG) {
   console.error("Usage: node scripts/translate.js <lang> [filter]");
@@ -56,6 +61,16 @@ function saveCache() {
     fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2));
     cacheDirty = false;
   }
+}
+
+let googleTranslate = null;
+async function translateWithGoogle(text, to) {
+  if (!googleTranslate) {
+    const mod = await import("@vitalets/google-translate-api");
+    googleTranslate = mod.translate;
+  }
+  const result = await googleTranslate(text, { to });
+  return result.text;
 }
 
 // ---------- translate primitive: Argos via persistent Python subprocess ----------
@@ -119,6 +134,7 @@ function argosTranslate(text) {
 
 // Strings that look like identifiers, URLs, emails, or code-like tokens.
 const SKIP_PATTERN = /^(https?:\/\/|mailto:|tel:|#|\/|[\w.+-]+@[\w.-]+\.\w+$)/i;
+const TECHNICAL_STRING_PATTERN = /^([#.][\w-]+|[\w-]+|[A-Z0-9_]+|text\/[\w.+-]+|application\/[\w.+-]+)$/;
 
 function decodeEntities(s) {
   return s
@@ -138,6 +154,15 @@ async function translate(text, to) {
 
   // Argos chokes on HTML entities; decode before sending.
   const decoded = decodeEntities(text);
+
+  try {
+    const out = await translateWithGoogle(decoded, to);
+    cache[key] = out;
+    cacheDirty = true;
+    return out;
+  } catch (e) {
+    console.error(`  [google failed: ${e.message}] trying argos`);
+  }
 
   try {
     const out = await argosTranslate(decoded);
@@ -201,6 +226,53 @@ async function translateHtmlFragment(html, to) {
   }
 
   return root.toString();
+}
+
+function shouldTranslateJsLiteral(value, before) {
+  const trimmed = value.trim();
+  if (!trimmed || !/\p{L}/u.test(trimmed)) return false;
+  if (SKIP_PATTERN.test(trimmed)) return false;
+  if (TECHNICAL_STRING_PATTERN.test(trimmed)) {
+    const visibleKeys = /(?:name|label|title|text|continent|capital|currency|region|message|error|question|answer)\s*:\s*$/;
+    if (!visibleKeys.test(before.slice(-80))) return false;
+  }
+  if (/[<>{}$]/.test(trimmed)) return false;
+
+  const technicalContext = /(getElementById|querySelector|querySelectorAll|addEventListener|createElement|setAttribute|getAttribute|removeAttribute|classList\.(?:add|remove|toggle|contains)|matches|closest)\s*\([^)]*$/;
+  if (technicalContext.test(before.slice(-120))) return false;
+
+  return true;
+}
+
+async function translateJsLiterals(js, to) {
+  const literalPattern = /(["'`])((?:\\[\s\S]|(?!\1)[^\\])*)\1/g;
+  const pieces = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = literalPattern.exec(js))) {
+    const [full, quote, value] = match;
+    const before = js.slice(0, match.index);
+    pieces.push(js.slice(lastIndex, match.index));
+
+    if (quote === "`" && /[$<>{}]/.test(value)) {
+      pieces.push(full);
+    } else if (shouldTranslateJsLiteral(value, before)) {
+      const translated = await translate(value, to);
+      const escaped = translated
+        .replace(/\\/g, "\\\\")
+        .replace(new RegExp(quote, "g"), `\\${quote}`)
+        .replace(/\r?\n/g, "\\n");
+      pieces.push(`${quote}${escaped}${quote}`);
+    } else {
+      pieces.push(full);
+    }
+
+    lastIndex = literalPattern.lastIndex;
+  }
+
+  pieces.push(js.slice(lastIndex));
+  return pieces.join("");
 }
 
 // ---------- URL rewriting ----------
@@ -285,7 +357,7 @@ function findHtmlFiles(dir, base = SRC, out = []) {
     // Skip translated output folders, includes, data, passthrough assets.
     if (entry.isDirectory()) {
       if (["_includes", "_data", "assets", "icons", ".well-known"].includes(entry.name)) continue;
-      if (/^[a-z]{2}(-[A-Z]{2})?$/.test(entry.name) && entry.name !== "en") continue; // skip other langs
+      if (LANGUAGE_DIRS.has(entry.name)) continue; // skip translated output folders
       findHtmlFiles(full, base, out);
     } else if (entry.isFile() && entry.name.endsWith(".html")) {
       out.push(rel);
@@ -305,7 +377,7 @@ async function translatePage(relPath) {
   const data = { ...parsed.data };
 
   // Front matter strings to translate
-  const textFields = ["title", "description", "ogTitle", "ogDescription"];
+  const textFields = ["title", "description", "ogTitle", "ogDescription", "h1", "navBackLabel"];
   for (const f of textFields) {
     if (data[f] && typeof data[f] === "string") {
       data[f] = await translate(data[f], LANG);
@@ -321,9 +393,17 @@ async function translatePage(relPath) {
     } catch {}
   }
 
+  if (typeof data.permalink === "string" && data.permalink.startsWith("/")) {
+    data.permalink = prefixPath(data.permalink, LANG);
+  }
+
   // Rewrite locale-sensitive front matter links.
   if (typeof data.navBackHref === "string" && data.navBackHref.startsWith("/")) {
     data.navBackHref = prefixPath(data.navBackHref, LANG);
+  }
+
+  if (typeof data.pageScript === "string") {
+    data.pageScript = await translateJsLiterals(data.pageScript, LANG);
   }
 
   // JSON-LD: translate name + description, rewrite url
@@ -342,12 +422,16 @@ async function translatePage(relPath) {
     const root = parseHtml(data.extraHead);
     for (const m of root.querySelectorAll("meta[content]")) {
       const name = (m.getAttribute("name") || m.getAttribute("property") || "").toLowerCase();
+      const httpEquiv = (m.getAttribute("http-equiv") || "").toLowerCase();
       if (/title|description/.test(name)) {
         const v = m.getAttribute("content");
         if (v && v.trim()) m.setAttribute("content", await translate(v, LANG));
       } else if (/url/.test(name)) {
         const v = m.getAttribute("content");
         if (v) m.setAttribute("content", localizeSiteUrl(v, LANG));
+      } else if (httpEquiv === "refresh") {
+        const v = m.getAttribute("content");
+        if (v) m.setAttribute("content", v.replace(/url=(\/[^;"']*)/i, (_match, url) => `url=${prefixPath(url, LANG)}`));
       }
     }
 
@@ -373,6 +457,7 @@ async function translatePage(relPath) {
 
   // Mark the language on the HTML element via front-matter hint
   data.lang = LANG;
+  if (RTL_LANGS.has(LANG)) data.dir = "rtl";
 
   // Write
   fs.mkdirSync(path.dirname(dst), { recursive: true });

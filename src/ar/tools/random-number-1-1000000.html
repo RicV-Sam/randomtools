@@ -1,0 +1,157 @@
+---
+layout: layouts/base.njk
+title: عدد الوفيات بين 1 و 000 1 - بيكر مجانية
+description: >-
+  يولد رقماً عشوائياً بين 1 و1 مليون على الفور ومنصف ومجاني وسريع - بالنسبة
+  للمعطيات الكبيرة، وتوليد الهوية، وتقلبات الاحتمال.
+ogTitle: عدد الوفيات بين 1 و 000 1 سبينيت
+ogDescription: رقم عشوائي مجاني من 1 إلى 1 مليون مع صنبور واحد. سحب كبيرة، هويات وتوقعات
+canonical: 'https://spinnit.site/ar/tools/random-number-1-1000000.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "عدد الوفيات بين 1 و 000 1",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "ما هي احتمالات نفس الرقم تظهر مرتين؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "وبالنسبة لرسمين مستقلين، فإن فرصة النتيجة نفسها هي واحدة في مليون."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل هذا مناسب لتوليد هويات فريدة؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "فقط لأعداد صغيرة من الهويات بسبب مفارقات عيد الميلاد بدأت تظهر بعد زهاء 200 1 رسم استخدموا الـ (يو آي دي) من أجل الفريد الحقيقي"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "لماذا تأخذ النتيجة نفس الوقت الذي تستغرقه النطاقات الأصغر؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ويظهر عدد الوفيات باستمرار بغض النظر عن حجم النطاق."
+        }
+      }
+    ]
+  }</script>
+pageScript: |
+
+  const MIN = 1, MAX = 1000000;
+  const history = [];
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.map(n => n.toLocaleString()).join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n.toLocaleString()}</span>`).join('');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  bindGlobalShortcut(generate);
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">💯</div>
+    <h1>عدد الوفيات بين 1 و 000 1</h1>
+    <p>واحد في مليون - اختيار عادل من النطاق الكامل</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">رقمك (1 - 000 1)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>كم عدد الأرقام؟</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">النتائج الأخيرة</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>واحد في المليون هو العبارة التمويهية الكلاسيكية لـ"مستبعد جداً" وها أنت حرفياً تستطيع أن تختار من مليون هذا النطاق مفيد عندما تريد رقماً فريداً تقريباً أو لمظاهرات الاحتمالات التي تحتاج فيها احتمالات صغيرة إلى الشعور بصغرها</p>
+
+    <h2>الاستخدامات الجيدة</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>توليد هوية شبه موحدة للاستمارات أو التذاكر أو سجلات الاختبار</li>
+      <li>"التعليم المحتمل" "ما هي الاحتمالات؟"</li>
+      <li>منح واسعة النطاق حيث دخل مئات الآلاف</li>
+      <li>إنشاء بيانات تجريبية رقمية ذات طابع واقعي</li>
+      <li>اختراق إطار عشوائي من شريط فيديو من المليون حاسوب (فون، ليس عمليا)</li>
+    </ul>
+
+    <h2>أسوأ معرفة</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">حتى في 1 مليون إحتمالات، نفس الرقم <em>يمكن</em> تظهر مرتين على التوالي - هو فقط غير محتمل جدا. من أجل التفرد المكفول، استخدم مولداً للوقود غير المستعمل، وليس لثلاجات عشوائية. وهذه الأداة هي أفضل وسيلة للاختطافات والمظاهرات.</p>
+
+    <h2>النطاقات الأخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">الأدراج الأصغر: <a href="random-number-1-1000.html">1–1000</a>, <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-10.html">1–10</a>-أتريدين شيئاً؟ استخدام كامل <a href="random-number.html">عدد المولدات</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ما هي احتمالات نفس الرقم تظهر مرتين؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">وبالنسبة لرسمين مستقلين، فإن فرصة النتيجة نفسها هي واحدة في مليون. إنّه نادر بشكل مُختفي، لكن ليس مستحيلاً.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذا مناسب لتوليد هويات فريدة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">فقط لأعداد صغيرة من الهويات بسبب مفارقة عيد الميلاد ستبدأين برؤية الاصطدامات بعد ما يقرب من 200 1 رسم من أجل الفريد الحقيقي يستعمل الـ (يو آي دي)</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">لماذا تأخذ النتيجة نفس الوقت الذي تستغرقه النطاقات الأصغر؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">ويظهر عدد الوفيات باستمرار بغض النظر عن حجم النطاق. الإختيار من مليون هو فقط أسرع من الإختيار من عشرة</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> المولدات المولدة</a>
+      <a class="related-card" href="random-number-1-1000.html"><span class="ri">🔢</span> ١-٠٠٠ ١ مولد كهربائي</a>
+      <a class="related-card" href="password-generator.html"><span class="ri">🔐</span> مولد كلمة المرور</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> منتقي اليانصيب</a>
+    </div>
+  </section>
+
+</main>

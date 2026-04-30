@@ -1,0 +1,202 @@
+---
+layout: layouts/base.njk
+title: حول Spinnit – مولدات عشوائية مجانية
+description: >-
+  حول Spinnit - مجموعة مجانية تضم أكثر من 33 من المولدات والملتقطات العشوائية.
+  بكرة النرد، وقلب العملة، وعجلة الأسماء، ومولد كلمات المرور، والمزيد. لا
+  الاشتراك.
+ogDescription: >-
+  Spinnit عبارة عن مجموعة مجانية من الأدوات العشوائية. لا توجد حسابات، لا تتبع،
+  يعمل على أي جهاز.
+canonical: 'https://spinnit.site/ar/about.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "حول سبنيت",
+    "url": "https://spinnit.site/ar/about.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "سبينيت",
+      "url": "https://spinnit.site/ar/"
+    }
+  }
+pageStyle: >
+  .prose {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .prose h1 {
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .prose .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.75rem;
+  }
+
+  .prose h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent2);
+    font-family: var(--mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 2.5rem 0 0.75rem;
+  }
+
+  .prose p, .prose li {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.8;
+  }
+
+  .prose ul {
+    padding-left: 1.25rem;
+    margin: 0.5rem 0;
+  }
+
+  .prose li { margin-bottom: 0.3rem; }
+
+  .prose a { color: var(--accent2); }
+
+  .prose a:hover { color: var(--text); }
+
+  .tools-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+    gap: 8px;
+    margin: 1rem 0;
+  }
+
+  .tools-list a {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    font-size: 13px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .tools-list a:hover { border-color: var(--border2); color: var(--text); }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+    gap: 10px;
+    margin: 1rem 0;
+  }
+
+  .mission-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.1rem;
+  }
+
+  .mission-card .icon { font-size: 22px; margin-bottom: 6px; }
+
+  .mission-card strong { display: block; font-size: 13px; font-weight: 600;
+  color: var(--text); margin-bottom: 4px; }
+
+  .mission-card span { font-size: 12px; color: var(--text2); line-height: 1.5; }
+
+  .coming-soon {
+    background: var(--bg2);
+    border: 1px dashed var(--border2);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    margin-top: 0.75rem;
+  }
+lang: ar
+dir: rtl
+---
+<div class="prose">
+  <p class="eyebrow">عن</p>
+  <h1>أدوات عشوائية للجميع</h1>
+  <p>Spinnit عبارة عن مجموعة مجانية من المولدات العشوائية المصممة للويب. لا حسابات. لا التنزيلات. لا هراء. ما عليك سوى فتح الأداة واستخدامها — على أي جهاز وفي أي مكان في العالم.</p>
+
+  <h2>مهمتنا</h2>
+  <div class="mission-grid">
+    <div class="mission-card">
+      <div class="icon">🆓</div>
+      <strong>دائما مجانا</strong>
+      <span>كل أداة في Spinnit مجانية تمامًا للاستخدام إلى الأبد.</span>
+    </div>
+    <div class="mission-card">
+      <div class="icon">🚫</div>
+      <strong>لا الاشتراك</strong>
+      <span>لا يوجد حساب، ولا بريد إلكتروني، ولا كلمة مرور - فقط افتحه واستخدمه.</span>
+    </div>
+    <div class="mission-card">
+      <div class="icon">📱</div>
+      <strong>يعمل على الجوال</strong>
+      <span>تم تصميمه على الهاتف المحمول أولاً وتم اختباره على جميع أحجام الشاشات.</span>
+    </div>
+    <div class="mission-card">
+      <div class="icon">🌍</div>
+      <strong>عالمي</strong>
+      <span>سريع في جميع أنحاء العالم - ثابت تمامًا، بدون رحلات ذهابًا وإيابًا للخادم.</span>
+    </div>
+  </div>
+
+  <h2>الأدوات</h2>
+  <p>لدى Spinnit 13 أداة أساسية - مولد الأرقام العشوائية، وDice Roller، وCoin Flip، وTeam Picker، وWheel of Names، وPassword Generator والمزيد - بالإضافة إلى 20 إعدادًا مسبقًا مصممًا خصيصًا لوظائف محددة (تدوير 4d6-drop-lowest لـ D&D، واختيار طالب في الفصل الدراسي بدون تكرار، ورسم فائز بالهدية، وما إلى ذلك).</p>
+  <div class="tools-list">
+    <a href="/ar/tools/random-number.html">🎲 مولد أرقام عشوائية</a>
+    <a href="/ar/tools/dice-roller.html">⚄ بكرة النرد</a>
+    <a href="/ar/tools/coin-flip.html">🪙 عملة الوجه</a>
+    <a href="/ar/tools/team-picker.html">👥 منتقي الفريق العشوائي</a>
+    <a href="/ar/tools/yes-no-wheel.html">🔮 نعم / لا العجلة</a>
+    <a href="/ar/tools/wheel-of-names.html">🎡 عجلة الأسماء</a>
+    <a href="/ar/tools/colour-generator.html">🎨 مولد لون عشوائي</a>
+    <a href="/ar/tools/password-generator.html">🔐 مولد كلمة المرور</a>
+    <a href="/ar/tools/lottery-picker.html">🍀 منتقي أرقام اليانصيب</a>
+    <a href="/ar/tools/percentage-generator.html">📊 نسبة عشوائية</a>
+    <a href="/ar/tools/list-shuffler.html">🔀 قائمة الخلط</a>
+    <a href="/ar/tools/random-country.html">🌍 مولد بلد عشوائي</a>
+    <a href="/ar/tools/random-name-generator.html">👤 مولد اسم عشوائي</a>
+  </div>
+  <p style="margin-top:1rem;"><a href="/ar/tools/" style="color:var(--accent2);font-family:var(--mono);font-size:13px;">→ تصفح القائمة الكاملة (13 أداة + 20 إعدادًا مسبقًا)</a></p>
+
+  <h2>من يقف وراء ذلك</h2>
+  <p>تم بناء شركة Spinnit وصيانتها بواسطة فريق صغير مستقل مقره في إنجلترا. نحن نكتب الكود بأنفسنا، ونختبر كل أداة على الهواتف التي نمتلكها فعليًا، ونقرأ كل التعليقات الواردة. لا يوجد رأس مال استثماري، ولا وكالة، ولا مزرعة لتحسين محركات البحث - مجرد موقع خدمات مجاني أردنا وجوده.</p>
+  <p>إذا كانت لديك فكرة عن أداة يجب أن نبنيها، أو خطأ ينبغي علينا إصلاحه، أو تصحيح يجب إجراؤه - فاكتب إلينا على <a href="mailto:hello@spinnit.site">hello@spinnit.site</a> أو من خلال <a href="/ar/contact.html">نموذج الاتصال</a>.</p>
+
+  <h2>المزيد من الأدوات قريبا</h2>
+  <div class="coming-soon">
+    <p>نحن نعمل على المزيد من الأدوات بما في ذلك مولد الاقتباس العشوائي ومنتقي الرموز التعبيرية العشوائي ومولد التاريخ العشوائي والمزيد. حصلت على اقتراح؟ ترك لنا خطا في <a href="mailto:hello@spinnit.site">hello@spinnit.site</a> – نحن نحب أن نسمع ما تحتاجه.</p>
+  </div>
+
+  <h2>كيف تم بناؤه</h2>
+  <p>تم تصميم Spinnit باستخدام مواد نقية <strong style="color:var(--text)">HTML، CSS، وجافا سكريبت</strong> - لا توجد أطر، ولا أدوات بناء، ولا مكتبات تتبع. تعمل كل أداة بالكامل في متصفحك. لا يتم إرسال أي شيء تكتبه أو تنشئه إلى أي مكان. الموقع بأكمله مفتوح وقابل للتدقيق.</p>
+  <ul>
+    <li>لا توجد تحليلات أو تتبع (لا شيء بشكل افتراضي - قد يتغير بموافقة)</li>
+    <li>لا توجد حسابات أو بيانات شخصية مخزنة</li>
+    <li>لا توجد تبعيات جافا سكريبت الخارجية</li>
+    <li>يمكن تثبيته باعتباره PWA على الهاتف المحمول وسطح المكتب</li>
+  </ul>
+
+  <h2>اتصال</h2>
+  <p>الاستفسارات العامة: <a href="mailto:hello@spinnit.site">hello@spinnit.site</a><br>
+  مخاوف الخصوصية: <a href="mailto:privacy@spinnit.site">privacy@spinnit.site</a><br>
+  سياسة الخصوصية: <a href="/ar/privacy.html">spinnit.site/privacy.html</a></p>
+</div>

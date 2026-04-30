@@ -1,0 +1,256 @@
+---
+layout: layouts/base.njk
+title: المولدات المحلية العشوائية - ٥٩١ الأمم المتحدة
+description: >-
+  اكتشاف بلد عشوائي من جميع الدول الـ 195 مطلية بالقارة بلد حر عشوائي مختار
+  للجغرافيا والسفر.
+canonical: 'https://spinnit.site/ar/tools/random-country.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "المولدات القطرية العشوائية",
+    "description": "اختيار بلد عشوائي من جميع البلدان الـ 195 في العالم",
+    "url": "https://spinnit.site/ar/tools/random-country.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="المولدات المحلية العشوائية">
+
+  <meta name="twitter:description" content="اختيار بلد عشوائي من جميع البلدان
+  الـ 195 في العالم. مطلية بالقارة">
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل يمكنني أن أتقيأ بالقارة؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم استخدام أزرار مرشحات القارة لتقييد النتائج لأفريقيا، آسيا، أوروبا، الأمريكتين، أو أو أوقيانوسيا."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "كم عدد البلدان المدرجة؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "وجميع الدول ذات السيادة المعترف بها للأمم المتحدة وعددها 195 دولة، مكتملة مع عواصم المدن والقارات وأرقام السكان."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يعمل هذا على الهاتف؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+        }
+      }
+    ]
+  }</script>
+pageStyle: |
+
+  .continent-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1rem;
+  }
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--text2);
+    font-size: 12px;
+    font-family: var(--mono);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--border2); color: var(--text); }
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .country-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    transition: border-color 0.3s;
+  }
+  .country-flag {
+    font-size: 72px;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    display: block;
+    animation: pop 0.3s ease;
+  }
+  .country-name {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+  .country-continent {
+    display: inline-block;
+    font-size: 11px;
+    font-family: var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    background: rgba(124,106,247,0.12);
+    border: 1px solid rgba(124,106,247,0.25);
+    border-radius: 20px;
+    padding: 3px 12px;
+    margin-bottom: 1.25rem;
+  }
+  .country-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 1.25rem;
+  }
+  .stat-cell {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 8px;
+  }
+  .stat-cell-label {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .stat-cell-val {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+    word-break: break-word;
+  }
+  .wiki-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--text3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    transition: all 0.2s;
+  }
+  .wiki-link:hover { color: var(--text); border-color: var(--border2); }
+  .empty-state {
+    color: var(--text3);
+    font-size: 14px;
+    padding: 2rem 0;
+  }
+  @media (max-width: 380px) {
+    .country-stats { grid-template-columns: 1fr 1fr; }
+  }
+pageScript: "\nlet activeContinent = 'All';\n\nconst COUNTRIES = [\n  // Africa (54)\n  {flag:'\U0001F1E9\U0001F1FF',name:'الجزائر',continent:'أفريقيا',capital:'الجزائر',pop:44700000,region:'شمال أفريقيا'},\n  {flag:'\U0001F1E6\U0001F1F4',name:'أنغولا',continent:'أفريقيا',capital:'لواندا',pop:33900000,region:'وسط أفريقيا'},\n  {flag:'\U0001F1E7\U0001F1EF',name:'بنن',continent:'أفريقيا',capital:'Porto-Novo',pop:12100000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1E7\U0001F1FC',name:'بوتسوانا',continent:'أفريقيا',capital:'غابورون',pop:2600000,region:'الجنوب الأفريقي'},\n  {flag:'\U0001F1E7\U0001F1EB',name:'بوركينا فاسو',continent:'أفريقيا',capital:'Ouagadougou',pop:21500000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1E7\U0001F1EE',name:'بوروندي',continent:'أفريقيا',capital:'Gitega',pop:11900000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1E8\U0001F1F2',name:'الكاميرون',continent:'أفريقيا',capital:'Yaoundé',pop:26500000,region:'وسط أفريقيا'},\n  {flag:'\U0001F1E8\U0001F1FB',name:'الرأس الأخضر',continent:'أفريقيا',capital:'برايا',pop:560000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1E8\U0001F1EB',name:'جمهورية أفريقيا الوسطى',continent:'أفريقيا',capital:'Bangui',pop:4800000,region:'وسط أفريقيا'},\n  {flag:'\U0001F1F9\U0001F1E9',name:'تشاد',continent:'أفريقيا',capital:\"N'Djamena\",pop:16900000,region:'وسط أفريقيا'},\n  {flag:'\U0001F1F0\U0001F1F2',name:'جزر القمر',continent:'أفريقيا',capital:'Moroni',pop:870000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1E8\U0001F1E9',name:'جمهورية الكونغو الديمقراطية',continent:'أفريقيا',capital:'كينشاسا',pop:92400000,region:'وسط أفريقيا'},\n  {flag:'\U0001F1E8\U0001F1EC',name:'جمهورية الكونغو',continent:'أفريقيا',capital:'Brazzaville',pop:5600000,region:'وسط أفريقيا'},\n  {flag:'\U0001F1E9\U0001F1EF',name:'جيبوتي',continent:'أفريقيا',capital:'جيبوتي',pop:1000000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1EA\U0001F1EC',name:'مصر',continent:'أفريقيا',capital:'القاهرة',pop:102300000,region:'شمال أفريقيا'},\n  {flag:'\U0001F1EC\U0001F1F6',name:'غينيا الاستوائية',continent:'أفريقيا',capital:'مالابو',pop:1400000,region:'وسط أفريقيا'},\n  {flag:'\U0001F1EA\U0001F1F7',name:'إريتريا',continent:'أفريقيا',capital:'أسمرة',pop:3500000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1F8\U0001F1FF',name:'Eswatini',continent:'أفريقيا',capital:'مباباني',pop:1200000,region:'الجنوب الأفريقي'},\n  {flag:'\U0001F1EA\U0001F1F9',name:'إثيوبيا',continent:'أفريقيا',capital:'أديس أبابا',pop:120300000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1EC\U0001F1E6',name:'غابون',continent:'أفريقيا',capital:'ليبرفيل',pop:2200000,region:'وسط أفريقيا'},\n  {flag:'\U0001F1EC\U0001F1F2',name:'غامبيا',continent:'أفريقيا',capital:'Banjul',pop:2400000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1EC\U0001F1ED',name:'غانا',continent:'أفريقيا',capital:'أكرا',pop:31700000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1EC\U0001F1F3',name:'غينيا',continent:'أفريقيا',capital:'كوناكري',pop:13100000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1EC\U0001F1FC',name:'غينيا - بيساو',continent:'أفريقيا',capital:'بيساو',pop:1900000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1E8\U0001F1EE',name:'Ivory Coast',continent:'أفريقيا',capital:'Yamoussoukro',pop:26400000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1F0\U0001F1EA',name:'كينيا',continent:'أفريقيا',capital:'نيروبي',pop:54000000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1F1\U0001F1F8',name:'ليسوتو',continent:'أفريقيا',capital:'Maseru',pop:2100000,region:'الجنوب الأفريقي'},\n  {flag:'\U0001F1F1\U0001F1F7',name:'ليبريا',continent:'أفريقيا',capital:'مونروفيا',pop:5000000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1F1\U0001F1FE',name:'ليبيا',continent:'أفريقيا',capital:'طرابلس',pop:7000000,region:'شمال أفريقيا'},\n  {flag:'\U0001F1F2\U0001F1EC',name:'مدغشقر',continent:'أفريقيا',capital:'Antananarivo',pop:27700000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1F2\U0001F1FC',name:'ملاوي',continent:'أفريقيا',capital:'Lilongwe',pop:19100000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1F2\U0001F1F1',name:'مالي',continent:'أفريقيا',capital:'Bamako',pop:21900000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1F2\U0001F1F7',name:'موريتانيا',continent:'أفريقيا',capital:'Nouakchot',pop:4500000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1F2\U0001F1FA',name:'موريشيوس',continent:'أفريقيا',capital:'Port Louis',pop:1300000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1F2\U0001F1E6',name:'المغرب',continent:'أفريقيا',capital:'الرباط',pop:37100000,region:'شمال أفريقيا'},\n  {flag:'\U0001F1F2\U0001F1FF',name:'موزامبيق',continent:'أفريقيا',capital:'Maputo',pop:31300000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1F3\U0001F1E6',name:'ناميبيا',continent:'أفريقيا',capital:'Windhoek',pop:2600000,region:'الجنوب الأفريقي'},\n  {flag:'\U0001F1F3\U0001F1EA',name:'النيجر',continent:'أفريقيا',capital:'Niamey',pop:24200000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1F3\U0001F1EC',name:'نيجيريا',continent:'أفريقيا',capital:'أبوجا',pop:211400000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1F7\U0001F1FC',name:'رواندا',continent:'أفريقيا',capital:'كيغالي',pop:13200000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1F8\U0001F1F9',name:'ساو تومي وبرينسيبي',continent:'أفريقيا',capital:'ساو تومي',pop:220000,region:'وسط أفريقيا'},\n  {flag:'\U0001F1F8\U0001F1F3',name:'السنغال',continent:'أفريقيا',capital:'داكار',pop:16900000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1F8\U0001F1E8',name:'سيشيل',continent:'أفريقيا',capital:'فيكتوريا',pop:100000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1F8\U0001F1F1',name:'سيراليون',continent:'أفريقيا',capital:'فريتاون',pop:7900000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1F8\U0001F1F4',name:'الصومال',continent:'أفريقيا',capital:'مقديشو',pop:17100000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1FF\U0001F1E6',name:'جنوب أفريقيا',continent:'أفريقيا',capital:'بريتوريا',pop:60000000,region:'الجنوب الأفريقي'},\n  {flag:'\U0001F1F8\U0001F1F8',name:'جنوب السودان',continent:'أفريقيا',capital:'جوبا',pop:11300000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1F8\U0001F1E9',name:'السودان',continent:'أفريقيا',capital:'الخرطوم',pop:43800000,region:'شمال أفريقيا'},\n  {flag:'\U0001F1F9\U0001F1FF',name:'Tanzania',continent:'أفريقيا',capital:'دودوما',pop:61500000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1F9\U0001F1EC',name:'توغو',continent:'أفريقيا',capital:'لومي',pop:8300000,region:'غرب أفريقيا'},\n  {flag:'\U0001F1F9\U0001F1F3',name:'تونس',continent:'أفريقيا',capital:'تونس',pop:11800000,region:'شمال أفريقيا'},\n  {flag:'\U0001F1FA\U0001F1EC',name:'أوغندا',continent:'أفريقيا',capital:'كمبالا',pop:45700000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1FF\U0001F1F2',name:'زامبيا',continent:'أفريقيا',capital:'لوساكا',pop:18400000,region:'شرق أفريقيا'},\n  {flag:'\U0001F1FF\U0001F1FC',name:'زمبابوي',continent:'أفريقيا',capital:'Harare',pop:15000000,region:'شرق أفريقيا'},\n  // Asia (48)\n  {flag:'\U0001F1E6\U0001F1EB',name:'أفغانستان',continent:'آسيا',capital:'كابول',pop:38900000,region:'جنوب آسيا'},\n  {flag:'\U0001F1E6\U0001F1F2',name:'أرمينيا',continent:'آسيا',capital:'يريفان',pop:3000000,region:'غرب آسيا'},\n  {flag:'\U0001F1E6\U0001F1FF',name:'أذربيجان',continent:'آسيا',capital:'باكو',pop:10100000,region:'غرب آسيا'},\n  {flag:'\U0001F1E7\U0001F1ED',name:'البحرين',continent:'آسيا',capital:'Manama',pop:1700000,region:'غرب آسيا'},\n  {flag:'\U0001F1E7\U0001F1E9',name:'بنغلاديش',continent:'آسيا',capital:'Dhaka',pop:166300000,region:'جنوب آسيا'},\n  {flag:'\U0001F1E7\U0001F1F9',name:'بوتان',continent:'آسيا',capital:'Thimphu',pop:770000,region:'جنوب آسيا'},\n  {flag:'\U0001F1E7\U0001F1F3',name:'بروني',continent:'آسيا',capital:'Bandar Seri Begawan',pop:440000,region:'جنوب شرق آسيا'},\n  {flag:'\U0001F1F0\U0001F1ED',name:'كمبوديا',continent:'آسيا',capital:'بنوم بنه',pop:16700000,region:'جنوب شرق آسيا'},\n  {flag:'\U0001F1E8\U0001F1F3',name:'الصين',continent:'آسيا',capital:'بيجين',pop:1439323776,region:'شرق آسيا'},\n  {flag:'\U0001F1E8\U0001F1FE',name:'قبرص',continent:'آسيا',capital:'نيقوسيا',pop:1200000,region:'غرب آسيا'},\n  {flag:'\U0001F1EC\U0001F1EA',name:'جورجيا',continent:'آسيا',capital:'تبليسي',pop:4000000,region:'غرب آسيا'},\n  {flag:'\U0001F1EE\U0001F1F3',name:'الهند',continent:'آسيا',capital:'نيودلهي',pop:1380004385,region:'جنوب آسيا'},\n  {flag:'\U0001F1EE\U0001F1E9',name:'إندونيسيا',continent:'آسيا',capital:'Jakarta',pop:273500000,region:'جنوب شرق آسيا'},\n  {flag:'\U0001F1EE\U0001F1F7',name:'إيران',continent:'آسيا',capital:'طهران',pop:85000000,region:'غرب آسيا'},\n  {flag:'\U0001F1EE\U0001F1F6',name:'العراق',continent:'آسيا',capital:'بغداد',pop:40200000,region:'غرب آسيا'},\n  {flag:'\U0001F1EE\U0001F1F1',name:'إسرائيل',continent:'آسيا',capital:'القدس',pop:9200000,region:'غرب آسيا'},\n  {flag:'\U0001F1EF\U0001F1F5',name:'اليابان',continent:'آسيا',capital:'طوكيو',pop:125700000,region:'شرق آسيا'},\n  {flag:'\U0001F1EF\U0001F1F4',name:'الأردن',continent:'آسيا',capital:'عمان',pop:10200000,region:'غرب آسيا'},\n  {flag:'\U0001F1F0\U0001F1FF',name:'كازاخستان',continent:'آسيا',capital:'Astana',pop:18800000,region:'آسيا الوسطى'},\n  {flag:'\U0001F1F0\U0001F1FC',name:'الكويت',continent:'آسيا',capital:'مدينة الكويت',pop:4300000,region:'غرب آسيا'},\n  {flag:'\U0001F1F0\U0001F1EC',name:'قيرغيزستان',continent:'آسيا',capital:'Bishkek',pop:6600000,region:'آسيا الوسطى'},\n  {flag:'\U0001F1F1\U0001F1E6',name:'لاو',continent:'آسيا',capital:'Vientiane',pop:7200000,region:'جنوب شرق آسيا'},\n  {flag:'\U0001F1F1\U0001F1E7',name:'لبنان',continent:'آسيا',capital:'بيروت',pop:6800000,region:'غرب آسيا'},\n  {flag:'\U0001F1F2\U0001F1FE',name:'ماليزيا',continent:'آسيا',capital:'كوالالمبور',pop:32400000,region:'جنوب شرق آسيا'},\n  {flag:'\U0001F1F2\U0001F1FB',name:'ملديف',continent:'آسيا',capital:'مالي',pop:540000,region:'جنوب آسيا'},\n  {flag:'\U0001F1F2\U0001F1F3',name:'منغوليا',continent:'آسيا',capital:'أولانباتار',pop:3300000,region:'شرق آسيا'},\n  {flag:'\U0001F1F2\U0001F1F2',name:'ميانمار',continent:'آسيا',capital:'Naypyidaw',pop:54400000,region:'جنوب شرق آسيا'},\n  {flag:'\U0001F1F3\U0001F1F5',name:'نيبال',continent:'آسيا',capital:'كاتماندو',pop:29100000,region:'جنوب آسيا'},\n  {flag:'\U0001F1F0\U0001F1F5',name:'كوريا الشمالية',continent:'آسيا',capital:'Pyongyang',pop:25800000,region:'شرق آسيا'},\n  {flag:'\U0001F1F4\U0001F1F2',name:'عمان',continent:'آسيا',capital:'Muscat',pop:4500000,region:'غرب آسيا'},\n  {flag:'\U0001F1F5\U0001F1F0',name:'باكستان',continent:'آسيا',capital:'إسلام أباد',pop:220900000,region:'جنوب آسيا'},\n  {flag:'\U0001F1F5\U0001F1ED',name:'الفلبين',continent:'آسيا',capital:'مانيلا',pop:109600000,region:'جنوب شرق آسيا'},\n  {flag:'\U0001F1F6\U0001F1E6',name:'قطر',continent:'آسيا',capital:'الدوحة',pop:2900000,region:'غرب آسيا'},\n  {flag:'\U0001F1F8\U0001F1E6',name:'العربية السعودية',continent:'آسيا',capital:'رياض',pop:35000000,region:'غرب آسيا'},\n  {flag:'\U0001F1F8\U0001F1EC',name:'سنغافورة',continent:'آسيا',capital:'سنغافورة',pop:5900000,region:'جنوب شرق آسيا'},\n  {flag:'\U0001F1F0\U0001F1F7',name:'جنوب كوريا',continent:'آسيا',capital:'سيؤول',pop:51700000,region:'شرق آسيا'},\n  {flag:'\U0001F1F1\U0001F1F0',name:'سري لانكا',continent:'آسيا',capital:'سري جاياواردينبورا كوتي',pop:21900000,region:'جنوب آسيا'},\n  {flag:'\U0001F1F8\U0001F1FE',name:'سوريا',continent:'آسيا',capital:'دمشق',pop:20400000,region:'غرب آسيا'},\n  {flag:'\U0001F1F9\U0001F1FC',name:'تايوان',continent:'آسيا',capital:'تايبي',pop:23600000,region:'شرق آسيا'},\n  {flag:'\U0001F1F9\U0001F1EF',name:'طاجيكستان',continent:'آسيا',capital:'دوشانبي',pop:9500000,region:'آسيا الوسطى'},\n  {flag:'\U0001F1F9\U0001F1ED',name:'تايلند',continent:'آسيا',capital:'بانكوك',pop:69800000,region:'جنوب شرق آسيا'},\n  {flag:'\U0001F1F9\U0001F1F1',name:'تيمور - ليشتي',continent:'آسيا',capital:'ديلي',pop:1300000,region:'جنوب شرق آسيا'},\n  {flag:'\U0001F1F9\U0001F1F7',name:'تركيا',continent:'آسيا',capital:'Ankara',pop:84300000,region:'غرب آسيا'},\n  {flag:'\U0001F1F9\U0001F1F2',name:'تركمانستان',continent:'آسيا',capital:'عشق أباد',pop:6000000,region:'آسيا الوسطى'},\n  {flag:'\U0001F1E6\U0001F1EA',name:'الإمارات العربية المتحدة',continent:'آسيا',capital:'أبو ظبي',pop:9900000,region:'غرب آسيا'},\n  {flag:'\U0001F1FA\U0001F1FF',name:'أوزبكستان',continent:'آسيا',capital:'طشقند',pop:33500000,region:'آسيا الوسطى'},\n  {flag:'\U0001F1FB\U0001F1F3',name:'فييت نام',continent:'آسيا',capital:'Hanoi',pop:97300000,region:'جنوب شرق آسيا'},\n  {flag:'\U0001F1FE\U0001F1EA',name:'اليمن',continent:'آسيا',capital:\"Sana'a\",pop:30500000,region:'غرب آسيا'},\n  // Europe (45)\n  {flag:'\U0001F1E6\U0001F1F1',name:'ألبانيا',continent:'أوروبا',capital:'تيرانا',pop:2800000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1E6\U0001F1E9',name:'أندورا',continent:'أوروبا',capital:'أندورا لافيا',pop:77000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1E6\U0001F1F9',name:'النمسا',continent:'أوروبا',capital:'فيينا',pop:9000000,region:'أوروبا الغربية'},\n  {flag:'\U0001F1E7\U0001F1FE',name:'بيلاروس',continent:'أوروبا',capital:'Minsk',pop:9400000,region:'أوروبا الشرقية'},\n  {flag:'\U0001F1E7\U0001F1EA',name:'بلجيكا',continent:'أوروبا',capital:'بروكسل',pop:11600000,region:'أوروبا الغربية'},\n  {flag:'\U0001F1E7\U0001F1E6',name:'البوسنة والهرسك',continent:'أوروبا',capital:'سراييفو',pop:3300000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1E7\U0001F1EC',name:'بلغاريا',continent:'أوروبا',capital:'صوفيا',pop:6500000,region:'أوروبا الشرقية'},\n  {flag:'\U0001F1ED\U0001F1F7',name:'كرواتيا',continent:'أوروبا',capital:'زغرب',pop:4000000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1E8\U0001F1FF',name:'الجمهورية التشيكية',continent:'أوروبا',capital:'براغ',pop:10700000,region:'أوروبا الشرقية'},\n  {flag:'\U0001F1E9\U0001F1F0',name:'الدانمرك',continent:'أوروبا',capital:'كوبنهاغن',pop:5800000,region:'أوروبا الشمالية'},\n  {flag:'\U0001F1EA\U0001F1EA',name:'إستونيا',continent:'أوروبا',capital:'Tallinn',pop:1300000,region:'أوروبا الشمالية'},\n  {flag:'\U0001F1EB\U0001F1EE',name:'فنلندا',continent:'أوروبا',capital:'هلسنكي',pop:5500000,region:'أوروبا الشمالية'},\n  {flag:'\U0001F1EB\U0001F1F7',name:'فرنسا',continent:'أوروبا',capital:'باريس',pop:67400000,region:'أوروبا الغربية'},\n  {flag:'\U0001F1E9\U0001F1EA',name:'ألمانيا',continent:'أوروبا',capital:'برلين',pop:83900000,region:'أوروبا الغربية'},\n  {flag:'\U0001F1EC\U0001F1F7',name:'اليونان',continent:'أوروبا',capital:'أثينا',pop:10700000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1ED\U0001F1FA',name:'هنغاريا',continent:'أوروبا',capital:'بودابست',pop:9700000,region:'أوروبا الشرقية'},\n  {flag:'\U0001F1EE\U0001F1F8',name:'آيسلندا',continent:'أوروبا',capital:'Reykjavik',pop:370000,region:'أوروبا الشمالية'},\n  {flag:'\U0001F1EE\U0001F1EA',name:'أيرلندا',continent:'أوروبا',capital:'Dublin',pop:4900000,region:'أوروبا الشمالية'},\n  {flag:'\U0001F1EE\U0001F1F9',name:'إيطاليا',continent:'أوروبا',capital:'روما',pop:60400000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1FD\U0001F1F0',name:'كوسوفو',continent:'أوروبا',capital:'بريستينا',pop:1800000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1F1\U0001F1FB',name:'لاتفيا',continent:'أوروبا',capital:'Riga',pop:1900000,region:'أوروبا الشمالية'},\n  {flag:'\U0001F1F1\U0001F1EE',name:'ليختنشتاين',continent:'أوروبا',capital:'Vaduz',pop:38000,region:'أوروبا الغربية'},\n  {flag:'\U0001F1F1\U0001F1F9',name:'ليتوانيا',continent:'أوروبا',capital:'Vilnius',pop:2800000,region:'أوروبا الشمالية'},\n  {flag:'\U0001F1F1\U0001F1FA',name:'لكسمبرغ',continent:'أوروبا',capital:'لكسمبرغ',pop:630000,region:'أوروبا الغربية'},\n  {flag:'\U0001F1F2\U0001F1F9',name:'مالطة',continent:'أوروبا',capital:'Valletta',pop:520000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1F2\U0001F1E9',name:'مولدوفا',continent:'أوروبا',capital:'Chiinău',pop:2600000,region:'أوروبا الشرقية'},\n  {flag:'\U0001F1F2\U0001F1E8',name:'موناكو',continent:'أوروبا',capital:'موناكو',pop:39000,region:'أوروبا الغربية'},\n  {flag:'\U0001F1F2\U0001F1EA',name:'الجبل الأسود',continent:'أوروبا',capital:'Podgorica',pop:620000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1F3\U0001F1F1',name:'هولندا',continent:'أوروبا',capital:'Amsterdam',pop:17500000,region:'أوروبا الغربية'},\n  {flag:'\U0001F1F2\U0001F1F0',name:'شمال مقدونيا',continent:'أوروبا',capital:'سكوبي',pop:2100000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1F3\U0001F1F4',name:'النرويج',continent:'أوروبا',capital:'أوسلو',pop:5400000,region:'أوروبا الشمالية'},\n  {flag:'\U0001F1F5\U0001F1F1',name:'بولندا',continent:'أوروبا',capital:'Warsaw',pop:37800000,region:'أوروبا الشرقية'},\n  {flag:'\U0001F1F5\U0001F1F9',name:'البرتغال',continent:'أوروبا',capital:'لشبونة',pop:10300000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1F7\U0001F1F4',name:'رومانيا',continent:'أوروبا',capital:'Bucharest',pop:19200000,region:'أوروبا الشرقية'},\n  {flag:'\U0001F1F7\U0001F1FA',name:'روسيا',continent:'أوروبا',capital:'موسكو',pop:145900000,region:'أوروبا الشرقية'},\n  {flag:'\U0001F1F8\U0001F1F2',name:'سان مارينو',continent:'أوروبا',capital:'مدينة سان مارينو',pop:34000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1F7\U0001F1F8',name:'صربيا',continent:'أوروبا',capital:'بلغراد',pop:6900000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1F8\U0001F1F0',name:'سلوفاكيا',continent:'أوروبا',capital:'براتيسلافا',pop:5500000,region:'أوروبا الشرقية'},\n  {flag:'\U0001F1F8\U0001F1EE',name:'سلوفينيا',continent:'أوروبا',capital:'ليوبليانا',pop:2100000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1EA\U0001F1F8',name:'إسبانيا',continent:'أوروبا',capital:'مدريد',pop:46700000,region:'جنوب أوروبا'},\n  {flag:'\U0001F1F8\U0001F1EA',name:'السويد',continent:'أوروبا',capital:'استكهولم',pop:10100000,region:'أوروبا الشمالية'},\n  {flag:'\U0001F1E8\U0001F1ED',name:'سويسرا',continent:'أوروبا',capital:'بيرن',pop:8700000,region:'أوروبا الغربية'},\n  {flag:'\U0001F1FA\U0001F1E6',name:'أوكرانيا',continent:'أوروبا',capital:'كييف',pop:43500000,region:'أوروبا الشرقية'},\n  {flag:'\U0001F1EC\U0001F1E7',name:'المملكة المتحدة',continent:'أوروبا',capital:'لندن',pop:67200000,region:'أوروبا الشمالية'},\n  {flag:'\U0001F1FB\U0001F1E6',name:'مدينة الفاتيكان',continent:'أوروبا',capital:'مدينة الفاتيكان',pop:800,region:'جنوب أوروبا'},\n  // Americas (35)\n  {flag:'\U0001F1E6\U0001F1EC',name:'أنتيغوا وبربودا',continent:'الأمريكتان',capital:\"سانت جونز\",pop:98000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1E6\U0001F1F7',name:'الأرجنتين',continent:'الأمريكتان',capital:'بوينس آيرس',pop:45200000,region:'أمريكا الجنوبية'},\n  {flag:'\U0001F1E7\U0001F1F8',name:'جزر البهاما',continent:'الأمريكتان',capital:'ناساو',pop:393000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1E7\U0001F1E7',name:'بربادوس',continent:'الأمريكتان',capital:'بريدجتاون',pop:287000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1E7\U0001F1FF',name:'بليز',continent:'الأمريكتان',capital:'Belmopan',pop:398000,region:'أمريكا الوسطى'},\n  {flag:'\U0001F1E7\U0001F1F4',name:'بوليفيا',continent:'الأمريكتان',capital:'Sucre',pop:11700000,region:'أمريكا الجنوبية'},\n  {flag:'\U0001F1E7\U0001F1F7',name:'البرازيل',continent:'الأمريكتان',capital:'البرازيل',pop:213000000,region:'أمريكا الجنوبية'},\n  {flag:'\U0001F1E8\U0001F1E6',name:'كندا',continent:'الأمريكتان',capital:'أوتاوا',pop:38000000,region:'أمريكا الشمالية'},\n  {flag:'\U0001F1E8\U0001F1F1',name:'شيلي',continent:'الأمريكتان',capital:'سانتياغو',pop:19100000,region:'أمريكا الجنوبية'},\n  {flag:'\U0001F1E8\U0001F1F4',name:'كولومبيا',continent:'الأمريكتان',capital:'Bogotá',pop:51000000,region:'أمريكا الجنوبية'},\n  {flag:'\U0001F1E8\U0001F1F7',name:'كوستاريكا',continent:'الأمريكتان',capital:'سان خوسيه',pop:5100000,region:'أمريكا الوسطى'},\n  {flag:'\U0001F1E8\U0001F1FA',name:'كوبا',continent:'الأمريكتان',capital:'هافانا',pop:11300000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1E9\U0001F1F2',name:'دومينيكا',continent:'الأمريكتان',capital:'روزا',pop:72000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1E9\U0001F1F4',name:'الجمهورية الدومينيكية',continent:'الأمريكتان',capital:'سانتو دومينغو',pop:10900000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1EA\U0001F1E8',name:'إكوادور',continent:'الأمريكتان',capital:'Quito',pop:17900000,region:'أمريكا الجنوبية'},\n  {flag:'\U0001F1F8\U0001F1FB',name:'السلفادور',continent:'الأمريكتان',capital:'سان سلفادور',pop:6500000,region:'أمريكا الوسطى'},\n  {flag:'\U0001F1EC\U0001F1E9',name:'غرينادا',continent:'الأمريكتان',capital:\"سانت جورج\",pop:113000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1EC\U0001F1F9',name:'غواتيمالا',continent:'الأمريكتان',capital:'مدينة غواتيمالا',pop:17100000,region:'أمريكا الوسطى'},\n  {flag:'\U0001F1EC\U0001F1FE',name:'غيانا',continent:'الأمريكتان',capital:'Georgetown',pop:787000,region:'أمريكا الجنوبية'},\n  {flag:'\U0001F1ED\U0001F1F9',name:'هايتي',continent:'الأمريكتان',capital:'بورت أو برنس',pop:11400000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1ED\U0001F1F3',name:'هندوراس',continent:'الأمريكتان',capital:'Tegucigalpa',pop:10300000,region:'أمريكا الوسطى'},\n  {flag:'\U0001F1EF\U0001F1F2',name:'جامايكا',continent:'الأمريكتان',capital:'كينغستون',pop:3000000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1F2\U0001F1FD',name:'المكسيك',continent:'الأمريكتان',capital:'مدينة المكسيك',pop:128900000,region:'أمريكا الشمالية'},\n  {flag:'\U0001F1F3\U0001F1EE',name:'نيكاراغوا',continent:'الأمريكتان',capital:'Managua',pop:6600000,region:'أمريكا الوسطى'},\n  {flag:'\U0001F1F5\U0001F1E6',name:'بنما',continent:'الأمريكتان',capital:'مدينة بنما',pop:4300000,region:'أمريكا الوسطى'},\n  {flag:'\U0001F1F5\U0001F1FE',name:'باراغواي',continent:'الأمريكتان',capital:'Asunción',pop:7100000,region:'أمريكا الجنوبية'},\n  {flag:'\U0001F1F5\U0001F1EA',name:'بيرو',continent:'الأمريكتان',capital:'ليما',pop:32900000,region:'أمريكا الجنوبية'},\n  {flag:'\U0001F1F0\U0001F1F3',name:'سانت كيتس ونيفيس',continent:'الأمريكتان',capital:'باستر',pop:53000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1F1\U0001F1E8',name:'سانت لوسيا',continent:'الأمريكتان',capital:'Castries',pop:184000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1FB\U0001F1E8',name:'سانت فنسنت وجزر غرينادين',continent:'الأمريكتان',capital:'كينغ تاون',pop:111000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1F8\U0001F1F7',name:'سورينام',continent:'الأمريكتان',capital:'Paramaribo',pop:612000,region:'أمريكا الجنوبية'},\n  {flag:'\U0001F1F9\U0001F1F9',name:'ترينيداد وتوباغو',continent:'الأمريكتان',capital:'ميناء إسبانيا',pop:1400000,region:'منطقة البحر الكاريبي'},\n  {flag:'\U0001F1FA\U0001F1F8',name:'الولايات المتحدة',continent:'الأمريكتان',capital:'واشنطن العاصمة',pop:331000000,region:'أمريكا الشمالية'},\n  {flag:'\U0001F1FA\U0001F1FE',name:'أوروغواي',continent:'الأمريكتان',capital:'Montevideo',pop:3500000,region:'أمريكا الجنوبية'},\n  {flag:'\U0001F1FB\U0001F1EA',name:'فنزويلا',continent:'الأمريكتان',capital:'Caracas',pop:28700000,region:'أمريكا الجنوبية'},\n  // Oceania (14)\n  {flag:'\U0001F1E6\U0001F1FA',name:'أستراليا',continent:'أوقيانوسيا',capital:'Canberra',pop:25700000,region:'أوسترالاسيا'},\n  {flag:'\U0001F1EB\U0001F1EF',name:'فيجي',continent:'أوقيانوسيا',capital:'Suva',pop:896000,region:'Melanesia'},\n  {flag:'\U0001F1F0\U0001F1EE',name:'كيريباس',continent:'أوقيانوسيا',capital:'جنوب تاراوا',pop:119000,region:'ميكرونيزيا'},\n  {flag:'\U0001F1F2\U0001F1ED',name:'جزر مارشال',continent:'أوقيانوسيا',capital:'Majuro',pop:53000,region:'ميكرونيزيا'},\n  {flag:'\U0001F1EB\U0001F1F2',name:'ميكرونيزيا',continent:'أوقيانوسيا',capital:'Palikir',pop:115000,region:'ميكرونيزيا'},\n  {flag:'\U0001F1F3\U0001F1F7',name:'ناورو',continent:'أوقيانوسيا',capital:'يارن',pop:10800,region:'ميكرونيزيا'},\n  {flag:'\U0001F1F3\U0001F1FF',name:'نيوزيلندا',continent:'أوقيانوسيا',capital:'Wellington',pop:5000000,region:'أوسترالاسيا'},\n  {flag:'\U0001F1F5\U0001F1FC',name:'بالاو',continent:'أوقيانوسيا',capital:'نغيرولم',pop:18000,region:'ميكرونيزيا'},\n  {flag:'\U0001F1F5\U0001F1EC',name:'بابوا غينيا الجديدة',continent:'أوقيانوسيا',capital:'Port Moresby',pop:9100000,region:'Melanesia'},\n  {flag:'\U0001F1FC\U0001F1F8',name:'ساموا',continent:'أوقيانوسيا',capital:'Apia',pop:200000,region:'بولينيزيا'},\n  {flag:'\U0001F1F8\U0001F1E7',name:'جزر سليمان',continent:'أوقيانوسيا',capital:'Honiara',pop:700000,region:'Melanesia'},\n  {flag:'\U0001F1F9\U0001F1F4',name:'تونغا',continent:'أوقيانوسيا',capital:\"Nuku'alofa\",pop:100000,region:'بولينيزيا'},\n  {flag:'\U0001F1F9\U0001F1FB',name:'توفالو',continent:'أوقيانوسيا',capital:'Funafuti',pop:11000,region:'بولينيزيا'},\n  {flag:'\U0001F1FB\U0001F1FA',name:'فانواتو',continent:'أوقيانوسيا',capital:'Port Vila',pop:300000,region:'Melanesia'},\n];\n\nfunction setContinent(c, btn) {\n  activeContinent = c;\n  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));\n  btn.classList.add('active');\n}\n\nfunction formatPop(n) {\n  if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';\n  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';\n  if (n >= 1e3) return (n / 1e3).toFixed(0) + 'K';\n  return n.toString();\n}\n\nfunction pick() {\n  const pool = activeContinent === 'All'\n    ? COUNTRIES\n    : COUNTRIES.filter(c => c.continent === activeContinent);\n  if (!pool.length) return;\n  const c = pool[Math.floor(Math.random() * pool.length)];\n  const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(c.name)}`;\n  document.getElementById('countryCard').innerHTML = `\n    <span class=\"country-flag\">${c.flag}</span>\n    <div class=\"country-name\">${c.name}</div>\n    <span class=\"country-continent\">${c.continent}</span>\n    <div class=\"country-stats\">\n      <div class=\"stat-cell\">\n        <div class=\"stat-cell-label\">Capital</div>\n        <div class=\"stat-cell-val\">${c.capital}</div>\n      </div>\n      <div class=\"stat-cell\">\n        <div class=\"stat-cell-label\">Population</div>\n        <div class=\"stat-cell-val\">${formatPop(c.pop)}</div>\n      </div>\n      <div class=\"stat-cell\">\n        <div class=\"stat-cell-label\">Region</div>\n        <div class=\"stat-cell-val\">${c.region}</div>\n      </div>\n    </div>\n    <a class=\"wiki-link\" href=\"${wikiUrl}\" target=\"_blank\" rel=\"noopener noreferrer\">\n      \U0001F4D6 Learn more on Wikipedia\n    </a>\n  `;\n}\n\nif ('serviceWorker' in navigator) {\n  navigator.serviceWorker.register('/sw.js').catch(() => {});\n}\n"
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🌍</div>
+    <h1>المولدات القطرية العشوائية</h1>
+    <p>اكتشاف بلد عشوائي من جميع أنحاء العالم</p>
+  </div>
+
+  <!-- AdSense placeholder -->
+  <!-- ADSENSE: <ins class="adsbygoogle" data-ad-slot="XXXXXXXX"></ins> -->
+
+  <div class="control-group" style="margin-bottom:0.75rem;">
+    <label>عرض بالقارة</label>
+  </div>
+  <div class="continent-filters" id="filters">
+    <button class="filter-btn active" onclick="setContinent('All',this)">♪</button>
+    <button class="filter-btn" onclick="setContinent('Africa',this)">أفريقيا</button>
+    <button class="filter-btn" onclick="setContinent('Asia',this)">آسيا</button>
+    <button class="filter-btn" onclick="setContinent('Europe',this)">أوروبا</button>
+    <button class="filter-btn" onclick="setContinent('Americas',this)">الأمريكتان</button>
+    <button class="filter-btn" onclick="setContinent('Oceania',this)">أوقيانوسيا</button>
+  </div>
+
+  <div id="countryCard" class="country-card">
+    <div class="empty-state">اضغط زر إختيار بلد عشوائي</div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">جمهورية الكونغو الديمقراطية</button>
+
+  <!-- AdSense placeholder -->
+  <div class="ad-slot"><!-- ADSENSE: ad unit here --></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>المولد الريفي لـ (راندوم) يلتقط إحدى الدول المتميزة في العالم البالغ عددها 195 دولة بشكل عشوائي يمكنك التصفير من قِبل القارة للتركيز على منطقة محددة، وكل نتيجة تظهر عاصمة البلاد، والقارة، والسكان. عظيم لتنقيح الجغرافيا، إلهام السفر، أو مجرد إرضاء الفضول حول العالم.</p>
+
+    <h2>????? ?????????</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>اختر مرشح للقارة من الأزرار أو اتركه على الجميع لأي بلد</li>
+      <li>Click pick Random بلد للحصول على نتيجة.</li>
+      <li>مشاهدة اسم البلد، ورأس المال، والقارة، والسكان.</li>
+      <li>انقر مرة أخرى لاكتشاف بلد آخر من أي مكان في العالم.</li>
+    </ol>
+
+    <h2>الاستخدامات المشتركة</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>تنقيح الجغرافيا وامتحانات الفصول الدراسية في العواصم العالمية</li>
+      <li>إلهام السفر عندما لا تستطيع أن تقرر أين تزور القادم</li>
+      <li>التاريخ العالمي أو البحوث الثقافية</li>
+      <li>إعداد امتحانات الاختبار في جميع الدول والعواصم</li>
+      <li>"أين في العالم؟" ألعاب التخمين مع الأصدقاء أو العائلة</li>
+      <li>التحديات اليومية التي تواجه وسائط الإعلام الاجتماعية أو التعلم</li>
+    </ul>
+
+    <h2>لماذا تستخدم سبينيت</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">والقائمة الكاملة لـ 195 دولة مدمجة في الأداة، ولذلك فإنها تعمل خارج الشبكة بعد الشحنة الأولى دون أن يتصل أحدها بالمبادرة. تصفية الوحدات تعني أنه يمكنك التركيز على منطقة محددة للدراسة أو التخطيط للسفر مجاناً، فوراً، ولا حاجة للتوقيع</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني أن أتقيأ بالقارة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم استخدام أزرار مرشحات القارة لتقييد النتائج لأفريقيا، آسيا، أوروبا، الأمريكتين، أو أو أوقيانوسيا. اختيار الجميع للاختيار من كل بلد في العالم.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">كم عدد البلدان المدرجة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">وجميع الدول ذات السيادة المعترف بها للأمم المتحدة وعددها 195 دولة، مكتملة مع عواصم المدن والقارات وأرقام السكان.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-name-generator.html"><span class="ri">👤</span> مولدات الأسماء العشوائية</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> عدد المولدات</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> بكرة النرد</a>
+    </div>
+  </section>
+
+</main>

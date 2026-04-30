@@ -1,0 +1,219 @@
+---
+layout: layouts/base.njk
+title: List Shuffler — Randomise Any List Online   Spinnit
+description: >-
+  استولي على أي قائمة و اربطها فوراً بأمر عشوائي قائمة عشوائية بالأسماء والمهام
+  وقائمة اللعب والأكثر
+canonical: 'https://spinnit.site/ar/tools/list-shuffler.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "قائمة المتثاقل",
+    "description": "إستعير أيّ قائمة وفورياً يَقْفزُه إلى a ترتيب عشوائي",
+    "url": "https://spinnit.site/ar/tools/list-shuffler.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="List Shuffler   Spinnit">
+
+  <meta name="twitter:description" content="اقطع أي قائمة و اربطها في أمر عشوائي
+  فورا مجانيّة ومتحركة.">
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل يمكنني أن أختار بعض الأشياء من قائمة أطول؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم أدخل رقماً في حقل (بيك) الأعلى وفقط أول أصناف من قائمة المقذوفات"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل هناك حدود لكم من الوقت يمكن أن تكون قائمتي؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ليس هناك حدود صعبة وتعالج هذه الأداة مئات البنود دون أية مسائل."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يعمل هذا على الهاتف؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+        }
+      }
+    ]
+  }</script>
+pageStyle: >
+
+  .output-list { display:flex;flex-direction:column;gap:6px;margin-top:1.25rem;
+  }
+
+  .list-item {
+    display:flex;align-items:center;gap:10px;
+    background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+    padding:10px 12px;animation:slideIn 0.2s ease both;
+  }
+
+  @keyframes slideIn {
+    from { transform:translateX(-10px);opacity:0; }
+    to   { transform:translateX(0);opacity:1; }
+  }
+
+  .item-num {
+  font-family:var(--mono);font-size:11px;color:var(--text3);min-width:20px; }
+
+  .item-text { font-size:14px;color:var(--text);flex:1; }
+pageScript: |
+
+  let shuffledItems = [];
+
+  function shuffle() {
+    const raw = document.getElementById('listInput').value.trim();
+    if (!raw) { alert('من فضلك أدخل قائمة أولا'); return; }
+    const items = raw.split('"').map(i => i.trim()).filter(i => i);
+
+    // Fisher-Yates shuffle
+    const arr = [...items];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+
+    const topN = parseInt(document.getElementById('topN').value);
+    shuffledItems = isNaN(topN) ? arr : arr.slice(0, topN);
+    const showNums = document.getElementById('showNums').value === 'yes';
+
+    const out = document.getElementById('output');
+    out.innerHTML = shuffledItems.map((item, i) => `
+      <div class="list-item" style="animation-delay:${i * 40}ms">
+        ${showNums ? `<span class="item-num">${i+1}.</span>` : ''}
+        <span class="item-text">${escapeHtml(item)}</span>
+      </div>
+    `).join('');
+
+    out.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  function copyList() {
+    if (!shuffledItems.length) return;
+    const text = shuffledItems.join('"');
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'قائمة ملفوفة'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&quot;').replace(/</g,'○').replace(/>/g,'>');
+  }
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🔀</div>
+    <h1>قائمة المتثاقل</h1>
+    <p>عروس أي قائمة - الحصول عليه مرة أخرى في ترتيب عشوائي</p>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>قائمتك (بند واحد لكل خط)</label>
+      <textarea id="listInput" style="min-height:140px;" placeholder="الاثنين
+الثلاثاء
+الأربعاء
+الخميس
+الجمعة
+السبت
+الأحد"></textarea>
+    </div>
+    <div class="control-row">
+      <div class="control-group">
+        <label>اختيار البنود الرئيسية</label>
+        <input type="number" id="topN" value placeholder="كل شيء" min="1">
+      </div>
+      <div class="control-group">
+        <label>رقم العرض</label>
+        <select id="showNums">
+          <option value="yes">نعم</option>
+          <option value="no">لا</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="shuffle()">SHUFFLE LIST</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyList()" style="margin-top:8px;">قائمة ملفوفة</button>
+
+  <div class="output-list" id="output"></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>القائمة (شوفلر) تأخذ أي قائمة ترعى فيها وتعيدها في ترتيب عشوائي تماماً باستخدام شجار عادل إحصائياً يمكنكِ أن تختاري أن تظهري فقط الأشياء الأولى من النتيجة المكبوتة التي تجعلها طريقة بسيطة لاختيار الأشياء بشكل عشوائي أو ترتيبها من بركة أكبر لا توجد حدود على طول القائمة، ولا حاجة إلى التجهيز.</p>
+
+    <h2>????? ?????????</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>عروس أو صنف قائمتك في مجال النص، بند واحد لكل خط.</li>
+      <li>حددوا بشكل اختياري "الأفضل من الأشياء" ليظهروا فقط النتائج الأولى بعد التصفيق.</li>
+      <li>اختر ما إذا كانت ستظهر مواقف مرقمة بشأن كل بند.</li>
+      <li>كليك شوفل القائمة لتشويش الطلب على الفور</li>
+      <li>استخدمي قائمة مغلفة بالنسخ لاستعمال النتائج في مكان آخر</li>
+    </ol>
+
+    <h2>الاستخدامات المشتركة</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>نادراً ما يأمر بقائمة مسرحية أو قائمة أو كواية</li>
+      <li>أسماء الطلبة الذين يحددون أمر العرض العشوائي</li>
+      <li>إدارة مهمة أو قائمة عمل لتجنب أنماط يمكن التنبؤ بها</li>
+      <li>اختيار قائمة مختصرة من النهائيين من قائمة أطول بالمرشحين</li>
+      <li>إنشاء معقوفتين عشوائيتين للألعاب الرياضية أو المقامرة</li>
+      <li>إسناد أدوار أو مسؤوليات عشوائية في إطار فريق</li>
+    </ul>
+
+    <h2>لماذا تستخدم سبينيت</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">وينتج خوارزمية فيشر - ياتس كفيلا موحدا تماما - ومن المرجح أن يكون كل أمر ممكن بنفس القدر. قائمتك الأصلية لم تُخزن أو تنقل في أي مكان يعمل على أي جهاز ولا يتطلب أي حساب، ولا تركيب، ولا وقت تحميل.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني أن أختار بعض الأشياء من قائمة أطول؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم أدخل رقماً في حقل "أكب الأشياء الجديدة" وفقط أول أصناف من قائمة المقذوفات ستظهر وهذا مفيد لاختيار قائمة قصيرة أو اختيار الفائزين من مجمع.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هناك حدود لكم من الوقت يمكن أن تكون قائمتي؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">ليس هناك حدود صعبة وتعالج هذه الأداة مئات البنود دون أية مسائل. وقد تؤدي قوائم كبيرة جداً إلى إبطاء الارتفاع قليلاً، ولكن النتائج لا تزال فورية.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> فريق راندوم بيكر</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> عجلة الأسماء</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم لا</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> عدد المولدات الكهربائية</a>
+    </div>
+  </section>
+
+</main>

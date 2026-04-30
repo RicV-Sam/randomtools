@@ -6,6 +6,9 @@ const matter = require("gray-matter");
 const ROOT = path.resolve(__dirname, "..");
 const SRC = path.join(ROOT, "src");
 const SITE_URL = "https://spinnit.site";
+const languages = JSON.parse(fs.readFileSync(path.join(SRC, "_data", "languages.json"), "utf8"));
+const localeMap = Object.fromEntries(languages.available.map((l) => [l.code, l]));
+const pageLocales = require(path.join(SRC, "_data", "pageLocales.js"));
 
 function walk(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -42,12 +45,41 @@ function checkJsonLd(errors, file, data) {
   }
 }
 
-function checkGermanLocale(errors, file, data) {
+function checkLocalizedUrls(errors, file, data) {
   const rel = path.relative(SRC, file).replace(/\\/g, "/");
-  if (!rel.startsWith("de/")) return;
+  const match = rel.match(/^([a-z]{2}(?:-[A-Z]{2})?)\//);
+  if (!match) return;
 
-  if (typeof data.navBackHref === "string" && data.navBackHref.startsWith("/") && !data.navBackHref.startsWith("/de/")) {
-    fail(errors, file, `navBackHref must stay in /de/ namespace (found "${data.navBackHref}")`);
+  const lang = match[1];
+  const locale = localeMap[lang];
+  if (!locale || lang === languages.default) return;
+  const prefix = locale.prefix || `/${lang}`;
+
+  if (data.lang !== lang) {
+    fail(errors, file, `localized page must set lang: ${lang}`);
+  }
+
+  if (locale.dir === "rtl" && data.dir !== "rtl") {
+    fail(errors, file, `RTL localized page must set dir: rtl`);
+  }
+
+  if (typeof data.canonical === "string" && data.canonical.startsWith(`${SITE_URL}/`) && !data.canonical.startsWith(`${SITE_URL}${prefix}/`)) {
+    fail(errors, file, `canonical should point to localized ${prefix}/ URL (found "${data.canonical}")`);
+  }
+
+  if (typeof data.navBackHref === "string" && data.navBackHref.startsWith("/") && !data.navBackHref.startsWith(`${prefix}/`)) {
+    fail(errors, file, `navBackHref must stay in ${prefix}/ namespace (found "${data.navBackHref}")`);
+  }
+
+  if (typeof data.extraHead === "string") {
+    const refreshRx = /<meta[^>]+http-equiv=["']refresh["'][^>]+content=["'][^"']*url=(\/[^"';]+)[^"']*["']/gi;
+    let refresh;
+    while ((refresh = refreshRx.exec(data.extraHead))) {
+      const url = refresh[1];
+      if (!url.startsWith(`${prefix}/`)) {
+        fail(errors, file, `refresh URL must stay in ${prefix}/ namespace (found "${url}")`);
+      }
+    }
   }
 
   if (typeof data.jsonLd === "string") {
@@ -61,8 +93,9 @@ function checkGermanLocale(errors, file, data) {
           if (typeof v === "string") {
             if ((k.toLowerCase().includes("url") || k === "mainEntityOfPage") &&
               v.startsWith(`${SITE_URL}/`) &&
-              !v.startsWith(`${SITE_URL}/de/`)) {
-              fail(errors, file, `${k} should point to localized /de/ URL (found "${v}")`);
+              v !== `${SITE_URL}/` &&
+              !v.startsWith(`${SITE_URL}${prefix}/`)) {
+              fail(errors, file, `${k} should point to localized ${prefix}/ URL (found "${v}")`);
             }
           } else if (Array.isArray(v)) {
             for (const item of v) stack.push(item);
@@ -77,6 +110,29 @@ function checkGermanLocale(errors, file, data) {
   }
 }
 
+function checkArabicEnglishLeftovers(errors, file, raw) {
+  const rel = path.relative(SRC, file).replace(/\\/g, "/");
+  if (!rel.startsWith("ar/")) return;
+
+  const obvious = [
+    "all tools",
+    "free forever",
+    "Copy result",
+    "Copied!",
+    "Generate Number",
+    "Recent results",
+    "How to Use",
+    "Privacy Policy",
+    "Terms of Service",
+  ];
+
+  for (const phrase of obvious) {
+    if (raw.includes(phrase)) {
+      fail(errors, file, `Arabic page contains untranslated UI phrase "${phrase}"`);
+    }
+  }
+}
+
 function main() {
   const files = walk(SRC);
   const errors = [];
@@ -85,7 +141,14 @@ function main() {
     const raw = fs.readFileSync(file, "utf8");
     const { data } = matter(raw);
     checkJsonLd(errors, file, data);
-    checkGermanLocale(errors, file, data);
+    checkLocalizedUrls(errors, file, data);
+    checkArabicEnglishLeftovers(errors, file, raw);
+  }
+
+  if (!Array.isArray(pageLocales.sitemapUrls) || pageLocales.sitemapUrls.length === 0) {
+    errors.push("sitemap data is empty");
+  } else if (!pageLocales.sitemapUrls.some((url) => url.startsWith(`${SITE_URL}/ar/`))) {
+    errors.push("sitemap data is missing Arabic URLs");
   }
 
   if (errors.length) {

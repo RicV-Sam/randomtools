@@ -8,7 +8,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/sw.js": "sw.js" });
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
   eleventyConfig.addPassthroughCopy({ "src/CNAME": "CNAME" });
-  eleventyConfig.addPassthroughCopy({ "src/sitemap.xml": "sitemap.xml" });
 
   // .well-known for Digital Asset Links (Android TWA) and future needs.
   eleventyConfig.addPassthroughCopy({ "src/.well-known": ".well-known" });

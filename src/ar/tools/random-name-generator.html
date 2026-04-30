@@ -1,0 +1,398 @@
+---
+layout: layouts/base.njk
+title: 'مولد الاسم المستعار - الاسم الأول:'
+description: >-
+  يولدون أسماء عشوائيّة واقعيّة من 10 ثقافات. المولد المجاني للشخصيات، وكتابة
+  العجلات، والألعاب، وبيانات الاختبار.
+canonical: 'https://spinnit.site/ar/tools/random-name-generator.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "مولدات الأسماء العشوائية",
+    "description": "تولد أسماء عشوائية واقعية أولاً وأخيرة من 10 ثقافات في جميع أنحاء العالم",
+    "url": "https://spinnit.site/ar/tools/random-name-generator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="مولدات الاسم العشوائي">
+
+  <meta name="twitter:description" content="تولد أسماء عشوائية من 10 ثقافات حر
+  وفوري">
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل يمكنني اختيار ثقافة أو جنسية محددة؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم إنقطاع الثقافة يسمح لك بالاختيار من الأسبانية والإسبانية والفرنسية والألمانية واليابانية والعربية والهندية والصينية والروسية والإيطالية."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل الأسماء واقعية؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم قائمة أسماء كل ثقافة مستمدة من أسماء أو ألقاب حقيقية مستعملة في تلك المناطق"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكنني استخدام هذه الأسماء للشخصيات أو بيانات الاختبار؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم والأسماء المتولدة مفيدة للخصائص الخيالية، ومسارات الكتابة، وألعاب الطاولة، والنماذج الأولية، وبيانات اختبار أصحاب الأماكن."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل تم إنقاذ الأسماء المتولدة؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "لا الأسماء متولدة محلياً في مسبحك ولا يتم إنقاذها من قبل سبينيت"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يعمل هذا على الهاتف؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+        }
+      }
+    ]
+  }</script>
+pageStyle: |
+
+  .names-output {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+  .name-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    animation: pop 0.2s ease both;
+  }
+  .name-item-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    font-family: var(--mono);
+    word-break: break-word;
+  }
+  .name-copy-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text3);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .name-copy-btn:hover { color: var(--text); border-color: var(--border2); }
+  .name-copy-btn.copied { color: #4ade80; border-color: #4ade80; }
+  .count-pills {
+    display: flex;
+    gap: 6px;
+  }
+  .pill {
+    flex: 1;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .pill.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .pill:hover:not(.active) { border-color: var(--border2); color: var(--text); }
+pageScript: >
+
+  let count = 1;
+
+
+  function setCount(n, btn) {
+    count = n;
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+
+  const DATA = {
+    english: {
+      male: ['James','John','Robert','Michael','William','David','Richard','Joseph','Thomas','Charles','Christopher','Daniel','Matthew','Anthony','Mark','Donald','Steven','Paul','Andrew','Joshua','Kenneth','Kevin','Brian','George','Timothy','Ronald','Edward','Jason','Jeffrey','Ryan','Jacob','Gary','Nicholas','Eric','Jonathan','Stephen','Larry','Justin','Scott','Brandon','Benjamin','Samuel','Raymond','Gregory','Frank','Alexander','Patrick','Jack','Dennis','Jerry','Tyler','Aaron','Henry','Adam','Nathan','Peter','Zachary','Kyle','Walter','Logan'],
+      female: ['Mary','Patricia','Jennifer','Linda','Barbara','Susan','Dorothy','Sarah','Karen','Lisa','Nancy','Betty','Margaret','Sandra','Ashley','Kimberly','Emily','Donna','Carol','Michelle','Amanda','Melissa','Deborah','Stephanie','Rebecca','Sharon','Laura','Cynthia','Kathleen','Amy','Angela','Shirley','Anna','Brenda','Pamela','Emma','Nicole','Helen','Samantha','Katherine','Christine','Rachel','Carolyn','Janet','Catherine','Maria','Heather','Diane','Julie','Joyce','Victoria','Kelly','Christina','Lauren','Jessica','Evelyn','Megan','Cheryl','Sophia','Olivia'],
+      last: ['Smith','Johnson','Williams','Brown','Jones','Garcia','Miller','Davis','Wilson','Taylor','Moore','Anderson','Thomas','Jackson','White','Harris','Martin','Thompson','Young','Walker','Allen','Hall','Green','Baker','Adams','Campbell','Mitchell','Roberts','Carter','Phillips','Evans','Turner','Parker','Collins','Edwards','Stewart','Sanchez','Morris','Rogers','Reed','Cook','Morgan','Bell','Murphy','Bailey','Rivera','Cooper','Richardson','Cox','Howard','Ward','Peterson','Gray','James','Watson','Brooks','Kelly','Sanders','Price']
+    },
+    spanish: {
+      male: ['خوسيه','Juan','Miguel','Luis','Carlos','Andrés','Diego','Alejandro','Fernando','Ricardo','Alberto','Eduardo','Rubén','Manuel','Rafael','Sergio','Antonio','Héctor','Gonzalo','Pablo','Javier','Marco','Ignacio','Felipe','Roberto','ألفارو','Rodrigo','Enrique','راؤول','نيكولاس','Agustín','Emilio','Santiago','Sebastián','Lorenzo','Mauricio','Marcos','Arturo','Gabriel','Gerardo','Omar','Ismael','Gustavo','Ernesto','Patricio','خيسوس','Armando','رينيه','Eugenio','Valentín','بنجامين','César','فيكتور','Hugo','Salvador','Ramón','Adrián','Iván','Daniel','Francisco'],
+      female: ['ماريا','Ana','Elena','Isabel','Carmen','Sofía','Valentina','Fernanda','Daniela','Camila','Alejandra','Mariana','Gabriela','Lucía','Rosa','Claudia','Patricia','Laura','Andrea','Natalia','Paula','Beatriz','Cristina','Adriana','Silvia','Verónica','Lorena','روسي','Pilar','Teresa','Yolanda','Olga','Alicia','Gloria','Mónica','Diana','Susana','Blanca','Inés','Irene','Nuria','Marta','Sara','Raquel','Miriam','Concepción','Carla','Rebeca','Esther','Noelia','Vanessa','Sonia','Marisol','Paloma','Mercedes','Nadia','Lourdes','Esperanza','Catalina','Verónica'],
+      last: ['García','Rodríguez','مارتينيز','لوبيز','González','Hernández','بيريز','Sánchez','راميريز','Torres','Flores','Rivera','Díaz','Reyes','Morales','Cruz','خيمينيز','Ortiz','غوتييريس','Chávez','Ramos','Mendoza','ألفاريز','Castillo','Vargas','Ortega','Herrera','Medina','Fernández','Aguilar','Vega','Rojas','Ruiz','Delgado','Acosta','Contreras','دومينغيز','Guerrero','ريوس','Miranda','Moreno','Campos','Salinas','Navarro','Santos','Soto','نونيز','Molina','Fuentes','Cabrera','Castro','Figueroa','Espinoza','Ponce','Blanco','Villa','Estrada','Carrillo','Barrera','Montoya']
+    },
+    french: {
+      male: ['Pierre','Jean','Jacques','Michel','François','Philippe','Henri','Louis','Claude','Antoine','Nicolas','Matthieu','Alexandre','Marc','Thierry','Stéphane','Thomas','Julien','Xavier','Sébastien','David','Vincent','Yves','Gilles','Laurent','Frédéric','Luc','Pascal','رينيه','Sylvain','Benoît','Gaston','Christophe','Hervé','Bruno','Emmanuel','Alain','Denis','Étienne','جيرار','Maxime','Hugo','ليو','Gabriel','Lucas','Théo','رافاييل','Clément','Quentin','Florian','Baptiste','Adrien','Alexandre','Simon','Robin','Edouard','Camille','Arthur','Rémi','Corentin'],
+      female: ['Marie','Sophie','Isabelle','Claire','Camille','Céline','Nathalie','Véronique','Virginie','Charlotte','Emma','Lucie','ليا','Manon','Chloé','Inès','Pauline','Alice','Amélie','Elise','أوريلي','Sandrine','Laurence','Christine','Patricia','Martine','Sylvie','Monique','Brigitte','هيلين','Agnès','Jacqueline','Françoise','Michelle','Anne','Catherine','Valérie','Stéphanie','Nadia','Sabine','أنايس','Jade','Margot','Clara','Juliette','Sarah','Mathilde','Laura','Eva','Marine','زوي','Florence','Dominique','Madeleine','Simone','Jeanne','Odette','بياتريس','Adèle','Victoire'],
+      last: ['Martin','Bernard','Dubois','Thomas','Robert','Richard','Petit','Durand','Leroy','Moreau','Simon','Laurent','Lefebvre','Michel','Garcia','David','Bertrand','Roux','Vincent','Fournier','Morel','Girard','أندريه','Mercier','Dupont','Lambert','Bonnet','François','Martinez','Legrand','Garnier','Faure','Rousseau','Blanc','Guerin','Muller','Henry','Roussel','Nicolas','Perrin','Morin','Mathieu','Clement','Gauthier','Dumont','Lopez','Fontaine','Chevalier','Robin','Masson','Sanchez','Boyer','Lefèvre','Renard','Leclerc','Lecomte','Beaulieu','Carpentier','Bouchard','Perez']
+    },
+    german: {
+      male: ['Hans','Klaus','Wolfgang','Jürgen','Dieter','Thomas','Michael','Stefan','Markus','Andreas','Christoph','Werner','Günter','Karl','Walter','Herbert','Georg','Horst','Rolf','Manfred','Helmut','Peter','Uwe','Bernd','Ulrich','Bernhard','Frank','Rainer','Otto','Friedrich','Ernst','Alfred','Gerhard','Hartmut','Joachim','Lothar','Norbert','Volker','Wilhelm','Felix','Tobias','Florian','Lukas','Tim','Leon','Alexander','Maximilian','Fabian','Simon','Jan','Jonas','Niklas','Patrick','Dominik','Christian','Sebastian','Matthias','Benjamin','David','Philipp'],
+      female: ['Maria','Ursula','Brigitte','Helga','Ilse','Monika','Inge','Erika','Elfriede','Gertrud','Charlotte','Elisabeth','Ingrid','Hannelore','Margot','Renate','Gisela','Sabine','Claudia','Petra','Gabriele','Martina','Anja','Sandra','Nicole','Stefanie','Susanne','Karin','Christine','Andrea','Birgit','Sonja','Cornelia','Silke','Katharina','Julia','Sarah','Lea','Emma','Anna','Laura','Lena','Hannah','Lisa','Mia','Klara','Paula','Sophie','Lotte','Marie','Johanna','Frieda','Greta','Franziska','Helene','Mathilda','Ida','Hilde','Ilona','Waltraud'],
+      last: ['مولير','Schmidt','Schneider','Fischer','Weber','Meyer','Wagner','Becker','Schulz','Hoffmann','Schäfer','Koch','Bauer','Richter','Klein','Wolf','Schröder','Neumann','Schwarz','Zimmermann','Braun','Krüger','Hofmann','Hartmann','Lange','Schmitt','Werner','Schmitz','Krause','Meier','Lehmann','Schmid','Schulze','Maier','Köhler','Herrmann','König','Walter','Mayer','Huber','Kaiser','Fuchs','Peters','Lang','Scholz','مولر','Weiß','Jung','Hahn','Schubert','Vogel','Friedrich','Keller','Günther','Simon','Frank','Berg','Roth','Beck','Kramer']
+    },
+    japanese: {
+      male: ['Hiroshi','Kenji','Takashi','Yoshio','Satoshi','Kazuki','Takeshi','Makoto','Taro','Jiro','Kenta','Naoki','Shota','Ryota','Yuta','Daiki','Shunsuke','Tatsuya','Daisuke','Masaki','Kota','Haruki','Takuya','Sho','Ren','Kaito','Souta','Akira','Shinji','Noboru','Isamu','Takao','Kenjiro','Ichiro','Goro','Tatsuo','Masahiro','Yasuhiro','Tomohiro','Kazuhiro','Norihiro','Yoshihiro','Ryu','Hayate','Yuuki','Ryuji','Toshio','Fumio','Norio','Hikaru','Sora','Yuki','Tsuyoshi','Shinichi','Kotaro','Saburo','Shiro','Kazuhiko','Takahiro','Kenichi'],
+      female: ['Yuki','Haruko','Akiko','Yoko','Keiko','Michiko','Tomoko','Sachiko','Noriko','Fumiko','Kazuko','Hiroko','Yasuko','Kimiko','Junko','Etsuko','Masako','Yoshiko','Naomi','Reiko','Hanako','Emiko','Ayumi','Kaoru','Hana','Sakura','Aiko','Nana','Saki','Miku','Rin','Riko','Yui','Momoka','Aya','Mai','Mio','Nao','Hinata','Yuna','Koharu','Miyu','Asuka','Chie','Eri','Kana','Mayu','Moe','Shiori','Aoi','Umi','Sora','Kotone','Haruna','Mizuki','Nanami','Akane','Yuria','Mei','Fuko'],
+      last: ['Sato','Suzuki','Takahashi','Tanaka','Watanabe','Ito','Yamamoto','Nakamura','Hayashi','Kobayashi','Kato','Yoshida','Yamada','Sasaki','Yamazaki','Matsumoto','Inoue','Kimura','Shimizu','Fujiwara','Ogawa','Matsuda','Abe','Ikeda','Mori','Hashimoto','Nishimura','Ishikawa','Nakagawa','Okamoto','Ueda','Saito','Miura','Goto','Aoki','Fujita','Okada','Kaneko','Endo','Nishida','Ishii','Harada','Nomura','Nakajima','Maeda','Masuda','Yamashita','Ohara','Imai','Fujii','Ogata','Matsui','Naito','Hirano','Morita','Tamura','Fukuda','Ono','Muto','Takeuchi']
+    },
+    arabic: {
+      male: ['Mohammed','Ali','Ahmed','Omar','Hassan','Abdullah','Ibrahim','Khalid','Yusuf','Bilal','Tariq','Faisal','Nasser','Rashid','Walid','Hamid','Jamal','Kareem','Majid','Samir','Adil','Basim','Dawud','Ehsan','Fahad','Ghazi','Hasan','Ismail','Jabir','Kamil','Latif','Munir','Nasir','Obaid','Qasim','Rami','Salim','Tamer','Umar','Yahya','Zayd','Adnan','Bassem','Emad','Faris','Ghanem','Hakim','Issa','Jad','Karim','Layth','Maher','Nizar','Osama','Qays','Suhail','Talal','Wissam','Ziad','Raed'],
+      female: ['Fatima','Aisha','Maryam','Zainab','Layla','Nour','Hind','Rania','Dina','Sara','Hala','Lamia','Nadia','Samira','Amira','Leila','Yasmin','Suha','Rima','Ghada','Hana','Wafa','Sana','Abeer','Bushra','Dalila','Eman','Farah','Ghazal','Heba','Iman','Jana','Khadija','Lubna','Manal','Nagwa','Ola','Qamar','Rana','Siham','Taghreed','Widad','Yara','Zahra','Asma','Basma','Chadia','Duha','Elham','Faten','Ghalia','Ihsan','Jumana','Khuloud','Lina','Mona','Nisreen','Ruba','Salma','Tamara'],
+      last: ['Al-Hassan','Al-Ahmed','Al-Rashid','Al-Khalid','Al-Mansouri','Al-Hamdan','Al-Maliki','Al-Saad','Farouq','Aziz','Rahman','Karim','Nassif','Taha','Mustafa','Hussain','Saleh','Amin','Naji','Hariri','Khoury','Saad','Haddad','Ayyub','Dabbagh','Masri','Shaikh','Al-Bakr','Al-Issa','Al-Yousif','Al-Zahrani','Al-Shehri','Al-Harbi','Al-Qahtani','Al-Otaibi','Al-Dosari','Al-Mutairi','Al-Ghamdi','Barakat','Chami','Daoud','Qureshi','Khalil','Nawaz','Siddiqui','Mirza','Abbasi','Chaudhry','Baig','Sheikh','Malik','Zaidi','Bukhari','Hashmi','Ansari','Rizvi','Jafari','Kazemi','Tehrani','Shirazi']
+    },
+    indian: {
+      male: ['Arjun','Rohan','Vikram','Rajesh','Suresh','Ramesh','Mahesh','Ganesh','Dinesh','Rakesh','Amit','Sumit','Ranjit','Sanjit','Anil','Sunil','Vimal','Kamal','Nirmal','Hari','Shiv','Ram','Prem','Rishi','Abhishek','Manish','Girish','Naresh','Paresh','Hitesh','Ritesh','Jitesh','Nitesh','Yogesh','Lokesh','Mukesh','Deepak','Prakash','Vivek','Subhash','Harish','Sundeep','Pradeep','Sandeep','Kuldeep','Gurpreet','Amardeep','Navdeep','Ajay','Vijay','Sanjay','Uday','Mohan','Sohan','Rohan','Kiran','Varun','Tarun','Arun','Rahul'],
+      female: ['Priya','Anita','Sunita','Kavita','Geeta','Reeta','Meeta','Neeta','Beena','Meena','Sheena','Leena','Veena','Heena','Deepa','Roopa','Krupa','Shilpa','Neha','Sneha','Rekha','Usha','Asha','Nisha','Disha','Misha','Trisha','Alka','Chanda','Nanda','Pooja','Puja','Priyanka','Deepika','Monika','Anika','Sonika','Kanika','Preethi','Shruthi','Sruthi','Kruthi','Jyothi','Sumathi','Kamala','Lakshmi','Saraswati','Durga','Parvati','Savitri','Radha','Sita','Gita','Ananya','Divya','Riya','Ishika','Aishwarya','Nandita','Swathi'],
+      last: ['Sharma','Verma','Gupta','Singh','Kumar','Patel','Shah','Mehta','Joshi','Mishra','Yadav','Rao','Nair','Pillai','Menon','Iyer','Iyengar','Reddy','Naidu','Chaudhary','Thakur','Pandey','Tiwari','Dubey','Tripathi','Sinha','Bose','Chatterjee','Mukherjee','Banerjee','Ghosh','Das','Dey','Basu','Roy','Sen','Sarkar','Majumdar','Chakraborty','Agarwal','Agrawal','Mittal','Garg','Jain','Lal','Nath','Prasad','Babu','Murthy','Krishnan','Subramaniam','Rajan','Natarajan','Venkataraman','Subramanian','Annamalai','Murugan','Swaminathan','Krishnamurthy','Venkatesan']
+    },
+    chinese: {
+      male: ['Wei','Fang','Feng','Gang','Hao','Jian','Jun','Lei','Liang','Ming','Peng','Qiang','Tao','Wen','Xiao','Yang','Yong','Zhong','Bo','Cheng','Da','Hai','Jie','Jin','Kai','Long','Nan','Qi','Sheng','Shu','Tian','Wu','Xi','Xin','Xu','Ye','Yi','Ze','Zhen','Zhi','Yun','Yue','Yao','Yan','Xue','Xun','Xiang','Xuan','Zhenyu','Minghao','Jinlong','Tianhao','Haoyu','Zijian','Haoran','Junhao','Yuhao','Ziyu','Bowen','Chengjun'],
+      female: ['Ling','Mei','Fang','Xiu','Yun','Hua','Lan','Ping','Qing','Yan','Zhen','Na','Juan','Dan','Rui','Xia','Lu','Qian','Shan','Cui','Min','Jing','Ying','Hong','Hui','Xue','Yue','Zhi','Ai','Bing','Die','Fen','Ge','He','Ji','Ke','Le','Lin','Luo','Man','Ni','Ou','Qin','Ru','Su','Tao','Wan','Xian','Xiao','Yu','Zi','Fengyun','Meiling','Yanling','Xiulan','Jingyi','Mingyue','Yuxin','Lihua','Qianru'],
+      last: ['Wang','Li','Zhang','Liu','Chen','Yang','Huang','Zhao','Wu','Zhou','Xu','Sun','Ma','Zhu','Hu','Guo','He','Lin','Gao','Luo','Zheng','Liang','Xie','Tang','Han','Cao','Deng','Feng','Peng','Xiao','Cheng','Cai','Pan','Du','Jiang','Dong','Yu','Ye','Shen','Yuan','Lu','Ding','Wei','Xia','Mao','Dai','Gu','Qin','Shi','Hao','Long','Yin','Lei','Yan','Cui','Kong','Bai','Fang','Jin','Shao']
+    },
+    russian: {
+      male: ['Ivan','Alexei','Dmitri','Nikolai','Mikhail','Andrei','Sergei','Vladislav','Evgeny','Maxim','Boris','Viktor','Konstantin','Pavel','Roman','Anton','Yuri','Oleg','Denis','Artyom','Kirill','Vitaly','Igor','Vadim','Gennady','Anatoly','Arkady','Timur','Ruslan','Ilya','Fyodor','Semyon','Georgy','Stepan','Vasily','Pyotr','Lev','Valentin','Aleksandr','Valery','Grigory','Leonid','Matvei','Nikita','Rodion','Stanislav','Taras','Yaroslav','Zinovy','Danil','Egor','Fedor','Gleb','Vladlen','Vsevolod','Tikhon','Bogdan','Savely','Miroslav','Luka'],
+      female: ['Anna','Olga','Irina','Natalya','Tatiana','Elena','Svetlana','Marina','Ekaterina','Nadezhda','Galina','Valentina','Lyudmila','Oksana','Zhanna','Yulia','Larisa','Vera','Tamara','Sofia','Anastasia','Alena','Daria','Ksenia','Polina','Varvara','Elizaveta','Kristina','Maria','Alexandra','Natasha','Masha','Katya','Lena','Sveta','Tanya','Nina','Rima','Vika','Alina','Liza','Diana','Margarita','Milena','Nadya','Oxana','Alla','Elvira','Zoya','Agniya','Bogdana','Evgenia','Vasilisa','Arina','Miroslava','Ulyana','Zlata','Pelageya','Glafira','Serafima'],
+      last: ['Ivanov','Smirnov','Kuznetsov','Popov','Vasiliev','Petrov','Sokolov','Mikhailov','Novikov','Fedorov','Morozov','Volkov','Alexeyev','Lebedev','Semenov','Egorov','Pavlov','Kozlov','Stepanov','Nikolayev','Orlov','Andreev','Makarov','Nikitin','Zakharov','Zaytsev','Solovyov','Borisov','Yakovlev','Grigoryev','Romanov','Vorobyov','Osipov','Kiselev','Tikhomirov','Polyakov','Medvedev','Sorokin','Baryshnikov','Belov','Bykov','Danilov','Frolov','Gorbachev','Karpov','Kasparov','Kovalev','Lazarev','Litvinov','Lukin','Malikov','Markov','Nosov','Orlov','Panov','Ryabov','Savelyev','Titov','Uvarov','Vinogradov']
+    },
+    italian: {
+      male: ['Marco','Lorenzo','Matteo','Luca','Andrea','Riccardo','Davide','Stefano','Francesco','Alessandro','Simone','Gianluca','Massimo','Nicola','Emanuele','Enrico','Roberto','Alberto','Claudio','Daniele','Giorgio','Giulio','Aldo','Bruno','Carlo','Dario','Edoardo','Fabrizio','Giacomo','Gianni','Gino','Giovanni','Giuseppe','Guido','Leonardo','Lino','Luigi','Mauro','Mario','Maurizio','Paolo','Piero','Pietro','Raffaele','Salvatore','Sergio','Silvio','Tommaso','Umberto','Vincenzo','Angelo','Antonio','Cesare','Cosimo','Enzo','Ettore','Felice','Filippo','Flavio','Franco'],
+      female: ['Maria','Sofia','Giulia','Valentina','Chiara','Sara','Federica','Alessia','Martina','Elisa','Claudia','Laura','Monica','Roberta','Silvia','Patrizia','Cristina','Annalisa','Francesca','Daniela','Elena','Ilaria','Luisa','Michela','Paola','Sabrina','Serena','Veronica','Valeria','Anna','Caterina','Cinzia','Clara','Donatella','Emma','Fabiola','Giovanna','Graziella','Ivana','Lidia','Loredana','Lucia','Luigina','Mirella','Morena','Nadia','Oriana','Raffaella','Rita','Rossella','Simonetta','Stefania','Tiziana','Viola','Eleonora','Isabella','Benedetta','Grazia','Carmela','Nunzia'],
+      last: ['Rossi','Ferrari','Russo','Bianchi','Romano','Gallo','Costa','Fontana','Conti','Esposito','Ricci','Bruno','De Luca','Moretti','Barbieri','Lombardi','Riva','Caruso','Marini','Ferretti','De Angelis','Pellegrini','Fiore','Giordano','Silvestri','Leone','Vitale','Longo','Messina','Rinaldi','Mancini','Ferri','Mazza','Santoro','Greco','Conte','Orsini','Palma','Sanna','Fabbri','Sala','Martini','Santini','Casale','Gentile','Graziani','Guerrieri','Martinelli','Masi','Piras','Rossetti','Sartori','Sorrentino','Testa','Ferraro','Marchetti','Mariotti','Benedetti','Cattaneo','Colombo']
+    }
+  };
+
+
+  function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+
+  function pickName() {
+    const region = document.getElementById('region').value;
+    const gender = document.getElementById('gender').value;
+    const d = DATA[region];
+    const g = gender === 'any' ? (Math.random() < 0.5 ? 'male' : 'female') : gender;
+    const first = rand(d[g]);
+    const last = rand(d.last);
+    return `${first} ${last}`;
+  }
+
+
+  function generate() {
+    const out = document.getElementById('namesOutput');
+    const copyAllBtn = document.getElementById('copyAllBtn');
+    out.innerHTML = '';
+    const names = Array.from({length: count}, () => pickName());
+    names.forEach((name, i) => {
+      const item = document.createElement('div');
+      item.className = 'name-item';
+      item.style.animationDelay = (i * 60) + 'ms';
+      item.innerHTML = `
+        <span class="name-item-text">${escHtml(name)}</span>
+        <button class="name-copy-btn" onclick="copyOne(this,'${escAttr(name)}')">copy</button>
+      `;
+      out.appendChild(item);
+    });
+    copyAllBtn.style.display = count > 1 ? 'block' : 'none';
+    copyAllBtn.dataset.names = names.join('"');
+  }
+
+
+  function copyOne(btn, name) {
+    navigator.clipboard.writeText(name).then(() => {
+      btn.textContent = 'نسخ!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 1500);
+    });
+  }
+
+
+  function copyAll() {
+    const btn = document.getElementById('copyAllBtn');
+    navigator.clipboard.writeText(btn.dataset.names).then(() => {
+      btn.textContent = '!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'جميع الأسماء'; btn.classList.remove('copied'); }, 1500);
+    });
+  }
+
+
+  function escHtml(s) { return
+  s.replace(/&/g,'&quot;').replace(/</g,'○').replace(/>/g,'>'); }
+
+  function escAttr(s) { return s.replace(/'/g,"\\'"); }
+
+
+  // Generate on load
+
+  generate();
+
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">👤</div>
+    <h1>مولدات الأسماء العشوائية</h1>
+    <p>توليد أسماء واقعية من الثقافات في جميع أنحاء العالم</p>
+  </div>
+
+  <!-- AdSense placeholder -->
+  <!-- ADSENSE: <ins class="adsbygoogle" data-ad-slot="XXXXXXXX"></ins> -->
+
+  <div class="controls">
+    <div class="control-row">
+      <div class="control-group">
+        <label>الثقافة/الإقليم</label>
+        <select id="region">
+          <option value="english">الإنكليزية</option>
+          <option value="spanish">الإسبانية</option>
+          <option value="french">الفرنسية</option>
+          <option value="german">ألمانيا</option>
+          <option value="japanese">اليابان</option>
+          <option value="arabic">العربية</option>
+          <option value="indian">الهند</option>
+          <option value="chinese">الصينية</option>
+          <option value="russian">الروسية</option>
+          <option value="italian">إيطاليا</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>نوع الجنس</label>
+        <select id="gender">
+          <option value="any">أي شيء</option>
+          <option value="male">الذكور</option>
+          <option value="female">الإناث</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>عدد الأسماء</label>
+      <div class="count-pills">
+        <button class="pill active" onclick="setCount(1,this)">1</button>
+        <button class="pill" onclick="setCount(5,this)">5</button>
+        <button class="pill" onclick="setCount(10,this)">10</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE NAMES</button>
+
+  <div id="namesOutput" class="names-output" style="margin-top:1rem;" aria-live="polite" aria-atomic="true"></div>
+
+  <button id="copyAllBtn" class="btn-copy" onclick="copyAll()" style="display:none;margin-bottom:0.5rem;">جميع الأسماء</button>
+
+  <!-- AdSense placeholder -->
+  <div class="ad-slot"><!-- ADSENSE: ad unit here --></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>وينتج المولد النادل للأسماء الاسمية أسماء أولية وأخيرة واقعية من عشر تقاليد ثقافية مختلفة - الانكليزية والاسبانية والفرنسية والألمانية واليابانية والعربية والهندية والصينية والروسية والإيطالية. يمكنك التصفير حسب الجنس وتوليد ما يصل إلى 10 أسماء في كل مرة مفيدة للكتاب، ومصممي الألعاب، والمدرسين، والمطورين الذين يحتاجون إلى أسماء أصحاب أماكن معقولة بسرعة.</p>
+
+    <h2>ما هذا المولد هو الأفضل</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">استخدمها للخصائص الخيالية، وجهاز تخطيط البرامج الوطنية، وعينات ملامح المستخدمين، ومسارات الفصول، ونماذج اللعبة، والتمارين الإبداعية. إذا كنت ترغب في الاختيار من قائمة الخاص بك من الناس الحقيقيين، استخدام <a href="pick-random-name.html">إختر اسم راندوم</a> أو <a href="wheel-of-names.html">عجلة الأسماء</a> بدلاً من ذلك</p>
+
+    <h2>????? ?????????</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>اختيار ثقافة أو منطقة من قائمة الهبوط</li>
+      <li>اختر مرشحا جنسانيا - أي، ذكر، أو أنثى.</li>
+      <li>إختر كم عدد الأسماء التي تريدها: 1، 5، 10</li>
+      <li>قم بلعق أسماء الجينات لإنتاج نتائجك</li>
+      <li>إستخدم أزرار النسخ الفردية أو نسخ جميع الأسماء لجلب القائمة الكاملة</li>
+    </ol>
+
+    <h2>الاستخدامات المشتركة</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>إنشاء أسماء شخصية للروايات أو النصوص أو القصص القصيرة</li>
+      <li>نشر قواعد بيانات الاختبار مع بيانات مزيفة واقعية</li>
+      <li>سمات في ألعاب الفيديو أو الحملات التي ينظمها فريق الاتصال</li>
+      <li>تمارين الصفوف تستكشف ثقافات العالم وتقاليد التسمية</li>
+      <li>تولد أسماء مستعارة أو أسماء قلم للكتاب</li>
+      <li>وسائل الإعلام الاجتماعية أو الكتابة الإبداعية تحفز وتواجه تحديات</li>
+    </ul>
+
+    <h2>اختيار ثقافة أو منطقة</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">وتجمع كل منطقة بين أسماء وأسماء معينة من نفس التقاليد السمية، مما يجعل النتيجة أكثر طبيعية من قائمة مختلطة تماما. لبيانات خيالية أو مقصّيّة أو محيّل، يُولّدُ عدة مجموعات ويُنسخُ الأسماءَ التي تُطابقُ نبرةَكَ.</p>
+
+    <h2>لماذا تستخدم سبينيت</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">فكل ثقافة تستخدم أسماء وألقابا أصلية مستمدة من تقاليد التسمية الحقيقية، وبالتالي فإن النتائج تبدو طبيعية وليس متولدة. لا شيء تنتجه ينقذ أو يرتبط بك يعمل خارج الشبكة بعد الحمولة الأولى، دون حاجة إلى حساب.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني اختيار ثقافة أو جنسية محددة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم إنقطاع الثقافة يسمح لك بالاختيار من الأسبانية والإسبانية والفرنسية والألمانية واليابانية والعربية والهندية والصينية والروسية والإيطالية.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل الأسماء واقعية؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم قائمة أسماء كل ثقافة مستمدة من أسماء أو ألقاب حقيقية مستعملة في تلك المناطق</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني استخدام هذه الأسماء للشخصيات أو بيانات الاختبار؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم وهي مفيدة للخصائص الخيالية، ومسارات الكتابة، وألعاب الطاولة، والنماذج الأولية، وبيانات اختبار المسكن. تجنب استخدامهم لانتحال شخصية شخص حقيقي</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل تم إنقاذ الأسماء المتولدة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">لا الأسماء متولدة محلياً في مسبحك ولا يتم إنقاذها من قبل سبينيت</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> عجلة الأسماء</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> فريق راندوم بيكر</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+      <a class="related-card" href="random-country.html"><span class="ri">🌍</span> المولدات القطرية العشوائية</a>
+    </div>
+  </section>
+
+</main>

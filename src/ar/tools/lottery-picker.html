@@ -1,0 +1,298 @@
+---
+layout: layouts/base.njk
+title: 'Lottery Number Generator – UK, US &apos; More , Spinnit'
+description: >-
+  تولد أرقام اليانصيب العشوائية لـ لوتو المملكة المتحدة، واليورو ميليون،
+  وباوربول، وميجا الملايين، وأكثر. مختار رقم محظوظ
+canonical: 'https://spinnit.site/ar/tools/lottery-picker.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "عدد المولدات الكهربائية",
+    "description": "أعداد اليانصيب العشوائي لليانصيب الرئيسي في جميع أنحاء العالم",
+    "url": "https://spinnit.site/ar/tools/lottery-picker.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="عدد المولدات الكهربائية">
+
+  <meta name="twitter:description" content="تولد أرقام اليانصيب المحظوظة
+  لليانصيب الكبير في جميع أنحاء العالم. حر وفوري">
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل هذه الأرقام عشوائية حقا؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم المولد يستخدم كتلة عشوائية من جميع الأرقام الممكنة، مما يعطي كل مزيج فرصة متساوية للظهور."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكنني توليد خطوط متعددة في آن واحد؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم جهزوا حقل الخطوط لتصل إلى 6 و كل الخطوط ستتولد معاً"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يعمل هذا على الهاتف؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+        }
+      }
+    ]
+  }</script>
+pageStyle: >
+
+  .lottery-balls {
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:1.25rem 0;
+  }
+
+  .ball {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 16px; font-weight: 700;
+    border: 2px solid rgba(255,255,255,0.1);
+    animation: ballPop 0.3s ease both;
+  }
+
+  @keyframes ballPop {
+    from { transform: scale(0) rotate(-20deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  .ball-main { background: linear-gradient(135deg, #7c6af7, #a78bfa); color:
+  #fff; }
+
+  .ball-bonus { background: linear-gradient(135deg, #f59e0b, #fbbf24); color:
+  #1c1000; }
+
+  .ball-label {
+  font-size:11px;color:var(--text3);font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;
+  }
+pageScript: |
+
+  const lotteries = {
+    uklotto:     { name:'UK Lotto', main:6, mainMax:59, bonus:1, bonusMax:59, info:'اسحب كل يوم الأربعاء والسبت تطابق 6 أرقام للفوز بالجائزة الكبرى' },
+    euromillions:{ name:'اليورو', main:5, mainMax:50, bonus:2, bonusMax:12, info:'لعب عبر أوروبا تطابق 5 أرقام رئيسية + 2 نجوم محظوظة للفوز بجائزة الجائزة الكبرى.' },
+    powerball:   { name:'باوربول', main:5, mainMax:69, bonus:1, bonusMax:26, info:'US lottery drawn every Monday, Wednesday, Saturday. Jackpot starts at $20 million.' },
+    megamillions:{ name:'ميغا ملايين', main:5, mainMax:70, bonus:1, bonusMax:25, info:'US lottery drawn every Tuesday and Friday. Record jackpot over $1.5 billion.' },
+    irish:       { name:'لوتو الآيرلندي', main:6, mainMax:47, bonus:1, bonusMax:47, info:'اليانصيب الوطني لأيرلندا تسحب كل يوم الأربعاء والسبت' },
+    auspowerball:{ name:'أستراليا', main:7, mainMax:35, bonus:1, bonusMax:20, info:'كرة السلة الأسترالية اختر 7 أرقام من 1 إلى 35 زائد 1 باوربول من 1 إلى 20 تسحب كل يوم خميس' },
+    canada649:   { name:'كندا', main:6, mainMax:49, bonus:1, bonusMax:49, info:'اليانصيب الأكثر شعبية في كندا إختر 6 أرقام من 1 إلى 49 تسحب كل يوم الأربعاء والسبت' },
+    india:       { name:'الهند', main:6, mainMax:49, bonus:0, bonusMax:49, info:'نموذج اليانصيب الهندي إختر 6 أرقام من 1 إلى 49' },
+    sa:          { name:'جنوب أفريقيا', main:6, mainMax:52, bonus:1, bonusMax:52, info:'جنوب أفريقيا إختر 6 أرقام من 1 إلى 52 بالإضافة إلى كرة مكافأة واحدة تسحب كل يوم الأربعاء والسبت' },
+    custom:      { name:'العرف', main:6, mainMax:49, bonus:0, bonusMax:10, info:'وضع قواعدك الخاصة أعلاه.' }
+  };
+
+  function updateInfo() {
+    const type = document.getElementById('lotteryType').value;
+    document.getElementById('customOptions').style.display = type === 'custom' ? 'block' : 'none';
+    const l = lotteries[type];
+    document.getElementById('lotteryInfo').textContent = l.info;
+  }
+
+  function getConfig() {
+    const type = document.getElementById('lotteryType').value;
+    if (type === 'custom') return {
+      main: parseInt(document.getElementById('mainCount').value)||6,
+      mainMax: parseInt(document.getElementById('mainMax').value)||49,
+      bonus: parseInt(document.getElementById('bonusCount').value)||0,
+      bonusMax: parseInt(document.getElementById('bonusMax').value)||12
+    };
+    return lotteries[type];
+  }
+
+  function pickLine(cfg) {
+    const pool = Array.from({length:cfg.mainMax}, (_,i) => i+1);
+    const shuffled = pool.sort(() => Math.random()-0.5);
+    const main = shuffled.slice(0, cfg.main).sort((a,b)=>a-b);
+    const bonusBalls = [];
+    if (cfg.bonus > 0) {
+      const bPool = Array.from({length:cfg.bonusMax}, (_,i)=>i+1).sort(()=>Math.random()-0.5);
+      for(let i=0;i<cfg.bonus;i++) bonusBalls.push(bPool[i]);
+      bonusBalls.sort((a,b)=>a-b);
+    }
+    return {main, bonus: bonusBalls};
+  }
+
+  function pick() {
+    const cfg = getConfig();
+    const lines = Math.min(parseInt(document.getElementById('numLines').value)||1, 6);
+    const container = document.getElementById('balls');
+    container.innerHTML = '';
+
+    for (let l = 0; l < lines; l++) {
+      if (lines > 1) {
+        const lbl = document.createElement('div');
+        lbl.style.cssText = 'width:100%;text-align:center;font-size:11px;color:var(-text3);font-family:var(-mono);letter-spacing:0.08em;text-transform:uppercase;margin-top:'+(l>0?'12px':'0');
+        lbl.textContent = `Line ${l+1}`;
+        container.appendChild(lbl);
+        const row = document.createElement('div');
+        row.style.cssText = 'العرض: (flex;flex-wrap:wrap;gap:10px;justified-content:center;width:100%;';
+        const {main, bonus} = pickLine(cfg);
+        main.forEach((n,i) => { const b = makeBall(n,'ball-main',i*60); row.appendChild(b); });
+        if (bonus.length) {
+          const sep = document.createElement('div');
+          sep.style.cssText = 'width:2px;background:var( --border);border-radius:2px;margin:0 2px;';
+          row.appendChild(sep);
+          bonus.forEach((n,i) => { const b = makeBall(n,'ball-bonus',(main.length+i)*60); row.appendChild(b); });
+        }
+        container.appendChild(row);
+      } else {
+        const {main, bonus} = pickLine(cfg);
+        main.forEach((n,i) => container.appendChild(makeBall(n,'ball-main',i*60)));
+        if (bonus.length) {
+          const sep = document.createElement('div');
+          sep.style.cssText = 'عرض: فليكس؛ البنود ذات الأهمية الفائقة: المركز؛ الركود: 0 4px؛ الكولور:var(-text3)؛ الحجم العنيف:18px؛';
+          sep.textContent = '+';
+          container.appendChild(sep);
+          bonus.forEach((n,i) => container.appendChild(makeBall(n,'ball-bonus',(main.length+i)*60)));
+        }
+      }
+    }
+  }
+
+  function makeBall(n, cls, delay) {
+    const b = document.createElement('div');
+    b.className = `ball ${cls}`;
+    b.textContent = n;
+    b.style.animationDelay = delay + 'ms';
+    return b;
+  }
+
+  updateInfo();
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🍀</div>
+    <h1>عدد المولدات الكهربائية</h1>
+    <p>تولد أرقام حظك لليانصيب في جميع أنحاء العالم</p>
+  </div>
+
+  <div class="control-group" style="margin-bottom:1rem;">
+    <label>اليانصيب المختارة</label>
+    <select id="lotteryType" onchange="updateInfo()">
+      <option value="uklotto">UK Lotto (6 from 59)</option>
+      <option value="euromillions">اليورو (5+2)</option>
+      <option value="powerball">Powerball US (5+1)</option>
+      <option value="megamillions">ميغا ملايين (5+1)</option>
+      <option value="irish">لوتو الآيرلندي (6 من 47)</option>
+      <option value="auspowerball">Australia Powerball (7+1)</option>
+      <option value="canada649">كندا</option>
+      <option value="india">الهند (6 من 49)</option>
+      <option value="sa">جنوب أفريقيا</option>
+      <option value="custom">العرف</option>
+    </select>
+  </div>
+
+  <div id="customOptions" style="display:none;margin-bottom:1rem;">
+    <div class="control-row">
+      <div class="control-group">
+        <label>الكرات الرئيسية</label>
+        <input type="number" id="mainCount" value="6" min="1" max="10">
+      </div>
+      <div class="control-group">
+        <label>رقم ماكس</label>
+        <input type="number" id="mainMax" value="49" min="10" max="99">
+      </div>
+    </div>
+    <div class="control-row" style="margin-top:10px;">
+      <div class="control-group">
+        <label>كرات الفرن</label>
+        <input type="number" id="bonusCount" value="0" min="0" max="5">
+      </div>
+      <div class="control-group">
+        <label>الحد الأقصى للمنح</label>
+        <input type="number" id="bonusMax" value="12" min="1" max="50">
+      </div>
+    </div>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="lottery-balls" id="balls">
+      <div style="color:var(--text3);font-size:13px;">تيب تولد لاختيار أرقامك</div>
+    </div>
+  </div>
+
+  <div class="control-group" style="margin-bottom:12px;">
+    <label>عدد الخطوط</label>
+    <input type="number" id="numLines" value="1" min="1" max="6">
+  </div>
+
+  <button class="btn-generate" onclick="pick()">دق بلدي النغمات</button>
+
+  <div id="lotteryInfo" style="margin-top:1.25rem;padding:1rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--text2);line-height:1.6;"></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>المولد رقم البعث يخلق مجموعات من الأعداد العشوائية لأكبر اليانصيب في العالم، بما في ذلك لوتو المملكة المتحدة، واليورو ميليون، وباوربول، وملايين الميغا، وأكثر. اختيار اليانصيب الخاص بك، اختيار عدد الخطوط التي تريد، والحصول على أرقامك على الفور. نمط عادى يسمح لك بوضع قواعدك الخاصة لأي اليانصيب ليس في القائمة</p>
+
+    <h2>????? ?????????</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>اختار اليانصيب الخاص بك من قائمة الهبوط.</li>
+      <li>حدد كم عدد الأرقام التي تريدها (حتى 6 خطوط).</li>
+      <li>قم باختيار أرقامي لتوليد إختيارك</li>
+      <li>الأرقام الرئيسية تظهر في كرات الأرجوانية، كرات المكافأة تظهر في الذهب.</li>
+      <li>من أجل اليانصيب العادم، اختيار العرف و الدخول إلى نطاقك الخاص وحساب الكرة.</li>
+    </ol>
+
+    <h2>الاستخدامات المشتركة</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>تولد أعداداً من المحظوظين لـ (لوتو) الأسبوعي أو (اليون الأوروبيون)</li>
+      <li>اختر باوربول أو ميغا ملايين من الدخول من الولايات المتحدة</li>
+      <li>إنشاء خطوط متعددة لرابطات اليانصيب المكتبية</li>
+      <li>Australia Powerball, Irish Lotto, and Canada 6/49 players</li>
+      <li>المعلمون الذين يدلون على احتمالية ومزيجات في دروس الرياضيات</li>
+      <li>"بديلات سريعة "محظوظة عند شراء التذاكر في آخر دقيقة</li>
+    </ul>
+
+    <h2>لماذا تستخدم سبينيت</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">ويتم اختيار الأرقام باستخدام شجار عشوائي عادل - وهو نفس الطريقة المستخدمة في التعامل مع البطاقات - وبالتالي من المرجح أن يكون كل مزيج كذلك. وتغطي هذه الأداة تسعة ياردات رئيسية بالإضافة إلى طريقة تقاليد قابلة للتشكيل الكامل. مجاناً، فوراً، لا يوجد حساب مطلوب، ويعمل بشكل مثالي على متن الطائرة.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأرقام عشوائية حقا؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم المولد يستخدم كتلة عشوائية من جميع الأرقام الممكنة، مما يعطي كل مزيج فرصة متساوية للظهور. لا يوجد رقم أكثر من أي شخص آخر</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني توليد خطوط متعددة في آن واحد؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم جهز حقل "عدد الخطوط" حتى 6 و كل الخطوط ستُنشأ معاً</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> عدد المولدات</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> بكرة النرد</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم لا</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> عملة الوجه</a>
+    </div>
+  </section>
+
+</main>

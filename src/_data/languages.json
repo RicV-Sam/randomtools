@@ -2,6 +2,7 @@
   "default": "en",
   "available": [
     { "code": "en", "label": "English", "prefix": "" },
-    { "code": "de", "label": "Deutsch", "prefix": "/de" }
+    { "code": "de", "label": "Deutsch", "prefix": "/de" },
+    { "code": "ar", "label": "العربية", "prefix": "/ar", "dir": "rtl" }
   ]
 }

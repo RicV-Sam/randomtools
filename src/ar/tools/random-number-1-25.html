@@ -1,0 +1,159 @@
+---
+layout: layouts/base.njk
+title: عدد الوفيات بين 1 و25 - فصول مجانية
+description: >-
+  يولد رقماً عشوائياً بين 1 و25 على الفور مثالية للصفوف الدراسية لـ 25 طالباً،
+  وأعمدة بنغو وألعاب جماعية. حر، لا إشارة.
+ogTitle: عدد الوفيات بين 1 و25
+ogDescription: >-
+  الاختيار الحر من ١ إلى ٢٥ - مثالي لقوائم الفصول الدراسية وألعاب المجموعات
+  الصغيرة.
+canonical: 'https://spinnit.site/ar/tools/random-number-1-25.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "عدد الوفيات بين 1 و25",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل يمكنني تجنب اختيار نفس الطالب مرتين على التوالي؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ليس من جيل واحد من أجل عدم تكرار الأمر باستخدام القائمة (شوفلر) على 25 اسماً والعمل من خلال الترتيب المكبوت"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يعمل هذا على مُقدّم؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم والنتيجة كبيرة ومرتفعة، مرئية من خلف قاعة دراسية."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل هناك أي بيانات مخزنة؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "لا تولد النتائج في المصفح ولا ترسل أبدا إلى خادم"
+        }
+      }
+    ]
+  }</script>
+pageScript: |
+
+  const MIN = 1, MAX = 25;
+  const history = [];
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    document.getElementById('result').textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  bindGlobalShortcut(generate);
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎒</div>
+    <h1>عدد الوفيات بين 1 و25</h1>
+    <p>اختيارات عادلة للفصول الدراسية والمجموعات الصغيرة</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">رقمك (1-25)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>كم عدد الأرقام؟</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">النتائج الأخيرة</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>25 هو متوسط حجم درجتي المملكة المتحدة والولايات المتحدة، وهو ما يجعل عدداً عشوائياً يتراوح بين 1 و25 من أكثر النطاقات استخداماً في التعليم. المعلمون يستخدمونه لاختيار الطلبة، دعوة المتطوعين، يقررون من يقدم أولا، أو الجلوس عشوائيا. هذه الصفحةِ تَعطيك a نظيف، إختيار عادل في صنبورِ واحد.</p>
+
+    <h2>هاند ل</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>ألتقط طالباً بالرقم من درجة تصل إلى 25</li>
+      <li>شغل المقاعد في بداية فترة</li>
+      <li>اختيار رقم العمود × في بطاقة 55 بنغو</li>
+      <li>توزيع 25 بطاقة مرقمة أو دفعات</li>
+      <li>سؤال من قائمة بـ 25 سؤالاً</li>
+    </ul>
+
+    <h2>لمجموعات أكبر</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تعليم صف من 30؟ حاول <a href="random-number.html">الزبون العرفي</a> وأضع الحد الأقصى لحجم صفك لاختيار الاسم بدلا من الأرقام، <a href="wheel-of-names.html">عجلة الأسماء</a> هو المفضل في الصف</p>
+
+    <h2>النطاقات الأخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">مفيد أيضا: <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-50.html">1–50</a>, <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-20.html">1–20</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني أن أتأكد أن نفس الطالب لم يُختار مرتين على التوالي؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">وليس من جيل واحد - كل اختيار مستقل. من أجل عدم تكرار الأمر، استخدم <a href="list-shuffler.html">قائمة المتثاقل</a> على قائمة بـ 25 اسماً أو رقماً ويعملون من خلال النظام المكبوت</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على مُقدّم؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم والنتيجة كبيرة، وشديدة الارتداد، ومرئية من خلف حجرة دراسية عند توقعها.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هناك أي بيانات مخزنة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">لا تولد النتائج في المصفح ولا ترسل أبدا إلى خادم التاريخ واضح عندما تغلق المقهى</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> عجلة الأسماء</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> الزبون العرفي</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> منتقي الفريق</a>
+    </div>
+  </section>
+
+</main>

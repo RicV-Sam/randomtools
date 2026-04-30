@@ -1,0 +1,191 @@
+---
+layout: layouts/base.njk
+title: Coin Flip - heads or Tails Online   Spinnit
+description: >-
+  ضخ عملة افتراضية على الإنترنت على الفور. رؤوس مجانية أو ذيول العملات المعدنية
+  مع التقلب التاريخي والإحصائيات. يعمل على جميع الأجهزة.
+canonical: 'https://spinnit.site/ar/tools/coin-flip.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "عملة الوجه",
+    "description": "قلب العملات الافتراضية - رؤوس أو ذيول على الفور",
+    "url": "https://spinnit.site/ar/tools/coin-flip.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+extraHead: >
+  <meta name="twitter:title" content="Coin Flip   Spinnit">
+
+  <meta name="twitter:description" content="اسحب عملة على الانترنت رؤوس أو ذيول
+  - نتيجة فورية مع مضاد للقلب. مجانيّة ومتنقلة.">
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل الوجهة 50/50 حقا؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم كل قلب هو حدث عشوائي مستقل مع بالضبط 50٪ فرصة من الرأس أو ذيل. النتائج السابقة ليس لها تأثير على الجولة التالية"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكنني قلب العملات المتعددة في آن واحد؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "أداة قلب العملة تقلب عملة واحدة لكل صنبور وللنتائج المتزامنة المتعددة، جرب المولد الرقمي للراندل على نطاق يتراوح بين صفر و1."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يعمل هذا على الهاتف؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+        }
+      }
+    ]
+  }</script>
+pageStyle: >
+
+  .coin {
+    width: 120px; height: 120px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 52px; margin: 0 auto 1rem;
+    background: var(--bg3); border: 2px solid var(--border2);
+    transition: transform 0.1s;
+  }
+
+  .coin.flipping { animation: flip 0.5s ease; }
+
+  @keyframes flip {
+    0%   { transform: rotateY(0deg) scale(1); }
+    25%  { transform: rotateY(90deg) scale(0.8); }
+    50%  { transform: rotateY(180deg) scale(1.1); }
+    75%  { transform: rotateY(270deg) scale(0.9); }
+    100% { transform: rotateY(360deg) scale(1); }
+  }
+
+  .stats-row { display:grid;grid-template-columns:1fr
+  1fr;gap:10px;margin-bottom:1rem; }
+
+  .stat-box { background:var(--bg2);border:1px solid
+  var(--border);border-radius:var(--radius);padding:12px;text-align:center; }
+
+  .stat-num {
+  font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--accent2);
+  }
+
+  .stat-lbl {
+  font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;
+  }
+pageScript: "\nlet heads = 0, tails = 0;\nconst flipHistory = [];\n\nfunction flip() {\n  const coin = document.getElementById('coin');\n  const result = document.getElementById('result');\n  coin.classList.remove('flipping');\n  void coin.offsetWidth;\n  coin.classList.add('flipping');\n\n  setTimeout(() => {\n    const isHeads = Math.random() < 0.5;\n    if (isHeads) { heads++; coin.textContent = '\U0001F315'; result.textContent = 'رؤوس!'; flipHistory.unshift('H'); }\n    else { tails++; coin.textContent = '\U0001F311'; result.textContent = '!'; flipHistory.unshift('T'); }\n    document.getElementById('headsCount').textContent = heads;\n    document.getElementById('tailsCount').textContent = tails;\n    if (flipHistory.length > 15) flipHistory.pop();\n    const sec = document.getElementById('historySection');\n    sec.style.display = 'block';\n    document.getElementById('historyList').innerHTML = flipHistory.map(f => `<span class=\"history-item\" style=\"color:${f==='H'?'#a78bfa':'#fb923c'}\">${f==='H'?'Heads':'Tails'}</span>`).join('');\n  }, 500);\n}\n\nfunction resetStats() {\n  heads = 0; tails = 0; flipHistory.length = 0;\n  document.getElementById('headsCount').textContent = '0';\n  document.getElementById('tailsCount').textContent = '0';\n  document.getElementById('coin').textContent = '\U0001FA99';\n  document.getElementById('result').textContent = 'تابوت للقلب';\n  document.getElementById('historySection').style.display = 'none';\n}\n\ndocument.addEventListener('keydown', e => {\n  if ((e.code === 'Space' || e.code === 'Enter') && e.target === document.body) {\n    e.preventDefault();\n    flip();\n  }\n});\ndocument.getElementById('resultBox').addEventListener('keydown', e => {\n  if (e.code === 'Space' || e.code === 'Enter') {\n    e.preventDefault();\n    flip();\n  }\n});\n"
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🪙</div>
+    <h1>عملة الوجه</h1>
+    <p>تأقلم - رأس أو ذيل؟</p>
+  </div>
+
+  <div class="result-box" id="resultBox" onclick="flip()" role="button" tabindex="0" aria-label="عملة فيليب" aria-live="polite" aria-atomic="true" style="cursor:pointer;user-select:none;">
+    <div class="coin" id="coin">🪙</div>
+    <div class="result-text" id="result">تابوت للقلب</div>
+    <div class="result-label">اقفز الى اي مكان مرة اخرى</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num" id="headsCount">0</div>
+      <div class="stat-lbl">رؤساء</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="tailsCount">0</div>
+      <div class="stat-lbl">الطحالب</div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="flip()">FLIP COIN</button>
+  <button class="btn-copy" onclick="resetStats()" style="margin-top:8px;">Reset stats</button>
+
+  <div class="history" id="historySection" style="display:none;margin-top:1rem;">
+    <div class="history-label">تاريخ الفلم</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>أداة (كين فيليب) تعطيك رأساً أو ذيلاً فورياً مع صنبور واحد إنه يتعقب تاريخك و يحصى الرأس والذيل بشكل منفصل لذا يمكنك أن تكتشف أي شيء خلال دورة طويلة مثالية لاتخاذ قرارات سريعة، نقيب الرياضة اختيار نهاية، أو مجرد إرضاء الفضول حول الاحتمال.</p>
+
+    <h2>????? ?????????</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>اربطي العملة بالرسوم البيانية أو انقري عملة الفليب</li>
+      <li>وتظهر النتيجة - رؤساء أو سلاسل - على الفور بتصوير موجز.</li>
+      <li>تفقدوا رؤوسكم وأصابعكم لرؤية مجاميعكم</li>
+      <li>انحنوا لمشاهدة تاريخك التافه للدورة</li>
+      <li>إستخدمي (ريست ستاتز) لتصفية العدادات وبدء تشغيل جديد</li>
+    </ol>
+
+    <h2>الاستخدامات المشتركة</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>قرر من يذهب أولا في لعبة الألواح أو لعبة البطاقة</li>
+      <li>نقيب الرياضة يختارون نهاية أو ركلة في بداية المباراة</li>
+      <li>تكسر الروابط في قرارات الفصول أو أصوات المجموعات</li>
+      <li>إسناد مهام أو مسؤوليات عشوائية بين شخصين</li>
+      <li>قرارات ليلة سريعة عندما لا توافقين</li>
+      <li>إجراء تجارب احتمالية مطولة على العديد من التقلبات</li>
+    </ul>
+
+    <h2>لماذا تستخدم سبينيت</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">كل قلب يستخدم نتيجة عشوائيّة حقاً مرتكزة على المستنقعات بدون أنماط أو تحيز متعقب التاريخ المبني يسمح لك بإجراء جلسات مطولة دون أن تحافظ على تمثال باليد لا إشارة، يَعْملُ فوراً على أيّ جهاز بما في ذلك متنقل، ولا بيانات مخزنة أبداً.</p>
+  </section>
+
+  <section class="tool-content" style="margin-top:1.5rem;">
+    <h2>فهم 50/50</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">العملة المنصفة لها نتيجتان محتملتان لذا كل قلب لديه 50% فرصة للرؤوس و 50% فرصة للذيول وهذا لا يعني أن النتائج يجب أن تكون بديلة. خمسة رؤوس على التوالي يمكن أن يحدث، والقلب التالي لا يزال 50/50 لأن كل قلب مستقل.</p>
+
+    <h2>أفضل القرارات</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">للخيارات التي تبدو مهمة جداً لقلب واحد، استخدام أفضل ثلاث أو أفضل قاعدة من خمسة. نقرر ما يعنيه الرأس والذيول أولاً ثم نقلب إلى أن يحصل الجانب على الأغلبية التاريخ والمواجهات تجعل من السهل تتبع هذا دون كتابة أي شيء.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل الوجهة 50/50 حقا؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم كل قلب هو حدث عشوائي مستقل مع 50٪ بالضبط فرصة للرؤوس أو ذيول، باستخدام وظيفة مصففة مبنية في عشوائية. النتائج السابقة ليس لها تأثير على الجولة التالية</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني قلب العملات المتعددة في آن واحد؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">أداة قلب العملة تقلب عملة واحدة لكل صنبور وللنتائج المتزامنة المتعددة، جرب المولد الرقمي للراندل على نطاق يتراوح بين صفر و1.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> بكرة النرد</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم لا</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> عدد المولدات</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> فريق راندوم بيكر</a>
+    </div>
+  </section>
+
+</main>

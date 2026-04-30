@@ -1,0 +1,155 @@
+---
+layout: layouts/base.njk
+title: اختر اسم راندوم - الاسم الحر في اسنتي بيكر
+description: >-
+  اختر اسم عشوائي من أي قائمة على الفور Free online name picker for giveaways,
+  meetings, classes and parties. لا إشارة، يعمل على متن الطائرة.
+ogTitle: اختر اسم راندوم
+ogDescription: مختار الاسم الفوري المجاني، أي قائمة، نقر مرة واحدة لاختيار.
+canonical: 'https://spinnit.site/ar/tools/pick-random-name.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "إختر اسم راندوم",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل الإختيار عشوائي حقاً؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم الاداة تستخدم المولدات العشوائية التي بنيت في بروزر غير متحيزة وغير متوقعة"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل تم سحب نسختين من قائمتي؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "لا كل خط يُعامل على أنه دخول منفصل لذا فإن الازدواج لديه ضعف الفرصة"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكنني أن أثبت أن السحب كان عادلاً لمصلحة عامة؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "سجل أو تصوّر مُختل مع مُؤخرة و ضعه في قائمة الدخول"
+        }
+      }
+    ]
+  }</script>
+pageScript: |
+
+  function getNames() {
+    return document.getElementById('namesInput').value.split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
+  }
+  function pick() {
+    const names = getNames();
+    if (!names.length) { alert('استلم بعض الأسماء أولاً'); return; }
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, Math.min(50, names.length));
+    const pool = [...names];
+    const picks = [];
+    for (let i = 0; i < count; i++) {
+      const idx = Math.floor(Math.random() * pool.length);
+      picks.push(pool.splice(idx, 1)[0]);
+    }
+    document.getElementById('result').textContent = picks.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  bindGlobalShortcut(pick);
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎲</div>
+    <h1>إختر اسم راندوم</h1>
+    <p>مع أي قائمة، نقر مرة واحدة - اختيار عادل في نبضات قلب</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">اختيارك</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>الأسماء (واحدة لكل خط أو مفصولة عن طريق البريد)</label>
+      <textarea id="namesInput" rows="7" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;" placeholder="استلم قائمتك هنا"></textarea>
+    </div>
+    <div class="control-group" style="margin-top:10px;">
+      <label>كم عددهم؟</label>
+      <input type="number" id="count" value="1" min="1" max="50">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">PICK</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>هذه أسرع طريقة لاختيار اسم عشوائي من قائمة على الإنترنت لا حساب، لا ازدحام، لا عجلات ثلاثين ثانية، فقط المعكرونة، النقر، القيام به. كُلّ اسم لَهُ فرصةُ متكافئةُ، كُلّ اختيار مستقل، ولا شيء تَطْبعُ يُرسلُ إلى أيّ مكان.</p>
+
+    <h2>ما يستخدمه الناس لهذا</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>الفائزون</strong> -اعطني قائمة دخولك، اسحب، افحص الفائز</li>
+      <li><strong>اجتماع المكسرات الجليدية</strong> - "الشخص الطبيعي يتشارك أولاً"</li>
+      <li><strong>الذي يذهب أولاً</strong> - ألعاب، عروض، من يصنع القهوة</li>
+      <li><strong>أزواج سانتا السرية</strong> - سحب سريع بدون أوراق</li>
+      <li><strong>اختيار مطعم</strong> - قائمة الخيارات، والسماح للفرصة بالبت</li>
+      <li><strong>العينات البحثية</strong> - اختيار المدعى عليه عشوائيا من قائمة قصيرة</li>
+    </ul>
+
+    <h2>اختر عدة مرات</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تحتاج إلى فائزين متعددين؟ المجموعة <em>كم عددهم؟</em> حتى الـ50 والأداة تعطيك العديد من الأسماء الفريده (لا يوجد ازدواجية داخل عبوة واحدة) تأرجح مرة أخرى لاختيار جديد.</p>
+
+    <h2>أساليب ملتقطة أخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">لتجربة متحركة، استخدام <a href="wheel-of-names.html">عجلة الأسماء</a>- لاستعمال الفصول مع عدم تكرار الحماية، حاول <a href="random-name-picker-no-repeat.html">لا كرر بيكر</a> أو <a href="random-student-picker.html">الطالب بيكر</a>-لإزاحة قائمة كاملة في الحال <a href="list-shuffler.html">قائمة المتثاقل</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل الإختيار عشوائي حقاً؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم الأداة تستخدم المولد المجهول المبني عشوائياً والذي هو غير متحيز وغير متوقع لا يوجد اسم مفضل بشكل سري</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل تم سحب نسختين من قائمتي؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">لا - الأداة تعامل كل خط كقيد منفصل إذا ظهر اسم مرتين في قائمتك، لديه ضعف فرصة الفوز، وهذا هو أحيانا ما تريد.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني أن أثبت أن السحب كان عادلاً لمصلحة عامة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">سجلوا الإختيار أو إلتقطوا طلقاً موقوتاً ضعها في قائمة الدخول النهائية والموعد هذا نفس مستوى الشفافية الحقيقي</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> عجلة الأسماء</a>
+      <a class="related-card" href="random-winner-picker.html"><span class="ri">🏆</span> الفائز بيكر</a>
+      <a class="related-card" href="random-name-picker-no-repeat.html"><span class="ri">🎯</span> لا كرر بيكر</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+    </div>
+  </section>
+
+</main>

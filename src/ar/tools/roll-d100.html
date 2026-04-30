@@ -1,0 +1,158 @@
+---
+layout: layouts/base.njk
+title: د. 100 Online - Free Percentile Dice roller   Spinnit
+description: >-
+  أديري مئة ألف على شبكة الإنترنت - النرد المئوي من 1 إلى 100. استخدم في نداء
+  (كاثولهو)، (وارهاممر)، (روماستر) و(دي دي) حر وفوري
+ogTitle: د.
+ogDescription: قاذفة جوز مجانية - منصف من 1 إلى 100 لفافة RPG ونسبة مئوية من الشيكات.
+canonical: 'https://spinnit.site/ar/tools/roll-d100.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "د.",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هَلْ D100 المدى 1 - 100 أَو 0-99؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ومعظم النظم الحديثة تستخدم ١-١٠٠ مع ٠٠ على الرماد المادي الذي يقرأ على أنه ١٠٠. وتستخدم هذه الأداة 1 إلى 100."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هَلْ يَنخفضُ أَو عالي أفضل؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "يعتمد على النظام نداء (كثولهو) و (وارهمر) يريدونك تحت مهارتك تفقد ما يتوقعه نظامك"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكنني أن أشغل العديد من الـ دي 100 في آن واحد؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم أعد العد حتى 100 كل ملف مستقل"
+        }
+      }
+    ]
+  }</script>
+pageScript: |
+
+  const history = [];
+  function roll() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) results.push(Math.floor(Math.random() * 100) + 1);
+    document.getElementById('result').textContent = results.join(', ');
+    document.getElementById('totalLabel').style.display = 'none';
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]); if (history.length > 10) history.pop();
+    renderHistory();
+  }
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (!history.length) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  bindGlobalShortcut(roll);
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">💯</div>
+    <h1>د.</h1>
+    <p>النرد النسبي - دفة عادلة من 1 إلى 100</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">لفة الخاص بك (1-100)</div>
+    <div class="result-number" id="result">—</div>
+    <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>كم عدد اللفات؟</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="roll()">ROLL d100</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">القوائم الأخيرة</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>والـ دي 100 - التي تسمى أيضاً النرد المئوي أو نسبة الـ دي في المائة - هي العمود الفقري لأية فئة من فئة RPG تعمل على نسب مئوية. تدحرج وتنجح؛ وترتفع وتفشل (عادة). كل رقم من 1 إلى 100 لديه بالضبط فرصة 1٪، مما يجعله أنظف إحصائيات يموت في المقامرة.</p>
+
+    <h2>النظم التي تستخدم دي 100</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>نداء Cthulhu</strong> - كل فحص للمهارة</li>
+      <li><strong>Warhammer Fantasy / 40K Roleplay</strong> - الميكانيكي الأساسي</li>
+      <li><strong>مدير أعمال</strong> and RuneQuest</li>
+      <li><strong>DD 5e</strong> - الرقيب السحري البري، الطاولات العشوائية، الغرابة</li>
+      <li>أيّ "تدحرج على طاولة اللقاءات العشوائية"</li>
+    </ul>
+
+    <h2>كَمْ دي 100 يَدْومُ جسدياً</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">الـ (دي 100) الفيزيائي في الواقع إثنان من الـ10: "عشرات" يموتون (00، 10، 20... 90) و "واحد" يموتون (0-9) هذا المولد يتخطى المراسم ويعطيك النتيجة النهائية من 1 إلى 100 مباشرة</p>
+
+    <h2>صول أخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">حاول <a href="roll-d10.html">d10</a>, <a href="random-number-1-20.html">d20</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-3d6.html">3d6</a>, <a href="roll-4d6-drop-lowest.html">4d6 drop lowest</a>أو <a href="dice-roller.html">(دايس رولدر)</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هَلْ D100 المدى 1 - 100 أَو 0-99؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">ومعظم النظم الحديثة تستخدم ١-١٠٠ مع ٠٠ على الرماد المادي الذي يقرأ على أنه ١٠٠. ويستخدم عدد قليل من النظم الأقدم عهدا )مثل المتغيرات الأساسية للعب الأدوار( ٠-٩٩ لجداول محددة. وتستخدم هذه الأداة 1 إلى 100.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هَلْ يَنخفضُ أَو عالي أفضل؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">هذا يعتمد على النظام نداء (كثولهو) و (وارهمر) يريدونك أن تدحرج <em>تحت بند</em> مهارتك الطاولات العشوائية عادة ما تريد نطاق محدد دائما تفقد ما يتوقعه نظامك</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني أن أشغل العديد من الـ دي 100 في آن واحد؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم أعد العد حتى 100 فكل قائمة مستقلة، ويمكن تكرارها ومن المتوقع.</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> كامل Dice roller</a>
+      <a class="related-card" href="roll-d10.html"><span class="ri">🎲</span> الجولة 10</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> ١-١٠٠ مولد كهربائي</a>
+      <a class="related-card" href="roll-4d6-drop-lowest.html"><span class="ri">🐉</span> DD Stat roller</a>
+    </div>
+  </section>
+
+</main>

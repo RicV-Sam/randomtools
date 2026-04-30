@@ -1,0 +1,163 @@
+---
+layout: layouts/base.njk
+title: عدد الوفيات بين 1 و 100 - المولدات المجانية
+description: >-
+  يولد رقماً عشوائياً بين 1 و100 على الفور مُخلّص مجاني على شبكة الإنترنت من أجل
+  الرافلزات، والمنح، والنسب المئوية، وأنشطة الفصول الدراسية. لا إشارة.
+ogTitle: عدد الوفيات بين 1 و 100
+ogDescription: رقم عشوائي مجاني بين 1 و 100 مثالية للرافلز، النسب المئوية والمنح
+canonical: 'https://spinnit.site/ar/tools/random-number-1-100.html'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "عدد الوفيات بين 1 و 100",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "هل كل من 1 و 100 مشمول؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم ويشمل النطاق كلا الهدفين، بحيث يمكن أن يظهر كل من 1 و 100 كنتيجة."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل كل رقم على الأرجح؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم كل ثلاجة من 1 إلى 100 لديها نفس فرصة 1 إلى 100"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكنني استخدام هذا لضربة حقيقية؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم المولد غير متحيز ولا يمكن التنبؤ به إعلان النطاق والطريقة قبل السحب للحفاظ على الشفافية."
+        }
+      }
+    ]
+  }</script>
+pageScript: |
+
+  const MIN = 1, MAX = 100;
+  const history = [];
+
+  function generate() {
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, 100);
+    let results = [];
+    for (let i = 0; i < count; i++) {
+      results.push(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
+    }
+    const resultEl = document.getElementById('result');
+    resultEl.textContent = results.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    history.unshift(results[0]);
+    if (history.length > 10) history.pop();
+    renderHistory();
+  }
+  function renderHistory() {
+    const sec = document.getElementById('historySection');
+    const list = document.getElementById('historyList');
+    if (history.length === 0) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    list.innerHTML = history.map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '—') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  bindGlobalShortcut(generate);
+lang: ar
+dir: rtl
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">🎲</div>
+    <h1>عدد الوفيات بين 1 و 100</h1>
+    <p>اختيار عدد عادل من 1 إلى 100</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">رقمك (1-100)</div>
+    <div class="result-number" id="result">—</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>كم عدد الأرقام؟</label>
+      <input type="number" id="count" value="1" min="1" max="100">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generate()">GENERATE</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+
+  <div class="history" id="historySection" style="display:none">
+    <div class="history-label">النتائج الأخيرة</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>وهناك عدد عشوائي يتراوح بين 1 و 100 هو المختار من أجل الرافلز، ولفائف النسب المئوية، ومظاهرات الفصول الدراسية. هذا المولد يعطيك نتيجة عادلة في صنبور واحد بدون تجهيز، لا إشارة ولا تتبع. كل رقم من 1 إلى 100 لديه فرصة متساوية للظهور</p>
+
+    <h2>عندما تحتاج إلى هذا</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>أختار الفائز من 100 تذكرة</li>
+      <li>تحويل نسبة مئوية من الشيكات في الجدول</li>
+      <li>تخصيص نسبة مئوية عشوائية من دروس الإحصاءات</li>
+      <li>البت في نتيجة للفرصة في ألعاب الألواح أو ألعاب الشرب</li>
+      <li>الحصول على عدد من الطلبة في قائمة الطبقة حتى 100</li>
+    </ul>
+
+    <h2>كيفية استخدام</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">الصحافة <strong>GENERATE</strong> (أو تَسْحبُ حانةَ الفضاء) والرقم يَبْدو فوراً. أتحتاجين عدة مرات في الحال؟ المجموعة <em>كم عدد الأرقام؟</em> حتى 100 و كل نتيجة ستظهر معاً النتائج العشرة الأخيرة محتفظ بها في جهازك حتى تتمكن من التراجع دون أخذ الملاحظات.</p>
+
+    <h2>هل تحتاج إلى نطاق مختلف؟</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">جرب بالكامل <a href="random-number.html">عدد المولدات</a> بالنسبة لأي نطاق عرفي، أو القفز إلى مرحلة ما قبل: <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-1000.html">1–1000</a>, <a href="random-number-1-20.html">1–20</a>, <a href="random-number-1-6.html">1–6</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>الأسئلة المتكررة</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل كل من 1 و 100 مشمول؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم ويشمل النطاق كلا الهدفين، بحيث يمكن أن يظهر كل من 1 و 100 كنتيجة.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل كل رقم على الأرجح؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم ولكل ثلاجة من 1 إلى 100 فرصة واحدة من كل جيل إلى 100.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني استخدام هذا لضربة حقيقية؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم المولّد يقوده مصدر البرمجيات المُشفّر، الذي غير مُحايد ولا يمكن التنبؤ به. دائماً يعلنون عن النطاق والطريقة قبل الرسم لإبقاء العملية شفافة</p>
+  </section>
+<section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> المولدات المولدة</a>
+      <a class="related-card" href="random-number-1-10.html"><span class="ri">🔢</span> ١-١٠ مولدات</a>
+      <a class="related-card" href="random-number-1-1000.html"><span class="ri">🔢</span> ١-٠٠٠ ١ مولد كهربائي</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> منتقي اليانصيب</a>
+    </div>
+  </section>
+
+</main>

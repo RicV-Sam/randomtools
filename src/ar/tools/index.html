@@ -1,0 +1,199 @@
+---
+layout: layouts/base.njk
+title: All Random Tools &amp; Browse Every Spinnit Tool
+description: >-
+  أنفخ كل أداة عشوائية مجانية على سبينيت - عدد المولدات، ولفائف النرد، وملتقطات
+  الاسم، وعجلات، وأكثر. 30+ ملتقطات ومولدات محددة، لا إشارة.
+ogTitle: All Random Tools &apos; Generators - Spinnit
+ogDescription: كُلّ أداة عشوائية مجانية ومولد في سبينيت، مُنظّم حسب الفئة. 30+ صفحة.
+canonical: 'https://spinnit.site/ar/tools/'
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "All Random Tools &apos; Generators",
+    "url": "https://spinnit.site/ar/tools/",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "سبينيت",
+      "url": "https://spinnit.site/ar/"
+    },
+    "description": "فهرس كامل لكل مولد عشوائي مجاني و مخلل على سبينيت"
+  }
+pageStyle: >
+
+  .browse {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .browse h1 {
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .browse .lede {
+    font-size: 15px;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 640px;
+  }
+
+  .browse h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent2);
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 2.5rem 0 0.25rem;
+  }
+
+  .browse h2 + p {
+    font-size: 13px;
+    color: var(--text3);
+    margin-bottom: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .tool-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    gap: 8px;
+  }
+
+  .tool-list a {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 11px 14px;
+    font-size: 13px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+
+  .tool-list a:hover { border-color: var(--accent2); color: var(--text);
+  transform: translateY(-1px); }
+
+  .tool-list a .emoji { font-size: 16px; }
+
+  .tool-list a.preset { opacity: 0.92; }
+
+  .tool-list a.preset::after {
+    content: 'preset';
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .count-pill {
+    display: inline-block;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+lang: ar
+dir: rtl
+---
+<div class="browse">
+  <h1>All Random Tools &apos; Generators</h1>
+  <p class="lede">كلّ أداة مجانية ومولد في (سبينيت)، مُنظمة بما تحاول فعله. اضغط على أي أداة لاستعمالها - لا إشارة، لا تحميل، يعمل على متن الطائرة.</p>
+
+  <h2>مجاميع العزل <span class="count-pill">5</span></h2>
+  <p>ابدأ بمحطة مركزة إذا كنت تعرف نوع من الأدوات العشوائية التي تحتاجها</p>
+  <div class="tool-list">
+    <a href="dice/"><span class="emoji">⚄</span> Dice roller Tools</a>
+    <a href="classroom/"><span class="emoji">🎒</span> أدوات رانددوم</a>
+    <a href="giveaway/"><span class="emoji">🏆</span> أدوات راندوم</a>
+    <a href="decision-makers/"><span class="emoji">🪙</span> أدوات صنع القرار</a>
+    <a href="password-security/"><span class="emoji">🔐</span> أدوات أمن كلمة السر</a>
+  </div>
+
+  <h2>عدد الوفيات <span class="count-pill">12</span></h2>
+  <p>اختر رقماً فوراً في أي مجال تحتاجه ويقبل المولد الرئيسي أي مين وماكس تقليديين؛ أما المفترسات فهي طريق مختصر من نوع واحد إلى أقصى حدود البحث.</p>
+  <div class="tool-list">
+    <a href="random-number.html"><span class="emoji">🎲</span> عدد المولدات</a>
+    <a href="percentage-generator.html"><span class="emoji">📊</span> نسبة عشوائية</a>
+    <a class="preset" href="random-number-1-2.html"><span class="emoji">🪙</span> ١-٢ )الاختيار الثنائي(</a>
+    <a class="preset" href="random-number-1-5.html"><span class="emoji">🔢</span> 1–5</a>
+    <a class="preset" href="random-number-1-6.html"><span class="emoji">⚄</span> ١-٦ )دايس(</a>
+    <a class="preset" href="random-number-1-10.html"><span class="emoji">🔢</span> 1–10</a>
+    <a class="preset" href="random-number-1-20.html"><span class="emoji">🎲</span> ١-٢٠ )د-٢٠(</a>
+    <a class="preset" href="random-number-1-25.html"><span class="emoji">🎒</span> ١-٢٥ )غرفة الاجتماعات(</a>
+    <a class="preset" href="random-number-1-50.html"><span class="emoji">🔢</span> 1–50</a>
+    <a class="preset" href="random-number-1-100.html"><span class="emoji">💯</span> 1–100</a>
+    <a class="preset" href="random-number-1-1000.html"><span class="emoji">🔢</span> 1–1000</a>
+    <a class="preset" href="random-number-1-1000000.html"><span class="emoji">💯</span> 1–1,000,000</a>
+  </div>
+
+  <h2>Dice rollers <span class="count-pill">6</span></h2>
+  <p>الديدان الافتراضية لألعاب الألواح، و DD، و Pathfinder، وأي منضدة RPG. الرافعة الكاملة تدعم أي نوع من أنواع الموت؛ وتتعامل المفترسات مع أكثر الدفاتر شيوعاً.</p>
+  <div class="tool-list">
+    <a href="dice-roller.html"><span class="emoji">⚄</span> ديس رولر (أي شخص يموت)</a>
+    <a class="preset" href="roll-2d6.html"><span class="emoji">⚄</span> الجولة 2d6</a>
+    <a class="preset" href="roll-3d6.html"><span class="emoji">🎲</span> الجولة 3d6</a>
+    <a class="preset" href="roll-4d6-drop-lowest.html"><span class="emoji">🐉</span> 4d6 drop Lowest (D-D stats)</a>
+    <a class="preset" href="roll-d10.html"><span class="emoji">🎲</span> الجولة 10</a>
+    <a class="preset" href="roll-d100.html"><span class="emoji">💯</span> د.</a>
+  </div>
+
+  <h2>الاسم المخلفات <span class="count-pill">8</span></h2>
+  <p>اختر اسماً عشوائياً من أي قائمة أو عجل وتُبنى الملاءات في حالات محددة - فصول دراسية، وطرق، وعدم تكرار التدوير.</p>
+  <div class="tool-list">
+    <a href="wheel-of-names.html"><span class="emoji">🎡</span> عجلة الأسماء</a>
+    <a href="random-name-generator.html"><span class="emoji">👤</span> مولدات الأسماء العشوائية</a>
+    <a href="team-picker.html"><span class="emoji">👥</span> فريق راندوم بيكر</a>
+    <a href="list-shuffler.html"><span class="emoji">🔀</span> قائمة المتثاقل</a>
+    <a class="preset" href="pick-random-name.html"><span class="emoji">🎲</span> إختر اسم راندوم</a>
+    <a class="preset" href="random-student-picker.html"><span class="emoji">🎒</span> راندوند بيكر</a>
+    <a class="preset" href="random-name-picker-no-repeat.html"><span class="emoji">🎯</span> رقم إعادة الاسم بيكر</a>
+    <a class="preset" href="wheel-of-names-for-classroom.html"><span class="emoji">🎡</span> دليل العجلات</a>
+  </div>
+
+  <h2>مقرر <span class="count-pill">3</span></h2>
+  <p>أدوات سريعة عندما لا تستطيع أن تفكّر</p>
+  <div class="tool-list">
+    <a href="coin-flip.html"><span class="emoji">🪙</span> عملة الوجه</a>
+    <a href="yes-no-wheel.html"><span class="emoji">🔮</span> نعم / لا عجلة</a>
+    <a class="preset" href="random-winner-picker.html"><span class="emoji">🏆</span> معبر الفائز</a>
+  </div>
+
+  <h2>كلمات السر، الألوان <span class="count-pill">3</span></h2>
+  <p>مخرجات عشوائية من أجل الأمن والتصميم واليانصيب</p>
+  <div class="tool-list">
+    <a href="password-generator.html"><span class="emoji">🔐</span> مولد كلمة المرور</a>
+    <a href="colour-generator.html"><span class="emoji">🎨</span> مولدات ملونة</a>
+    <a href="lottery-picker.html"><span class="emoji">🍀</span> Lottery Number Becker</a>
+  </div>
+
+  <h2>كل شيء <span class="count-pill">1</span></h2>
+  <p>عشوائيّة وجغرافيّة.</p>
+  <div class="tool-list">
+    <a href="random-country.html"><span class="emoji">🌍</span> المولدات القطرية العشوائية</a>
+  </div>
+
+  <h2>ما هو "المجموعة"؟</h2>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;max-width:640px;">فالبريستات هي اختصارات مبنية لغرض معين - على سبيل المثال <em>1–100</em> و <em>4d6 drop lowest</em> هي مبدئياً من المولد الرئيسي لـ (ديندوم) و (ديس رولر) إنهم ينقذونك من وضع المدخلات في كل مرة ويضيفون في كثير من الأحيان ملامح صغيرة من نوعية الحياة (مثل مُجمّع الـ (دي دي تي تي</p>
+</div>
+
