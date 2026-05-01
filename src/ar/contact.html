@@ -1,17 +1,17 @@
 ---
 layout: layouts/base.njk
-title: الاتصال - سبينيت
+title: الاتصال — سبينيت
 description: >-
-  على اتصال مع سبينيت ابعثي بتعليقات، واقترحي أداة عشوائية جديدة، أو طرح سؤال.
-  نقرأ كل رسالة
-ogTitle: الاتصال سبينيت
-ogDescription: أرسلوا تعليقات أو أقترحوا أداة عشوائية جديدة
+  تواصل مع Spinnit. أرسل ملاحظاتك، أو اقترح أداة عشوائية جديدة، أو اطرح سؤالاً.
+  نقرأ جميع الرسائل.
+ogTitle: تواصل مع سبينيت
+ogDescription: أرسل ملاحظاتك أو اقترح أداة عشوائية جديدة.
 canonical: 'https://spinnit.site/ar/contact.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    "name": "الاتصال سبينيت",
+    "name": "تواصل مع سبينيت",
     "url": "https://spinnit.site/ar/contact.html",
     "isPartOf": {
       "@type": "WebSite",
@@ -105,23 +105,23 @@ lang: ar
 dir: rtl
 ---
 <div class="prose">
-  <h1>على اتصال</h1>
-  <p class="lede">التغذية، تقارير الحشرات، اقتراحات الأدوات، استفسارات الشراكة - نقرأ كل رسالة. اختر القناة التي تناسبك</p>
+  <h1>تواصل معنا</h1>
+  <p class="lede">نقرأ جميع الرسائل التي نتلقاها، سواء كانت ملاحظات أو تقارير عن الأخطاء أو اقتراحات للأدوات أو استفسارات عن الشراكة. اختر القناة التي تناسبك.</p>
 
-  <h2>Email directly</h2>
+  <h2>أرسل بريدًا إلكترونيًا مباشرة</h2>
   <div class="contact-grid">
     <div class="contact-card">
-      <strong>معلومات عامة</strong>
+      <strong>عام</strong>
       <a href="mailto:hello@spinnit.site">hello@spinnit.site</a>
     </div>
     <div class="contact-card">
-      <strong>الخصوصية/الناتج المحلي الإجمالي</strong>
+      <strong>الخصوصية / اللائحة العامة لحماية البيانات</strong>
       <a href="mailto:privacy@spinnit.site">privacy@spinnit.site</a>
     </div>
   </div>
 
   <h2>أرسل رسالة</h2>
-  <p>استخدمي النموذج أدناه لأي شيء، طلبات خاصة، حشرات، "هذه الأداة انكسرت على هاتفي" أو مرحباً كل الرسائل تذهب إلى نفس الصندوق</p>
+  <p>استخدم النموذج أدناه لأي غرض - طلبات الميزات، أو الإبلاغ عن الأخطاء، أو "هذه الأداة لا تعمل على هاتفي"، أو حتى لمجرد إلقاء التحية. جميع الرسائل تصل إلى نفس صندوق الوارد.</p>
 
   <!-- Form backend: Formspree (https://formspree.io/f/xzdykdzo) -->
   <form class="contact-form" action="https://formspree.io/f/xzdykdzo" method="POST">
@@ -131,11 +131,11 @@ dir: rtl
     <label for="email">بريدك الإلكتروني</label>
     <input type="email" id="email" name="email" required autocomplete="email">
 
-    <label for="subject">الموضوع</label>
-    <input type="text" id="subject" name="subject" placeholder="إقتراح عن طريق الثور، تقرير عن الحشرات، تعليقات..." required>
+    <label for="subject">موضوع</label>
+    <input type="text" id="subject" name="subject" placeholder="اقتراح أداة، الإبلاغ عن خلل، تقديم ملاحظات..." required>
 
-    <label for="message">الرسالة</label>
-    <textarea id="message" name="message" required placeholder="أخبرنا بما يدور في ذهنك"></textarea>
+    <label for="message">رسالة</label>
+    <textarea id="message" name="message" required placeholder="أخبرنا بما يدور في ذهنك..."></textarea>
 
     <!-- Formspree inbox subject line (uses the user's subject field) -->
     <input type="hidden" name="_subject" value="Spinnit contact form">
@@ -143,20 +143,20 @@ dir: rtl
     <!-- Honeypot — bots fill this, humans don't see it -->
     <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
-    <button type="submit">رسالة</button>
+    <button type="submit">إرسال الرسائل</button>
   </form>
 
   <div class="notice">
-    <strong style="color:var(--text);">لا حساب، لا تتبع.</strong> رسالتك تُرسل عبر (أكستري) مباشرة إلى صندوق (سبينيت) ونرد على عنوان بريد إلكتروني حقيقي في غضون يومين عمل من يومين إلى ثلاثة.
+    <strong style="color:var(--text);">لا يوجد حساب، ولا يوجد تتبع.</strong> تُرسل رسالتك عبر Formspree مباشرةً إلى صندوق وارد Spinnit. نرد عليك من بريد إلكتروني حقيقي خلال يومين إلى ثلاثة أيام عمل.
   </div>
 
-  <h2>المسائل المشتركة</h2>
-  <p><strong style="color:var(--text);">هل يمكنني أن أقترح أداة عشوائية جديدة؟</strong><br>
-  نعم - من فضلك معظم افكارنا الجيدة جاءت من اقتراحات المستخدمين أخبرنا بما ستستخدمه وأية ملامح محددة تريدها</p>
-  <p><strong style="color:var(--text);">هل يمكنني أن أربط (سبينيت) بموقعي في مدونتي؟</strong><br>
-  بالتأكيد لا حاجة لإذن إذا فعلت، نحن نحب أن نسمع عن ذلك... إسقاط لنا خط حتى نعرف.</p>
-  <p><strong style="color:var(--text);">وجدت حشرة؟</strong><br>
-  أضم الصفحة URL، ما فعلت، ما حدث خطأ، وجهازك (مثل الكروم على أيفون). هذا يكفي لاستنساخ أي شيء تقريبا.</p>
-  <p><strong style="color:var(--text);">الصحافة أو الشراكة أو التحريات الإعلانية؟</strong><br>
-  استخدم استمارة البريد الإلكتروني مع "الضغط" أو "الشراكة" في الموضوع وسنرسلها إلى المكان الصحيح</p>
+  <h2>الأسئلة الشائعة</h2>
+  <p><strong style="color:var(--text);">هل لي أن أقترح أداة عشوائية جديدة؟</strong><br>
+  نعم، من فضلك. معظم أفكارنا المميزة جاءت من اقتراحات المستخدمين. أخبرنا عن استخداماتك المحتملة وأي ميزات محددة ترغب بها.</p>
+  <p><strong style="color:var(--text);">هل يمكنني وضع رابط لموقع Spinnit من مدونتي / موقع الفصل الدراسي الخاص بي؟</strong><br>
+  بالتأكيد. لا حاجة لأي إذن. إذا احتجت إليه، يسعدنا أن نسمع عنه - راسلنا لنعرف.</p>
+  <p><strong style="color:var(--text);">هل وجدت خطأً برمجياً؟</strong><br>
+  أدرج رابط الصفحة، وما قمت به، وما حدث من خطأ، ونوع المتصفح الذي تستخدمه (مثل كروم على الآيفون). هذا يكفي لإعادة إنتاج أي مشكلة تقريبًا.</p>
+  <p><strong style="color:var(--text);">هل لديك استفسارات صحفية أو متعلقة بالشراكة أو الإعلان؟</strong><br>
+  استخدم نموذج البريد الإلكتروني مع كتابة "صحافة" أو "شراكة" في خانة الموضوع وسنقوم بتوجيهه إلى المكان الصحيح.</p>
 </div>

@@ -1,23 +1,25 @@
 ---
 layout: layouts/base.njk
-title: 'مولدات لون لحوم الرنة - HEX, RGB HSL | Spinnit'
-description: 'تولد الألوان العشوائية على الفور مع HEX, RGB and HSL codes. مصممون ومطورون'
+title: مولد ألوان عشوائي – HEX، RGB، وHSL | Spinnit
+description: >-
+  أنشئ ألوانًا عشوائية فورًا باستخدام رموز HEX وRGB وHSL. أداة مجانية لاختيار
+  الألوان للمصممين والمطورين.
 canonical: 'https://spinnit.site/ar/tools/colour-generator.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "مولدات ملونة",
-    "description": "توليد الألوان العشوائية مع قيم HEX, RGB and HSL",
+    "name": "مولد ألوان عشوائي",
+    "description": "قم بإنشاء ألوان عشوائية باستخدام قيم HEX وRGB وHSL",
     "url": "https://spinnit.site/ar/tools/colour-generator.html",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web"
   }
 extraHead: >
-  <meta name="twitter:title" content="مولدات لون الديدان">
+  <meta name="twitter:title" content="مولد ألوان عشوائي | سبينيت">
 
-  <meta name="twitter:description" content="تولد ألوان عشوائية مع قيم HEX, RGB
-  and HSL. نسخة نقية مجانيّة ومتنقلة.">
+  <meta name="twitter:description" content="أنشئ ألوانًا عشوائية باستخدام قيم
+  HEX وRGB وHSL. انسخ بنقرة واحدة. مجاني ومتوافق مع الأجهزة المحمولة.">
 
   <script type="application/ld+json">{
     "@context": "https://schema.org",
@@ -25,34 +27,34 @@ extraHead: >
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل يمكنني الرش باللون؟",
+        "name": "هل يمكنني التصفية حسب نوع اللون؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم إنخفاض مظهر الألوان يسمح لك بتقييد النتائج إلى الألوان المشرقة/الكبيرة، المعجنات الناعمة، النغمات المظلمة، أو النطاق الكامل."
+          "text": "نعم. تتيح لك قائمة وضع الألوان المنسدلة حصر النتائج في الألوان الزاهية/النابضة بالحياة، أو الألوان الباستيلية الناعمة، أو الدرجات الداكنة، أو النطاق الكامل."
         }
       },
       {
         "@type": "Question",
-        "name": "كيف أنسخ رمز الألوان؟",
+        "name": "كيف يمكنني نسخ رمز اللون؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "انقري على أي من الصفوف الثلاثة للشكل (HEX, RGB, or HSL) ونسخ القيمة لوحتك على الفور."
+          "text": "انقر على أي من صفوف التنسيق الثلاثة (HEX أو RGB أو HSL) وسيتم نسخ القيمة إلى الحافظة على الفور."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "name": "هل هذه الأداة مجانية الاستخدام؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+          "text": "نعم، مجاني تماماً ولا يتطلب التسجيل."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يعمل هذا على الهاتف؟",
+        "name": "هل يعمل هذا على الهاتف المحمول؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+          "text": "نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز."
         }
       }
     ]
@@ -88,7 +90,7 @@ pageScript: >
 
     const fmts = document.getElementById('formats');
     const formats = [
-      {label:'HEX', val: hex.toUpperCase()},
+      {label:'عرافة', val: hex.toUpperCase()},
       {label:'RGB', val: `rgb(${r}, ${g}, ${b})`},
       {label:'HSL', val: `hsl(${h}, ${s}%, ${l}%)`}
     ];
@@ -108,7 +110,7 @@ pageScript: >
   function copyText(val, el) {
     navigator.clipboard.writeText(val).then(() => {
       const orig = el.querySelector('.color-format-val').textContent;
-      el.querySelector('.color-format-val').textContent = '!';
+      el.querySelector('.color-format-val').textContent = 'تم النسخ!';
       setTimeout(() => el.querySelector('.color-format-val').textContent = orig, 1500);
     });
   }
@@ -130,7 +132,7 @@ pageScript: >
     const b = parseInt(hex.slice(5,7),16);
     const [h,s,l] = rgbToHsl(r,g,b);
     document.getElementById('formats').innerHTML = [
-      {label:'HEX', val:hex.toUpperCase()},
+      {label:'عرافة', val:hex.toUpperCase()},
       {label:'RGB', val:`rgb(${r}, ${g}, ${b})`},
       {label:'HSL', val:`hsl(${h}, ${s}%, ${l}%)`}
     ].map(f => `
@@ -178,8 +180,8 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">🎨</div>
-    <h1>مولدات ملونة</h1>
-    <p>تولد ألوان عشوائية جميلة مع كل رموز الألوان</p>
+    <h1>مولد ألوان عشوائي</h1>
+    <p>قم بإنشاء ألوان عشوائية جميلة باستخدام جميع رموز الألوان</p>
   </div>
 
   <div class="color-swatch" id="swatch"></div>
@@ -188,71 +190,71 @@ dir: rtl
 
   <div style="margin:1rem 0;">
     <div class="control-group">
-      <label>طريقة البلاء</label>
+      <label>وضع الألوان</label>
       <select id="colourMode">
         <option value="any">أي لون</option>
-        <option value="bright">Bright / vivid only</option>
-        <option value="pastel">باستل/ضوء فقط</option>
-        <option value="dark">النغمات المظلمة فقط</option>
+        <option value="bright">ساطع / زاهي فقط</option>
+        <option value="pastel">ألوان باستيل / فاتحة فقط</option>
+        <option value="dark">الألوان الداكنة فقط</option>
       </select>
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">الموارد الطبيعية</button>
+  <button class="btn-generate" onclick="generate()">توليد اللون</button>
 
   <div style="margin-top:1.25rem;">
-    <div class="history-label" style="font-size:11px;color:var(--text3);font-family:var(--mono);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">تاريخ العقيدة</div>
+    <div class="history-label" style="font-size:11px;color:var(--text3);font-family:var(--mono);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">تاريخ الألوان</div>
     <div id="swatchHistory" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>مولد محرقة الراندوم يخلق لونًا جديدًا على كل نقر ويعطيكِ مُعدّات (هيكس) و(آر جي بي) و(إتش إس إل) جاهزة للنسخ ويمكنكم أن تتقيأوا بالمزاج - أي المعجنات المشرقة والناعمة، أو النغمات المظلمة - مما يجعلها مفيدة حقا كمساعدة تصميم بدلا من مجرد رواية عشوائية. الألوان العشرة الأخيرة تظهر في شريط التاريخ من أجل المقارنة السهلة</p>
+    <p>يُنشئ مُولّد الألوان العشوائي لونًا جديدًا مع كل نقرة، ويُزوّدك برموز HEX وRGB وHSL الجاهزة للنسخ. يمكنك تصفية الألوان حسب الحالة المزاجية - ألوان زاهية ونابضة بالحياة، أو ألوان باستيل ناعمة، أو درجات داكنة - مما يجعله أداة تصميم مفيدة حقًا، وليس مجرد أداة عشوائية. تُعرض آخر عشرة ألوان قمتَ بتعديلها في شريط سجل لتسهيل المقارنة.</p>
 
-    <h2>????? ?????????</h2>
+    <h2>كيفية الاستخدام</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>(كليك جينرات كولور) للحصول على لون عشوائي جديد</li>
-      <li>اختر أسلوب لون - أي، برايت، باستيل، أو مظلم - لتصفية النطاق.</li>
-      <li>اضغطي على أي صف للشكل (HEX, RGB, أو HSL) لنسخ تلك القيمة إلى مشبكك</li>
-      <li>إستخدم شريط التاريخ الألوان في القاع لإعادة النظر في أي من ألوانك العشرة الأخيرة</li>
-      <li>اضغط الفضاء لتوليد لون جديد بدون استخدام الفأر</li>
+      <li>انقر على "إنشاء لون" للحصول على لون عشوائي جديد.</li>
+      <li>اختر وضع اللون - أي، ساطع، باستيل، أو داكن - لتصفية النطاق.</li>
+      <li>انقر فوق أي صف تنسيق (HEX أو RGB أو HSL) لنسخ تلك القيمة إلى الحافظة.</li>
+      <li>استخدم شريط سجل الألوان الموجود في الأسفل لإعادة النظر في أي من ألوانك العشرة الأخيرة.</li>
+      <li>اضغط على مفتاح المسافة لإنشاء لون جديد دون استخدام الماوس.</li>
     </ol>
 
-    <h2>الاستخدامات المشتركة</h2>
+    <h2>الاستخدامات الشائعة</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>العثور على ألوان نقطة البداية لمشاريع التصميم التصويري أو الرسوم البيانية</li>
-      <li>توليد ألوان اللهجة للعمل على تطوير الشبكة</li>
-      <li>:: إيجاد شحوم ملونة عشوائية من أجل التجارب الإيضاحية أو التجارب التجارية</li>
-      <li>الاستخدام التعليمي في فصول التصميم الفني أو الرقمي</li>
-      <li>التمارين النظرية للعقيدات ودورات الإلهام الإبداعية</li>
-      <li>اختيار ألوان المعلومات الأساسية لمراكز وسائط الإعلام الاجتماعية أو الإبهام</li>
+      <li>إيجاد ألوان نقطة البداية لمشاريع تصميم واجهة المستخدم أو التصميم الجرافيكي</li>
+      <li>توليد ألوان مميزة لأعمال تطوير مواقع الويب</li>
+      <li>إنشاء لوحات ألوان عشوائية لتجارب الرسم أو العلامات التجارية</li>
+      <li>الاستخدام التعليمي في دروس الفنون أو التصميم الرقمي</li>
+      <li>تمارين نظرية الألوان وجلسات الإلهام الإبداعي</li>
+      <li>اختيار ألوان الخلفية لمنشورات وسائل التواصل الاجتماعي أو الصور المصغرة</li>
     </ul>
 
-    <h2>لماذا تستخدم سبينيت</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">رموز الألوان تُنسخُ إلى المشبكِ في نقرةِ واحدة بدون إعلاناتِ تُقاطعُ سيرَ العملَ. وتظهر في نفس الوقت ثلاثة أنواع من الأشكال - HEX, RGB, and HSL - حتى يكون لديك دائما القيمة التي تحتاج إليها. يعمل خارجا بعد الحمل الأول، مع عدم الحاجة إلى أي إشارة على الإطلاق.</p>
+    <h2>لماذا تستخدم Spinnit</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تُنسخ رموز الألوان إلى الحافظة بنقرة واحدة دون أي إعلانات تُقاطع سير العمل. تُعرض ثلاثة أنواع من التنسيقات - HEX وRGB وHSL - في وقت واحد، ما يضمن لك الحصول دائمًا على القيمة التي تحتاجها. يعمل التطبيق دون اتصال بالإنترنت بعد التحميل الأول، ولا يتطلب أي تسجيل.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني الرش باللون؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم إنخفاض مظهر الألوان يسمح لك بتقييد النتائج إلى الألوان المشرقة/الكبيرة، المعجنات الناعمة، النغمات المظلمة،</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني التصفية حسب نوع اللون؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. تتيح لك قائمة وضع الألوان المنسدلة حصر النتائج على الألوان الزاهية/النابضة بالحياة، أو الألوان الباستيلية الناعمة، أو الدرجات الداكنة، أو تركها على "أي" للحصول على النطاق الكامل.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">كيف أنسخ رمز الألوان؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">انقري على أي من الصفوف الثلاثة للشكل (HEX, RGB, or HSL) ونسخ القيمة لوحتك على الفور. يبدو أن رسالة تأكيد قصيرة تؤكد النسخة</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">كيف يمكنني نسخ رمز اللون؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">انقر على أي من صفوف التنسيقات الثلاثة (HEX أو RGB أو HSL) وسيتم نسخ القيمة إلى الحافظة فورًا. ستظهر رسالة تأكيد قصيرة لتأكيد عملية النسخ.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة مجانية الاستخدام؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاني تماماً ولا يتطلب التسجيل.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف المحمول؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> عدد المولدات</a>
-      <a class="related-card" href="password-generator.html"><span class="ri">🔐</span> مولد كلمة المرور</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> مولد الأرقام العشوائية</a>
+      <a class="related-card" href="password-generator.html"><span class="ri">🔐</span> مولد كلمات المرور</a>
       <a class="related-card" href="percentage-generator.html"><span class="ri">📊</span> نسبة عشوائية</a>
-      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> مُبدِّل القوائم</a>
     </div>
   </section>
 

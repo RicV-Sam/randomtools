@@ -1,17 +1,17 @@
 ---
 layout: layouts/base.njk
-title: عدد الوفيات بين 1 و6 - الدايات البديلة على الإنترنت
+title: رقم عشوائي بين 1 و6 - بديل لعبة النرد على الإنترنت | سبينيت
 description: >-
-  اختر رقماً عشوائياً بين 1 و6 - بديلاً عادلاً على شبكة الإنترنت للنرد من ستة
-  جوانب. ثابت، حرّ، متنقل سهل، لا إشارة.
-ogTitle: عدد الوفيات بين 1 و6
-ogDescription: عدد عشوائي ثابت من 1 إلى 6 - بديل مناسب على الإنترنت للنرد.
+  اختر رقمًا عشوائيًا بين 1 و6 - بديلٌ مناسبٌ عبر الإنترنت للنرد ذي الستة أوجه.
+  فوري، مجاني، متوافق مع الهواتف المحمولة، لا يتطلب تسجيلًا.
+ogTitle: رقم عشوائي بين 1 و 6 | سبينيت
+ogDescription: رقم عشوائي فوري وعادل من 1 إلى 6 - بديل مناسب للنرد عبر الإنترنت.
 canonical: 'https://spinnit.site/ar/tools/random-number-1-6.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "عدد الوفيات بين 1 و6",
+    "name": "رقم عشوائي بين 1 و 6",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -30,23 +30,23 @@ extraHead: |
         "name": "هل هذا بديل عادل للنرد الحقيقي؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم والسجلات الرقمية موحدة الرياضيات - فكل رقم من 1 إلى 6 لديه فرصة واحدة إلى 6 بالضبط."
+          "text": "نعم. اللفات الرقمية متساوية رياضياً - كل رقم من 1 إلى 6 لديه فرصة 1 من 6 بالضبط."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يمكنني أن أفتح نردين في الحال (2د-6) ؟",
+        "name": "هل يمكنني رمي نردين في وقت واحد (2d6)؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم حدد كم عدد الدفاتر إلى 2 وكلتا النتائج تظهران معاً أضفها إلى المجموع 2d6."
+          "text": "نعم. اضبط عدد الرميات على 2 وستظهر النتيجتان معًا. اجمعهما للحصول على المجموع الكلي لرمية النرد السداسية (2d6)."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يعمل هذا خارج الخط؟",
+        "name": "هل يعمل هذا التطبيق دون اتصال بالإنترنت؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم بمجرد أن يتم تحميل كل الألواح تحدث في مركبك دون الحاجة إلى شبكة"
+          "text": "نعم. بمجرد التحميل، تتم جميع عمليات التشغيل في متصفحك دون الحاجة إلى شبكة."
         }
       }
     ]
@@ -77,8 +77,8 @@ pageScript: |
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
   bindGlobalShortcut(generate);
@@ -89,12 +89,12 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">⚄</div>
-    <h1>عدد الوفيات بين 1 و6</h1>
-    <p>بديل عن طريق الإنترنت من ستة جوانب</p>
+    <h1>رقم عشوائي بين 1 و 6</h1>
+    <p>بديل عادل عبر الإنترنت للنرد ذي الستة أوجه</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">لفة الخاص بك (1-6)</div>
+    <div class="result-label">دورك (1-6)</div>
     <div class="result-number" id="result">—</div>
   </div>
 
@@ -105,52 +105,52 @@ dir: rtl
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">ROLL</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+  <button class="btn-generate" onclick="generate()">لفافة</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">القوائم الأخيرة</div>
+    <div class="history-label">أحدث التعيينات</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>عندما يختفي النرد، رقم عشوائي بين 1 و6 هو البديل الواضح. هذا المولّدِ يَنْظرُ a منصف ستّة جانبِ يَمُوتُ بالضبط: كُلّ وجهِ لَهُ a واحد في-6 فرصة، اللفافات مستقلة،</p>
+    <p>عند فقدان النرد، يكون الرقم العشوائي بين 1 و6 هو البديل الأمثل. يُحاكي هذا المولد نردًا سداسي الأوجه متوازنًا تمامًا: لكل وجه فرصة 1 من 6، والرميات مستقلة، والنتيجة جاهزة فور الضغط على الزر.</p>
 
-    <h2>عندما يكون 1-6 لفة هو ما تحتاجه</h2>
+    <h2>عندما تحتاج إلى لفة من 1 إلى 6</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>ألعاب المجلس حيث فقدت النرد - مونوبولي، لودو، سنكيس</li>
-      <li>برمجيات RPG التي تتطلب فحصاً للمهارة أو تلفاً</li>
-      <li>أنشطة الفصول - تعيين مجموعات من ستة، اختيار عدد الأسئلة</li>
-      <li>الشرب و ألعاب الحفلات التي تستخدم موت واحد</li>
-      <li>عمليات الترميز التي تحتاج إلى توزيع موحد بسيط</li>
+      <li>ألعاب لوحية خسرت فيها النرد - مونوبولي، لودو، السلم والثعبان</li>
+      <li>ألعاب تقمص الأدوار على الطاولة التي تتطلب اختبار مهارة باستخدام نرد سداسي الأوجه أو رمية ضرر</li>
+      <li>أنشطة صفية - قم بتشكيل مجموعات من ستة أفراد، واختر رقم سؤال</li>
+      <li>ألعاب الشرب والحفلات التي تستخدم نردًا واحدًا</li>
+      <li>تمارين البرمجة التي تتطلب توزيعًا منتظمًا بسيطًا</li>
     </ul>
 
-    <h2>هل تحتاج إلى نرد متعدد؟</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">المجموعة <em>كم عدد اللفات؟</em> ما يصل إلى 100 و كل نتيجة تُظهر معاً - مفيدة لـ 2d6, 3d6 أَو "اللجوء إلى الميزة" من أجل لفة مرئية مع عدة نرد في آن واحد، حاول أن تكرس <a href="dice-roller.html">بكرة النرد</a>.</p>
+    <h2>هل تحتاج إلى عدة نرد؟</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تعيين <em>كم عدد اللفات؟</em> يصل عدد النتائج إلى 100، وتظهر جميعها معًا - وهو أمر مفيد لاختبارات رمي نردين سداسيين أو ثلاثة نردات سداسية أو اختبارات "الرمي مع ميزة". للحصول على رمية نرد متحركة مرئية مع عدة نردات في وقت واحد، جرب التطبيق المخصص لذلك. <a href="dice-roller.html">أداة رمي النرد</a>.</p>
 
-    <h2>النطاقات الأخرى</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">هل تحتاج إلى "دي 20" أو "دي 10" بدلاً من ذلك؟ حاول <a href="random-number-1-20.html">1–20</a>, <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-100.html">1–100</a>أو بناء <a href="random-number.html">النطاق العرفي</a>.</p>
+    <h2>نطاقات أخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">هل تحتاج إلى نرد ذي 20 وجهًا أو نرد ذي 10 أوجه بدلاً من ذلك؟ جرب <a href="random-number-1-20.html">1–20</a>, <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-100.html">1–100</a>أو قم ببناء <a href="random-number.html">مجموعة مخصصة</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذا بديل عادل للنرد الحقيقي؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، في الحقيقة، هو في كثير من الأحيان <em>أكثر عدلاً</em>- يمكن أن يكون النرد الحقيقي متحيزاً بسبب تفاوت الوزن أو الحواف الدودة. الأرقام الرقمية موحدة الرياضيات: فكل رقم من 1 إلى 6 لديه فرصة واحدة إلى 6</p>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم — في الواقع، غالباً ما يكون <em>أكثر عدلاً</em>قد تتأثر دقة النرد الحقيقي باختلاف وزنه أو حوافه البالية. أما النرد الرقمي فهو متجانس رياضياً: لكل رقم من 1 إلى 6 فرصة واحدة من أصل ستة.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني أن أفتح نردين في الحال (2د-6) ؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم حددوا "كم عدد الدفاتر؟" إلى 2 وكلا النتائج تظهر معاً أضفهم ليحصلوا على الرقم 2d6</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني رمي نردين في وقت واحد (2d6)؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. اضبط "كم عدد الرميات؟" على 2 وستظهر النتيجتان معًا. اجمعهما للحصول على مجموع 2d6.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا خارج الخط؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم بمجرد أن تُحمّل الصفحة، كلّ الألواح تحدث في مركبك دون الحاجة إلى شبكة.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا التطبيق دون اتصال بالإنترنت؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. بمجرد تحميل الصفحة، تتم جميع عمليات التشغيل في متصفحك دون الحاجة إلى شبكة.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Visual Dice roller</a>
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> المولدات المولدة</a>
-      <a class="related-card" href="random-number-1-20.html"><span class="ri">🔢</span> ١-٢٠ )د-٢٠(</a>
-      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> عملة الوجه</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> أداة رمي النرد المرئية</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> مولد نطاق مخصص</a>
+      <a class="related-card" href="random-number-1-20.html"><span class="ri">🔢</span> 1–20 (D20)</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> رمية عملة معدنية</a>
     </div>
   </section>
 

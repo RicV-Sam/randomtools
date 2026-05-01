@@ -1,25 +1,25 @@
 ---
 layout: layouts/base.njk
-title: Wheel of Names - Random Name Becker Wheel | Spinnit
+title: عجلة الأسماء – عجلة اختيار الأسماء العشوائية | سبينيت
 description: >-
-  أضف أي أسماء وأشغل العجلة لاختيار الفائز العشوائي. عجلات حرّة مُخلّصاتِ الاسمِ
-  للصفوفِ، مَعْض ومسابقاتِ.
+  أضف أي أسماء وقم بتدوير العجلة لاختيار فائز عشوائي. عجلة اختيار الأسماء مجانية
+  للفصول الدراسية، والهدايا، والمسابقات.
 canonical: 'https://spinnit.site/ar/tools/wheel-of-names.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "عجلة الأسماء",
-    "description": "العجلة التي تختار اسم عشوائي من قائمة محددة للمستعملين",
+    "description": "عجلة دوارة تختار اسمًا عشوائيًا من قائمة يحددها المستخدم",
     "url": "https://spinnit.site/ar/tools/wheel-of-names.html",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web"
   }
 extraHead: >
-  <meta name="twitter:title" content="Wheel of Names  of Spinnit">
+  <meta name="twitter:title" content="عجلة الأسماء | سبينيت">
 
-  <meta name="twitter:description" content="اقطع العجلة لاختيار اسم عشوائي من
-  قائمتك مجانيّة ومتحركة.">
+  <meta name="twitter:description" content="أدر العجلة لاختيار اسم عشوائي من
+  قائمتك. التطبيق مجاني ومتوافق مع الهواتف المحمولة.">
 
   <script type="application/ld+json">{
     "@context": "https://schema.org",
@@ -27,34 +27,34 @@ extraHead: >
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل يمكنني أن أحتفظ بقائمة أسماءي؟",
+        "name": "هل يمكنني حفظ قائمة الأسماء الخاصة بي؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم قائمة أسمك يتم حفظها تلقائياً لتخزينك المحلي وسوف تكون هناك في المرة القادمة التي تفتح فيها الأداة"
+          "text": "نعم. يتم حفظ قائمة الأسماء الخاصة بك تلقائيًا في وحدة التخزين المحلية للمتصفح وستظل موجودة في المرة القادمة التي تفتح فيها الأداة."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هناك حدود على عدد الأسماء التي يمكن أن أضيفها؟",
+        "name": "هل هناك حد أقصى لعدد الأسماء التي يمكنني إضافتها؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "العجلة تدعم 60 اسماً وفيما عدا ذلك، تصبح الأجزاء أصغر من أن تقرأ بوضوح."
+          "text": "تدعم العجلة ما يصل إلى 60 اسمًا. بعد ذلك، تصبح الأجزاء صغيرة جدًا بحيث لا يمكن قراءتها بوضوح."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "name": "هل هذه الأداة مجانية الاستخدام؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+          "text": "نعم، مجاني تماماً ولا يتطلب التسجيل."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يعمل هذا على الهاتف؟",
+        "name": "هل يعمل هذا على الهاتف المحمول؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+          "text": "نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز."
         }
       }
     ]
@@ -149,224 +149,7 @@ pageStyle: |
     gap: 8px;
     margin-bottom: 8px;
   }
-pageScript: >
-
-  const STORAGE_KEY = 'won-names';
-
-  const COLORS = [
-    {bg:'#7c6af7',fg:'#fff'},{bg:'#a78bfa',fg:'#fff'},
-    {bg:'#34d399',fg:'#052e16'},{bg:'#fb923c',fg:'#1c0a00'},
-    {bg:'#f472b6',fg:'#1c0011'},{bg:'#60a5fa',fg:'#001c3a'},
-    {bg:'#facc15',fg:'#422006'},{bg:'#f87171',fg:'#1c0000'},
-    {bg:'#4ade80',fg:'#001c00'},{bg:'#38bdf8',fg:'#001c2a'},
-    {bg:'#fb7185',fg:'#1c0008'},{bg:'#a3e635',fg:'#0a1c00'},
-  ];
-
-
-  const canvas = document.getElementById('wonCanvas');
-
-  const ctx = canvas.getContext('2d');
-
-  let names = [];
-
-  let spinning = false;
-
-  let currentAngle = 0;
-
-
-  function load() {
-    try { names = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { names = []; }
-    if (!names.length) names = ['Alice','Bob','Charlie','Diana','Eve','Frank','Grace','Hank'];
-    renderChips();
-    drawWheel(currentAngle);
-  }
-
-
-  function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(names)); }
-
-
-  function addNames() {
-    const raw = document.getElementById('nameInput').value;
-    const added = raw.split('"').map(n => n.trim()).filter(n => n && n.length <= 40);
-    if (!added.length) return;
-    names = [...names, ...added].slice(0, 60);
-    document.getElementById('nameInput').value = '';
-    save();
-    renderChips();
-    drawWheel(currentAngle);
-  }
-
-
-  function removeName(i) {
-    names.splice(i, 1);
-    save();
-    renderChips();
-    drawWheel(currentAngle);
-  }
-
-
-  function clearAll() {
-    if (!confirm('إزالة جميع الأسماء؟')) return;
-    names = [];
-    save();
-    renderChips();
-    drawWheel(currentAngle);
-    document.getElementById('winnerDisplay').textContent = '—';
-    document.getElementById('winnerSub').textContent = 'إضافة أسماء للبدء';
-  }
-
-
-  function renderChips() {
-    const container = document.getElementById('namesChips');
-    const count = document.getElementById('namesCount');
-    count.textContent = names.length ? `${names.length} name${names.length !== 1 ? 's' : ''} on the wheel` : 'No names added yet';
-    container.innerHTML = names.map((n, i) => `
-      <span class="name-chip">
-        <span style="color:${COLORS[i % COLORS.length].bg};font-size:10px;">●</span>
-        ${escHtml(n)}
-        <button class="chip-remove" onclick="removeName(${i})" title="Remove">✕</button>
-      </span>`).join('');
-  }
-
-
-  function escHtml(s) {
-    return s.replace(/&/g,'&quot;').replace(/</g,'○').replace(/>/g,'>');
-  }
-
-
-  function drawWheel(angle) {
-    const n = names.length;
-    const W = canvas.width;
-    const cx = W / 2, cy = W / 2, r = W / 2 - 4;
-    ctx.clearRect(0, 0, W, W);
-
-    if (!n) {
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, 2 * Math.PI);
-      ctx.fillStyle = '#1c1c26';
-      ctx.fill();
-      ctx.fillStyle = '#5a5a72';
-      ctx.font = '14px DM Sans, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('أسماء زائدة', cx, cy);
-      return;
-    }
-
-    const arc = (2 * Math.PI) / n;
-    for (let i = 0; i < n; i++) {
-      const start = angle + i * arc;
-      const end = start + arc;
-      const col = COLORS[i % COLORS.length];
-
-      ctx.beginPath();
-      ctx.moveTo(cx, cy);
-      ctx.arc(cx, cy, r, start, end);
-      ctx.closePath();
-      ctx.fillStyle = col.bg;
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(10,10,15,0.6)';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(start + arc / 2);
-      ctx.textAlign = 'right';
-      ctx.fillStyle = col.fg;
-      const fontSize = n <= 8 ? 14 : n <= 20 ? 11 : 9;
-      ctx.font = `bold ${fontSize}px Space Mono, monospace`;
-      const maxLen = r - 18;
-      let label = names[i];
-      while (ctx.measureText(label).width > maxLen - 10 && label.length > 1) {
-        label = label.slice(0, -1);
-      }
-      if (label !== names[i]) label += '…';
-      ctx.fillText(label, r - 10, fontSize / 3);
-      ctx.restore();
-    }
-
-    ctx.beginPath();
-    ctx.arc(cx, cy, 16, 0, 2 * Math.PI);
-    ctx.fillStyle = '#0a0a0f';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,0.15)';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-  }
-
-
-  function getWinner() {
-    const n = names.length;
-    const arc = (2 * Math.PI) / n;
-    const normalised = ((currentAngle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-    const pointerAt = ((3 * Math.PI / 2 - normalised) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
-    return names[Math.floor(pointerAt / arc) % n];
-  }
-
-
-  function spin() {
-    if (spinning || !names.length) return;
-    spinning = true;
-    document.getElementById('spinBtn').disabled = true;
-    document.getElementById('winnerDisplay').textContent = '…';
-    document.getElementById('winnerDisplay').style.color = 'var(---text2)';
-    document.getElementById('winnerSub').textContent = '';
-
-    const totalRot = (6 + Math.random() * 6) * 2 * Math.PI;
-    const duration = 3000 + Math.random() * 1500;
-    const startAngle = currentAngle;
-    const targetAngle = startAngle + totalRot;
-    const startTime = performance.now();
-
-    function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-
-    function frame(now) {
-      const elapsed = now - startTime;
-      const t = Math.min(elapsed / duration, 1);
-      currentAngle = startAngle + (targetAngle - startAngle) * easeOut(t);
-      drawWheel(currentAngle);
-      if (t < 1) {
-        requestAnimationFrame(frame);
-      } else {
-        spinning = false;
-        document.getElementById('spinBtn').disabled = false;
-        const winner = getWinner();
-        const winIdx = names.indexOf(winner);
-        const winColor = COLORS[winIdx % COLORS.length].bg;
-        const el = document.getElementById('winnerDisplay');
-        el.textContent = winner;
-        el.style.color = winColor;
-        document.getElementById('winnerSub').textContent = 'سبين مرة أخرى لاختيار آخر';
-      }
-    }
-    requestAnimationFrame(frame);
-  }
-
-
-  canvas.addEventListener('click', () => { if (!spinning) spin(); });
-
-  canvas.addEventListener('touchstart', e => { e.preventDefault(); if
-  (!spinning) spin(); }, {passive: false});
-
-  canvas.addEventListener('keydown', e => {
-    if (e.code === 'Space' || e.code === 'Enter') {
-      e.preventDefault();
-      if (!spinning) spin();
-    }
-  });
-
-
-  document.getElementById('nameInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter' && e.ctrlKey) addNames();
-  });
-
-
-  load();
-
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
-  }
+pageScript: "\nconst STORAGE_KEY = 'won-names';\nconst COLORS = [\n  {bg:'#7c6af7',fg:'#fff'},{bg:'#a78bfa',fg:'#fff'},\n  {bg:'#34d399',fg:'#052e16'},{bg:'#fb923c',fg:'#1c0a00'},\n  {bg:'#f472b6',fg:'#1c0011'},{bg:'#60a5fa',fg:'#001c3a'},\n  {bg:'#facc15',fg:'#422006'},{bg:'#f87171',fg:'#1c0000'},\n  {bg:'#4ade80',fg:'#001c00'},{bg:'#38bdf8',fg:'#001c2a'},\n  {bg:'#fb7185',fg:'#1c0008'},{bg:'#a3e635',fg:'#0a1c00'},\n];\n\nconst canvas = document.getElementById('wonCanvas');\nconst ctx = canvas.getContext('2d');\nlet names = [];\nlet spinning = false;\nlet currentAngle = 0;\n\nfunction load() {\n  try { names = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { names = []; }\n  if (!names.length) names = ['Alice','Bob','Charlie','Diana','Eve','Frank','Grace','Hank'];\n  renderChips();\n  drawWheel(currentAngle);\n}\n\nfunction save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(names)); }\n\nfunction addNames() {\n  const raw = document.getElementById('nameInput').value;\n  const added = raw.split('\\\\n').map(n => n.trim()).filter(n => n && n.length <= 40);\n  if (!added.length) return;\n  names = [...names, ...added].slice(0, 60);\n  document.getElementById('nameInput').value = '';\n  save();\n  renderChips();\n  drawWheel(currentAngle);\n}\n\nfunction removeName(i) {\n  names.splice(i, 1);\n  save();\n  renderChips();\n  drawWheel(currentAngle);\n}\n\nfunction clearAll() {\n  if (!confirm('هل تريد حذف جميع الأسماء؟')) return;\n  names = [];\n  save();\n  renderChips();\n  drawWheel(currentAngle);\n  document.getElementById('winnerDisplay').textContent = '—';\n  document.getElementById('winnerSub').textContent = 'أضف أسماءً للبدء';\n}\n\nfunction renderChips() {\n  const container = document.getElementById('namesChips');\n  const count = document.getElementById('namesCount');\n  count.textContent = names.length ? `${names.length} name${names.length !== 1 ? 's' : ''} on the wheel` : 'لم تتم إضافة أي أسماء بعد';\n  container.innerHTML = names.map((n, i) => `\n    <span class=\"name-chip\">\n      <span style=\"color:${COLORS[i % COLORS.length].bg};font-size:10px;\">●</span>\n      ${escHtml(n)}\n      <button class=\"chip-remove\" onclick=\"removeName(${i})\" title=\"Remove\">✕</button>\n    </span>`).join('');\n}\n\nfunction escHtml(s) {\n  return s.replace(/&/g,'و').replace(/</g,'<').replace(/>/g,'>');\n}\n\nfunction drawWheel(angle) {\n  const n = names.length;\n  const W = canvas.width;\n  const cx = W / 2, cy = W / 2, r = W / 2 - 4;\n  ctx.clearRect(0, 0, W, W);\n\n  if (!n) {\n    ctx.beginPath();\n    ctx.arc(cx, cy, r, 0, 2 * Math.PI);\n    ctx.fillStyle = '#1c1c26';\n    ctx.fill();\n    ctx.fillStyle = '#5a5a72';\n    ctx.font = '14px DM Sans، خط sans-serif';\n    ctx.textAlign = 'center';\n    ctx.fillText('أضف الأسماء أعلاه', cx, cy);\n    return;\n  }\n\n  const arc = (2 * Math.PI) / n;\n  for (let i = 0; i < n; i++) {\n    const start = angle + i * arc;\n    const end = start + arc;\n    const col = COLORS[i % COLORS.length];\n\n    ctx.beginPath();\n    ctx.moveTo(cx, cy);\n    ctx.arc(cx, cy, r, start, end);\n    ctx.closePath();\n    ctx.fillStyle = col.bg;\n    ctx.fill();\n    ctx.strokeStyle = 'rgba(10,10,15,0.6)';\n    ctx.lineWidth = 2;\n    ctx.stroke();\n\n    ctx.save();\n    ctx.translate(cx, cy);\n    ctx.rotate(start + arc / 2);\n    ctx.textAlign = 'right';\n    ctx.fillStyle = col.fg;\n    const fontSize = n <= 8 ? 14 : n <= 20 ? 11 : 9;\n    ctx.font = `bold ${fontSize}px Space Mono, monospace`;\n    const maxLen = r - 18;\n    let label = names[i];\n    while (ctx.measureText(label).width > maxLen - 10 && label.length > 1) {\n      label = label.slice(0, -1);\n    }\n    if (label !== names[i]) label += '…';\n    ctx.fillText(label, r - 10, fontSize / 3);\n    ctx.restore();\n  }\n\n  ctx.beginPath();\n  ctx.arc(cx, cy, 16, 0, 2 * Math.PI);\n  ctx.fillStyle = '#0a0a0f';\n  ctx.fill();\n  ctx.strokeStyle = 'rgba(255,255,255,0.15)';\n  ctx.lineWidth = 2;\n  ctx.stroke();\n}\n\nfunction getWinner() {\n  const n = names.length;\n  const arc = (2 * Math.PI) / n;\n  const normalised = ((currentAngle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);\n  const pointerAt = ((3 * Math.PI / 2 - normalised) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);\n  return names[Math.floor(pointerAt / arc) % n];\n}\n\nfunction spin() {\n  if (spinning || !names.length) return;\n  spinning = true;\n  document.getElementById('spinBtn').disabled = true;\n  document.getElementById('winnerDisplay').textContent = '…';\n  document.getElementById('winnerDisplay').style.color = 'var(--text2)';\n  document.getElementById('winnerSub').textContent = '';\n\n  const totalRot = (6 + Math.random() * 6) * 2 * Math.PI;\n  const duration = 3000 + Math.random() * 1500;\n  const startAngle = currentAngle;\n  const targetAngle = startAngle + totalRot;\n  const startTime = performance.now();\n\n  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }\n\n  function frame(now) {\n    const elapsed = now - startTime;\n    const t = Math.min(elapsed / duration, 1);\n    currentAngle = startAngle + (targetAngle - startAngle) * easeOut(t);\n    drawWheel(currentAngle);\n    if (t < 1) {\n      requestAnimationFrame(frame);\n    } else {\n      spinning = false;\n      document.getElementById('spinBtn').disabled = false;\n      const winner = getWinner();\n      const winIdx = names.indexOf(winner);\n      const winColor = COLORS[winIdx % COLORS.length].bg;\n      const el = document.getElementById('winnerDisplay');\n      el.textContent = winner;\n      el.style.color = winColor;\n      document.getElementById('winnerSub').textContent = '\U0001F389 أدر العجلة مرة أخرى لاختيار واحدة أخرى';\n    }\n  }\n  requestAnimationFrame(frame);\n}\n\ncanvas.addEventListener('click', () => { if (!spinning) spin(); });\ncanvas.addEventListener('touchstart', e => { e.preventDefault(); if (!spinning) spin(); }, {passive: false});\ncanvas.addEventListener('keydown', e => {\n  if (e.code === 'Space' || e.code === 'Enter') {\n    e.preventDefault();\n    if (!spinning) spin();\n  }\n});\n\ndocument.getElementById('nameInput').addEventListener('keydown', e => {\n  if (e.key === 'Enter' && e.ctrlKey) addNames();\n});\n\nload();\n\nif ('serviceWorker' in navigator) {\n  navigator.serviceWorker.register('/sw.js').catch(() => {});\n}\n"
 lang: ar
 dir: rtl
 ---
@@ -375,7 +158,7 @@ dir: rtl
   <div class="tool-header">
     <div class="tool-icon">🎡</div>
     <h1>عجلة الأسماء</h1>
-    <p>أضف الأسماء، أدر العجلة، دع القدر يقرر</p>
+    <p>أضف الأسماء، أدر العجلة، ودع القدر يقرر.</p>
   </div>
 
   <!-- AdSense placeholder -->
@@ -383,17 +166,17 @@ dir: rtl
 
   <div class="wheel-wrap">
     <div class="wheel-pointer"></div>
-    <canvas id="wonCanvas" width="340" height="340" role="button" tabindex="0" aria-label="تقطع عجلة الأسماء"></canvas>
+    <canvas id="wonCanvas" width="340" height="340" role="button" tabindex="0" aria-label="أدر عجلة الأسماء"></canvas>
   </div>
 
   <div class="winner-display" id="winnerDisplay" aria-live="polite" aria-atomic="true">—</div>
-  <div class="winner-sub" id="winnerSub">اربط العجلة أو اضغط على سبين</div>
+  <div class="winner-sub" id="winnerSub">انقر على العجلة أو اضغط على زر الدوران</div>
 
-  <button class="btn-generate" id="spinBtn" onclick="spin()">SPIN THE WHEEL</button>
+  <button class="btn-generate" id="spinBtn" onclick="spin()">أدر العجلة</button>
 
   <div style="margin-top:1.25rem;">
     <div class="control-group">
-      <label>إضافة أسماء (واحدة لكل خط)</label>
+      <label>أضف الأسماء (اسم واحد في كل سطر)</label>
       <textarea id="nameInput" placeholder="أليس
 بوب
 تشارلي
@@ -401,8 +184,8 @@ dir: rtl
 إيف" rows="5"></textarea>
     </div>
     <div class="btn-row" style="margin-top:8px;">
-      <button class="btn-copy" onclick="addNames()">+ يضاف إلى العجلات</button>
-      <button class="btn-copy" onclick="clearAll()">خالي</button>
+      <button class="btn-copy" onclick="addNames()">+ أضف إلى عجلة التسوق</button>
+      <button class="btn-copy" onclick="clearAll()">مسح الكل</button>
     </div>
   </div>
 
@@ -413,66 +196,66 @@ dir: rtl
   <div class="ad-slot"><!-- ADSENSE: ad unit here --></div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>عجل الأسماء يسمح لك بإضافة أي قائمة بأسماء أو بنود وتدور لاختيار واحد عشوائيا ما يصل إلى 60 بنداً يمكن أن يجلس على العجلة في آن واحد، ويمكنك إزالة الأسماء الفردية في أي وقت. مثالية للحظات الدراسية للطلاب، جائزات، نهائيات منافسة، وأي قرار جماعي يستحق القليل من المسرح</p>
+    <p>تتيح لك عجلة الأسماء إضافة أي قائمة من الأسماء أو العناصر وتدويرها لاختيار اسم عشوائي. يمكن وضع ما يصل إلى 60 اسمًا على العجلة في وقت واحد، ويمكنك إزالة أي اسم في أي وقت. إنها مثالية للحظات اختيار الطلاب في الفصل، وسحوبات الجوائز، ونهائيات المسابقات، وأي قرار جماعي يستحق بعض الإثارة.</p>
 
-    <h2>????? ?????????</h2>
+    <h2>كيفية الاستخدام</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>نوع الأسماء في منطقة النص (واحد لكل خط) والنقر يضاف إلى العجلة.</li>
-      <li>أزيلوا أسماء الأفراد من خلال النقر على رقائقهم تحت العجلة</li>
-      <li>اضغطي على العجلة أو اضغطي عليها لتبدأي الدوران</li>
-      <li>اسم الفائز يظهر تحت العجلة عندما يتوقف</li>
-      <li>تقطع مرة أخرى دون إزالة الأسماء، أو تصفية الفائز لتضييق المجال.</li>
+      <li>اكتب الأسماء في مربع النص (اسم واحد في كل سطر) وانقر فوق "إضافة إلى العجلة".</li>
+      <li>قم بإزالة الأسماء الفردية بالنقر على علامة × الموجودة على الشريحة الخاصة بها أسفل عجلة القيادة.</li>
+      <li>انقر على "تدوير العجلة" أو اضغط على اللوحة لبدء الدوران.</li>
+      <li>يظهر اسم الفائز أسفل العجلة عندما تتوقف.</li>
+      <li>أعد تدوير العجلة دون إزالة الأسماء، أو قم بإزالة الفائز لتضييق نطاق المنافسة.</li>
     </ol>
 
-    <h2>الاستخدامات المشتركة</h2>
+    <h2>الاستخدامات الشائعة</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>أنشطة الصف حيث يختار المعلم طالباً ليجيب</li>
-      <li>منح وجوائز في المناسبات أو في مجاري وسائط الإعلام الاجتماعية</li>
-      <li>الإختيار الذي يَذْهبُ أولاً في لعبةِ الصعودِ أو الحفلاتِ</li>
-      <li>منحة دراسية أو مهمة في أسرة معيشية مشتركة</li>
-      <li>تنافس في نوادي رياضية أو أحداث مجتمعية</li>
-      <li>جسور باب المؤتمر والليالي الخبيثة</li>
+      <li>أنشطة صفية يختار فيها المعلم طالبًا للإجابة</li>
+      <li>توزيع الهدايا والسحوبات على الجوائز في الفعاليات أو عبر منصات التواصل الاجتماعي</li>
+      <li>اختيار من يبدأ أولاً في ألعاب الطاولة أو ألعاب الحفلات</li>
+      <li>تكليف عشوائي بالأعمال المنزلية أو المهام في منزل مشترك</li>
+      <li>تقام المنافسات في الأندية الرياضية أو الفعاليات المجتمعية</li>
+      <li>سحوبات على جوائز داخل المؤتمر وليالي اليانصيب</li>
     </ul>
 
-    <h2>لماذا تستخدم سبينيت</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">قائمة اسمك تُحفظ تلقائياً في مصففكم بين الجلسات لا تحتاج إلى إعادة الدخول إليها في كل مرة تعود العجلة تدعم ما يصل إلى 60 اسماً مع شرائح ملونة اللون للقراءة السهلة. كل البيانات تبقى على جهازك لا شيء يرسل إلى خادم</p>
+    <h2>لماذا تستخدم Spinnit</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">يتم حفظ قائمة أسمائك تلقائيًا في متصفحك بين الجلسات، فلا داعي لإعادة إدخالها في كل مرة تعود فيها. يدعم التطبيق ما يصل إلى 60 اسمًا مع أقسام مُرمّزة بالألوان لسهولة القراءة. تبقى جميع البيانات على جهازك، ولا يتم إرسال أي شيء إلى خادم.</p>
 
-    <h2>الوثائق الخاصة والمحفوظة</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تم حفظ الأسماء في مخزنك المحلي على الجهاز الذي تستخدمه (سبينيت) لا يحمّل القائمة أو يخلق حساباً أو يخزن أسماء على خادم إذا كنت تستخدم فصلاً مشتركاً أو كمبيوتر عمل إضغط كل شيء عندما تنتهي</p>
+    <h2>الخصوصية والقوائم المحفوظة</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">يتم حفظ الأسماء فقط في وحدة التخزين المحلية لمتصفحك على الجهاز الذي تستخدمه. لا يقوم Spinnit بتحميل القائمة، أو إنشاء حساب، أو تخزين الأسماء على خادم. إذا كنت تستخدم جهاز كمبيوتر مشتركًا في الفصل الدراسي أو العمل، فانقر على "مسح الكل" عند الانتهاء.</p>
 
-    <h2>الصفوف و النمر</h2>
+    <h2>نصائح حول الفصول الدراسية والهدايا</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li><strong style="color:var(--text);">بالنسبة للفصول الدراسية:</strong> وتوضح أن العجلة تختار بشكل عشوائي، ثم تزيل أو تحتفظ بالأسماء تبعاً لما إذا كان مسموحاً بالتكرار.</li>
-      <li><strong style="color:var(--text);">للعطاء:</strong> أعد قائمة الدخول أولاً، أزيل الازدواج إذا كانت قواعدك تتطلّب ذلك، ثم تدور مرة لكل جائزة.</li>
-      <li><strong style="color:var(--text);">للاجتماعات:</strong> استخدم العجلة لاختيار ترتيب الكلام، أو ترتيب العرض أو من يجيب على السؤال التالي.</li>
+      <li><strong style="color:var(--text);">للفصول الدراسية:</strong> اشرح أن العجلة تختار عشوائياً، ثم قم بإزالة الأسماء أو الاحتفاظ بها بناءً على ما إذا كان التكرار مسموحاً به أم لا.</li>
+      <li><strong style="color:var(--text);">للهدايا:</strong> قم بإعداد قائمة المشاركين أولاً، ثم قم بإزالة التكرارات إذا كانت قواعدك تتطلب ذلك، ثم قم بتدوير العجلة مرة واحدة لكل جائزة.</li>
+      <li><strong style="color:var(--text);">للاجتماعات:</strong> استخدم العجلة لاختيار ترتيب الكلام، أو ترتيب العرض التوضيحي، أو من يجيب على السؤال التالي.</li>
     </ul>
 
-    <h2>المتغيرات السريعة</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">هل تريد شيئاً محدداً؟ جرب <a href="wheel-of-names-for-classroom.html">الصفوف دليل العجلات</a>.. <a href="random-student-picker.html">الطالب بيكر</a> بدون تكرار <a href="random-name-picker-no-repeat.html">رقم إعادة الاسم بيكر</a>.. <a href="random-winner-picker.html">الفائز بيكر</a> للعطاء، أو للعموم <a href="pick-random-name.html">إختر اسم راندوم</a> أداة.</p>
+    <h2>خيارات أسرع لاختيار العينات</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">هل تحتاج إلى شيء محدد؟ جرب <a href="wheel-of-names-for-classroom.html">دليل عجلات الفصل الدراسي</a>، ال <a href="random-student-picker.html">منتقي الطلاب</a> بدون تكرار، <a href="random-name-picker-no-repeat.html">منتقي الأسماء غير المكرر</a>، ال <a href="random-winner-picker.html">اختيار الفائز</a> للهدايا، أو بشكل عام <a href="pick-random-name.html">اختر اسمًا عشوائيًا</a> أداة.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني أن أحتفظ بقائمة أسماءي؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم قائمة أسمك يتم حفظها تلقائياً لتخزينك المحلي وسوف تكون هناك في المرة القادمة التي تفتح فيها الأداة على نفس الجهاز</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني حفظ قائمة الأسماء الخاصة بي؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. يتم حفظ قائمة الأسماء الخاصة بك تلقائيًا في وحدة التخزين المحلية للمتصفح وستظل موجودة في المرة القادمة التي تفتح فيها الأداة على نفس الجهاز.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هناك حدود على عدد الأسماء التي يمكن أن أضيفها؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">العجلة تدعم 60 اسماً وفيما عدا ذلك، تصبح الأجزاء أصغر من أن تقرأ بوضوح، لذا فإن القائمة مجهزة بـ 60 لتجربة جيدة.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هناك حد أقصى لعدد الأسماء التي يمكنني إضافتها؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">تدعم عجلة الأسماء ما يصل إلى 60 اسمًا. بعد ذلك، تصبح الأجزاء صغيرة جدًا بحيث يصعب قراءتها بوضوح، لذا تم تحديد القائمة بـ 60 اسمًا للحصول على تجربة جيدة.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة مجانية الاستخدام؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاني تماماً ولا يتطلب التسجيل.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف المحمول؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم لا</a>
-      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> فريق راندوم بيكر</a>
-      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
-      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> عملة الوجه</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم لا عجلة</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> اختيار الفريق عشوائياً</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> مُبدِّل القوائم</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> رمية عملة معدنية</a>
     </div>
   </section>
 

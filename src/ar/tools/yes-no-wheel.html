@@ -1,25 +1,25 @@
 ---
 layout: layouts/base.njk
-title: نعم لا عجل - راندوم نعم أو لا سبينر سبينيت
+title: عجلة نعم لا – عجلة دوارة عشوائية بنعم أو لا | سبينيت
 description: >-
-  اقطع الـ "نعم" بدون عجلات لجواب عشوائي قرار مجاني على الإنترنت مع نعم، لا
-  وربما خيارات. نتائج هائلة
+  أدر عجلة الاختيار (نعم/لا) للحصول على إجابة عشوائية. أداة مجانية لاتخاذ
+  القرارات عبر الإنترنت مع خيارات نعم، لا، وربما. نتيجة فورية.
 canonical: 'https://spinnit.site/ar/tools/yes-no-wheel.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "نعم لا",
-    "description": "اقطع العجلة عشوائيا نعم أو لا",
+    "name": "نعم لا عجلة",
+    "description": "أدر العجلة للحصول على إجابة عشوائية بنعم أو لا",
     "url": "https://spinnit.site/ar/tools/yes-no-wheel.html",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web"
   }
 extraHead: >
-  <meta name="twitter:title" content="نعم لا عجل سبينيت">
+  <meta name="twitter:title" content="عجلة نعم لا | سبينيت">
 
-  <meta name="twitter:description" content="اقطع العجلة نعم/لا لاتخاذ قرار
-  عشوائي مجانيّة ومتحركة.">
+  <meta name="twitter:description" content="أدر عجلة نعم/لا للحصول على قرار
+  عشوائي. مجاني ومتوافق مع الهواتف المحمولة.">
 
   <script type="application/ld+json">{
     "@context": "https://schema.org",
@@ -27,34 +27,34 @@ extraHead: >
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل يمكنني إضافة خيار؟",
+        "name": "هل يمكنني إضافة خيار \"ربما\"؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم اختيار ' نعم / لا / رُبَّمَا مِنْ تَسْقطُ النمطِ والعجلةِ سَتُقسمُ بالتساوي إلى ثلاثة أجزاءِ."
+          "text": "نعم. حدد \"نعم / لا / ربما\" من القائمة المنسدلة للوضع وسيتم تقسيم العجلة بالتساوي إلى ثلاثة أجزاء."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يمكنني أن أرجح النتيجة نحو نعم أم لا؟",
+        "name": "هل يمكنني ترجيح النتيجة نحو نعم أو لا؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم من المحتمل نعم و من المحتمل لا توجد طريقة تعطي 70 % فرصة لنتيجة واحدة و 30% للآخر"
+          "text": "نعم. يعطي وضعا \"ربما نعم\" و \"ربما لا\" فرصة بنسبة 70٪ لنتيجة واحدة و 30٪ للنتيجة الأخرى."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "name": "هل هذه الأداة مجانية الاستخدام؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+          "text": "نعم، مجاني تماماً ولا يتطلب التسجيل."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يعمل هذا على الهاتف؟",
+        "name": "هل يعمل هذا على الهاتف المحمول؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+          "text": "نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز."
         }
       }
     ]
@@ -121,7 +121,7 @@ pageScript: |
       ctx.rotate(start + arc / 2);
       ctx.textAlign = 'right';
       ctx.fillStyle = seg.textColor;
-      ctx.font = 'مركبة فضائية من طراز 22px';
+      ctx.font = 'خط عريض 22 بكسل، أحادي المسافة';
       ctx.fillText(seg.label, r - 20, 8);
       ctx.restore();
       start += arc;
@@ -132,7 +132,7 @@ pageScript: |
     ctx.arc(cx, cy, 18, 0, 2 * Math.PI);
     ctx.fillStyle = '#0a0a0f';
     ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,0.1)';
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
     ctx.lineWidth = 2;
     ctx.stroke();
   }
@@ -149,7 +149,7 @@ pageScript: |
   }
 
   function resetAnswer() {
-    document.getElementById('answerResult').textContent = '(سبين) يقرر';
+    document.getElementById('answerResult').textContent = 'أدر العجلة لتحديد القرار';
   }
 
   function spin() {
@@ -199,78 +199,78 @@ dir: rtl
   <div class="tool-header">
     <div class="tool-icon">🔮</div>
     <h1>نعم / لا عجلة</h1>
-    <p>اقطع العجلة دع القدر يقرر</p>
+    <p>أدر العجلة ودع القدر يقرر</p>
   </div>
 
   <div class="wheel-wrap">
     <div class="wheel-pointer"></div>
-    <canvas id="wheel" width="300" height="300" role="button" tabindex="0" aria-label="اقطع العجلة نعم"></canvas>
+    <canvas id="wheel" width="300" height="300" role="button" tabindex="0" aria-label="أدر عجلة نعم/لا"></canvas>
   </div>
 
   <div class="control-group" style="margin-bottom:12px;">
-    <label>Mode</label>
+    <label>وضع</label>
     <select id="mode" onchange="drawWheel(); resetAnswer();">
-      <option value="yesno">نعم/لا</option>
-      <option value="yesnomaybe">نعم/لا/ربما</option>
-      <option value="heavy-yes">ربما نعم (70 في المائة)</option>
+      <option value="yesno">نعم / لا</option>
+      <option value="yesnomaybe">نعم / لا / ربما</option>
+      <option value="heavy-yes">نعم على الأرجح (70%)</option>
       <option value="heavy-no">ربما لا (70%)</option>
     </select>
   </div>
 
   <div class="result-box" aria-live="polite" aria-atomic="true" style="margin-bottom:12px;">
-    <div class="result-label">الإجابة</div>
-    <div class="result-text" id="answerResult">(سبين) يقرر</div>
+    <div class="result-label">إجابة</div>
+    <div class="result-text" id="answerResult">أدر العجلة لتحديد القرار</div>
   </div>
 
-  <button class="btn-generate" id="spinBtn" onclick="spin()">SPIN THE WHEEL</button>
+  <button class="btn-generate" id="spinBtn" onclick="spin()">أدر العجلة</button>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>الـ "نعم" لا "وييل" يمنحك تصوّراً دائرياً مُرضياً يهبط على "نعم" أو "لا" يمكنك تعديل الطريقة لترجيح النتيجة نحو إجابة واحدة مما يجعلها أكثر فظاً من قلب عملة بسيطة إنها الطريقة الأكثر متعة لتسوية قرار سريع أو كسر ربطة عنق.</p>
+    <p>تمنحك عجلة "نعم/لا" حركة دوران ممتعة تستقر على "نعم" أو "لا"، أو "ربما" إذا كنت تفضل خيارًا ثلاثيًا. يمكنك تعديل الوضع لترجيح النتيجة نحو إجابة واحدة، مما يجعلها أكثر تنوعًا من مجرد رمي عملة معدنية. إنها الطريقة الأمثل والأكثر متعة لحسم قرار سريع أو كسر التعادل.</p>
 
-    <h2>????? ?????????</h2>
+    <h2>كيفية الاستخدام</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>اختر أسلوبك المفضل من الإنزال (نعم/لا، نعم/لا/ربما، نعم، أو ربما لا).</li>
-      <li>قم بلعق (سبين) أو إصطياد الشموع مباشرةً</li>
-      <li>انتظر العجلة لتبطئ وتهبط على إجابتك</li>
-      <li>تنحني مرة أخرى كما تشاء ليس هناك حد</li>
+      <li>اختر الوضع المفضل لديك من القائمة المنسدلة (نعم/لا، نعم/لا/ربما، على الأرجح نعم، أو على الأرجح لا).</li>
+      <li>انقر على "تدوير العجلة" أو انقر على اللوحة القماشية مباشرة.</li>
+      <li>انتظر حتى تتباطأ العجلة وتستقر على إجابتك.</li>
+      <li>أدر العجلة مرة أخرى بقدر ما تشاء - لا يوجد حد.</li>
     </ol>
 
-    <h2>الاستخدامات المشتركة</h2>
+    <h2>الاستخدامات الشائعة</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>نقرر ما إذا كان سيطلب أخذ أو طهي الليلة</li>
-      <li>كسر الروابط في قرارات المجموعات حيث لا يستطيع أحد أن يوافق</li>
-      <li>أنشطة قاعات الدراسة لإشراك الطلاب عشوائيا</li>
-      <li>التحديات اليومية في مجال اتخاذ القرارات فيما يتعلق بصانعي المحتوى ومجاري المياه</li>
-      <li>إقامة حجج ودية بين الزملاء وزملاء المنازل</li>
-      <li>ألعاب الأطفال وأنشطة الحفلات حيث يضيف دوران ممتع إلى الغلاف الجوي</li>
+      <li>أتردد بين طلب الطعام الجاهز أو الطبخ الليلة</li>
+      <li>فضّ التعادل في القرارات الجماعية التي لا يتفق عليها أحد</li>
+      <li>أنشطة صفية لتشجيع مشاركة الطلاب بشكل عشوائي</li>
+      <li>تحديات اتخاذ القرارات اليومية لمنشئي المحتوى ومقدمي البث المباشر</li>
+      <li>حلّ الخلافات الودية بين الزملاء أو رفقاء السكن</li>
+      <li>ألعاب الأطفال وأنشطة الحفلات التي تضفي عليها لمسة مرحة جواً مميزاً.</li>
     </ul>
 
-    <h2>لماذا تستخدم سبينيت</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">فالوسائل المرجحة - ربما نعم وربما لا - تجعل هذا أكثر تعارضا من قلب العملة العادية عندما تريد أن تكون في اتجاه معين. مقياس العجلات سلس ومستجيب لجميع أحجام الشاشة لا تركيب، لا دخول، ولا أي بيانات ترسل في أي مكان.</p>
+    <h2>لماذا تستخدم Spinnit</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تُضفي الأوضاع المُرجّحة - نعم على الأرجح ولا على الأرجح - مزيدًا من المرونة على هذه الأداة مقارنةً برمي العملة التقليدي، خاصةً عند الرغبة في توجيهها نحو اتجاه مُحدد. حركة عجلة التمرير سلسة وسريعة الاستجابة على جميع أحجام الشاشات. لا يتطلب الأمر تثبيتًا أو تسجيل دخول، ولا يتم إرسال أي بيانات إلى أي مكان.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني إضافة خيار؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم اختيار "نعم/لا/ربما" من التوقف عن العمل والعجلة ستقسم بالتساوي إلى ثلاثة أجزاء.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني إضافة خيار "ربما"؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. اختر "نعم / لا / ربما" من القائمة المنسدلة للوضع وسيتم تقسيم العجلة بالتساوي إلى ثلاثة أجزاء.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني أن أرجح النتيجة نحو نعم أم لا؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم من المحتمل أن أسلوبي "نعم" و "من المحتمل لا" يعطيان 70 % فرصة لنتيجة واحدة و 30% للآخر</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني ترجيح النتيجة نحو نعم أو لا؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. يعطي وضعا "ربما نعم" و "ربما لا" فرصة بنسبة 70٪ لنتيجة واحدة و 30٪ للنتيجة الأخرى، لذلك لا تزال العجلة تحمل بعض التشويق.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة مجانية الاستخدام؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاني تماماً ولا يتطلب التسجيل.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف المحمول؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> عملة الوجه</a>
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> بكرة النرد</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> رمية عملة معدنية</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> أداة رمي النرد</a>
       <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> عجلة الأسماء</a>
-      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> فريق راندوم بيكر</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> اختيار الفريق عشوائياً</a>
     </div>
   </section>
 

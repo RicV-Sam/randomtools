@@ -1,9 +1,9 @@
 ---
 layout: layouts/base.njk
-title: 404 — لم يتم العثور على الصفحة · Spinnit
+title: 404 - الصفحة غير موجودة · سبينيت
 description: >-
-  لا يمكن العثور على هذه الصفحة. عد إلى Spinnit للحصول على 13 مولدًا عشوائيًا
-  مجانيًا.
+  لم يتم العثور على هذه الصفحة. ارجع إلى Spinnit للحصول على 13 مولد أرقام
+  عشوائية مجاني.
 noindex: true
 canonical: 'https://spinnit.site/ar/404.html'
 footerVariant: short
@@ -106,16 +106,16 @@ pageStyle: >
   line-height: 1.4; }
 
   @media (max-width: 400px) { .suggestions { grid-template-columns: 1fr; } }
-pageScript: "const allTools = [\n  { icon: '\U0001F3B2', name: 'رقم عشوائي', desc: 'أي دقيقة إلى الحد الأقصى', href: '/tools/random-number.html' },\n  { icon: '⚄', name: 'بكرة النرد', desc: 'D6، D20 والعرف', href: '/tools/dice-roller.html' },\n  { icon: '\U0001FA99', name: 'عملة الوجه', desc: 'الرؤوس أو الذيول على الفور', href: '/tools/coin-flip.html' },\n  { icon: '\U0001F465', name: 'منتقي الفريق', desc: 'انقسموا إلى فرق عشوائية', href: '/tools/team-picker.html' },\n  { icon: '\U0001F52E', name: 'نعم / لا عجلة', desc: 'تدور للحصول على إجابة', href: '/tools/yes-no-wheel.html' },\n  { icon: '\U0001F3A1', name: 'عجلة الأسماء', desc: 'اختر فائزًا عشوائيًا', href: '/tools/wheel-of-names.html' },\n  { icon: '\U0001F3A8', name: 'مولد اللون', desc: 'HEX وRGB وHSL', href: '/tools/colour-generator.html' },\n  { icon: '\U0001F510', name: 'مولد كلمة المرور', desc: 'كلمات مرور قوية وآمنة', href: '/tools/password-generator.html' },\n  { icon: '\U0001F340', name: 'منتقي اليانصيب', desc: 'أرقام الحظ بسرعة', href: '/tools/lottery-picker.html' },\n  { icon: '\U0001F4CA', name: 'نسبة عشوائية', desc: 'الحد الأدنى، الحد الأقصى، الكسور العشرية', href: '/tools/percentage-generator.html' },\n  { icon: '\U0001F500', name: 'قائمة المتثاقل', desc: 'بطريقة عشوائية أي قائمة', href: '/tools/list-shuffler.html' },\n  { icon: '\U0001F30D', name: 'بلد عشوائي', desc: 'جميع الدول 195', href: '/tools/random-country.html' },\n  { icon: '\U0001F464', name: 'مولد الاسم', desc: '10 الثقافات المدعومة', href: '/tools/random-name-generator.html' }\n];\nfunction shuffle(arr) {\n  for (let i = arr.length - 1; i > 0; i--) {\n    const j = Math.floor(Math.random() * (i + 1));\n    [arr[i], arr[j]] = [arr[j], arr[i]];\n  }\n  return arr;\n}\nconst picks = shuffle([...allTools]).slice(0, 4);\ndocument.getElementById('suggestions').innerHTML = picks.map(t =>\n  `<a class=\"suggestion-card\" href=\"${t.href}\">\n    <span class=\"sug-icon\">${t.icon}</span>\n    <span class=\"sug-name\">${t.name}</span>\n    <span class=\"sug-desc\">${t.desc}</span>\n  </a>`\n).join('');\n"
+pageScript: "const allTools = [\n  { icon: '\U0001F3B2', name: 'رقم عشوائي', desc: 'أي حد أدنى إلى الحد الأقصى', href: '/tools/random-number.html' },\n  { icon: '⚄', name: 'أداة رمي النرد', desc: 'D6، D20، ومخصصة', href: '/tools/dice-roller.html' },\n  { icon: '\U0001FA99', name: 'رمية عملة معدنية', desc: 'صورة أو كتابة على الفور', href: '/tools/coin-flip.html' },\n  { icon: '\U0001F465', name: 'مُختار الفريق', desc: 'انقسموا إلى فرق عشوائية', href: '/tools/team-picker.html' },\n  { icon: '\U0001F52E', name: 'نعم / لا عجلة', desc: 'أدر للحصول على الإجابة', href: '/tools/yes-no-wheel.html' },\n  { icon: '\U0001F3A1', name: 'عجلة الأسماء', desc: 'اختر فائزًا عشوائيًا', href: '/tools/wheel-of-names.html' },\n  { icon: '\U0001F3A8', name: 'مولد الألوان', desc: 'HEX و RGB و HSL', href: '/tools/colour-generator.html' },\n  { icon: '\U0001F510', name: 'مولد كلمات المرور', desc: 'كلمات مرور قوية وآمنة', href: '/tools/password-generator.html' },\n  { icon: '\U0001F340', name: 'مُختار اليانصيب', desc: 'أرقام الحظ بسرعة', href: '/tools/lottery-picker.html' },\n  { icon: '\U0001F4CA', name: 'نسبة عشوائية', desc: 'الحد الأدنى، الحد الأقصى، الأرقام العشرية', href: '/tools/percentage-generator.html' },\n  { icon: '\U0001F500', name: 'مُبدِّل القوائم', desc: 'قم بترتيب أي قائمة عشوائيًا', href: '/tools/list-shuffler.html' },\n  { icon: '\U0001F30D', name: 'بلد عشوائي', desc: 'جميع الدول الـ 195', href: '/tools/random-country.html' },\n  { icon: '\U0001F464', name: 'مولد الأسماء', desc: 'دعم 10 ثقافات', href: '/tools/random-name-generator.html' }\n];\nfunction shuffle(arr) {\n  for (let i = arr.length - 1; i > 0; i--) {\n    const j = Math.floor(Math.random() * (i + 1));\n    [arr[i], arr[j]] = [arr[j], arr[i]];\n  }\n  return arr;\n}\nconst picks = shuffle([...allTools]).slice(0, 4);\ndocument.getElementById('suggestions').innerHTML = picks.map(t =>\n  `<a class=\"suggestion-card\" href=\"${t.href}\">\n    <span class=\"sug-icon\">${t.icon}</span>\n    <span class=\"sug-name\">${t.name}</span>\n    <span class=\"sug-desc\">${t.desc}</span>\n  </a>`\n).join('');\n"
 lang: ar
 dir: rtl
 ---
 <div class="not-found">
   <span class="code">404</span>
-  <h1>هذه الصفحة ضاعت في العشوائية</h1>
-  <p>لم نتمكن من العثور على ما كنت تبحث عنه. ربما ستساعدك أداة عشوائية - أو عد إلى المنزل فحسب.</p>
+  <h1>ضاعت هذه الصفحة وسط العشوائية</h1>
+  <p>لم نتمكن من العثور على ما تبحث عنه. ربما تساعدك أداة عشوائية، أو يمكنك ببساطة العودة إلى المنزل.</p>
   <a class="btn-home" href="/ar/index.html">← العودة إلى الصفحة الرئيسية</a>
 
-  <div class="suggestions-label">جرب واحدة من هذه</div>
+  <div class="suggestions-label">جرب أحد هذه</div>
   <div class="suggestions" id="suggestions"></div>
 </div>

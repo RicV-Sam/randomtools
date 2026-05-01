@@ -1,25 +1,27 @@
 ---
 layout: layouts/base.njk
-title: 'Lottery Number Generator – UK, US &apos; More , Spinnit'
+title: >-
+  مولد أرقام اليانصيب – المملكة المتحدة، الولايات المتحدة الأمريكية، وغيرها |
+  سبينيت
 description: >-
-  تولد أرقام اليانصيب العشوائية لـ لوتو المملكة المتحدة، واليورو ميليون،
-  وباوربول، وميجا الملايين، وأكثر. مختار رقم محظوظ
+  قم بتوليد أرقام يانصيب عشوائية لـ UK Lotto و EuroMillions و Powerball و Mega
+  Millions وغيرها. أداة مجانية لاختيار الأرقام المحظوظة.
 canonical: 'https://spinnit.site/ar/tools/lottery-picker.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "عدد المولدات الكهربائية",
-    "description": "أعداد اليانصيب العشوائي لليانصيب الرئيسي في جميع أنحاء العالم",
+    "name": "مولد أرقام اليانصيب",
+    "description": "توليد أرقام يانصيب عشوائية لليانصيبات الكبرى حول العالم",
     "url": "https://spinnit.site/ar/tools/lottery-picker.html",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web"
   }
 extraHead: >
-  <meta name="twitter:title" content="عدد المولدات الكهربائية">
+  <meta name="twitter:title" content="مولد أرقام اليانصيب | سبينيت">
 
-  <meta name="twitter:description" content="تولد أرقام اليانصيب المحظوظة
-  لليانصيب الكبير في جميع أنحاء العالم. حر وفوري">
+  <meta name="twitter:description" content="احصل على أرقام يانصيب محظوظة لأهم
+  اليانصيبات حول العالم. مجاناً وفورياً.">
 
   <script type="application/ld+json">{
     "@context": "https://schema.org",
@@ -27,34 +29,34 @@ extraHead: >
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل هذه الأرقام عشوائية حقا؟",
+        "name": "هل هذه الأرقام عشوائية حقاً؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم المولد يستخدم كتلة عشوائية من جميع الأرقام الممكنة، مما يعطي كل مزيج فرصة متساوية للظهور."
+          "text": "نعم. يستخدم المولد خلطًا عشوائيًا لجميع الأرقام الممكنة، مما يمنح كل تركيبة فرصة متساوية للظهور."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يمكنني توليد خطوط متعددة في آن واحد؟",
+        "name": "هل يمكنني إنشاء عدة أسطر في وقت واحد؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم جهزوا حقل الخطوط لتصل إلى 6 و كل الخطوط ستتولد معاً"
+          "text": "نعم. اضبط حقل \"عدد الأسطر\" على 6 كحد أقصى وسيتم إنشاء جميع الأسطر معًا."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "name": "هل هذه الأداة مجانية الاستخدام؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+          "text": "نعم، مجاني تماماً ولا يتطلب التسجيل."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يعمل هذا على الهاتف؟",
+        "name": "هل يعمل هذا على الهاتف المحمول؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+          "text": "نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز."
         }
       }
     ]
@@ -90,16 +92,16 @@ pageStyle: >
 pageScript: |
 
   const lotteries = {
-    uklotto:     { name:'UK Lotto', main:6, mainMax:59, bonus:1, bonusMax:59, info:'اسحب كل يوم الأربعاء والسبت تطابق 6 أرقام للفوز بالجائزة الكبرى' },
-    euromillions:{ name:'اليورو', main:5, mainMax:50, bonus:2, bonusMax:12, info:'لعب عبر أوروبا تطابق 5 أرقام رئيسية + 2 نجوم محظوظة للفوز بجائزة الجائزة الكبرى.' },
+    uklotto:     { name:'يانصيب المملكة المتحدة', main:6, mainMax:59, bonus:1, bonusMax:59, info:'يُجرى السحب كل أربعاء وسبت. طابق 6 أرقام للفوز بالجائزة الكبرى.' },
+    euromillions:{ name:'يورومليونز', main:5, mainMax:50, bonus:2, bonusMax:12, info:'تُقام هذه اللعبة في جميع أنحاء أوروبا. طابق 5 أرقام رئيسية + نجمتين محظوظتين للفوز بالجائزة الكبرى.' },
     powerball:   { name:'باوربول', main:5, mainMax:69, bonus:1, bonusMax:26, info:'US lottery drawn every Monday, Wednesday, Saturday. Jackpot starts at $20 million.' },
-    megamillions:{ name:'ميغا ملايين', main:5, mainMax:70, bonus:1, bonusMax:25, info:'US lottery drawn every Tuesday and Friday. Record jackpot over $1.5 billion.' },
-    irish:       { name:'لوتو الآيرلندي', main:6, mainMax:47, bonus:1, bonusMax:47, info:'اليانصيب الوطني لأيرلندا تسحب كل يوم الأربعاء والسبت' },
-    auspowerball:{ name:'أستراليا', main:7, mainMax:35, bonus:1, bonusMax:20, info:'كرة السلة الأسترالية اختر 7 أرقام من 1 إلى 35 زائد 1 باوربول من 1 إلى 20 تسحب كل يوم خميس' },
-    canada649:   { name:'كندا', main:6, mainMax:49, bonus:1, bonusMax:49, info:'اليانصيب الأكثر شعبية في كندا إختر 6 أرقام من 1 إلى 49 تسحب كل يوم الأربعاء والسبت' },
-    india:       { name:'الهند', main:6, mainMax:49, bonus:0, bonusMax:49, info:'نموذج اليانصيب الهندي إختر 6 أرقام من 1 إلى 49' },
-    sa:          { name:'جنوب أفريقيا', main:6, mainMax:52, bonus:1, bonusMax:52, info:'جنوب أفريقيا إختر 6 أرقام من 1 إلى 52 بالإضافة إلى كرة مكافأة واحدة تسحب كل يوم الأربعاء والسبت' },
-    custom:      { name:'العرف', main:6, mainMax:49, bonus:0, bonusMax:10, info:'وضع قواعدك الخاصة أعلاه.' }
+    megamillions:{ name:'ميجا مليونز', main:5, mainMax:70, bonus:1, bonusMax:25, info:'US lottery drawn every Tuesday and Friday. Record jackpot over $1.5 billion.' },
+    irish:       { name:'اليانصيب الأيرلندي', main:6, mainMax:47, bonus:1, bonusMax:47, info:'اليانصيب الوطني الأيرلندي. يُجرى السحب كل أربعاء وسبت.' },
+    auspowerball:{ name:'باوربول أستراليا', main:7, mainMax:35, bonus:1, bonusMax:20, info:'اليانصيب الأسترالي باوربول. اختر 7 أرقام من 1 إلى 35 بالإضافة إلى رقم باوربول واحد من 1 إلى 20. يتم السحب كل خميس.' },
+    canada649:   { name:'يانصيب كندا 6/49', main:6, mainMax:49, bonus:1, bonusMax:49, info:'اليانصيب الأكثر شعبية في كندا. اختر 6 أرقام من 1 إلى 49. يتم السحب كل أربعاء وسبت.' },
+    india:       { name:'اليانصيب الهندي', main:6, mainMax:49, bonus:0, bonusMax:49, info:'نظام اليانصيب الهندي القياسي. اختر 6 أرقام من 1 إلى 49.' },
+    sa:          { name:'يانصيب جنوب أفريقيا', main:6, mainMax:52, bonus:1, bonusMax:52, info:'اليانصيب الوطني لجنوب أفريقيا. اختر 6 أرقام من 1 إلى 52 بالإضافة إلى كرة إضافية. يُجرى السحب كل أربعاء وسبت.' },
+    custom:      { name:'مخصص', main:6, mainMax:49, bonus:0, bonusMax:10, info:'حدد قواعدك الخاصة أعلاه.' }
   };
 
   function updateInfo() {
@@ -142,16 +144,16 @@ pageScript: |
     for (let l = 0; l < lines; l++) {
       if (lines > 1) {
         const lbl = document.createElement('div');
-        lbl.style.cssText = 'width:100%;text-align:center;font-size:11px;color:var(-text3);font-family:var(-mono);letter-spacing:0.08em;text-transform:uppercase;margin-top:'+(l>0?'12px':'0');
+        lbl.style.cssText = 'العرض: 100%؛ محاذاة النص: توسيط؛ حجم الخط: 11 بكسل؛ اللون: var(--text3)؛ نوع الخط: var(--mono)؛ تباعد الأحرف: 0.08em؛ تحويل النص: أحرف كبيرة؛ الهامش العلوي:'+(l>0?'12px':'0');
         lbl.textContent = `Line ${l+1}`;
         container.appendChild(lbl);
         const row = document.createElement('div');
-        row.style.cssText = 'العرض: (flex;flex-wrap:wrap;gap:10px;justified-content:center;width:100%;';
+        row.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;justify-content:center;width:100%;';
         const {main, bonus} = pickLine(cfg);
         main.forEach((n,i) => { const b = makeBall(n,'ball-main',i*60); row.appendChild(b); });
         if (bonus.length) {
           const sep = document.createElement('div');
-          sep.style.cssText = 'width:2px;background:var( --border);border-radius:2px;margin:0 2px;';
+          sep.style.cssText = 'العرض: 2 بكسل؛ الخلفية: متغير (--border)؛ نصف قطر الحدود: 2 بكسل؛ الهامش: 0 2 بكسل؛';
           row.appendChild(sep);
           bonus.forEach((n,i) => { const b = makeBall(n,'ball-bonus',(main.length+i)*60); row.appendChild(b); });
         }
@@ -161,7 +163,7 @@ pageScript: |
         main.forEach((n,i) => container.appendChild(makeBall(n,'ball-main',i*60)));
         if (bonus.length) {
           const sep = document.createElement('div');
-          sep.style.cssText = 'عرض: فليكس؛ البنود ذات الأهمية الفائقة: المركز؛ الركود: 0 4px؛ الكولور:var(-text3)؛ الحجم العنيف:18px؛';
+          sep.style.cssText = 'display:flex;align-items:center;padding:0 4px;color:var(--text3);font-size:18px;';
           sep.textContent = '+';
           container.appendChild(sep);
           bonus.forEach((n,i) => container.appendChild(makeBall(n,'ball-bonus',(main.length+i)*60)));
@@ -186,23 +188,23 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">🍀</div>
-    <h1>عدد المولدات الكهربائية</h1>
-    <p>تولد أرقام حظك لليانصيب في جميع أنحاء العالم</p>
+    <h1>مولد أرقام اليانصيب</h1>
+    <p>اختر أرقامك المحظوظة للمشاركة في اليانصيب الكبرى حول العالم</p>
   </div>
 
   <div class="control-group" style="margin-bottom:1rem;">
-    <label>اليانصيب المختارة</label>
+    <label>اختر اليانصيب</label>
     <select id="lotteryType" onchange="updateInfo()">
-      <option value="uklotto">UK Lotto (6 from 59)</option>
-      <option value="euromillions">اليورو (5+2)</option>
-      <option value="powerball">Powerball US (5+1)</option>
-      <option value="megamillions">ميغا ملايين (5+1)</option>
-      <option value="irish">لوتو الآيرلندي (6 من 47)</option>
-      <option value="auspowerball">Australia Powerball (7+1)</option>
-      <option value="canada649">كندا</option>
-      <option value="india">الهند (6 من 49)</option>
-      <option value="sa">جنوب أفريقيا</option>
-      <option value="custom">العرف</option>
+      <option value="uklotto">يانصيب المملكة المتحدة (6 من 59)</option>
+      <option value="euromillions">يورومليونز (5+2)</option>
+      <option value="powerball">باوربول الولايات المتحدة (5+1)</option>
+      <option value="megamillions">ميجا مليونز (5+1)</option>
+      <option value="irish">اليانصيب الأيرلندي (6 من 47)</option>
+      <option value="auspowerball">باوربول أستراليا (7+1)</option>
+      <option value="canada649">يانصيب كندا 6/49</option>
+      <option value="india">اليانصيب الهندي (6 من 49)</option>
+      <option value="sa">يانصيب جنوب أفريقيا (6 من 52)</option>
+      <option value="custom">مخصص</option>
     </select>
   </div>
 
@@ -213,17 +215,17 @@ dir: rtl
         <input type="number" id="mainCount" value="6" min="1" max="10">
       </div>
       <div class="control-group">
-        <label>رقم ماكس</label>
+        <label>الحد الأقصى للعدد</label>
         <input type="number" id="mainMax" value="49" min="10" max="99">
       </div>
     </div>
     <div class="control-row" style="margin-top:10px;">
       <div class="control-group">
-        <label>كرات الفرن</label>
+        <label>كرات إضافية</label>
         <input type="number" id="bonusCount" value="0" min="0" max="5">
       </div>
       <div class="control-group">
-        <label>الحد الأقصى للمنح</label>
+        <label>الحد الأقصى للمكافأة</label>
         <input type="number" id="bonusMax" value="12" min="1" max="50">
       </div>
     </div>
@@ -231,67 +233,67 @@ dir: rtl
 
   <div class="result-box" id="resultBox">
     <div class="lottery-balls" id="balls">
-      <div style="color:var(--text3);font-size:13px;">تيب تولد لاختيار أرقامك</div>
+      <div style="color:var(--text3);font-size:13px;">انقر على "إنشاء" لاختيار أرقامك</div>
     </div>
   </div>
 
   <div class="control-group" style="margin-bottom:12px;">
-    <label>عدد الخطوط</label>
+    <label>عدد الأسطر</label>
     <input type="number" id="numLines" value="1" min="1" max="6">
   </div>
 
-  <button class="btn-generate" onclick="pick()">دق بلدي النغمات</button>
+  <button class="btn-generate" onclick="pick()">اختر أرقامي</button>
 
   <div id="lotteryInfo" style="margin-top:1.25rem;padding:1rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--text2);line-height:1.6;"></div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>المولد رقم البعث يخلق مجموعات من الأعداد العشوائية لأكبر اليانصيب في العالم، بما في ذلك لوتو المملكة المتحدة، واليورو ميليون، وباوربول، وملايين الميغا، وأكثر. اختيار اليانصيب الخاص بك، اختيار عدد الخطوط التي تريد، والحصول على أرقامك على الفور. نمط عادى يسمح لك بوضع قواعدك الخاصة لأي اليانصيب ليس في القائمة</p>
+    <p>يُنشئ مُولّد أرقام اليانصيب مجموعات من الأرقام العشوائية لأكبر اليانصيب في العالم، بما في ذلك يانصيب المملكة المتحدة، ويورومليونز، وباوربول، وميغا مليونز، وغيرها. اختر اليانصيب الذي تُريده، وحدّد عدد الخطوط التي تُريدها، واحصل على أرقامك فورًا. كما يُتيح لك الوضع المُخصّص وضع قواعدك الخاصة لأي يانصيب غير مُدرج في القائمة.</p>
 
-    <h2>????? ?????????</h2>
+    <h2>كيفية الاستخدام</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>اختار اليانصيب الخاص بك من قائمة الهبوط.</li>
-      <li>حدد كم عدد الأرقام التي تريدها (حتى 6 خطوط).</li>
-      <li>قم باختيار أرقامي لتوليد إختيارك</li>
-      <li>الأرقام الرئيسية تظهر في كرات الأرجوانية، كرات المكافأة تظهر في الذهب.</li>
-      <li>من أجل اليانصيب العادم، اختيار العرف و الدخول إلى نطاقك الخاص وحساب الكرة.</li>
+      <li>اختر اليانصيب الذي ترغب به من القائمة المنسدلة.</li>
+      <li>حدد عدد أسطر الأرقام التي تريدها (حتى 6 أسطر).</li>
+      <li>انقر على "اختر أرقامي" لإنشاء اختيارك.</li>
+      <li>تظهر الأرقام الرئيسية في كرات أرجوانية؛ وتظهر الكرات الإضافية في كرات ذهبية.</li>
+      <li>لإنشاء يانصيب مخصص، اختر "مخصص" وأدخل نطاقك وعدد الكرات.</li>
     </ol>
 
-    <h2>الاستخدامات المشتركة</h2>
+    <h2>الاستخدامات الشائعة</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>تولد أعداداً من المحظوظين لـ (لوتو) الأسبوعي أو (اليون الأوروبيون)</li>
-      <li>اختر باوربول أو ميغا ملايين من الدخول من الولايات المتحدة</li>
-      <li>إنشاء خطوط متعددة لرابطات اليانصيب المكتبية</li>
-      <li>Australia Powerball, Irish Lotto, and Canada 6/49 players</li>
-      <li>المعلمون الذين يدلون على احتمالية ومزيجات في دروس الرياضيات</li>
-      <li>"بديلات سريعة "محظوظة عند شراء التذاكر في آخر دقيقة</li>
+      <li>توليد أرقام الحظ لسحب اليانصيب البريطاني الأسبوعي أو سحب يورومليونز</li>
+      <li>اختيار تذاكر اليانصيب Powerball أو Mega Millions من الولايات المتحدة</li>
+      <li>إنشاء خطوط متعددة لمجموعات اليانصيب المكتبية</li>
+      <li>لاعبو باوربول أستراليا، واللوتو الأيرلندي، و6/49 لاعباً في كندا</li>
+      <li>معلمون يشرحون الاحتمالات والتوافيق في دروس الرياضيات</li>
+      <li>بدائل سريعة "للاختيار العشوائي" عند شراء التذاكر في اللحظة الأخيرة</li>
     </ul>
 
-    <h2>لماذا تستخدم سبينيت</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">ويتم اختيار الأرقام باستخدام شجار عشوائي عادل - وهو نفس الطريقة المستخدمة في التعامل مع البطاقات - وبالتالي من المرجح أن يكون كل مزيج كذلك. وتغطي هذه الأداة تسعة ياردات رئيسية بالإضافة إلى طريقة تقاليد قابلة للتشكيل الكامل. مجاناً، فوراً، لا يوجد حساب مطلوب، ويعمل بشكل مثالي على متن الطائرة.</p>
+    <h2>لماذا تستخدم Spinnit</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">يتم اختيار الأرقام عشوائيًا باستخدام طريقة خلط عادلة - وهي نفس الطريقة المستخدمة في توزيع أوراق اللعب - لذا فإن كل تركيبة لها نفس الاحتمالية. تغطي الأداة تسعة يانصيب رئيسية بالإضافة إلى وضع مخصص قابل للتخصيص بالكامل. مجانية، فورية، لا تتطلب حسابًا، وتعمل بكفاءة تامة على الهواتف المحمولة.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأرقام عشوائية حقا؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم المولد يستخدم كتلة عشوائية من جميع الأرقام الممكنة، مما يعطي كل مزيج فرصة متساوية للظهور. لا يوجد رقم أكثر من أي شخص آخر</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأرقام عشوائية حقاً؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. يستخدم المولد خلطًا عشوائيًا لجميع الأرقام الممكنة، مما يمنح كل تركيبة فرصة متساوية للظهور. لا يوجد رقم أكثر احتمالًا من غيره.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني توليد خطوط متعددة في آن واحد؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم جهز حقل "عدد الخطوط" حتى 6 و كل الخطوط ستُنشأ معاً</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني إنشاء عدة أسطر في وقت واحد؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. اضبط حقل "عدد الأسطر" على 6 كحد أقصى وسيتم إنشاء جميع الأسطر معًا، مع وضع علامات واضحة عليها وفصلها.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة مجانية الاستخدام؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاني تماماً ولا يتطلب التسجيل.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف المحمول؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> عدد المولدات</a>
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> بكرة النرد</a>
-      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم لا</a>
-      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> عملة الوجه</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> مولد الأرقام العشوائية</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> أداة رمي النرد</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم لا عجلة</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> رمية عملة معدنية</a>
     </div>
   </section>
 

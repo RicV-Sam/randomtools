@@ -1,25 +1,25 @@
 ---
 layout: layouts/base.njk
-title: فريق الرنّة بيكر - انتشر في فرق
+title: اختيار الفرق عشوائياً - تقسيم الفرق | سبينيت
 description: >-
-  نادراً ما يقسمون أي قائمة أسماء إلى فرق متساوية المولد الحر للفريق للألعاب
-  الرياضية والفصول الدراسية والعمل والمشاريع الجماعية.
+  قسّم أي قائمة أسماء عشوائياً إلى فرق متساوية. مولد فرق مجاني للرياضة، والفصول
+  الدراسية، والعمل، والمشاريع الجماعية.
 canonical: 'https://spinnit.site/ar/tools/team-picker.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "فريق راندوم بيكر",
-    "description": "نشر قائمة الأسماء في فرق عشوائية",
+    "name": "اختيار الفريق عشوائياً",
+    "description": "قسّم قائمة الأسماء إلى فرق عشوائية",
     "url": "https://spinnit.site/ar/tools/team-picker.html",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web"
   }
 extraHead: >
-  <meta name="twitter:title" content="فريق راندوم بيكر سبينيت">
+  <meta name="twitter:title" content="اختيار الفريق عشوائياً | سبينيت">
 
-  <meta name="twitter:description" content="أنشر أي قائمة بأسماء في فرق عشوائية
-  على الفور مجانيّة ومتحركة.">
+  <meta name="twitter:description" content="قسّم أي قائمة أسماء إلى فرق عشوائية
+  فوراً. مجاني ومتوافق مع الأجهزة المحمولة.">
 
   <script type="application/ld+json">{
     "@context": "https://schema.org",
@@ -27,34 +27,34 @@ extraHead: >
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "أيمكن للفرق أن تنتهي بأحجام غير متكافئة؟",
+        "name": "هل يمكن أن ينتهي الأمر بالفرق بأحجام غير متساوية؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "إذا كان عدد الأسماء لا ينقسم بالتساوي مع عدد الفرق، بعض الفرق سيكون لها عضو إضافي واحد. الأداة تتعامل مع هذا تلقائياً"
+          "text": "إذا لم يكن عدد الأسماء قابلاً للقسمة بالتساوي على عدد الفرق، فسيكون لدى بعض الفرق عضو إضافي. وتتعامل الأداة مع هذا الأمر تلقائياً."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هناك حد لعدد الأسماء؟",
+        "name": "هل هناك حد أقصى لعدد الأسماء؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ليس هناك حدود صارمة وتعمل الأداة بشكل جيد مع العشرات من الأسماء والمخرجات تزدهر بطبيعة الحال بالنسبة للفئات الأكبر."
+          "text": "لا يوجد حد صارم. تعمل الأداة بشكل جيد مع عشرات الأسماء، ويتم تمرير النتائج بسلاسة للمجموعات الأكبر."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "name": "هل هذه الأداة مجانية الاستخدام؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+          "text": "نعم، مجاني تماماً ولا يتطلب التسجيل."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يعمل هذا على الهاتف؟",
+        "name": "هل يعمل هذا على الهاتف المحمول؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+          "text": "نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز."
         }
       }
     ]
@@ -80,10 +80,10 @@ pageScript: |
 
   function pickTeams() {
     const raw = document.getElementById('nameList').value.trim();
-    if (!raw) { alert('من فضلك أدخل بعض الأسماء أولاً'); return; }
-    const names = raw.split('"').map(n => n.trim()).filter(n => n);
+    if (!raw) { alert('يرجى إدخال بعض الأسماء أولاً'); return; }
+    const names = raw.split('\\n').map(n => n.trim()).filter(n => n);
     const numTeams = Math.min(parseInt(document.getElementById('numTeams').value) || 2, names.length);
-    const prefix = document.getElementById('teamPrefix').value || 'Team';
+    const prefix = document.getElementById('teamPrefix').value || 'فريق';
 
     // Fisher-Yates shuffle
     const shuffled = [...names];
@@ -99,7 +99,7 @@ pageScript: |
     const colors = ['#a78bfa','#34d399','#fb923c','#60a5fa','#f472b6','#facc15'];
     out.innerHTML = teams.map((members, i) => `
       <div class="team-card">
-        <div class="team-title" style="color:${colors[i % colors.length]}">${prefix} ${i + 1} · ${members.length} players</div>
+        <div class="team-title" style="color:${colors[i % colors.length]}">${prefix} ${i + 1} · ${members.length} لاعب</div>
         <div class="team-members">${members.map(m => `<span class="member-chip">${m}</span>`).join('')}</div>
       </div>
     `).join('');
@@ -113,13 +113,13 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">👥</div>
-    <h1>فريق راندوم بيكر</h1>
-    <p>إحتفظ بقائمة أسماءك واختار عدد الفرق</p>
+    <h1>اختيار الفريق عشوائياً</h1>
+    <p>ألصق قائمة الأسماء الخاصة بك، واختر عدد الفرق</p>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>الأسماء (واحدة لكل خط)</label>
+      <label>الأسماء (اسم واحد في كل سطر)</label>
       <textarea id="nameList" placeholder="أليس
 بوب
 تشارلي
@@ -131,68 +131,68 @@ dir: rtl
     </div>
     <div class="control-row">
       <div class="control-group">
-        <label>عدد الأفرقة</label>
+        <label>عدد الفرق</label>
         <input type="number" id="numTeams" value="2" min="2" max="20">
       </div>
       <div class="control-group">
-        <label>أسماء الأفرقة (اختياريا)</label>
-        <input type="text" id="teamPrefix" placeholder="الفريق" value="Team">
+        <label>أسماء الفرق (اختياري)</label>
+        <input type="text" id="teamPrefix" placeholder="فريق" value="فريق">
       </div>
     </div>
   </div>
 
-  <button class="btn-generate" onclick="pickTeams()">PICK TEAMS</button>
+  <button class="btn-generate" onclick="pickTeams()">اختر الفرق</button>
 
   <div id="teamsOutput" class="teams-output"></div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>فريق (راندوم بيكر) يقسم أي قائمة بأسماء إلى فرق متكافئة في ثواني احفظوا أسماءكم واختاروا عدد الفرق التي تحتاجونها ويوزعون اللاعبين بشكل عادل وعشوائي كل مرة عظيم لمعلمي التربية البدنية، مدربين رياضيين، ليالي ترفيا، وورش عمل</p>
+    <p>يقوم برنامج اختيار الفرق العشوائي بتقسيم أي قائمة أسماء إلى فرق متساوية في ثوانٍ. ما عليك سوى لصق الأسماء، واختيار عدد الفرق المطلوبة، وسيقوم البرنامج بتوزيع اللاعبين بشكل عادل وعشوائي في كل مرة. مثالي لمعلمي التربية البدنية، ومدربي الرياضة، وفعاليات المسابقات الثقافية، وورش العمل.</p>
 
-    <h2>????? ?????????</h2>
+    <h2>كيفية الاستخدام</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>نوع أو رعاة قائمة أسماءكم في منطقة النص، اسم واحد لكل خط.</li>
-      <li>تحديد عدد الفرق التي تستخدم عدد الفرق الميدانية</li>
-      <li>تغيير إختياري لعلامة الفريق (المقعد هو (تايم</li>
-      <li>قم بربط الفرق لتوليد المجموعات فوراً</li>
-      <li>إضغط مرة أخرى لإعادة خنق وإنتاج فرق جديدة تماما.</li>
+      <li>اكتب أو الصق قائمة الأسماء في مربع النص، اسم واحد في كل سطر.</li>
+      <li>حدد عدد الفرق باستخدام حقل "عدد الفرق".</li>
+      <li>يمكنك تغيير بادئة تسمية الفريق (الافتراضي هو "فريق") إلى شيء مخصص.</li>
+      <li>انقر على "اختيار الفرق" لإنشاء المجموعات على الفور.</li>
+      <li>انقر مرة أخرى لإعادة ترتيب الفرق وإنشاء فرق جديدة تمامًا.</li>
     </ol>
 
-    <h2>الاستخدامات المشتركة</h2>
+    <h2>الاستخدامات الشائعة</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>انتقاء الفريق في المدرسة</li>
-      <li>توزيع الموظفين على مجموعات لحلقات العمل أو الدورات التدريبية</li>
-      <li>تنظيم اللاعبين في ليالي امتحانات ثلاثية</li>
-      <li>تقسيم زملاء الصف إلى مجموعات مشاريع</li>
-      <li>أقواس البطولة لليلة اللعب أو نوادي الرياضة</li>
-      <li>نادرا ما يحدد ترتيب العرض في اجتماع الفريق</li>
+      <li>اختيار فريق حصة التربية البدنية أو فريق اليوم الرياضي في المدرسة</li>
+      <li>تقسيم الموظفين إلى مجموعات لحضور ورش العمل أو الدورات التدريبية</li>
+      <li>تنظيم اللاعبين لأمسيات مسابقات المعلومات العامة</li>
+      <li>تقسيم زملاء الدراسة إلى مجموعات مشاريع بشكل عادل</li>
+      <li>جداول بطولات ليالي ألعاب الطاولة أو النوادي الرياضية</li>
+      <li>تحديد ترتيب العرض التقديمي بشكل عشوائي خلال اجتماع الفريق</li>
     </ul>
 
-    <h2>لماذا تستخدم سبينيت</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">ويضمن الشفرة التي يستخدمها في صيد الأسماك - يايتس هنا أن كل مزيج ممكن بنفس القدر من الاحتمال - لا يوجد أي لاعب يوضع معا بصورة منهجية. يمكن إعادة تشكيل الأفرقة على الفور إذا أي شخص يعترض على السحب. ولا توجد بيانات مخزنة، ولا حاجة إلى حساب، وهي تعمل أيضا على الهاتف كما على الحاسوب المحمول.</p>
+    <h2>لماذا تستخدم Spinnit</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تضمن طريقة خلط أوراق اللعب (فيشر-ييتس) المستخدمة هنا أن تكون جميع التوليفات الممكنة متساوية الاحتمالية، فلا يتم وضع أي لاعب معاً بشكل منهجي. ويمكن إعادة خلط الفرق فوراً في حال اعتراض أي شخص على القرعة. لا يتم تخزين أي بيانات، ولا حاجة إلى حساب، ويعمل التطبيق بكفاءة عالية على الهاتف كما يعمل على الكمبيوتر المحمول.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">أيمكن للفرق أن تنتهي بأحجام غير متكافئة؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">إذا كان عدد الأسماء لا ينقسم بالتساوي مع عدد الفرق، بعض الفرق سيكون لها عضو إضافي واحد. وتتعامل الأداة مع هذا الأمر تلقائياً باستخدام توزيع للزوارق المستديرة.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكن أن ينتهي الأمر بالفرق بأحجام غير متساوية؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">إذا لم يكن عدد الأسماء قابلاً للقسمة بالتساوي على عدد الفرق، فسيكون لدى بعض الفرق عضو إضافي. تعالج الأداة هذا الأمر تلقائيًا باستخدام توزيع دوري.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هناك حد لعدد الأسماء؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">ليس هناك حدود صارمة وتعمل الأداة بشكل جيد مع العشرات من الأسماء والمخرجات تزدهر بطبيعة الحال بالنسبة للفئات الأكبر.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هناك حد أقصى لعدد الأسماء؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">لا يوجد حد صارم. تعمل الأداة بشكل جيد مع عشرات الأسماء، ويتم تمرير النتائج بسلاسة للمجموعات الأكبر.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة مجانية الاستخدام؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاني تماماً ولا يتطلب التسجيل.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف المحمول؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> مُبدِّل القوائم</a>
       <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> عجلة الأسماء</a>
-      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> عملة الوجه</a>
-      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم لا</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> رمية عملة معدنية</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم لا عجلة</a>
     </div>
   </section>
 

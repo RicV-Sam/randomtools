@@ -1,17 +1,19 @@
 ---
 layout: layouts/base.njk
-title: الاسم المستعار رقم Repeat - Free Unique Becker   Spinnit
+title: منتقي أسماء عشوائي بدون تكرار - منتقي أسماء فريد مجاني | سبينيت
 description: >-
-  مختار اسم عشوائي بدون تكرار - كل اسم يتم اختياره مرة واحدة قبل أن يتم اختيار
-  أي شخص مرتين. مجاناً، فوراً، يعمل خارجاً في منظفك
-ogTitle: الاسم المستعار بيكر - لا أكرر
-ogDescription: كل اسم يتم اختياره مرة واحدة قبل أي شخص يكرر. مختار تناوب عادل للفصول والفرق
+  أداة لاختيار الأسماء عشوائياً دون تكرار - يتم اختيار كل اسم مرة واحدة فقط قبل
+  اختيار أي اسم مرتين. مجانية، فورية، وتعمل دون اتصال بالإنترنت في متصفحك.
+ogTitle: منتقي أسماء عشوائي - بدون تكرار | سبينيت
+ogDescription: >-
+  يتم اختيار كل اسم مرة واحدة فقط قبل تكراره. نظام اختيار عادل بالتناوب للفصول
+  الدراسية والفرق.
 canonical: 'https://spinnit.site/ar/tools/random-name-picker-no-repeat.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "الاسم المستعار رقم Repeat",
+    "name": "منتقي أسماء عشوائي بدون تكرار",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -27,26 +29,26 @@ extraHead: |
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل الأمر عشوائي في كل مرة؟",
+        "name": "هل الترتيب عشوائي حقاً في كل مرة؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم (فيشر-يتس) الطازج يركض في الإختيار الأول وفي كل إعادة"
+          "text": "نعم. يتم تشغيل خلطة فيشر-ييتس الجديدة في الاختيار الأول وفي كل إعادة ضبط."
         }
       },
       {
         "@type": "Question",
-        "name": "ماذا لو قمت بتحرير القائمة في منتصف الطريق؟",
+        "name": "ماذا لو قمت بتعديل القائمة في منتصف الجولة؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "إعادة تحرير الجولة تلقائياً لمنع شظايا العجلات"
+          "text": "يؤدي التحرير إلى إعادة ضبط الجولة تلقائيًا لمنع الخلطات القديمة."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هو مثل القائمة شوفلر؟",
+        "name": "هل هو نفسه برنامج مُبدّل القوائم؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "تحت غطاء الرأس نعم، ولكن هذا يكشف عن اسم واحد في كل مرة؛ القائمة شوفلر تظهر النظام الكامل في آن واحد."
+          "text": "نعم، هذا يعمل من الداخل، لكنه يكشف الأسماء واحداً تلو الآخر؛ أما مُبدّل القوائم فيعرض الترتيب الكامل دفعة واحدة."
         }
       }
     ]
@@ -56,7 +58,7 @@ pageScript: >
   const DEFAULT_NAMES =
   ['Alice','Ben','Clara','David','Emma','Finn','Grace','Henry','Isla','Jack'];
 
-  document.getElementById('namesInput').value = DEFAULT_NAMES.join('"');
+  document.getElementById('namesInput').value = DEFAULT_NAMES.join('\\n');
 
 
   let shuffled = [];
@@ -83,11 +85,11 @@ pageScript: >
 
   function pick() {
     const names = getNames();
-    if (!names.length) { alert('أضف بعض الأسماء أولاً'); return; }
+    if (!names.length) { alert('أضف بعض الأسماء أولاً.'); return; }
 
     if (shuffled.length === 0 || index >= shuffled.length) {
       if (index >= shuffled.length && shuffled.length > 0) {
-        document.getElementById('result').textContent = 'الجولة كاملة!';
+        document.getElementById('result').textContent = 'انتهت الجولة!';
         document.getElementById('remainingLabel').textContent = `All ${shuffled.length} names picked. Tap Reset for a new shuffled round.`;
         document.getElementById('remainingLabel').style.display = 'block';
         return;
@@ -137,69 +139,69 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">🎯</div>
-    <h1>اسم مستعار - لا تكرار</h1>
-    <p>كل اسم يتم اختياره مرة واحدة قبل أن يتم اختيار أي شخص مرتين</p>
+    <h1>منتقي أسماء عشوائي – بدون تكرار</h1>
+    <p>يتم اختيار كل اسم مرة واحدة قبل أن يتم اختيار أي اسم مرتين.</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">مختار</div>
+    <div class="result-label">تم اختياره</div>
     <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">—</div>
     <div id="remainingLabel" style="font-size:13px;color:var(--text2);margin-top:6px;display:none;"></div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>الأسماء (واحدة لكل خط)</label>
+      <label>الأسماء (اسم واحد في كل سطر)</label>
       <textarea id="namesInput" rows="8" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;"></textarea>
     </div>
   </div>
 
-  <button class="btn-generate" onclick="pick()">PICK NEXT</button>
-  <button class="btn-copy" onclick="resetList()" style="margin-top:8px;">قائمة إعادة التوطين</button>
+  <button class="btn-generate" onclick="pick()">اختر التالي</button>
+  <button class="btn-copy" onclick="resetList()" style="margin-top:8px;">قائمة إعادة التعيين</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">تم اختياره بالفعل (من أجل)</div>
+    <div class="history-label">تم اختيارها مسبقاً (بالترتيب)</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>ومعظم مختاري الأسماء يختارون بشكل مستقل - مما يعني أن شخص ما يمكن أن يتم اختياره مرتين في حين لا يتم اختيار الآخرين على الإطلاق. وهذه الأداة تعمل بشكل صحيح: فهي تعمل من خلال القائمة الكاملة بترتيب عشوائي، <em>لا أحد</em> يتم اختيار مرة ثانية حتى تكتمل الدورة</p>
+    <p>معظم برامج اختيار الأسماء تختار بشكل مستقل، مما يعني أن اسمًا ما قد يُختار مرتين بينما لا يُختار آخرون على الإطلاق. هذه الأداة تقوم بذلك بشكل صحيح: فهي تعمل على القائمة الكاملة بترتيب عشوائي، و <em>لا أحد</em> يتم اختيارها مرة ثانية حتى تكتمل الدورة.</p>
 
-    <h2>كيف يعمل</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">داخليّاً، إنّه (فيشر ياتس) في أول صنبور، القائمة عشوائية مرة. كل صنبور تالٍ يكشف الاسم التالي حسب الترتيب وعندما تُستنفد القائمة، تدفعك الأداة إلى إعادة ضبطها (التي تُعاد صياغتها، لذا فإن الجولة الثانية أمر مختلف عن الأول).</p>
+    <h2>كيف يعمل؟</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">داخليًا، هي عملية خلط عشوائي باستخدام خوارزمية فيشر-ييتس. عند النقر الأول، يتم إعادة ترتيب القائمة عشوائيًا مرة واحدة. كل نقرة لاحقة تكشف الاسم التالي بالترتيب العشوائي. عندما تنتهي القائمة، يطلب منك البرنامج إعادة التعيين (مما يعيد ترتيب القائمة، بحيث يكون ترتيب الجولة الثانية مختلفًا عن الأولى).</p>
 
-    <h2>حيث تناسب</h2>
+    <h2>حيثما يناسب</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li><strong>بارد ينادي في الصف</strong> - كل إجابات طالب قبل أن يجيب أحد مرتين</li>
-      <li><strong>طلب العرض</strong> - نظام عادل، لا حجج "لقد ذهبت"</li>
-      <li><strong>سانتا</strong> - مرسل مستلم دون أن يرسم نفسه</li>
-      <li><strong>قوائم التناوب</strong> - التناوب، طلب القراءة، مساعدة يومية</li>
-      <li><strong>أمر بالمقابلة</strong> - تسلسل عادل للمرشحين أو مقدمي الطلبات</li>
+      <li><strong>الاتصال الهاتفي العشوائي في الفصل</strong> — يجيب كل طالب قبل أن يجيب أي طالب مرتين</li>
+      <li><strong>ترتيب العرض</strong> — نظام عادل، لا مجال لحجج "لقد ذهبت بالفعل"</li>
+      <li><strong>سانتا السري</strong> — تعيين المُعطي ← المُستقبِل دون أن يرسم أي شخص نفسه</li>
+      <li><strong>قوائم التناوب</strong> — جداول المناوبة، ترتيب القراءة، المساعد اليومي</li>
+      <li><strong>ترتيب المقابلات العشوائي</strong> — ترتيب عادل للمرشحين أو المتقدمين</li>
     </ul>
 
-    <h2>ليس على ما يرام؟</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">إذا أردت أن تختار <em>يمكن</em> كرر (كل نقر مستقل)، استخدم <a href="wheel-of-names.html">عجلة الأسماء</a> أو <a href="random-student-picker.html">الطالب بيكر</a> بدون تكرار لتصفيق القائمة بأكملها في نقطه واحده ورؤية النظام في الحال <a href="list-shuffler.html">قائمة المتثاقل</a>.</p>
+    <h2>ليس صحيحاً تماماً؟</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">إذا كنت تريد اختيارات من هذا القبيل <em>يستطيع</em> كرر (كل نقرة مستقلة)، استخدم <a href="wheel-of-names.html">عجلة الأسماء</a> أو <a href="random-student-picker.html">منتقي الطلاب</a> مع إلغاء تحديد خيار "عدم التكرار". لخلط القائمة بأكملها بنقرة واحدة ورؤية الترتيب فورًا، استخدم <a href="list-shuffler.html">مُبدِّل القوائم</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل الأمر عشوائي في كل مرة؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم (فيشر-يتس) الطازج يركض في أول إختيار وفي كل إعادة، لذا الأمر غير متحيز ومختلف في كل جولة.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل الترتيب عشوائي حقاً في كل مرة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. يتم إجراء خلط جديد لـ Fisher-Yates في الاختيار الأول وفي كل إعادة تعيين، لذا فإن الترتيب غير متحيز ومختلف في كل جولة.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ماذا لو قمت بتحرير القائمة في منتصف الطريق؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">تحرير القائمة يعيد ترتيب الجولة تلقائياً هذا يحول دون الإصطدام عن طريق الخطأ من الشوفان الذي لا يطابق القائمة المرئية</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ماذا لو قمت بتعديل القائمة في منتصف الجولة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">يؤدي تعديل القائمة إلى إعادة ضبط الجولة تلقائيًا. وهذا يمنع اختيار البطاقات عن طريق الخطأ من قائمة عشوائية قديمة لا تتطابق مع القائمة الظاهرة.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هو مثل القائمة شوفلر؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">تحت الغطاء، نعم - ولكن التفاعل مختلف. This tool reveals one name at a time (good for live classes use). The <a href="list-shuffler.html">قائمة المتثاقل</a> يُظهرُ القائمةَ الكاملةَ في آن واحد.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هو نفسه برنامج مُبدّل القوائم؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">من الناحية التقنية، نعم، لكن طريقة التفاعل مختلفة. تكشف هذه الأداة عن اسم واحد في كل مرة (وهذا مناسب للاستخدام في الفصول الدراسية المباشرة). <a href="list-shuffler.html">مُبدِّل القوائم</a> يعرض القائمة الكاملة بعد إعادة ترتيبها دفعة واحدة.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> مُبدِّل القوائم</a>
       <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> عجلة الأسماء</a>
-      <a class="related-card" href="random-student-picker.html"><span class="ri">🎒</span> الطالب بيكر</a>
-      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> منتقي الفريق</a>
+      <a class="related-card" href="random-student-picker.html"><span class="ri">🎒</span> منتقي الطلاب</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> مُختار الفريق</a>
     </div>
   </section>
 

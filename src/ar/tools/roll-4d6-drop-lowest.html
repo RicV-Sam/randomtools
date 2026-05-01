@@ -1,17 +1,22 @@
 ---
 layout: layouts/base.njk
-title: الجولة 4d6 إسقاط منخفض - DD 5e Stat roller   Spinnit
+title: >-
+  ارمِ 4 نردات سداسية الأوجه، واستبعد الأقل قيمة - أداة رمي الإحصائيات في لعبة
+  D&D 5e | Spinnit
 description: >-
-  معدل الـ 4d6 ينخفض إلى أدنى حد - أسلوب قياس دنجونز 5e لقياس القدرة. حر على
-  الانترنت مع كل النرد الأربعة تظهر. ثابت، لا إشارة.
-ogTitle: الجولة 4d6 إسقاط منخفض
-ogDescription: 'The DD 5e stat — four d6, drop the lowest, sum the rest.'
+  ارمِ أربعة نردات سداسية الأوجه، واستبعد أقل قيمة - هذه هي طريقة حساب نقاط
+  القدرات القياسية في لعبة Dungeons & Dragons الإصدار الخامس. أداة مجانية عبر
+  الإنترنت لعرض جميع النردات الأربعة. فورية، بدون تسجيل.
+ogTitle: ارمِ 4 نردات سداسية الأوجه، واستبعد الأقل قيمة | سبينيت
+ogDescription: >-
+  رمية الإحصائيات في لعبة D&D 5e - أربعة نرد سداسي الأوجه، احذف الأدنى، واجمع
+  الباقي.
 canonical: 'https://spinnit.site/ar/tools/roll-4d6-drop-lowest.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "الجولة 4d6",
+    "name": "قم برمي 4d6، ثم استبعد الأقل",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -27,26 +32,26 @@ extraHead: |
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "ما هو المتوسط 4d6 هبوط أقل؟",
+        "name": "ما هو متوسط أدنى معدل سقوط لـ 4d6؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "12-24 القيمة السوقية 13. 18 يظهر حوالي 1.6% لكل لفة"
+          "text": "12.24. القيمة الأكثر شيوعاً هي 13. يظهر الرقم 18 بنسبة 1.6% تقريباً لكل لفة."
         }
       },
       {
         "@type": "Question",
-        "name": "هل أستطيع أن أرى كل النرد الأربعة ليس فقط المجموع؟",
+        "name": "هل يمكنني رؤية جميع النرد الأربعة وليس فقط المجموع؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم بعد كلّ لفّة، يَمُوتُ النزلاءَ ويَبْقى النردُ تحت النتيجةِ."
+          "text": "نعم. بعد كل رمية، يتم عرض النرد الذي تم إسقاطه والنرد الذي تم الاحتفاظ به أسفل النتيجة."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هذا يتبع قواعد دليل اللاعب الخامس؟",
+        "name": "هل هذا يتبع قواعد دليل اللاعب في الإصدار الخامس؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم هذه طريقة (رولينغ سكوريس) من الـ 5"
+          "text": "نعم. هذه هي طريقة احتساب النقاط المتدحرجة من دليل اللاعب (PHB) للإصدار الخامس."
         }
       }
     ]
@@ -93,8 +98,8 @@ pageScript: |
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
   bindGlobalShortcut(roll);
@@ -105,69 +110,69 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">🐉</div>
-    <h1>الجولة 4d6</h1>
-    <p>الطريقة القياسية لقياس القدرة</p>
+    <h1>قم برمي 4d6، ثم استبعد الأقل</h1>
+    <p>طريقة حساب نقاط القدرات القياسية في لعبة D&D 5e</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">النتيجة</div>
+    <div class="result-label">نتيجتك</div>
     <div class="result-number" id="result">—</div>
     <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>كم عدد النتائج؟ )٦( كتلة إحصائية كاملة(</label>
+      <label>كم عدد النقاط؟ (6 للحصول على بيانات إحصائية كاملة)</label>
       <input type="number" id="count" value="6" min="1" max="20">
     </div>
   </div>
 
-  <button class="btn-generate" onclick="roll()">إحصاءات الروبل</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+  <button class="btn-generate" onclick="roll()">إحصائيات التدحرج</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">الدرجات الأخيرة</div>
+    <div class="history-label">النتائج الأخيرة</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>أربعة نرد من ستة جوانب، إسقاط أقل، وإجمال الباقي - وهو الطريقة القياسية لقياس القدرة في الطبعة الخامسة من دنجونز وPthfinder. إنّه أكثر لطفاً من 3d6: متوسط النتيجة 12.24، وعشرات من 13+ تظهر أكثر من نصف الوقت،</p>
+    <p>أربعة نرد سداسية الأوجه، يُستبعد أدنى رقم، ويُجمع الباقي - هذه هي طريقة حساب نقاط القدرات القياسية في لعبة Dungeons & Dragons الإصدار الخامس ولعبة Pathfinder. إنها أسهل من استخدام 3d6: متوسط النقاط هو 12.24، وتظهر النقاط التي تزيد عن 13 في أكثر من نصف الحالات، مما يجعل أبطالك يشعرون حقًا بالبطولة.</p>
 
-    <h2>كيف تدحرج شخصية 5</h2>
+    <h2>كيفية إنشاء شخصية في الإصدار الخامس من لعبة Dungeons & Dragons</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>دع العدّة ستّة - تحتاج ستّة درجات قدرة.</li>
-      <li>Tap <strong>إحصاءات الروبل</strong>4 نرد مطوّر ست مرات، وأدنى يموت من كل مجموعة.</li>
-      <li>كل من المجاميع الستة يصبح سجلاً للقدرات</li>
-      <li>نسميهم (مرتبين، أو حرّيّةً إذا سمحت إدارة دمّكِ) لـ (سترينغث)، (ديكستريتي)، الدستور، الاستخبارات، (ويزدوم)، (تشاريستا).</li>
-      <li>تطبيق العلاوات العنصرية حسب نوعك المختار</li>
+      <li>اترك العدد مضبوطًا على 6 — فأنت بحاجة إلى ستة درجات قدرة.</li>
+      <li>مقبض <strong>إحصائيات التدحرج</strong>يتم رمي أربعة نرد ست مرات؛ ويتم إسقاط النرد الأدنى من كل مجموعة.</li>
+      <li>يصبح كل مجموع من المجاميع الستة بمثابة درجة قدرة.</li>
+      <li>قم بتعيينها (بالترتيب، أو بحرية إذا سمح لك مدير اللعبة بذلك) إلى القوة، والبراعة، والبنية، والذكاء، والحكمة، والكاريزما.</li>
+      <li>قم بتطبيق المكافآت العرقية حسب النوع الذي اخترته.</li>
     </ol>
 
-    <h2>هل هو لفة جيدة؟</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">A useful rule of thumb: the sum of all six scores should be at least 70 to be competitive. أقل من 65 عاماً تقريبياً، وأكثر من 80 عاماً أعلى بكثير من المتوسط. معظم الـ "دي إم" سمحوا لك بإعادة التسجيل مرة واحدة إذا كان المجموع أقل من الحد الأدنى</p>
+    <h2>هل كانت لفة جيدة؟</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">قاعدة عامة مفيدة: يجب أن يكون مجموع النقاط الست 70 على الأقل لتكون منافسًا. أقل من 65 يُعتبر ضعيفًا، وأكثر من 80 يُعتبر فوق المتوسط بشكل ملحوظ. يسمح معظم مُديري الألعاب بإعادة رمي النرد مرة واحدة إذا كان المجموع أقل من الحد الأدنى المحدد - اسأل قبل البدء.</p>
 
-    <h2>دفاتر أخرى</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">حاول <a href="roll-3d6.html">3d6 (classic stats)</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-d100.html">d100</a>, <a href="roll-d10.html">d10</a>, <a href="random-number-1-20.html">d20</a>أو بالكامل <a href="dice-roller.html">بكرة النرد</a>.</p>
+    <h2>رماة النرد الآخرون</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">يحاول <a href="roll-3d6.html">3d6 (إحصائيات كلاسيكية)</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-d100.html">d100</a>, <a href="roll-d10.html">d10</a>, <a href="random-number-1-20.html">d20</a>أو كامل <a href="dice-roller.html">أداة رمي النرد</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ما هو المتوسط 4d6 هبوط أقل؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">12-24 القيمة السوقية 13. 18 يبدو حوالي 1.6 في المائة من الوقت لكل لفافة، لذلك يتوقع حوالي 18 شخص كل عشرة شخصيات في المتوسط.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ما هو متوسط أدنى معدل سقوط لـ 4d6؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">12.24. القيمة النموذجية هي 13. يظهر الرقم 18 حوالي 1.6% من الوقت لكل لفة، لذا توقع ظهور الرقم 18 مرة واحدة تقريبًا كل عشرة أحرف في المتوسط.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل أستطيع أن أرى كل النرد الأربعة، ليس فقط المجموع؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم بعد كلّ لفّة، يَمُوتُ النزلاءَ ويَبْقى النردُ يُوضّحُ أسفل النتيجةِ لذا أنت يُمْكِنُ أَنْ تَتأكّدَ الرياضياتَ.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني رؤية جميع النرد الأربعة، وليس المجموع فقط؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. بعد كل رمية، يتم عرض النرد الذي تم إسقاطه والنرد الذي تم الاحتفاظ به أسفل النتيجة حتى تتمكن من التحقق من الحسابات.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذا يتبع قواعد دليل اللاعب الخامس؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم هذه هي طريقة "السرقة الكشافة" من الفصل الخامس لخلق الشخصية ادارة الاداره الخاصه بك قد تسمح باعادة ترتيب او استخدام البضاعه بدلا من ذلك</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذا يتبع قواعد دليل اللاعب في الإصدار الخامس؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. هذه هي طريقة "النتائج المتدحرجة" من فصل إنشاء الشخصية في دليل اللاعب (PHB) للإصدار الخامس. قد يسمح لك سيد اللعبة بإعادة الرمي أو استخدام نظام شراء النقاط بدلاً من ذلك.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="roll-3d6.html"><span class="ri">🎲</span> الجولة 3d6 (Classic)</a>
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> كامل Dice roller</a>
-      <a class="related-card" href="random-number-1-20.html"><span class="ri">🎲</span> د.</a>
-      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> د.</a>
+      <a class="related-card" href="roll-3d6.html"><span class="ri">🎲</span> قم برمي 3 نردات سداسية الأوجه (كلاسيكي)</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> أداة رمي النرد الكاملة</a>
+      <a class="related-card" href="random-number-1-20.html"><span class="ri">🎲</span> قم برمي النرد ذي العشرين وجهًا</a>
+      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> قم برمي النرد ذي المئة وجه</a>
     </div>
   </section>
 

@@ -1,17 +1,17 @@
 ---
 layout: layouts/base.njk
-title: عدد الوفيات بين 1 و20 - على الإنترنت D20
+title: رقم عشوائي بين 1 و20 – لعبة رمي النرد D20 عبر الإنترنت | سبينيت
 description: >-
-  اختر رقماً عشوائياً بين 1 و20 - بديلاً إلكترونياً عادلاً من طراز D20 (D20) لـ
-  (دونغيونز) وأجهزة تخطيط البرامج. ثابت، حر، لا إشارة.
-ogTitle: عدد الوفيات بين 1 و20
-ogDescription: Instant fair D20 roll - pick a random number from 1 to 20 online.
+  اختر رقمًا عشوائيًا بين 1 و20 - بديل عادل عبر الإنترنت لنظام D20 لألعاب
+  Dungeons & Dragons وألعاب تقمص الأدوار الورقية. فوري، مجاني، بدون تسجيل.
+ogTitle: رقم عشوائي بين 1 و20 | سبينيت
+ogDescription: رمية نرد D20 عادلة فورية - اختر رقمًا عشوائيًا من 1 إلى 20 عبر الإنترنت.
 canonical: 'https://spinnit.site/ar/tools/random-number-1-20.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "عدد الوفيات بين 1 و 20",
+    "name": "رقم عشوائي بين 1 و 20",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -27,26 +27,26 @@ extraHead: |
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل (دي 20 رول) عادل حقاً؟",
+        "name": "هل رمية النرد ذي العشرين وجهاً عادلة حقاً؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم كل رقم من 1 إلى 20 لديه نسبة 5 في المائة على كل لفافة"
+          "text": "نعم. كل رقم من 1 إلى 20 لديه فرصة متساوية بنسبة 5٪ في كل رمية."
         }
       },
       {
         "@type": "Question",
-        "name": "هَلّ بالإمكان أَنْ أَتدحرجُ بالمنفعةِ هنا؟",
+        "name": "هل يمكنني الاستفادة من ميزة هنا؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم حدد كم عدد الدفاتر إلى 2 واحصل على الأفضلية أو أقل من ذلك"
+          "text": "نعم. اضبط عدد الرميات على 2، واختر النتيجة الأعلى للحصول على ميزة أو النتيجة الأقل للحصول على عيب."
         }
       },
       {
         "@type": "Question",
-        "name": "ما الذي يُحسب كـ 20 طبيعياً؟",
+        "name": "ما الذي يُعتبر علامة 20 طبيعية؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "أي نتيجة تظهر بالضبط 20 قبل العلاوات الـ 1 الطبيعي و 20 يحفزون القواعد الحاسمة في معظم النظم"
+          "text": "أي نتيجة تُظهر الرقم 20 بالضبط قبل المكافآت. يؤدي ظهور الرقم 1 والرقم 20 بشكل طبيعي إلى تفعيل قواعد حاسمة في معظم الأنظمة."
         }
       }
     ]
@@ -77,8 +77,8 @@ pageScript: |
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
   bindGlobalShortcut(generate);
@@ -89,12 +89,12 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">🎲</div>
-    <h1>عدد الوفيات بين 1 و 20</h1>
-    <p>على الانترنت D20...</p>
+    <h1>رقم عشوائي بين 1 و 20</h1>
+    <p>نردك ذو العشرين وجهًا على الإنترنت - رمية عادلة في كل مرة</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">لفة الخاص بك (1 - 20)</div>
+    <div class="result-label">رميتك (1-20)</div>
     <div class="result-number" id="result">—</div>
   </div>
 
@@ -105,52 +105,52 @@ dir: rtl
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">ROLL D20</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+  <button class="btn-generate" onclick="generate()">لفّ النرد ذو العشرين وجهًا</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">القوائم الأخيرة</div>
+    <div class="history-label">أحدث التعيينات</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>وهناك عدد عشوائي بين 1 و 20 هو الدفتر الكلاسيكي D20 المستخدم في التنانين في دنجونز، وباثفيندر، وأحدث أجهزة تخطيط البرامج. هذه الصفحةِ تَعطيك a عادل، زي D20 لفّة واحدة - لا نسيج تطبيقِ، لا إشارةَ، ولا a نرد جسدي مُقَرَّف قليلاً يَحْبُّ جانباً.</p>
+    <p>يُستخدم في ألعاب تقمص الأدوار الكلاسيكية، مثل Dungeons & Dragons و Pathfinder ومعظم ألعاب الطاولة الحديثة، رمي نرد D20 عشوائي بين 1 و 20. تتيح لك هذه الصفحة رمي نرد D20 عادلاً وموحداً بنقرة واحدة فقط - دون الحاجة لتثبيت تطبيق أو التسجيل، ودون استخدام نرد مادي مهترئ قليلاً يميل إلى جانب واحد.</p>
 
-    <h2>عظيم</h2>
+    <h2>رائع لـ</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>DD attack rolls,ving throw and skills checks</li>
-      <li>أي نظام RPG يستخدم الـ دي 20 كميكانيكي أساسي</li>
-      <li>التحول بميزة أو وضع غير مؤات (تحتل بندين، وتحصل على أعلى أو أدنى)</li>
-      <li>اختيار طالب عشوائي أو مقعد أو مهمة من مجموعة العشرين</li>
-      <li>دروس في احتمالية الفصول - 5 في المائة من الاحتمالات لكل نتيجة هي مثال تعليمي نظيف</li>
+      <li>رميات الهجوم، ورميات الإنقاذ، واختبارات المهارات في لعبة D&D</li>
+      <li>أي نظام لعب أدوار يستخدم النرد ذو العشرين وجهًا كآلية أساسية فيه</li>
+      <li>رمي النرد مع ميزة أو عيب (إنشاء رميتين، واختيار الأعلى أو الأدنى)</li>
+      <li>اختيار طالب أو مقعد أو مهمة عشوائياً من بين مجموعة من عشرين طالباً أو مقعداً أو مهمة</li>
+      <li>دروس الاحتمالات في الفصل الدراسي - احتمالية 5% لكل نتيجة هي مثال تعليمي واضح</li>
     </ul>
 
-    <h2>التحول إلى الميزة</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">المجموعة <em>كم عدد اللفات؟</em> إلى 2، نغمة، والحصول على النتيجة الأعلى للميزة أو أدنى للضعف. من أجل <strong>الطبيعية 20</strong> حرجة، أي لفة من بالضبط 20 تهم.</p>
+    <h2>التدحرج بميزة</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تعيين <em>كم عدد اللفات؟</em> إلى 2، انقر على زر الدوران، واختر النتيجة الأعلى لتحقيق ميزة أو النتيجة الأقل لتحقيق عيب. لـ <strong>طبيعي 20</strong> في حالة الرمية الحرجة، تُحتسب أي نتيجة 20 بالضبط.</p>
 
-    <h2>صول أخرى</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">حاول أيضاً <a href="random-number-1-6.html">١-٦ )د-٦(</a>, <a href="random-number-1-10.html">١-١٠ )د-١٠(</a>, <a href="random-number-1-100.html">١-١٠٠ )نسبة مئوية(</a>أو بالكامل <a href="dice-roller.html">Dice roller</a> لنرد متعدد في الحال</p>
+    <h2>نرد آخر</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">جرب أيضًا <a href="random-number-1-6.html">1-6 (d6)</a>, <a href="random-number-1-10.html">1–10 (d10)</a>, <a href="random-number-1-100.html">1-100 (النسبة المئوية)</a>أو كامل <a href="dice-roller.html">لعبة رمي النرد المتحركة</a> لعدة نرد في وقت واحد.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل (دي 20 رول) عادل حقاً؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم كل رقم من 1 إلى 20 لديه نسبة 5 في المائة على كل لفافة الـ "دي 20ز" الفيزيائي يمكن أن يطوّر تحيّزات ضئيلة من تسامح التصنيع</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل رمية النرد ذي العشرين وجهاً عادلة حقاً؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. لكل رقم من 1 إلى 20 فرصة متساوية بنسبة 5% في كل رمية نرد. قد تظهر انحرافات طفيفة في النرد ذي العشرين وجهًا المصنوع يدويًا نتيجةً لتفاوتات التصنيع، بينما لا يحدث ذلك مع النرد الرقمي.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هَلّ بالإمكان أَنْ أَتدحرجُ بالمنفعةِ هنا؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم حددوا "كم عدد الدفاتر؟" إلى 2 وخذوا النتيجة الأعلى من أجل الميزة أو منخفضة من أجل الحرمان</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني الاستفادة من ميزة هنا؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. اضبط "كم عدد الرميات؟" على 2 واختر النتيجة الأعلى للحصول على ميزة أو النتيجة الأقل للحصول على عيب.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ما الذي يُحسب كـ 20 طبيعياً؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">أي نتيجة تظهر بالضبط 20 قبل إضافة أي علاوة. فالطوابع الطبيعية والعشرينات الطبيعية تؤدي إلى الفشل النقدي وقواعد النجاح في معظم النظم.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ما الذي يُعتبر علامة 20 طبيعية؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">أي نتيجة تُظهر 20 بالضبط قبل إضافة أي مكافآت. تؤدي النتائج التي تُظهر 1 و20 بشكل طبيعي إلى تفعيل قواعد الفشل والنجاح الحاسمة في معظم الأنظمة.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> Visual Dice roller</a>
-      <a class="related-card" href="random-number-1-6.html"><span class="ri">⚄</span> ١-٦ )د-٦(</a>
-      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> ١-١٠٠ )نسبة مئوية(</a>
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> الزبون العرفي</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> أداة رمي النرد المرئية</a>
+      <a class="related-card" href="random-number-1-6.html"><span class="ri">⚄</span> 1-6 (D6)</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> 1-100 (النسبة المئوية)</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> مجموعة مخصصة</a>
     </div>
   </section>
 

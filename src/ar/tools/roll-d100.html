@@ -1,17 +1,20 @@
 ---
 layout: layouts/base.njk
-title: د. 100 Online - Free Percentile Dice roller   Spinnit
+title: Roll d100 Online – أداة مجانية لرمي النرد حسب النسبة المئوية | Spinnit
 description: >-
-  أديري مئة ألف على شبكة الإنترنت - النرد المئوي من 1 إلى 100. استخدم في نداء
-  (كاثولهو)، (وارهاممر)، (روماستر) و(دي دي) حر وفوري
-ogTitle: د.
-ogDescription: قاذفة جوز مجانية - منصف من 1 إلى 100 لفافة RPG ونسبة مئوية من الشيكات.
+  ارمِ نردًا ذا 100 وجه عبر الإنترنت - نرد مئوي من 1 إلى 100. يُستخدم في
+  اختبارات النسب المئوية في ألعاب Call of Cthulhu وWarhammer وRolemaster وD&D.
+  مجاني وفوري.
+ogTitle: لعبة Roll d100 Online | Spinnit
+ogDescription: >-
+  أداة مجانية لرمي النرد المئوي - رمية عادلة من 1 إلى 100 لألعاب تقمص الأدوار
+  واختبارات النسبة المئوية.
 canonical: 'https://spinnit.site/ar/tools/roll-d100.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "د.",
+    "name": "قم برمي النرد ذي المئة وجه",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -27,26 +30,26 @@ extraHead: |
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هَلْ D100 المدى 1 - 100 أَو 0-99؟",
+        "name": "هل نطاق d100 هو 1-100 أم 0-99؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ومعظم النظم الحديثة تستخدم ١-١٠٠ مع ٠٠ على الرماد المادي الذي يقرأ على أنه ١٠٠. وتستخدم هذه الأداة 1 إلى 100."
+          "text": "تستخدم معظم الأنظمة الحديثة الأرقام من 1 إلى 100، حيث يُقرأ الرقم 00 على النرد المادي على أنه 100. هذه الأداة تستخدم الأرقام من 1 إلى 100."
         }
       },
       {
         "@type": "Question",
-        "name": "هَلْ يَنخفضُ أَو عالي أفضل؟",
+        "name": "هل الأفضل استخدام التدحرج المنخفض أم المرتفع؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "يعتمد على النظام نداء (كثولهو) و (وارهمر) يريدونك تحت مهارتك تفقد ما يتوقعه نظامك"
+          "text": "يعتمد الأمر على النظام. تتطلب لعبتا Call of Cthulhu وWarhammer مستوى مهارة أقل من مستواك. تحقق مما يتطلبه نظامك."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يمكنني أن أشغل العديد من الـ دي 100 في آن واحد؟",
+        "name": "هل يمكنني رمي عدة نردات من فئة d100 في وقت واحد؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم أعد العد حتى 100 كل ملف مستقل"
+          "text": "نعم. اضبط العد حتى 100. كل لفة مستقلة."
         }
       }
     ]
@@ -77,8 +80,8 @@ pageScript: |
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
   bindGlobalShortcut(roll);
@@ -89,12 +92,12 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">💯</div>
-    <h1>د.</h1>
-    <p>النرد النسبي - دفة عادلة من 1 إلى 100</p>
+    <h1>Roll d100 Online</h1>
+    <p>نرد النسبة المئوية - رمية عادلة من 1 إلى 100</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">لفة الخاص بك (1-100)</div>
+    <div class="result-label">رميتك (من 1 إلى 100)</div>
     <div class="result-number" id="result">—</div>
     <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
   </div>
@@ -106,52 +109,52 @@ dir: rtl
     </div>
   </div>
 
-  <button class="btn-generate" onclick="roll()">ROLL d100</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+  <button class="btn-generate" onclick="roll()">قم برمي النرد ذي المئة وجه</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">القوائم الأخيرة</div>
+    <div class="history-label">أحدث التعيينات</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>والـ دي 100 - التي تسمى أيضاً النرد المئوي أو نسبة الـ دي في المائة - هي العمود الفقري لأية فئة من فئة RPG تعمل على نسب مئوية. تدحرج وتنجح؛ وترتفع وتفشل (عادة). كل رقم من 1 إلى 100 لديه بالضبط فرصة 1٪، مما يجعله أنظف إحصائيات يموت في المقامرة.</p>
+    <p>يُعدّ النرد ذو المئة وجه (d100)، والذي يُسمى أيضًا نرد النسبة المئوية أو d%، أساس أي لعبة تقمص أدوار تعتمد على احتمالات النسبة المئوية. إذا كانت النتيجة منخفضة، فستنجح؛ وإذا كانت عالية، فستفشل (عادةً). لكل رقم من 1 إلى 100 احتمال بنسبة 1% بالضبط، مما يجعله أنقى نرد إحصائي في ألعاب الطاولة.</p>
 
-    <h2>النظم التي تستخدم دي 100</h2>
+    <h2>الأنظمة التي تستخدم d100</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li><strong>نداء Cthulhu</strong> - كل فحص للمهارة</li>
-      <li><strong>Warhammer Fantasy / 40K Roleplay</strong> - الميكانيكي الأساسي</li>
-      <li><strong>مدير أعمال</strong> and RuneQuest</li>
-      <li><strong>DD 5e</strong> - الرقيب السحري البري، الطاولات العشوائية، الغرابة</li>
-      <li>أيّ "تدحرج على طاولة اللقاءات العشوائية"</li>
+      <li><strong>نداء كثولو</strong> — كل اختبار مهارة</li>
+      <li><strong>لعبة تقمص الأدوار Warhammer Fantasy / 40K</strong> —ميكانيكي أساسي</li>
+      <li><strong>رول ماستر</strong> ورون كويست</li>
+      <li><strong>D&D 5e</strong> — موجة السحر الجامح، جداول عشوائية، ندرة العناصر السحرية</li>
+      <li>أي لحظة "رمية نرد على جدول المواجهات العشوائية"</li>
     </ul>
 
-    <h2>كَمْ دي 100 يَدْومُ جسدياً</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">الـ (دي 100) الفيزيائي في الواقع إثنان من الـ10: "عشرات" يموتون (00، 10، 20... 90) و "واحد" يموتون (0-9) هذا المولد يتخطى المراسم ويعطيك النتيجة النهائية من 1 إلى 100 مباشرة</p>
+    <h2>كيفية رمي النرد ذي المئة وجه (d100) عادةً</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">النرد المادي ذو المئة وجه هو في الواقع نردان ذوا عشرة أوجه: نرد "عشرات" (00، 10، 20... 90) ونرد "آحاد" (0-9)، ومجموعهما 00+0 يساوي 100. هذا المولد يتجاوز هذه العملية ويعطيك النتيجة النهائية من 1 إلى 100 مباشرة.</p>
 
-    <h2>صول أخرى</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">حاول <a href="roll-d10.html">d10</a>, <a href="random-number-1-20.html">d20</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-3d6.html">3d6</a>, <a href="roll-4d6-drop-lowest.html">4d6 drop lowest</a>أو <a href="dice-roller.html">(دايس رولدر)</a>.</p>
+    <h2>نرد آخر</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">يحاول <a href="roll-d10.html">d10</a>, <a href="random-number-1-20.html">d20</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-3d6.html">3d6</a>, <a href="roll-4d6-drop-lowest.html">أدنى معدل سقوط لـ 4d6</a>أو <a href="dice-roller.html">أداة رمي النرد الكاملة</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هَلْ D100 المدى 1 - 100 أَو 0-99؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">ومعظم النظم الحديثة تستخدم ١-١٠٠ مع ٠٠ على الرماد المادي الذي يقرأ على أنه ١٠٠. ويستخدم عدد قليل من النظم الأقدم عهدا )مثل المتغيرات الأساسية للعب الأدوار( ٠-٩٩ لجداول محددة. وتستخدم هذه الأداة 1 إلى 100.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل نطاق d100 هو 1-100 أم 0-99؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">تستخدم معظم الأنظمة الحديثة الأرقام من 1 إلى 100، حيث يُقرأ الرقم 00 على النرد المادي كرقم 100. بينما تستخدم بعض الأنظمة القديمة (مثل بعض أنواع ألعاب تقمص الأدوار الأساسية) الأرقام من 0 إلى 99 لجداول محددة. هذه الأداة تستخدم الأرقام من 1 إلى 100.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هَلْ يَنخفضُ أَو عالي أفضل؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">هذا يعتمد على النظام نداء (كثولهو) و (وارهمر) يريدونك أن تدحرج <em>تحت بند</em> مهارتك الطاولات العشوائية عادة ما تريد نطاق محدد دائما تفقد ما يتوقعه نظامك</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل الأفضل استخدام التدحرج المنخفض أم المرتفع؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">الأمر يعتمد على النظام. في ألعاب Call of Cthulhu و Warhammer، يُطلب منك رمي النرد. <em>تحت</em> تعتمد النتائج على مهاراتك. تتطلب الجداول العشوائية عادةً نطاقًا محددًا. تحقق دائمًا مما يتوقعه نظامك.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني أن أشغل العديد من الـ دي 100 في آن واحد؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم أعد العد حتى 100 فكل قائمة مستقلة، ويمكن تكرارها ومن المتوقع.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني رمي عدة نردات من فئة d100 في وقت واحد؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. اضبط العد حتى 100. كل لفة مستقلة، لذا فإن التكرارات ممكنة ومتوقعة.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> كامل Dice roller</a>
-      <a class="related-card" href="roll-d10.html"><span class="ri">🎲</span> الجولة 10</a>
-      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> ١-١٠٠ مولد كهربائي</a>
-      <a class="related-card" href="roll-4d6-drop-lowest.html"><span class="ri">🐉</span> DD Stat roller</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> أداة رمي النرد الكاملة</a>
+      <a class="related-card" href="roll-d10.html"><span class="ri">🎲</span> قم برمي النرد ذي العشرة أوجه (d10).</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> مولد 1-100</a>
+      <a class="related-card" href="roll-4d6-drop-lowest.html"><span class="ri">🐉</span> أداة تحديد الإحصائيات في لعبة D&D</a>
     </div>
   </section>
 

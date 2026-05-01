@@ -1,17 +1,19 @@
 ---
 layout: layouts/base.njk
-title: عدد الوفيات بين 1 و2 - فير بيناري بيكر
+title: رقم عشوائي بين 1 و2 - أداة اختيار ثنائية عادلة | سبينيت
 description: >-
-  اختر رقماً عشوائياً أو 2 فوراً - بديلاً عادلاً لقطع العملة في شكل رقم نقي. حر،
-  لا إشارة، يعمل على متن متنقل.
-ogTitle: عدد الوفيات بين 1 و2
-ogDescription: لحظــة حرــة ١ أو ٢ - قلب عملة رقمية لاتخاذ قرارات ثنائية.
+  اختر رقم 1 أو 2 عشوائيًا على الفور - بديل عادل لرمي العملة في شكل أرقام بحتة.
+  مجاني، لا يتطلب تسجيلًا، ويعمل على الهاتف المحمول.
+ogTitle: رقم عشوائي بين 1 و2 | سبينيت
+ogDescription: >-
+  رمية عملة معدنية فورية مجانية 1 أو 2 - رمية عملة معدنية على شكل رقم لاتخاذ
+  القرارات الثنائية.
 canonical: 'https://spinnit.site/ar/tools/random-number-1-2.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "عدد الوفيات بين 1 و2",
+    "name": "رقم عشوائي بين 1 و 2",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -27,26 +29,26 @@ extraHead: |
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل هذا حقا 50/50؟",
+        "name": "هل هذا حقاً بنسبة 50/50؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم كل جيل لديه بالضبط 50٪ فرصة 1 و 50٪ فرصة 2."
+          "text": "نعم. كل جيل لديه فرصة بنسبة 50% للحدث 1 وفرصة بنسبة 50% للحدث 2."
         }
       },
       {
         "@type": "Question",
-        "name": "لماذا تستخدم 1 أو 2 بدلا من الرأس أو ذيل؟",
+        "name": "لماذا نستخدم 1 أو 2 بدلاً من الرأس أو الذيل؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "والأرقام أسهل على الرعي في صحائف أو خريطة إلى أي قائمة ذات فتحتين."
+          "text": "يسهل لصق الأرقام في جداول البيانات أو ربطها بأي قائمة ذات خيارين."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يمكن أن يحدث هذا العدد نفسه؟",
+        "name": "هل يمكن أن تحدث سلسلة من نفس العدد؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، وهم طبيعيون. النزاهة هي متوسطات بعيدة المدى ليست قصيرة"
+          "text": "نعم، وهي طبيعية. فالإنصاف يتعلق بالمتوسطات على المدى الطويل وليس بالتقلبات القصيرة."
         }
       }
     ]
@@ -77,8 +79,8 @@ pageScript: |
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
   bindGlobalShortcut(generate);
@@ -89,8 +91,8 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">🪙</div>
-    <h1>عدد الوفيات بين 1 و2</h1>
-    <p>إختيار ثنائي نظيف</p>
+    <h1>رقم عشوائي بين 1 و 2</h1>
+    <p>اختيار ثنائي نظيف - رمية عملة معدنية على شكل رقم</p>
   </div>
 
   <div class="result-box" id="resultBox">
@@ -100,57 +102,57 @@ dir: rtl
 
   <div class="controls">
     <div class="control-group">
-      <label>كم عدد الإختيارات؟</label>
+      <label>كم عدد الاختيارات؟</label>
       <input type="number" id="count" value="1" min="1" max="100">
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">GENERATE</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+  <button class="btn-generate" onclick="generate()">يولد</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">الإختيارات الأخيرة</div>
+    <div class="history-label">اختيارات حديثة</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>عدد عشوائي بين 1 و 2 هو أبسط فرصة عادلة يمكنك تشغيلها - 50/50 في شكل عدد. إنها قشرة عملة بدون عملة مما يجعلها مفيدة عندما تريد قرار ثنائي مكتوب كرقم نظيف</p>
+    <p>يُعدّ الرقم العشوائي بين 1 و2 أبسط احتمال عادل يمكنك استخدامه - فهو يُمثّل توزيعًا متساويًا بنسبة 50/50 في صورة أرقام. إنه أشبه برمي عملة معدنية دون استخدام العملة نفسها، مما يجعله مفيدًا عندما تريد كتابة قرار ثنائي برقم واضح بدلًا من "صورة" أو "كتابة".</p>
 
-    <h2>عندما يلتقط 1 أو 2</h2>
+    <h2>عندما يكون اختيار واحد أو اثنين مناسبًا</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>اتخاذ قرار بين خيارين عندما لا تمانع حقا</li>
-      <li>تعيين إحدى المجموعتين أو الفرق أو شروط الاختبار</li>
-      <li>عينات اختبار من الفئة ألف/باء في الفصول الدراسية أو التدريبات البحثية</li>
-      <li>الإختيار الذي يذهب أولا في لعبة لاعبين</li>
-      <li>محاكاة العملات المعدنية في النصوص وصحائف النشر</li>
+      <li>الاختيار بين خيارين عندما لا تمانع حقًا</li>
+      <li>التوزيع العشوائي لإحدى مجموعتين أو فريقين أو ظروف اختبار</li>
+      <li>أخذ عينات اختبار A/B في الفصل الدراسي أو التمارين البحثية</li>
+      <li>اختيار من يبدأ أولاً في لعبة ثنائية اللاعبين</li>
+      <li>محاكاة رمي العملة في البرامج النصية وجداول البيانات</li>
     </ul>
 
-    <h2>رؤوس أو ذيول؟</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">إذا كنت تفضّل رؤية النتيجة كعملة عملة، إستخدم <a href="coin-flip.html">عملة الوجه</a> أداة - نفس النزاهة، ورؤية صديقة. من أجل نعم لا أسئلة نمطية <a href="yes-no-wheel.html">نعم / لا عجلة</a> مصنوع من أجله</p>
+    <h2>هل تفضل الصورة أم الكتابة؟</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">إذا كنت تفضل رؤية النتيجة على شكل عملة معدنية، فاستخدم <a href="coin-flip.html">رمية عملة معدنية</a> أداة - نفس الإنصاف، ولكن برسومات أكثر سهولة. بالنسبة للأسئلة التي تتطلب إجابة بنعم/لا، فإن <a href="yes-no-wheel.html">نعم / لا عجلة</a> صُممت خصيصاً لذلك.</p>
 
-    <h2>النطاقات الصغيرة الأخرى</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">حاول أيضاً <a href="random-number-1-5.html">1–5</a>, <a href="random-number-1-6.html">١-٦)د(</a>, <a href="random-number-1-10.html">1–10</a>أو بالكامل <a href="random-number.html">النطاق العرفي</a> المولد</p>
+    <h2>نطاقات صغيرة أخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">جرب أيضًا <a href="random-number-1-5.html">1–5</a>, <a href="random-number-1-6.html">1-6 (نرد)</a>, <a href="random-number-1-10.html">1–10</a>أو كامل <a href="random-number.html">مجموعة مخصصة</a> مولد كهربائي.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذا حقا 50/50؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم كل جيل لديه بالضبط 50٪ فرصة 1 و 50٪ فرصة 2.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذا حقاً بنسبة 50/50؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. كل جيل لديه فرصة بنسبة 50% للحدث 1 وفرصة بنسبة 50% للحدث 2.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">لماذا أختار واحد أو اثنين بدلا من الرأس أو ذيل؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">الأرقام أسهل من العضلات في صحائف النشر، تسجيل في الملاحظات البحثية، أو خريطة إلى أي قائمة اثنين من الخيارات التي كتبتها بالفعل.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">لماذا أختار 1 أو 2 بدلاً من الصورة أو الكتابة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">يسهل لصق الأرقام في جداول البيانات، أو تسجيلها في ملاحظات البحث، أو ربطها بأي قائمة خيارات ثنائية قمت بتدوينها مسبقًا.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكن أن يحدث هذا العدد نفسه؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، وهي طبيعية تماما. أكثر من 10 قنابل، ركض أربعة أو خمسة من نفس الشيء ليس غير عادي. النزاهة هي عن متوسطات طويلة الأجل، وليس قصيرة.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكن أن تحدث سلسلة من نفس العدد؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، وهذا أمر طبيعي تماماً. فبعد عشر رميات، ليس من الغريب أن تتكرر أربع أو خمس مرات بنفس النتيجة. فالإنصاف يعتمد على المتوسطات على المدى الطويل، وليس على السلاسل القصيرة.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> عملة الوجه</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> رمية عملة معدنية</a>
       <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم / لا عجلة</a>
-      <a class="related-card" href="random-number-1-10.html"><span class="ri">🔢</span> ١-١٠ مولدات</a>
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> الزبون العرفي</a>
+      <a class="related-card" href="random-number-1-10.html"><span class="ri">🔢</span> 1-10 مولد</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> مجموعة مخصصة</a>
     </div>
   </section>
 

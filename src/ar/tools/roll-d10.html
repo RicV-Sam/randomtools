@@ -1,18 +1,20 @@
 ---
 layout: layouts/base.njk
-title: د. 10 على الإنترنت - Dice roller - Spinnit Free Ten-Sided
+title: لعبة رمي d10 عبر الإنترنت – لعبة مجانية لرمي النرد ذي العشرة أوجه | Spinnit
 description: >-
-  أديري د. 10 على شبكة الإنترنت - موت عادل من عشرة جوانب لـ RPGs, World of
-  Darkness, Vampire: The Masquerade and d100 tens rolls. مجاناً، فوراً، لا
-  إشارة.
-ogTitle: د. 10 على الإنترنت
-ogDescription: رف النرد الحر ذو العشرة جوانب - منصف من 1 إلى 10 لفائف RPG ولفائف الموازين.
+  استخدم النرد ذو العشرة أوجه (d10) عبر الإنترنت - نرد عادل ذو عشرة أوجه مناسب
+  لألعاب تقمص الأدوار، وعالم الظلام، ومصاصي الدماء: التنكر، ورميات النرد ذي
+  المئة وجه (d100). مجاني، فوري، بدون تسجيل.
+ogTitle: رمي d10 عبر الإنترنت | Spinnit
+ogDescription: >-
+  أداة مجانية لرمي النرد ذي العشرة أوجه - عادلة من 1 إلى 10 لألعاب تقمص الأدوار
+  ورميات النسبة المئوية.
 canonical: 'https://spinnit.site/ar/tools/roll-d10.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "الجولة 10",
+    "name": "قم برمي النرد ذي العشرة أوجه (d10).",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -28,26 +30,26 @@ extraHead: |
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل رقم 10 هو 0-9 أو 1-10؟",
+        "name": "هل يتم ترقيم النرد ذي العشرة أوجه من 0 إلى 9 أم من 1 إلى 10؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "وعادة ما يظهر الـ (دي 10) الفيزيائية 0-9 مع معاملة صفر على أنه 10. هذه الأداة تدور من 1 إلى 10 مباشرة"
+          "text": "عادةً ما تُظهر النردات العشرية المادية من 0 إلى 9 مع اعتبار 0 بمثابة 10. هذه الأداة تقوم برمي النرد من 1 إلى 10 مباشرةً."
         }
       },
       {
         "@type": "Question",
-        "name": "كيف أفتح بركة النرد هنا؟",
+        "name": "كيف أقوم برمي مجموعة النرد هنا؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "حددي كم عدد الدفاتر لحجم مسبحك و دغدغ الكونت النجاحات ويبيّن المجموع عدد الأشخاص الذين دُفعت أسماؤهم بعد 8 سنوات."
+          "text": "حدد عدد الرميات حسب حجم مجموعتك، ثم فعّل خيار \"حساب النجاحات\". يُظهر المجموع عدد مرات ظهور الرقم 8 أو أكثر."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يمكنني استخدام لفاتين دي 10 كD100؟",
+        "name": "هل يمكنني استخدام رميتين من النرد ذي العشرة أوجه (d10) كرمية واحدة من النرد ذي المئة وجه (d100)؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم تدحرج مرتين وتقرأ واحدة كعشرات والأخرى أَو يَستعملُ د.100 مباشرةً."
+          "text": "نعم. قم برمي النرد مرتين، واقرأ إحداهما على أنها عشرات والأخرى على أنها آحاد. أو استخدم أداة رمي النرد ذات المئة وجه مباشرة."
         }
       }
     ]
@@ -64,11 +66,11 @@ pageScript: |
     const totalEl = document.getElementById('totalLabel');
     if (countSuccesses) {
       const successes = results.filter(r => r >= 8).length;
-      totalEl.textContent = `${successes} success${successes === 1 ? '' : 'es'} (rolls ≥ 8)`;
+      totalEl.textContent = `${successes} نجاح (الرميات ≥ 8)`;
       totalEl.style.display = 'block';
     } else if (count > 1) {
       const sum = results.reduce((a,b)=>a+b,0);
-      totalEl.textContent = `Sum: ${sum}`;
+      totalEl.textContent = `المجموع: ${sum}`;
       totalEl.style.display = 'block';
     } else {
       totalEl.style.display = 'none';
@@ -90,8 +92,8 @@ pageScript: |
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
   bindGlobalShortcut(roll);
@@ -102,12 +104,12 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">🎲</div>
-    <h1>على الإنترنت</h1>
-    <p>A fair ten-sided die — 1 to 10</p>
+    <h1>رمي d10 عبر الإنترنت</h1>
+    <p>نرد متوازن ذو عشرة أوجه - من 1 إلى 10</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">لفة الخاص بك (1-10)</div>
+    <div class="result-label">رميتك (من 1 إلى 10)</div>
     <div class="result-number" id="result">—</div>
     <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
   </div>
@@ -118,56 +120,56 @@ dir: rtl
       <input type="number" id="count" value="1" min="1" max="100">
     </div>
     <div class="control-group" style="margin-top:8px;">
-      <label><input type="checkbox" id="countSuccesses" style="margin-right:6px;vertical-align:middle;"> النجاحات الكونية )النتيجة ٨( - لعالم الظلام</label>
+      <label><input type="checkbox" id="countSuccesses" style="margin-right:6px;vertical-align:middle;"> حساب النجاحات (رمية النرد ≥ 8) — لعالم الظلام</label>
     </div>
   </div>
 
-  <button class="btn-generate" onclick="roll()">ROLL d10</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+  <button class="btn-generate" onclick="roll()">ارمِ النرد ذو العشرة أوجه</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">القوائم الأخيرة</div>
+    <div class="history-label">أحدث التعيينات</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>الـ (دي 10) هي مجموعة العمل من نظم المسبح World of Darkness, Vampire: The Masquerade, Exalted, Shadowrun (via d6s) and many indie RPGs use pools of d10s - roll a handful, count the ones that beat a target number. هو أيضاً نصف كُلّ د.100 رول في نظامِ الموازناتِ.</p>
+    <p>يُعدّ النرد ذو العشرة أوجه (d10) الأداة الأساسية في أنظمة مجموعات النرد. تستخدم ألعاب مثل World of Darkness وVampire: The Masquerade وExalted وShadowrun (عبر النرد ذي الستة أوجه) والعديد من ألعاب تقمص الأدوار المستقلة مجموعات من النرد ذي العشرة أوجه - حيث يتم رمي عدد قليل منها، ثم حساب النرد الذي يتجاوز رقمًا محددًا. كما أنه يُمثّل نصف كل رمية نرد ذي مئة وجه في أنظمة النسب المئوية.</p>
 
-    <h2>حيث ستستخدمين دي 10</h2>
+    <h2>أين ستستخدم نردًا ذا عشرة أوجه</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li><strong>عالم الظلام/مجلات الظلام</strong> - صناديق النرد، 8+ تنجح</li>
-      <li><strong>مصاص الدماء:</strong> الطبعة الخامسة - دفاتر الجوع ولفائف العمل</li>
-      <li><strong>المنفى</strong> - مجمعات كبيرة من النرد ذات عتبات مختلفة</li>
-      <li><strong>DD 5e</strong> - تلف الأسلحة )الكلمة رقم ١٠، ومطرقة الحرب ١٠، وما إلى ذلك(</li>
-      <li>الدفاتر المرنة - 2 d10s مجتمعة لD100</li>
+      <li><strong>عالم الظلام / سجلات الظلام</strong> — مجموعات النرد، 8+ نجاح</li>
+      <li><strong>مصاص الدماء: التنكر</strong> الطبعة الخامسة - نرد الجوع ورميات الحركة</li>
+      <li><strong>سامٍ</strong> — مجموعات كبيرة من النرد بعتبات متفاوتة</li>
+      <li><strong>D&D 5e</strong> — ضرر السلاح (سيف طويل ذو عشرة أوجه، مطرقة حرب ذات عشرة أوجه، إلخ.)</li>
+      <li>رميات النسبة المئوية - يتم دمج نردين من فئة d10 للحصول على نرد من فئة d100</li>
     </ul>
 
-    <h2>مجمّعات مُحقّقة من النجاح</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">اضرب <em>النجاحات</em> صندوق، حدد كم عدد الـ (دي 10) لتدحرجه، والأداة تخبرك كم ضرب 8 أو أعلى - عتبة عالم الظلام القياسية. من أجل بركة سريعة من 5 د 10، وضع العد إلى 5 وتدغدغ الصندوق.</p>
+    <h2>مجموعات النرد مع عداد النجاح</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">ضع علامة صح <em>عدد النجاحات</em> حدد عدد النرد ذي العشرة أوجه (d10) الذي ترغب في رميه، وستخبرك الأداة بعدد النرد الذي يُظهر 8 أو أعلى - وهو الحد القياسي في عالم الظلام. للحصول على مجموعة سريعة من خمسة نرد ذي عشرة أوجه، اضبط العدد على 5 وضع علامة في المربع.</p>
 
-    <h2>صول أخرى</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">حاول <a href="roll-d100.html">d100</a>, <a href="random-number-1-20.html">d20</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-3d6.html">3d6</a>, <a href="roll-4d6-drop-lowest.html">4d6 drop lowest</a>أو <a href="dice-roller.html">(دايس رولدر)</a>.</p>
+    <h2>نرد آخر</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">يحاول <a href="roll-d100.html">d100</a>, <a href="random-number-1-20.html">d20</a>, <a href="roll-2d6.html">2d6</a>, <a href="roll-3d6.html">3d6</a>, <a href="roll-4d6-drop-lowest.html">أدنى معدل سقوط لـ 4d6</a>أو <a href="dice-roller.html">أداة رمي النرد الكاملة</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل رقم 10 هو 0-9 أو 1-10؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">وعادة ما يكون للديوكسينات الفيزيائية ٠-٩، مع معاملة صفر على أنه ١٠ في معظم النظم. هذه الأداة تُدوّن من 1 إلى 10 مباشرة لتطابق كيف يقرأ معظم الناس النتائج</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يتم ترقيم النرد ذي العشرة أوجه من 0 إلى 9 أم من 1 إلى 10؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">تحتوي النردات العشرية التقليدية عادةً على أرقام من 0 إلى 9، حيث يُعامل الرقم 0 على أنه 10 في معظم الأنظمة. تقوم هذه الأداة برمي الأرقام من 1 إلى 10 مباشرةً لتتوافق مع طريقة قراءة معظم الناس للنتائج.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">كيف أفتح بركة النرد هنا؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">حددي "كم عدد اللفافات؟" لحجم مسبحك و دغدغ صندوق "النجاحات الكبيرة" سيظهر المجموع عدد النرد المتدفق 8 أو أكثر</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">كيف أقوم برمي مجموعة النرد هنا؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">حدد عدد الرميات المطلوبة، ثم فعّل خيار "حساب النجاحات". سيظهر المجموع عدد النرد الذي حصل على 8 أو أكثر.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني استخدام لفاتين دي 10 كD100؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">أجل، مرّتين، قرأ واحد كعشرات (10) والآخرين. أو تخطي المراسم واستخدام <a href="roll-d100.html">D100</a>.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني استخدام رميتين من النرد ذي العشرة أوجه (d10) كرمية واحدة من النرد ذي المئة وجه (d100)؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، قم برمي النرد مرتين، واقرأ إحداهما على أنها عشرة (×10) والأخرى على أنها واحد. أو يمكنك تخطي المراسم واستخدام... <a href="roll-d100.html">بكرة d100</a>.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> كامل Dice roller</a>
-      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> د.</a>
-      <a class="related-card" href="random-number-1-10.html"><span class="ri">🔢</span> ١-١٠ مولدات</a>
-      <a class="related-card" href="roll-2d6.html"><span class="ri">⚄</span> الجولة 2d6</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> أداة رمي النرد الكاملة</a>
+      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> قم برمي النرد ذي المئة وجه</a>
+      <a class="related-card" href="random-number-1-10.html"><span class="ri">🔢</span> 1-10 مولد</a>
+      <a class="related-card" href="roll-2d6.html"><span class="ri">⚄</span> قم برمي نردين سداسيين الأوجه (2d6).</a>
     </div>
   </section>
 

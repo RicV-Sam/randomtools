@@ -1,25 +1,25 @@
 ---
 layout: layouts/base.njk
-title: List Shuffler — Randomise Any List Online   Spinnit
+title: مُبدِّل القوائم – رتِّب أي قائمة عشوائيًا عبر الإنترنت | سبينت
 description: >-
-  استولي على أي قائمة و اربطها فوراً بأمر عشوائي قائمة عشوائية بالأسماء والمهام
-  وقائمة اللعب والأكثر
+  ألصق أي قائمة وقم بترتيبها عشوائياً على الفور. أداة مجانية لترتيب القوائم
+  عشوائياً، تشمل الأسماء والمهام وقوائم التشغيل وغيرها.
 canonical: 'https://spinnit.site/ar/tools/list-shuffler.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "قائمة المتثاقل",
-    "description": "إستعير أيّ قائمة وفورياً يَقْفزُه إلى a ترتيب عشوائي",
+    "name": "مُبدِّل القوائم",
+    "description": "الصق أي قائمة وقم بترتيبها عشوائياً على الفور",
     "url": "https://spinnit.site/ar/tools/list-shuffler.html",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web"
   }
 extraHead: >
-  <meta name="twitter:title" content="List Shuffler   Spinnit">
+  <meta name="twitter:title" content="مُبدِّل قوائم التشغيل | سبينت">
 
-  <meta name="twitter:description" content="اقطع أي قائمة و اربطها في أمر عشوائي
-  فورا مجانيّة ومتحركة.">
+  <meta name="twitter:description" content="الصق أي قائمة وقم بترتيبها عشوائياً
+  على الفور. مجاني ومتوافق مع الأجهزة المحمولة.">
 
   <script type="application/ld+json">{
     "@context": "https://schema.org",
@@ -27,34 +27,34 @@ extraHead: >
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل يمكنني أن أختار بعض الأشياء من قائمة أطول؟",
+        "name": "هل يمكنني اختيار العناصر القليلة الأولى فقط من قائمة أطول؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم أدخل رقماً في حقل (بيك) الأعلى وفقط أول أصناف من قائمة المقذوفات"
+          "text": "نعم. أدخل رقمًا في حقل \"اختر أفضل N عنصرًا\" وسيتم عرض أول N عنصر فقط من القائمة العشوائية."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هناك حدود لكم من الوقت يمكن أن تكون قائمتي؟",
+        "name": "هل هناك حد أقصى لطول قائمتي؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ليس هناك حدود صعبة وتعالج هذه الأداة مئات البنود دون أية مسائل."
+          "text": "لا يوجد حد أقصى صارم. الأداة تتعامل مع مئات العناصر دون أي مشاكل."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "name": "هل هذه الأداة مجانية الاستخدام؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+          "text": "نعم، مجاني تماماً ولا يتطلب التسجيل."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يعمل هذا على الهاتف؟",
+        "name": "هل يعمل هذا على الهاتف المحمول؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+          "text": "نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز."
         }
       }
     ]
@@ -85,8 +85,8 @@ pageScript: |
 
   function shuffle() {
     const raw = document.getElementById('listInput').value.trim();
-    if (!raw) { alert('من فضلك أدخل قائمة أولا'); return; }
-    const items = raw.split('"').map(i => i.trim()).filter(i => i);
+    if (!raw) { alert('يرجى إدخال قائمة أولاً'); return; }
+    const items = raw.split('\\n').map(i => i.trim()).filter(i => i);
 
     // Fisher-Yates shuffle
     const arr = [...items];
@@ -112,16 +112,16 @@ pageScript: |
 
   function copyList() {
     if (!shuffledItems.length) return;
-    const text = shuffledItems.join('"');
+    const text = shuffledItems.join('\\n');
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'قائمة ملفوفة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ القائمة العشوائية'; btn.classList.remove('copied'); }, 2000);
     });
   }
 
   function escapeHtml(str) {
-    return str.replace(/&/g,'&quot;').replace(/</g,'○').replace(/>/g,'>');
+    return str.replace(/&/g,'و').replace(/</g,'<').replace(/>/g,'>');
   }
 lang: ar
 dir: rtl
@@ -130,13 +130,13 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">🔀</div>
-    <h1>قائمة المتثاقل</h1>
-    <p>عروس أي قائمة - الحصول عليه مرة أخرى في ترتيب عشوائي</p>
+    <h1>مُبدِّل القوائم</h1>
+    <p>ألصق أي قائمة - وستحصل عليها بترتيب عشوائي</p>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>قائمتك (بند واحد لكل خط)</label>
+      <label>قائمتك (عنصر واحد في كل سطر)</label>
       <textarea id="listInput" style="min-height:140px;" placeholder="الاثنين
 الثلاثاء
 الأربعاء
@@ -147,11 +147,11 @@ dir: rtl
     </div>
     <div class="control-row">
       <div class="control-group">
-        <label>اختيار البنود الرئيسية</label>
-        <input type="number" id="topN" value placeholder="كل شيء" min="1">
+        <label>اختر أفضل N عنصر</label>
+        <input type="number" id="topN" value placeholder="الجميع" min="1">
       </div>
       <div class="control-group">
-        <label>رقم العرض</label>
+        <label>عرض الترقيم</label>
         <select id="showNums">
           <option value="yes">نعم</option>
           <option value="no">لا</option>
@@ -160,59 +160,59 @@ dir: rtl
     </div>
   </div>
 
-  <button class="btn-generate" onclick="shuffle()">SHUFFLE LIST</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyList()" style="margin-top:8px;">قائمة ملفوفة</button>
+  <button class="btn-generate" onclick="shuffle()">قائمة التبديل</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyList()" style="margin-top:8px;">نسخ القائمة العشوائية</button>
 
   <div class="output-list" id="output"></div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>القائمة (شوفلر) تأخذ أي قائمة ترعى فيها وتعيدها في ترتيب عشوائي تماماً باستخدام شجار عادل إحصائياً يمكنكِ أن تختاري أن تظهري فقط الأشياء الأولى من النتيجة المكبوتة التي تجعلها طريقة بسيطة لاختيار الأشياء بشكل عشوائي أو ترتيبها من بركة أكبر لا توجد حدود على طول القائمة، ولا حاجة إلى التجهيز.</p>
+    <p>يقوم برنامج مُبدّل القوائم بترتيب أي قائمة تقوم بلصقها وترتيبها عشوائيًا تمامًا باستخدام خوارزمية خلط إحصائية عادلة. يمكنك اختيار عرض أول N عنصر فقط من نتيجة الترتيب العشوائي، مما يجعله طريقة سهلة لاختيار أو ترتيب العناصر عشوائيًا من مجموعة كبيرة. لا توجد قيود على طول القائمة، ولا يتطلب أي إعداد.</p>
 
-    <h2>????? ?????????</h2>
+    <h2>كيفية الاستخدام</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>عروس أو صنف قائمتك في مجال النص، بند واحد لكل خط.</li>
-      <li>حددوا بشكل اختياري "الأفضل من الأشياء" ليظهروا فقط النتائج الأولى بعد التصفيق.</li>
-      <li>اختر ما إذا كانت ستظهر مواقف مرقمة بشأن كل بند.</li>
-      <li>كليك شوفل القائمة لتشويش الطلب على الفور</li>
-      <li>استخدمي قائمة مغلفة بالنسخ لاستعمال النتائج في مكان آخر</li>
+      <li>ألصق أو اكتب قائمتك في منطقة النص، عنصر واحد في كل سطر.</li>
+      <li>يمكنك اختيارياً ضبط "اختيار أفضل N عنصر" لعرض أول N نتيجة فقط بعد الخلط.</li>
+      <li>اختر ما إذا كنت تريد عرض المواضع المرقمة على كل عنصر.</li>
+      <li>انقر على "خلط القائمة" لتغيير الترتيب عشوائياً على الفور.</li>
+      <li>استخدم الأمر "نسخ القائمة المخلوطة" للحصول على النتائج لاستخدامها في مكان آخر.</li>
     </ol>
 
-    <h2>الاستخدامات المشتركة</h2>
+    <h2>الاستخدامات الشائعة</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>نادراً ما يأمر بقائمة مسرحية أو قائمة أو كواية</li>
-      <li>أسماء الطلبة الذين يحددون أمر العرض العشوائي</li>
-      <li>إدارة مهمة أو قائمة عمل لتجنب أنماط يمكن التنبؤ بها</li>
-      <li>اختيار قائمة مختصرة من النهائيين من قائمة أطول بالمرشحين</li>
-      <li>إنشاء معقوفتين عشوائيتين للألعاب الرياضية أو المقامرة</li>
-      <li>إسناد أدوار أو مسؤوليات عشوائية في إطار فريق</li>
+      <li>ترتيب قائمة التشغيل أو قائمة الأغاني أو قائمة الانتظار بشكل عشوائي</li>
+      <li>خلط أسماء الطلاب لتحديد ترتيب العرض التقديمي العشوائي</li>
+      <li>ترتيب المهام أو قوائم المهام بشكل عشوائي لتجنب الأنماط المتوقعة</li>
+      <li>اختيار قائمة مختصرة من المرشحين النهائيين من قائمة أطول من المرشحين</li>
+      <li>إنشاء جداول بطولات عشوائية للأحداث الرياضية أو الألعاب</li>
+      <li>توزيع الأدوار أو المسؤوليات بشكل عشوائي داخل الفريق</li>
     </ul>
 
-    <h2>لماذا تستخدم سبينيت</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">وينتج خوارزمية فيشر - ياتس كفيلا موحدا تماما - ومن المرجح أن يكون كل أمر ممكن بنفس القدر. قائمتك الأصلية لم تُخزن أو تنقل في أي مكان يعمل على أي جهاز ولا يتطلب أي حساب، ولا تركيب، ولا وقت تحميل.</p>
+    <h2>لماذا تستخدم Spinnit</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تُنتج خوارزمية فيشر-ياتس خلطًا متجانسًا تمامًا، حيث يكون احتمال كل ترتيب ممكن متساويًا. لا يتم تخزين قائمتك الأصلية أو إرسالها إلى أي مكان. تعمل على أي جهاز ولا تتطلب حسابًا أو تثبيتًا أو وقت تحميل.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني أن أختار بعض الأشياء من قائمة أطول؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم أدخل رقماً في حقل "أكب الأشياء الجديدة" وفقط أول أصناف من قائمة المقذوفات ستظهر وهذا مفيد لاختيار قائمة قصيرة أو اختيار الفائزين من مجمع.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني اختيار العناصر القليلة الأولى فقط من قائمة أطول؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. أدخل رقمًا في حقل "اختيار أفضل N عنصرًا"، وسيتم عرض أول N عنصرًا فقط من القائمة العشوائية. يُفيد هذا في اختيار قائمة مختصرة أو اختيار الفائزين من بين مجموعة.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هناك حدود لكم من الوقت يمكن أن تكون قائمتي؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">ليس هناك حدود صعبة وتعالج هذه الأداة مئات البنود دون أية مسائل. وقد تؤدي قوائم كبيرة جداً إلى إبطاء الارتفاع قليلاً، ولكن النتائج لا تزال فورية.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هناك حد أقصى لطول قائمتي؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">لا يوجد حد أقصى لعدد العناصر. تتعامل الأداة مع مئات العناصر بسلاسة تامة. قد تؤدي القوائم الكبيرة جدًا إلى إبطاء الحركة قليلًا، لكن النتائج تظل فورية.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة مجانية الاستخدام؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاني تماماً ولا يتطلب التسجيل.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف المحمول؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> فريق راندوم بيكر</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> اختيار الفريق عشوائياً</a>
       <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> عجلة الأسماء</a>
-      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم لا</a>
-      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> عدد المولدات الكهربائية</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم لا عجلة</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> مولد أرقام اليانصيب</a>
     </div>
   </section>
 

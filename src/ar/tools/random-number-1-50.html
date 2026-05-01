@@ -1,17 +1,19 @@
 ---
 layout: layouts/base.njk
-title: عدد الوفيات بين 1 و50 - البكر الحر
+title: رقم عشوائي بين 1 و50 - أداة اختيار فورية مجانية | سبينيت
 description: >-
-  يولد رقماً عشوائياً بين 1 و50 على الفور مختار منصف مجاني للبنغو، المداعبة،
-  الأنشطة الجماعية وألعاب الفصول الدراسية.
-ogTitle: عدد الوفيات بين 1 و50
-ogDescription: اختيار عشوائي ثابت من ١ الى ٥٠ - عظيم لسحب البينغو ومتوسط الحجم.
+  قم بتوليد رقم عشوائي بين 1 و50 فورًا. أداة اختيار أرقام عشوائية مجانية ومناسبة
+  لألعاب البنغو، والهدايا، والأنشطة الجماعية، وألعاب الصف.
+ogTitle: رقم عشوائي بين 1 و 50 | سبينيت
+ogDescription: >-
+  اختيار عشوائي فوري وعادل من 1 إلى 50 - رائع للعبة البنغو والسحوبات متوسطة
+  الحجم.
 canonical: 'https://spinnit.site/ar/tools/random-number-1-50.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "عدد الوفيات بين 1 و50",
+    "name": "رقم عشوائي بين 1 و 50",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -27,26 +29,26 @@ extraHead: |
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل كل من 1 و 50 ممكن؟",
+        "name": "هل من الممكن أن يكون كل من 1 و 50 ممكناً؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم كل رقم من 1 إلى 50 لديه فرصة 2% على كل سحب"
+          "text": "نعم. كل رقم من 1 إلى 50 لديه فرصة بنسبة 2٪ في كل سحب."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يمكنني استخدام هذا لاستدعاء (بينغو)؟",
+        "name": "هل يمكنني استخدام هذا لإعلان لعبة البنغو؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم من 1 إلى 50 بينغو من أجل عدم التكرار، اربط قائمة من 1 إلى 50 واتصل بها بالترتيب"
+          "text": "نعم للعبة البنغو من 1 إلى 50. بالنسبة لسحوبات عدم التكرار، يتم خلط قائمة الأرقام من 1 إلى 50 ثم يتم نطقها بالترتيب المختلط."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يتذكر المولد الإختيارات السابقة؟",
+        "name": "هل يحتفظ مولد الاختيارات بالاختيارات السابقة؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "إنها تظهر آخر عشرة إختيارات لكن لن تستبعدهم وكل رسم مستقل من الناحية الإحصائية."
+          "text": "يعرض لك البرنامج آخر عشرة اختيارات لك، لكنه لا يستبعد أيًا منها. كل سحب مستقل إحصائيًا."
         }
       }
     ]
@@ -77,8 +79,8 @@ pageScript: |
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
   bindGlobalShortcut(generate);
@@ -89,7 +91,7 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">🔢</div>
-    <h1>عدد الوفيات بين 1 و50</h1>
+    <h1>رقم عشوائي بين 1 و 50</h1>
     <p>اختيار عادل من واحد إلى خمسين</p>
   </div>
 
@@ -105,52 +107,52 @@ dir: rtl
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">GENERATE</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+  <button class="btn-generate" onclick="generate()">يولد</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">النتائج الأخيرة</div>
+    <div class="history-label">النتائج الحديثة</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>مجموعة من 1 إلى 50 هي واحدة من أكثر الطرق شيوعا في منتصف الحجم. هو كبيرُ بما فيه الكفاية لِكي يَشْعرَ مثل a سحب حقيقي، صغير بما فيه الكفاية الذي كُلّ عدد يَبْدو قابلَ للوُصُول. مثالية للمدرسة (بينغو) و (الرافلز) و أي مجموعة تصل إلى خمسين شخصاً</p>
+    <p>يُعدّ نطاق الأرقام من 1 إلى 50 أحد أكثر نطاقات السحوبات المتوسطة شيوعًا. فهو كبير بما يكفي ليُشعرك وكأنك في سحب حقيقي، وصغير بما يكفي ليُشعرك أن كل رقم في متناول يدك. مثالي لألعاب البنغو المدرسية، والسحوبات المتوسطة، وأي مجموعة تصل إلى خمسين شخصًا.</p>
 
-    <h2>حيث تشرق ١-٥٠</h2>
+    <h2>حيث يتألق الرقم من 1 إلى 50</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>المدرسة أو المكتب )يستخدم معظم بطاقات البنغو ١-٥٠، ١-٧٥، أو ١-٩٠(</li>
-      <li>سحب رافيل في جمع التبرعات والأحداث المحلية</li>
-      <li>تعيين عدد لكل من الحاضرين يصل إلى 50</li>
-      <li>ألعاب اليانصيب النصف ونصف</li>
-      <li>احتمال سريع يخفض "إضغط رقماً، لا أحد يستطيع تخمينه"</li>
+      <li>لعبة البنغو في المدرسة أو المكتب (تستخدم معظم بطاقات البنغو الأرقام من 1 إلى 50، أو من 1 إلى 75، أو من 1 إلى 90)</li>
+      <li>سحوبات اليانصيب في فعاليات جمع التبرعات والفعاليات المحلية</li>
+      <li>تخصيص رقم لكل فرد من الحضور الذين يصل عددهم إلى 50 شخصًا</li>
+      <li>ألعاب اليانصيب بنظام النصف والنصف 50/50</li>
+      <li>عروض توضيحية سريعة للاحتمالات - "اختر رقمًا، لا أحد يستطيع تخمينه"</li>
     </ul>
 
-    <h2>أرقام متعددة</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">لمكالمات (بينغو) أو (الرافلزات المتعددة الأربح) <em>كم عدد الأرقام؟</em> حتى 100 ملاحظة أن السحب مستقل - يمكن أن تظهر نسختين. إذا كنت بحاجة إلى اختيارات فريدة فقط (مثل قفص البنغو الحقيقي) <a href="list-shuffler.html">قائمة المتثاقل</a> مع أرقام 1 إلى 50</p>
+    <h2>ارسم أرقامًا متعددة</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">لإجراء مكالمات البنغو أو السحوبات متعددة الفائزين، قم بالتعيين <em>كم عدد الأرقام؟</em> حتى 100. لاحظ أن عمليات السحب مستقلة - قد تظهر نتائج مكررة. إذا كنت بحاجة إلى اختيارات فريدة فقط (مثل قفص البنغو الحقيقي)، فاستخدم <a href="list-shuffler.html">مُبدِّل القوائم</a> مع الأرقام من 1 إلى 50.</p>
 
-    <h2>النطاقات الأخرى</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">حاول <a href="random-number-1-25.html">1–25</a>, <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-1000.html">1–1000</a>أو بناء <a href="random-number.html">النطاق العرفي</a>.</p>
+    <h2>نطاقات أخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">يحاول <a href="random-number-1-25.html">1–25</a>, <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-1000.html">1–1000</a>أو قم ببناء <a href="random-number.html">مجموعة مخصصة</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل كل من 1 و 50 ممكن؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم والمدى شامل - لكل رقم من 1 إلى 50 فرصة بنسبة 2 في المائة لكل رسم.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل من الممكن أن يكون كل من 1 و 50 ممكناً؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. النطاق شامل - كل رقم من 1 إلى 50 لديه فرصة بنسبة 2٪ في كل سحب.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني استخدام هذا لاستدعاء (بينغو)؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">من أجل ألعاب من نوع (بينغو) من أجل عدم تكرار ما بينغو، اربط قائمة من 1 إلى 50 مع القائمة شوفلر، واتصل بهم بالترتيب.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني استخدام هذا لإعلان لعبة البنغو؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">بالنسبة لألعاب البنغو من 1 إلى 50، نعم. أما بالنسبة للعبة بنغو حقيقية بدون تكرار، فقم بخلط قائمة الأرقام من 1 إلى 50 باستخدام أداة خلط القوائم، ثم قم بإعلانها بالترتيب المختلط.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يتذكر المولد الإختيارات السابقة؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">يُظهر آخر عشرة إختيارات على الشاشة، لكن لن يستبعدهم. وكل رسم مستقل من الناحية الإحصائية.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يحتفظ مولد الاختيارات بالاختيارات السابقة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">يعرض البرنامج آخر عشرة اختيارات لك على الشاشة، لكنه لا يستبعد أيًا منها. كل سحب مستقل إحصائيًا.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> المولدات المولدة</a>
-      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> ١-١٠٠ مولد كهربائي</a>
-      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> منتقي اليانصيب</a>
-      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> مولد نطاق مخصص</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> مولد 1-100</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> مُختار اليانصيب</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> مُبدِّل القوائم</a>
     </div>
   </section>
 

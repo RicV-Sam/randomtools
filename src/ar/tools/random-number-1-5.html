@@ -1,17 +1,17 @@
 ---
 layout: layouts/base.njk
-title: عدد الوفيات بين 1 و5 - بيكر البستاني الحر
+title: رقم عشوائي بين 1 و5 - أداة اختيار فورية مجانية | سبينيت
 description: >-
-  اختر رقماً عشوائياً بين 1 و5 على الفور مختار حر منصف للاختيار بين خمسة خيارات،
-  تقدير النجوم، قرارات المجموعات السريعة.
-ogTitle: عدد الوفيات بين 1 و5
-ogDescription: عدد عشوائي مجاني من 1 إلى 5 - صنبور واحد، لا إشارة.
+  اختر رقمًا عشوائيًا بين 1 و5 فورًا. أداة اختيار عادلة ومجانية للاختيار بين
+  خمسة خيارات، مع تقييمات بالنجوم وقرارات جماعية سريعة.
+ogTitle: رقم عشوائي بين 1 و 5 | سبينيت
+ogDescription: رقم عشوائي فوري مجاني من 1 إلى 5 - بنقرة واحدة، بدون تسجيل.
 canonical: 'https://spinnit.site/ar/tools/random-number-1-5.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "عدد الوفيات بين 1 و 5",
+    "name": "رقم عشوائي بين 1 و 5",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -27,26 +27,26 @@ extraHead: |
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل كل رقم على الأرجح؟",
+        "name": "هل كل رقم له نفس الاحتمالية؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم - كل واحد من 1 و 2 و 3 و 4 و 5 لديه فرصة 20% لكل جيل"
+          "text": "نعم - كل من 1 و 2 و 3 و 4 و 5 لديه فرصة بنسبة 20٪ في كل جيل."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يمكنني استخدام هذا كـ \"دي 5\"؟",
+        "name": "هل يمكنني استخدام هذا كـ d5؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم الـ دي 5 غير شائع في مجموعات النرد المادي هذا المولّدِ يَعطي a من 1 إلى 5 لفّة مباشرة."
+          "text": "نعم. يُعدّ النرد ذو الخمسة أوجه (d5) نادرًا في مجموعات النرد المادية. يُعطي هذا المولد نتيجة عادلة تتراوح بين 1 و5 مباشرةً."
         }
       },
       {
         "@type": "Question",
-        "name": "أيمكن أن يكرر نفس الرقم؟",
+        "name": "هل يمكن أن يتكرر نفس الرقم؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم ويتمتع كل جيل بالاستقلال، ويتوقع أن تكرر خمسة خيارات."
+          "text": "نعم. كل جيل مستقل، ومع وجود خمسة خيارات، من المتوقع حدوث تكرارات."
         }
       }
     ]
@@ -77,8 +77,8 @@ pageScript: |
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
   bindGlobalShortcut(generate);
@@ -89,7 +89,7 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">🔢</div>
-    <h1>عدد الوفيات بين 1 و 5</h1>
+    <h1>رقم عشوائي بين 1 و 5</h1>
     <p>اختيار فوري عادل من واحد إلى خمسة</p>
   </div>
 
@@ -105,51 +105,51 @@ dir: rtl
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">GENERATE</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+  <button class="btn-generate" onclick="generate()">يولد</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">النتائج الأخيرة</div>
+    <div class="history-label">النتائج الحديثة</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>رقم من 1 إلى 5 مثالي عندما يكون لديك قائمة قصيرة من الخيارات ولا يمكن أن تتخذ قرارك خمسة خيارات هي البقعة الحلوة - طويلة بما فيه الكفاية للشعور مثل قرار حقيقي، قصيرة بما فيه الكفاية أن كل إجابة لها فرصة حقيقية 20٪.</p>
+    <p>يُعدّ الرقم من 1 إلى 5 مثاليًا عندما يكون لديك قائمة قصيرة من الخيارات ولا تستطيع اتخاذ قرار. خمسة خيارات هي الخيار الأمثل - فهي طويلة بما يكفي لتشعر وكأنك بصدد اتخاذ قرار حقيقي، وقصيرة بما يكفي ليكون لكل إجابة فرصة حقيقية بنسبة 20%.</p>
 
-    <h2>عند استخدام ١-٥</h2>
+    <h2>متى يتم استخدام 1-5</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>اختيار واحد من خمسة مطاعم أو أفلام أو خيارات التنزه</li>
-      <li>تدحرج حرف الـ 5 في ألعاب الطاولة التي لا يوجد بها خمسة مواطنين يموتون</li>
-      <li>إجراء تقييم عشوائي للنجوم من أجل اختبار البيانات أو استعراضات الصور</li>
-      <li>اختيار سريع من قائمة خمسة كتب أو رسم أفكار</li>
-      <li>تعيين واحد من خمسة أفرقة أو مجموعات ملونة</li>
+      <li>اختر أحد المطاعم الخمسة أو الأفلام أو خيارات الوجبات الجاهزة</li>
+      <li>رمي نرد ذي خمسة أوجه بشكل عادل في ألعاب الطاولة التي لا تحتوي على نرد خماسي الأوجه أصلي</li>
+      <li>توليد تقييمات عشوائية بالنجوم لبيانات الاختبار أو المراجعات الوهمية</li>
+      <li>اختيار موضوع من قائمة تضم خمسة أفكار للكتابة أو الرسم</li>
+      <li>تعيين أحد الفرق أو المجموعات الخمسة الملونة</li>
     </ul>
 
-    <h2>كيفية استخدام</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Tap <strong>GENERATE</strong> أو أضغط على الفضاء تولد حتى 100 في آن واحد عن طريق تغيير حقل العد. أرقام الجو مع قائمة الخيارات حسب ترتيب ظهورهم</p>
+    <h2>كيفية الاستخدام</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">مقبض <strong>يولد</strong> أو اضغط على مفتاح المسافة. يمكنك إنشاء ما يصل إلى 100 رقم دفعة واحدة عن طريق تغيير حقل العدد. قم بربط الأرقام بقائمة الخيارات بالترتيب الذي تظهر به.</p>
 
-    <h2>النطاقات الأخرى</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">حاول <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-2.html">1–2</a>, <a href="random-number-1-6.html">1–6</a>, <a href="random-number-1-100.html">1–100</a>أو بناء <a href="random-number.html">النطاق العرفي</a>.</p>
+    <h2>نطاقات أخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">يحاول <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-2.html">1–2</a>, <a href="random-number-1-6.html">1–6</a>, <a href="random-number-1-100.html">1–100</a>أو قم ببناء <a href="random-number.html">مجموعة مخصصة</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل كل رقم على الأرجح؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم - كل واحد من 1 و 2 و 3 و 4 و 5 لديه فرصة 20% لكل جيل</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل كل رقم له نفس الاحتمالية؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم - كل من 1 و 2 و 3 و 4 و 5 لديه فرصة بنسبة 20٪ في كل جيل.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني استخدام هذا كـ "دي 5"؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم "دي 5" غير شائع في مجموعات النرد الفيزيائي، لذا معظم لاعبي الطاولات يدوّرون د. 10 و نصفها. هذا المولد أبسط - تحصل على منصف من 1 إلى 5 مباشرة.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني استخدام هذا كـ d5؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. يُعدّ النرد ذو الخمسة أوجه (d5) نادرًا في مجموعات النرد التقليدية، لذا يُفضّل معظم لاعبي ألعاب الطاولة استخدام نرد ذي عشرة أوجه (d10) ثمّ تقسيمه إلى نصفين. هذا المولد أبسط، إذ يُتيح لك الحصول على نتيجة عادلة من 1 إلى 5 مباشرةً.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">أيمكن أن يكرر نفس الرقم؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم ويتمتع كل جيل بالاستقلال، ولا يتردد سوى خمسة خيارات. هذا متوقع وصحيح الرياضيات</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكن أن يتكرر نفس الرقم؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. كل جيل مستقل، ومع وجود خمسة خيارات فقط، فإن التكرار أمر شائع. هذا متوقع وصحيح رياضياً.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> المولدات المولدة</a>
-      <a class="related-card" href="random-number-1-10.html"><span class="ri">🔢</span> ١-١٠ مولدات</a>
-      <a class="related-card" href="random-number-1-2.html"><span class="ri">🪙</span> ١-٢ )بالوحدات(</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> مولد نطاق مخصص</a>
+      <a class="related-card" href="random-number-1-10.html"><span class="ri">🔢</span> 1-10 مولد</a>
+      <a class="related-card" href="random-number-1-2.html"><span class="ri">🪙</span> 1-2 (عملة معدنية)</a>
       <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم / لا عجلة</a>
     </div>
   </section>

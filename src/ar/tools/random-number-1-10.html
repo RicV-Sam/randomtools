@@ -1,17 +1,19 @@
 ---
 layout: layouts/base.njk
-title: عدد الوفيات بين 1 و10 - البكر الحر
+title: رقم عشوائي بين 1 و10 - أداة اختيار فورية مجانية | سبينيت
 description: >-
-  اختر رقماً عشوائياً بين 1 و10 على الفور مختار منصف بالمجان للألعاب، أنشطة
-  الفصول، القرارات والرسوم السريعة. لا إشارة.
-ogTitle: عدد الوفيات بين 1 و10
-ogDescription: عدد عشوائي ثابت من 1 إلى 10. عظيم للمجموعات الصغيرة والألعاب والقرارات السريعة
+  اختر رقمًا عشوائيًا بين 1 و10 فورًا. أداة اختيار أرقام مجانية وعادلة للألعاب
+  والأنشطة الصفية واتخاذ القرارات والسحوبات السريعة. لا حاجة للتسجيل.
+ogTitle: رقم عشوائي بين 1 و10 | سبينيت
+ogDescription: >-
+  أرقام عشوائية فورية وعادلة من 1 إلى 10. مثالية للمجموعات الصغيرة والألعاب
+  والقرارات السريعة.
 canonical: 'https://spinnit.site/ar/tools/random-number-1-10.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "عدد الوفيات بين 1 و10",
+    "name": "رقم عشوائي بين 1 و 10",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -27,10 +29,10 @@ extraHead: |
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل كل من 1 و 10 نتائج ممكنة؟",
+        "name": "هل كل من 1 و 10 نتائج محتملة؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم إن النطاق شامل - ١ و ١٠ يظهران في كثير من الأحيان كما هو الحال بين الأرقام."
+          "text": "نعم. النطاق شامل - يظهر الرقمان 1 و10 بنفس عدد مرات ظهور الأرقام بينهما."
         }
       },
       {
@@ -38,15 +40,15 @@ extraHead: |
         "name": "كم مرة سيظهر كل رقم؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "لكل رقم فرصة 10% لكل لفافة على العديد من لفائف التوزيع تتجه نحو المساواة"
+          "text": "لكل رقم فرصة بنسبة 10% في كل رمية. ومع تكرار الرميات، يصبح التوزيع أكثر تجانسًا."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هذا أفضل من التفكير في عدد بنفسي؟",
+        "name": "هل هذا أفضل من التفكير في رقم بنفسي؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم الإفراط في الاختناق بين البشر 7 والضعف 1 و 10. المولد عادل حقاً"
+          "text": "نعم. يميل البشر إلى اختيار الرقم 7 أكثر من اللازم، ويقللون من اختيار الرقمين 1 و10. المولد عادل حقاً."
         }
       }
     ]
@@ -77,8 +79,8 @@ pageScript: |
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
   bindGlobalShortcut(generate);
@@ -89,12 +91,12 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">🔢</div>
-    <h1>عدد الوفيات بين 1 و10</h1>
-    <p>اختيار سريع ومنصف من واحد إلى عشرة</p>
+    <h1>رقم عشوائي بين 1 و 10</h1>
+    <p>اختيار سريع وعادل من واحد إلى عشرة</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">رقمك (1-10)</div>
+    <div class="result-label">رقمك (من 1 إلى 10)</div>
     <div class="result-number" id="result">—</div>
   </div>
 
@@ -105,51 +107,51 @@ dir: rtl
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">GENERATE</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+  <button class="btn-generate" onclick="generate()">يولد</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">النتائج الأخيرة</div>
+    <div class="history-label">النتائج الحديثة</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>إن اختيار رقم عشوائي بين 1 و 10 هو أحد أكثر الطرق اختصارا في القرار اليومي شيوعا. الأمر بسيط و محترم ومنصف كل رقم لديه فرصة واحدة هذه الصفحةِ تَعطيك ذلك التقاط في صنبورِ واحدِ، مَع لا تركيبَ و لا شيء للتركيب.</p>
+    <p>يُعدّ اختيار رقم عشوائي بين 1 و10 من أكثر اختصارات اتخاذ القرارات شيوعًا في حياتنا اليومية. فهو بسيط وسهل التذكر وعادل، إذ تبلغ احتمالية ظهور كل رقم 1 من 10. تتيح لك هذه الصفحة اختيار هذا الرقم بنقرة واحدة، دون الحاجة إلى أي إعدادات أو تثبيت أي شيء.</p>
 
     <h2>الاستخدامات النموذجية</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>يلتقط الفائز من مجموعة صغيرة تصل إلى عشرة أشخاص</li>
-      <li>اختيار أي من المهام العشرة أو الأعمال التجارية أو الناجزة التالية</li>
-      <li>أنشطة الفصول الدراسية - اختيار طالب، رقم صفحة، سؤال</li>
-      <li>طلقات الرذاذ لمباريات كسر الجليد (أعدها من 1 إلى 10)</li>
-      <li>تسوية قرار صغير عندما لا تستطيع الاختيار بين الخيارات</li>
+      <li>اختيار فائز من بين مجموعة صغيرة تصل إلى عشرة أشخاص</li>
+      <li>اختيار أي من عشر مهام أو أعمال منزلية أو توجيهات للقيام بها تالياً</li>
+      <li>أنشطة صفية - اختر طالبًا، أو رقم صفحة، أو سؤالًا</li>
+      <li>أسئلة تقييم لألعاب كسر الجمود ("قيّم هذا من 1 إلى 10")</li>
+      <li>اتخاذ قرار بسيط عندما لا تستطيع الاختيار بين الخيارات</li>
     </ul>
 
-    <h2>كيفية استخدام</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Tap <strong>GENERATE</strong> او اضغط على الفضاء يبدو رقمك على الفور تولد حتى 100 في آن واحد عن طريق تغيير حقل العد. وتظل النتائج العشرة الأخيرة واضحة للمقارنة.</p>
+    <h2>كيفية الاستخدام</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">مقبض <strong>يولد</strong> أو اضغط على مفتاح المسافة — سيظهر رقمك فورًا. يمكنك إنشاء ما يصل إلى 100 رقم دفعة واحدة عن طريق تغيير حقل العدد. تبقى آخر عشر نتائج مرئية للمقارنة.</p>
 
-    <h2>تبحث عن نطاق آخر؟</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">هل تحتاج إلى حدود مختلفة؟ إستعملْ الرئيسَ <a href="random-number.html">عدد المولدات</a> لأي نطاق عرفي، أو القفز إلى <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-1000.html">1–1000</a>, <a href="random-number-1-20.html">1–20</a>أو <a href="random-number-1-6.html">1–6</a>.</p>
+    <h2>هل تبحث عن نطاق آخر؟</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">هل تحتاج إلى حدود مختلفة؟ استخدم الحدود الرئيسية <a href="random-number.html">مولد الأرقام العشوائية</a> لأي نطاق مخصص، أو انتقل إلى <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-1000.html">1–1000</a>, <a href="random-number-1-20.html">1–20</a>، أو <a href="random-number-1-6.html">1–6</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل كل من 1 و 10 نتائج ممكنة؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم إن النطاق شامل - ١ و ١٠ يظهران في كثير من الأحيان كما هو الحال بين الأرقام.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل كل من 1 و 10 نتائج محتملة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. النطاق شامل - يظهر الرقمان 1 و10 بنفس عدد مرات ظهور الأرقام بينهما.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">كم مرة سيظهر كل رقم؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">لكل رقم فرصة 10% لكل لفافة وعلى امتداد العديد من الدفاتر، يتجه التوزيع نحو المساواة - ولكن على حفنة من البقايا الطبيعية والمتوقعة.</p>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">لكل رقم فرصة بنسبة 10% في كل رمية. ومع تكرار الرميات، يصبح التوزيع أكثر تجانسًا، ولكن مع عدد قليل من الرميات، تكون السلاسل المتتالية طبيعية ومتوقعة.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذا أفضل من التفكير في عدد بنفسي؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم البشر سيئون في إختيار أعداد "الطوابق" معظم الناس يتفوقون على التشويش 7 المولد عادل حقاً</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذا أفضل من التفكير في رقم بنفسي؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. البشر سيئون للغاية في اختيار الأرقام "العشوائية" - فمعظم الناس يختارون الرقم 7 أكثر من اللازم ويختارون الرقم 1 أو 10 أقل من اللازم. المولد عادل حقاً.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> المولدات المولدة</a>
-      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> ١-١٠٠ مولد كهربائي</a>
-      <a class="related-card" href="random-number-1-6.html"><span class="ri">⚄</span> 1-6 مولدات كهربائية</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> مولد نطاق مخصص</a>
+      <a class="related-card" href="random-number-1-100.html"><span class="ri">🔢</span> مولد 1-100</a>
+      <a class="related-card" href="random-number-1-6.html"><span class="ri">⚄</span> 1-6 مولد</a>
       <a class="related-card" href="yes-no-wheel.html"><span class="ri">🔮</span> نعم / لا عجلة</a>
     </div>
   </section>

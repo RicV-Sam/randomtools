@@ -1,17 +1,22 @@
 ---
 layout: layouts/base.njk
-title: د. 2d6 Online - Free Two-Dice roller - Spinnit
+title: >-
+  لعبة رمي النرد المزدوج 2d6 عبر الإنترنت - لعبة مجانية لرمي النرد المزدوج |
+  سبينيت
 description: >-
-  دحرجة 2d6 على الإنترنت - نردان من ستة جوانب مع المجموع المبين على الفور.
-  مثالية لـ (كاتان) و (مونوبي) و (باكجاممون) و (بي بي جي) حر، لا إشارة.
-ogTitle: على شبكة الإنترنت
-ogDescription: درّب حرّ على الإنترنت 2d6 - نردان من ستة جوانب مع النتيجة الكاملة الفورية.
+  ارمِ نردين سداسيين على الإنترنت - نردان متوازنان ذوا ستة أوجه، ويظهر المجموع
+  فورًا. مثالي لألعاب كاتان، مونوبولي، الطاولة، وألعاب تقمص الأدوار على الطاولة.
+  مجاني، بدون تسجيل.
+ogTitle: رمي نردين سداسيين عبر الإنترنت | سبينيت
+ogDescription: >-
+  لعبة رمي النرد 2d6 المجانية عبر الإنترنت - نردان سداسيا الأوجه مع نتيجة
+  إجمالية وفورية.
 canonical: 'https://spinnit.site/ar/tools/roll-2d6.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "الجولة 2d6",
+    "name": "قم برمي نردين سداسيين الأوجه (2d6).",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -27,26 +32,26 @@ extraHead: |
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "ما هي النتيجة الأكثر شيوعا على 2d6؟",
+        "name": "ما هي النتيجة الأكثر شيوعاً عند رمي نردين سداسيين الأوجه (2d6)؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "سبعة - لها فرصة من ١ إلى ٦ )١٦,٧ في المائة(. المجاميع تشكل مثلث: 2 و 12 نادرة، 7 أكثر شيوعا."
+          "text": "الرقم سبعة - احتمالية ظهوره هي 1 من 6 (16.7%). تشكل المجاميع مثلثًا: الرقمان 2 و12 هما الأندر، بينما الرقم 7 هو الأكثر شيوعًا."
         }
       },
       {
         "@type": "Question",
-        "name": "هل تتدحرج النرد في نفس الوقت؟",
+        "name": "هل تتم رميات النرد في نفس الوقت؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم كلا النردين ملتوي في آن واحد وبشكل مستقل مثل زوج حقيقي."
+          "text": "نعم. يتم رمي كلا النردين في وقت واحد وبشكل مستقل مثل الزوج الحقيقي."
         }
       },
       {
         "@type": "Question",
-        "name": "هل لي أن أعرف متى أرتدى مضاعفات؟",
+        "name": "هل يمكنني معرفة متى حصلت على زوج من الأرقام؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم وتظهر قيمتا النرد على حدة فوق المجموع."
+          "text": "نعم. تظهر قيمتا النرد بشكل منفصل فوق المجموع."
         }
       }
     ]
@@ -69,7 +74,7 @@ pageScript: |
       totalEl.style.display = 'none';
     } else {
       resultEl.textContent = rolls.map(r => r.total).join(', ');
-      totalEl.textContent = 'الأفراد:' + rolls.map(r => `[${r.dice.join('+')}]`).join(' ');
+      totalEl.textContent = 'فردي: ' + rolls.map(r => `[${r.dice.join('+')}]`).join(' ');
       totalEl.style.display = 'block';
     }
     const box = document.getElementById('resultBox');
@@ -89,8 +94,8 @@ pageScript: |
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
   bindGlobalShortcut(roll);
@@ -101,70 +106,70 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">⚄</div>
-    <h1>الجولة 2d6 على الإنترنت</h1>
-    <p>نردان من ستة جوانب مع المجموع الفوري</p>
+    <h1>قم برمي نردين سداسيين عبر الإنترنت</h1>
+    <p>نردان متساويان بستة أوجه مع مجموع فوري</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label">!</div>
+    <div class="result-label">دورك</div>
     <div class="result-number" id="result">—</div>
     <div id="totalLabel" style="font-size:13px;color:var(--text2);margin-top:6px;"></div>
   </div>
 
   <div class="controls">
     <div class="control-group">
-      <label>كم مرة لفة؟</label>
+      <label>كم مرة يجب رمي النرد؟</label>
       <input type="number" id="count" value="1" min="1" max="20">
     </div>
   </div>
 
-  <button class="btn-generate" onclick="roll()">ROLL 2d6</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+  <button class="btn-generate" onclick="roll()">ارمِ نردين سداسيين (2d6).</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">القوائم الأخيرة</div>
+    <div class="history-label">أحدث التعيينات</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>إن التدحرج ٢د٦ - ٢ من ستة أحواض - هو الأكثر استخداما في المقامرة على الطاولة. (مونوبولي)، (كاتان)، (باكجاممون)، المخاطرة، لا يُحصى من الـ(آر بي جي) وتتراوح هذه المبالغ بين 2 و 12، مع أن 7 منها هي أكثر النتائج شيوعاً، لأن لديها ستة طرق للتداول (1+6 و 2+5 و 3+4 ومراياتها).</p>
+    <p>يُعدّ رمي نردين سداسيين الأوجه (2d6) الطريقة الأكثر شيوعًا في ألعاب الطاولة. تعتمد عليه ألعاب مثل مونوبولي، وكاتان، والطاولة، وريسك، والعديد من ألعاب تقمص الأدوار. يتراوح مجموع النردين بين 2 و12، ويُعدّ 7 النتيجة الأكثر شيوعًا نظرًا لإمكانية الحصول عليه بست طرق (1+6، 2+5، 3+4، وانعكاساتها).</p>
 
     <h2>الألعاب التي تستخدم 2d6</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li><strong>كاتان</strong> - قوائم إنتاج الموارد</li>
-      <li><strong>Monopoly</strong> -الحركة، المضاعفات تؤدي دوراً إضافياً</li>
-      <li><strong>باكجاممون</strong> - الحركة، مع الضعف</li>
-      <li><strong>المخاطر</strong> - قوائم الهجوم والدفاع</li>
-      <li><strong>السلطة من قبل نهاية العالم</strong> RPG - كُلّ فحص</li>
-      <li><strong>المسافرون</strong> والعديد من الألعاب الحربية التقليدية</li>
+      <li><strong>كاتان</strong> — لفائف إنتاج الموارد</li>
+      <li><strong>احتكار</strong> — الحركة، تؤدي الضربات المزدوجة إلى أدوار إضافية</li>
+      <li><strong>الطاولة</strong> — حركة، مع مضاعفة الأضعاف</li>
+      <li><strong>مخاطرة</strong> — لفات الهجوم والدفاع</li>
+      <li><strong>مدعوم من نهاية العالم</strong> ألعاب تقمص الأدوار - كل فحص حركة</li>
+      <li><strong>مسافر</strong> والعديد من ألعاب الحرب الكلاسيكية</li>
     </ul>
 
-    <h2>2d6</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">أما احتمالات كل ناتج من أصل 36 ناتجاً محتملاً: 2 و12 تظهر 1/36 (حوالي 2.8 في المائة)، و7 على ما يبدو 6/36 (16.7 في المائة)، بينما يشكل الباقي منحنى الجرس. لهذا السبب 7 هو الرقم السحري في العديد من الالعاب</p>
+    <h2>مرجع سريع لاحتمالات 2d6</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">احتمالات كل مجموع من بين 36 نتيجة محتملة: يظهر المجموعان 2 و12 بنسبة 1/36 (حوالي 2.8%)، ويظهر المجموع 7 بنسبة 6/36 (16.7%)، أما باقي الاحتمالات فتشكل منحنى طبيعيًا. لهذا السبب يُعتبر المجموع 7 رقمًا سحريًا في العديد من الألعاب، ولهذا السبب يبدو وضع اللصوص في لعبة كاتان دائمًا هجوميًا.</p>
 
-    <h2>دفاتر أخرى</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">هل تريد المزيد من النرد؟ حاول <a href="roll-3d6.html">3d6</a>, <a href="roll-4d6-drop-lowest.html">4d6 drop lowest</a> (DD stats) <a href="roll-d100.html">d100</a>, <a href="roll-d10.html">d10</a>أو بالكامل <a href="dice-roller.html">بكرة النرد</a> لأي مزيج</p>
+    <h2>نتائج رميات النرد الأخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">هل تحتاج إلى المزيد من النرد؟ جرب <a href="roll-3d6.html">3d6</a>, <a href="roll-4d6-drop-lowest.html">أدنى معدل سقوط لـ 4d6</a> (إحصائيات D&D)، <a href="roll-d100.html">d100</a>, <a href="roll-d10.html">d10</a>أو كامل <a href="dice-roller.html">أداة رمي النرد</a> لأي تركيبة.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ما هي النتيجة الأكثر شيوعا على 2d6؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">سبعة - لها فرصة من ١ إلى ٦ )١٦,٧ في المائة(. المجاميع تشكل مثلث: 2 و 12 نادرة، 7 أكثر شيوعا.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ما هي النتيجة الأكثر شيوعاً عند رمي نردين سداسيين الأوجه (2d6)؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">الرقم سبعة - احتمالية ظهوره هي 1 من 6 (16.7%). تشكل المجاميع مثلثًا: الرقمان 2 و12 هما الأندر، بينما الرقم 7 هو الأكثر شيوعًا.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل تتدحرج النرد في نفس الوقت؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم كلا النردين ملتويين بشكل متزامن ومستقل تماماً مثل زوجين حقيقيين من النرد</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل تتم رميات النرد في نفس الوقت؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. يتم رمي كلا النردين في وقت واحد وبشكل مستقل، تمامًا مثل زوج حقيقي من النرد يتم رميه معًا.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل لي أن أعرف متى أرتدى مضاعفات؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم - إن القيمتين النردتين تظهران على نحو فردي فوق المجموع، لذا من السهل تحديد الضعف.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني معرفة متى حصلت على زوج من الأرقام؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم - يتم عرض قيمتي النرد بشكل فردي فوق المجموع، لذا يسهل رصد القيم المتطابقة.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> كامل Dice roller</a>
-      <a class="related-card" href="roll-3d6.html"><span class="ri">🎲</span> الجولة 3d6</a>
-      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> د.</a>
-      <a class="related-card" href="random-number-1-6.html"><span class="ri">🔢</span> 1-6 مولدات كهربائية</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> أداة رمي النرد الكاملة</a>
+      <a class="related-card" href="roll-3d6.html"><span class="ri">🎲</span> قم برمي 3d6</a>
+      <a class="related-card" href="roll-d100.html"><span class="ri">💯</span> قم برمي النرد ذي المئة وجه</a>
+      <a class="related-card" href="random-number-1-6.html"><span class="ri">🔢</span> 1-6 مولد</a>
     </div>
   </section>
 

@@ -1,19 +1,19 @@
 ---
 layout: layouts/base.njk
-title: عدد الوفيات بين 1 و25 - فصول مجانية
+title: رقم عشوائي بين 1 و25 - أداة اختيار الأرقام المجانية للفصول الدراسية | سبينيت
 description: >-
-  يولد رقماً عشوائياً بين 1 و25 على الفور مثالية للصفوف الدراسية لـ 25 طالباً،
-  وأعمدة بنغو وألعاب جماعية. حر، لا إشارة.
-ogTitle: عدد الوفيات بين 1 و25
+  أنشئ رقمًا عشوائيًا بين 1 و25 فورًا. مثالي للفصول الدراسية التي تضم 25 طالبًا،
+  وأعمدة البنغو، والألعاب الجماعية. مجاني، ولا يتطلب التسجيل.
+ogTitle: رقم عشوائي بين 1 و25 | سبينيت
 ogDescription: >-
-  الاختيار الحر من ١ إلى ٢٥ - مثالي لقوائم الفصول الدراسية وألعاب المجموعات
+  اختيار مجاني من 1 إلى 25 - مثالي لقوائم الفصول الدراسية وألعاب المجموعات
   الصغيرة.
 canonical: 'https://spinnit.site/ar/tools/random-number-1-25.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "عدد الوفيات بين 1 و25",
+    "name": "رقم عشوائي بين 1 و 25",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -29,26 +29,26 @@ extraHead: |
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل يمكنني تجنب اختيار نفس الطالب مرتين على التوالي؟",
+        "name": "هل يمكنني تجنب اختيار نفس الطالب مرتين متتاليتين؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ليس من جيل واحد من أجل عدم تكرار الأمر باستخدام القائمة (شوفلر) على 25 اسماً والعمل من خلال الترتيب المكبوت"
+          "text": "ليس من جيل واحد. لترتيب الأسماء دون تكرار، استخدم خاصية خلط القوائم على 25 اسمًا، ثم اتبع الترتيب المختلط."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يعمل هذا على مُقدّم؟",
+        "name": "هل يعمل هذا على جهاز عرض؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم والنتيجة كبيرة ومرتفعة، مرئية من خلف قاعة دراسية."
+          "text": "نعم. والنتيجة كبيرة وذات تباين عالٍ، ويمكن رؤيتها من الجزء الخلفي من الفصل الدراسي."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هناك أي بيانات مخزنة؟",
+        "name": "هل يتم تخزين أي بيانات؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "لا تولد النتائج في المصفح ولا ترسل أبدا إلى خادم"
+          "text": "لا. يتم إنشاء النتائج في المتصفح ولا يتم إرسالها إلى خادم مطلقًا."
         }
       }
     ]
@@ -79,8 +79,8 @@ pageScript: |
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
   bindGlobalShortcut(generate);
@@ -91,8 +91,8 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">🎒</div>
-    <h1>عدد الوفيات بين 1 و25</h1>
-    <p>اختيارات عادلة للفصول الدراسية والمجموعات الصغيرة</p>
+    <h1>رقم عشوائي بين 1 و 25</h1>
+    <p>خيارات مناسبة للفصول الدراسية والمجموعات الصغيرة</p>
   </div>
 
   <div class="result-box" id="resultBox">
@@ -107,52 +107,52 @@ dir: rtl
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">GENERATE</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+  <button class="btn-generate" onclick="generate()">يولد</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">النتائج الأخيرة</div>
+    <div class="history-label">النتائج الحديثة</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>25 هو متوسط حجم درجتي المملكة المتحدة والولايات المتحدة، وهو ما يجعل عدداً عشوائياً يتراوح بين 1 و25 من أكثر النطاقات استخداماً في التعليم. المعلمون يستخدمونه لاختيار الطلبة، دعوة المتطوعين، يقررون من يقدم أولا، أو الجلوس عشوائيا. هذه الصفحةِ تَعطيك a نظيف، إختيار عادل في صنبورِ واحد.</p>
+    <p>يبلغ متوسط عدد الطلاب في الفصول الدراسية في المملكة المتحدة والولايات المتحدة 25 طالبًا، مما يجعل الأرقام العشوائية بين 1 و25 من أكثر النطاقات استخدامًا في التعليم. يستخدمها المعلمون لاختيار الطلاب، أو استدعاء المتطوعين، أو تحديد من يقدم العرض أولًا، أو ترتيب المقاعد عشوائيًا. تتيح لك هذه الصفحة اختيارًا دقيقًا وعادلًا بنقرة واحدة.</p>
 
-    <h2>هاند ل</h2>
+    <h2>مفيد لـ</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>ألتقط طالباً بالرقم من درجة تصل إلى 25</li>
-      <li>شغل المقاعد في بداية فترة</li>
-      <li>اختيار رقم العمود × في بطاقة 55 بنغو</li>
-      <li>توزيع 25 بطاقة مرقمة أو دفعات</li>
-      <li>سؤال من قائمة بـ 25 سؤالاً</li>
+      <li>اختيار طالب حسب رقم جلوسه من فصل دراسي يصل عدد طلابه إلى 25 طالباً</li>
+      <li>توزيع المقاعد عشوائياً في بداية الفصل الدراسي</li>
+      <li>اختيار رقم عمود في بطاقة بينغو 5×5</li>
+      <li>توزيع 25 بطاقة مرقمة أو مطالبة بشكل عشوائي</li>
+      <li>اختيار سؤال من قائمة تضم 25 سؤالاً للمراجعة</li>
     </ul>
 
-    <h2>لمجموعات أكبر</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تعليم صف من 30؟ حاول <a href="random-number.html">الزبون العرفي</a> وأضع الحد الأقصى لحجم صفك لاختيار الاسم بدلا من الأرقام، <a href="wheel-of-names.html">عجلة الأسماء</a> هو المفضل في الصف</p>
+    <h2>للمجموعات الأكبر</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">هل تُدرّس فصلاً دراسياً يضم 30 طالباً؟ جرّب <a href="random-number.html">مجموعة مخصصة</a> وحدد الحد الأقصى لحجم فصلك. لاختيار الطلاب بناءً على أسمائهم بدلاً من أرقامهم، فإن <a href="wheel-of-names.html">عجلة الأسماء</a> هو المفضل في الفصل الدراسي.</p>
 
-    <h2>النطاقات الأخرى</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">مفيد أيضا: <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-50.html">1–50</a>, <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-20.html">1–20</a>.</p>
+    <h2>نطاقات أخرى</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">مفيد أيضاً: <a href="random-number-1-10.html">1–10</a>, <a href="random-number-1-50.html">1–50</a>, <a href="random-number-1-100.html">1–100</a>, <a href="random-number-1-20.html">1–20</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني أن أتأكد أن نفس الطالب لم يُختار مرتين على التوالي؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">وليس من جيل واحد - كل اختيار مستقل. من أجل عدم تكرار الأمر، استخدم <a href="list-shuffler.html">قائمة المتثاقل</a> على قائمة بـ 25 اسماً أو رقماً ويعملون من خلال النظام المكبوت</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني التأكد من عدم اختيار الطالب نفسه مرتين متتاليتين؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">ليس من جيل واحد - كل اختيار مستقل. لترتيب غير متكرر، استخدم <a href="list-shuffler.html">مُبدِّل القوائم</a> قم بترتيب قائمة تضم 25 اسمًا أو رقمًا، ثم قم بالعمل من خلال الترتيب العشوائي.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على مُقدّم؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم والنتيجة كبيرة، وشديدة الارتداد، ومرئية من خلف حجرة دراسية عند توقعها.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على جهاز عرض؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. والنتيجة هي صورة كبيرة وعالية التباين، ويمكن رؤيتها من الجزء الخلفي من الفصل الدراسي عند عرضها.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هناك أي بيانات مخزنة؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">لا تولد النتائج في المصفح ولا ترسل أبدا إلى خادم التاريخ واضح عندما تغلق المقهى</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يتم تخزين أي بيانات؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">لا، يتم إنشاء النتائج في المتصفح ولا تُرسل إلى أي خادم. ويتم مسح سجل التصفح عند إغلاق علامة التبويب.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
       <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> عجلة الأسماء</a>
-      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> الزبون العرفي</a>
-      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> منتقي الفريق</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> مُبدِّل القوائم</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> مجموعة مخصصة</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">👥</span> مُختار الفريق</a>
     </div>
   </section>
 

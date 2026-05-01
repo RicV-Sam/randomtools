@@ -20,7 +20,8 @@
  *   - Rewrite: canonical URL to include /<lang>/, internal <a href> links to /<lang>/...
  *   - Cache translated strings in .translation-cache/<lang>.json so re-runs skip work.
  *   - Throttle: 1 req/sec to avoid Google rate-limiting.
- *   - Fallback: if Google fails, try LibreTranslate public instance.
+ *   - Prefer: official Google Cloud Translation when GOOGLE_TRANSLATE_API_KEY is set.
+ *   - Fallback: unofficial Google package, then local Argos.
  */
 
 const fs = require("fs");
@@ -40,6 +41,29 @@ const LANGUAGE_DIRS = fs.existsSync(LANGUAGES_FILE)
 const LANG = process.argv[2];
 const FILTER = process.argv[3]; // optional substring match on relative path
 const RTL_LANGS = new Set(["ar", "fa", "he", "ur"]);
+
+function loadLocalEnv() {
+  for (const name of [".env.local", ".env"]) {
+    const file = path.join(ROOT, name);
+    if (!fs.existsSync(file)) continue;
+
+    for (const line of fs.readFileSync(file, "utf8").split(/\r?\n/)) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
+      const match = trimmed.match(/^([A-Za-z_][A-Za-z0-9_]*)=(.*)$/);
+      if (!match) continue;
+
+      const key = match[1];
+      let value = match[2].trim();
+      if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
+      }
+      if (!process.env[key]) process.env[key] = value;
+    }
+  }
+}
+
+loadLocalEnv();
 
 if (!LANG) {
   console.error("Usage: node scripts/translate.js <lang> [filter]");
@@ -64,7 +88,37 @@ function saveCache() {
 }
 
 let googleTranslate = null;
-async function translateWithGoogle(text, to) {
+async function translateWithGoogleCloud(text, to) {
+  const key = process.env.GOOGLE_TRANSLATE_API_KEY;
+  if (!key) return null;
+
+  const res = await fetch(`https://translation.googleapis.com/language/translate/v2?key=${encodeURIComponent(key)}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      q: text,
+      source: "en",
+      target: to,
+      format: "text",
+    }),
+  });
+
+  if (!res.ok) {
+    let message = `${res.status} ${res.statusText}`;
+    try {
+      const body = await res.json();
+      if (body && body.error && body.error.message) message = body.error.message;
+    } catch {}
+    throw new Error(message);
+  }
+
+  const body = await res.json();
+  return body && body.data && body.data.translations && body.data.translations[0]
+    ? body.data.translations[0].translatedText
+    : text;
+}
+
+async function translateWithUnofficialGoogle(text, to) {
   if (!googleTranslate) {
     const mod = await import("@vitalets/google-translate-api");
     googleTranslate = mod.translate;
@@ -156,12 +210,23 @@ async function translate(text, to) {
   const decoded = decodeEntities(text);
 
   try {
-    const out = await translateWithGoogle(decoded, to);
+    const out = await translateWithGoogleCloud(decoded, to);
+    if (out !== null) {
+      cache[key] = out;
+      cacheDirty = true;
+      return out;
+    }
+  } catch (e) {
+    console.error(`  [google cloud failed: ${e.message}] trying unofficial google`);
+  }
+
+  try {
+    const out = await translateWithUnofficialGoogle(decoded, to);
     cache[key] = out;
     cacheDirty = true;
     return out;
   } catch (e) {
-    console.error(`  [google failed: ${e.message}] trying argos`);
+    console.error(`  [unofficial google failed: ${e.message}] trying argos`);
   }
 
   try {

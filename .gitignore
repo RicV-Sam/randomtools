@@ -11,6 +11,11 @@ _site/
 # Translation cache (regenerates on demand)
 .translation-cache/
 
+# Local secrets
+.env
+.env.*
+!.env.example
+
 # Editor
 .idea/
 .vscode/

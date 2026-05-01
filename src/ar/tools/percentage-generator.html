@@ -1,25 +1,25 @@
 ---
 layout: layouts/base.njk
-title: النسبة المئوية للمولدات - المولدات المجانية
+title: مولد النسب المئوية العشوائية - أداة مجانية | سبينيت
 description: >-
-  تولد نسبة عشوائية أو عشرية بين أي مدى جهزوا المين و الحد الأقصى و الدقة
-  العشرية أداة مجانية على الإنترنت
+  أنشئ نسبة مئوية أو عددًا عشريًا عشوائيًا ضمن أي نطاق. حدد الحد الأدنى والحد
+  الأقصى ودقة الأرقام العشرية. أداة مجانية عبر الإنترنت لحساب النسب المئوية.
 canonical: 'https://spinnit.site/ar/tools/percentage-generator.html'
 jsonLd: |-
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "النسبة المئوية للمولدات",
-    "description": "تولد نسباً ورموزاً عشوائياً بين أي قيمة مين وماكس",
+    "name": "مولد النسب المئوية العشوائية",
+    "description": "قم بتوليد نسب مئوية وأرقام عشرية عشوائية بين أي قيمة دنيا وقيمة قصوى",
     "url": "https://spinnit.site/ar/tools/percentage-generator.html",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web"
   }
 extraHead: >
-  <meta name="twitter:title" content="النسبة المئوية للمولدات">
+  <meta name="twitter:title" content="مولد النسب المئوية العشوائية | سبينيت">
 
-  <meta name="twitter:description" content="تولد نسبة مئوية عشوائية بين أي مين
-  وماكس حدد الدقة العشرية حر وفوري">
+  <meta name="twitter:description" content="قم بإنشاء نسبة مئوية عشوائية بين أي
+  قيمة دنيا وقيمة قصوى. حدد دقة الأرقام العشرية. مجاني وفوري.">
 
   <script type="application/ld+json">{
     "@context": "https://schema.org",
@@ -27,34 +27,34 @@ extraHead: >
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل يمكنني تحديد الدقة العشرية؟",
+        "name": "هل يمكنني ضبط دقة الأرقام العشرية؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم الأماكن العشرية تنخفض تجعلك تختار صفراً (أرقام الحفر) أو 1 أو 2 أو 3 أماكن عشرية"
+          "text": "نعم. تتيح لك القائمة المنسدلة للمنازل العشرية اختيار 0 (أعداد صحيحة)، أو 1، أو 2، أو 3 منازل عشرية."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يمكنني توليد أكثر من قيمة واحدة في كل مرة؟",
+        "name": "هل يمكنني توليد أكثر من قيمة واحدة في وقت واحد؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم أضبطي \"كم من القيم؟\" \"مجال يصل إلى 20\" وكل النتائج ستظهر معاً\""
+          "text": "نعم. اضبط حقل \"كم عدد القيم؟\" على 20 كحد أقصى وستظهر جميع النتائج معًا."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هذه الأداة حرة في استخدامها؟",
+        "name": "هل هذه الأداة مجانية الاستخدام؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، مجاناً تماماً بدون إشارة مطلوبة"
+          "text": "نعم، مجاني تماماً ولا يتطلب التسجيل."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يعمل هذا على الهاتف؟",
+        "name": "هل يعمل هذا على الهاتف المحمول؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز."
+          "text": "نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز."
         }
       }
     ]
@@ -69,7 +69,7 @@ pageScript: >
     const max = parseFloat(document.getElementById('maxVal').value) || 100;
     const decimals = parseInt(document.getElementById('decimals').value);
     const count = Math.min(parseInt(document.getElementById('count').value)||1, 20);
-    if (min >= max) { alert('ماكس يجب أن يكون أكبر من مين'); return; }
+    if (min >= max) { alert('يجب أن تكون القيمة القصوى أكبر من القيمة الدنيا'); return; }
 
     const results = Array.from({length: count}, () => (Math.random() * (max - min) + min).toFixed(decimals));
     const display = results.map(r => r + '%').join(', ');
@@ -92,8 +92,8 @@ pageScript: >
     if (val === '—') return;
     navigator.clipboard.writeText(val).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'النتيجة'; btn.classList.remove('copied'); }, 2000);
+      btn.textContent = 'تم النسخ!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
 
@@ -107,97 +107,97 @@ dir: rtl
 
   <div class="tool-header">
     <div class="tool-icon">📊</div>
-    <h1>النسبة المئوية للمولدات</h1>
-    <p>نسبة مئوية عشوائية أو قيمة عشرية</p>
+    <h1>مولد النسب المئوية العشوائية</h1>
+    <p>قم بإنشاء نسبة مئوية أو قيمة عشرية عشوائية</p>
   </div>
 
   <div class="result-box" id="resultBox">
-    <div class="result-label" id="resultLabel">النسبة المئوية</div>
+    <div class="result-label" id="resultLabel">نسبتك المئوية</div>
     <div class="result-number" id="result">—</div>
   </div>
 
   <div class="controls">
     <div class="control-row">
       <div class="control-group">
-        <label>الحد الأدنى</label>
+        <label>الحد الأدنى %</label>
         <input type="number" id="minVal" value="0" step="any">
       </div>
       <div class="control-group">
-        <label>أقصى نسبة مئوية</label>
+        <label>الحد الأقصى %</label>
         <input type="number" id="maxVal" value="100" step="any">
       </div>
     </div>
     <div class="control-group">
-      <label>الأماكن المتناقصة</label>
+      <label>المنازل العشرية</label>
       <select id="decimals">
-        <option value="0">صفر - رقم كامل (مثل 47 في المائة)</option>
-        <option value="1" selected>1 - مثل 47.3 في المائة</option>
-        <option value="2">2 - على سبيل المثال 47.38 في المائة</option>
-        <option value="3">3 - مثل 47.381 في المائة</option>
+        <option value="0">0 — عدد صحيح (مثلاً 47%)</option>
+        <option value="1" selected>1 — على سبيل المثال 47.3%</option>
+        <option value="2">2 — على سبيل المثال 47.38%</option>
+        <option value="3">3 — على سبيل المثال 47.381%</option>
       </select>
     </div>
     <div class="control-group">
-      <label>كم قيمة؟</label>
+      <label>كم عدد القيم؟</label>
       <input type="number" id="count" value="1" min="1" max="20">
     </div>
   </div>
 
-  <button class="btn-generate" onclick="generate()">فترة عمل الوكالة</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">النتيجة</button>
+  <button class="btn-generate" onclick="generate()">حساب النسبة المئوية</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none;margin-top:1rem;">
-    <div class="history-label">النتائج الأخيرة</div>
+    <div class="history-label">النتائج الحديثة</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>النسبة المئوية للمولدات المولدات تنتج نسبة مئوية أو عشرية بين أي حد أدنى و أقصى تحدده، مع دقة تصل إلى ثلاثة أماكن عشرية. يمكنك أن تولد ما يصل إلى 20 قيم في آن واحد وتنسخ النتائج بالنقرة الواحدة. مفيد للاختبار، المحاكاة، الألعاب، وأي سيناريو يحتاج إلى نسبة عشوائية عادلة.</p>
+    <p>يُنتج مُولِّد النسب المئوية العشوائية نسبة مئوية أو عددًا عشريًا بين أي حد أدنى وحد أقصى تُحددهما، بدقة تصل إلى ثلاثة أرقام عشرية. يمكنك توليد ما يصل إلى 20 قيمة في وقت واحد ونسخ النتائج بنقرة واحدة. يُعد هذا المولِّد مفيدًا للاختبارات والمحاكاة والألعاب وأي سيناريو يتطلب نسبة عشوائية عادلة.</p>
 
-    <h2>????? ?????????</h2>
+    <h2>كيفية الاستخدام</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>حدد قيمك الدنيا والقصوى (العجز هو 0-100).</li>
-      <li>اختيار عدد الأماكن العشرية من صفر إلى 3.</li>
-      <li>تحديد عدد القيم التي ترغب في توليدها في آن واحد (حتى 20).</li>
-      <li>كليك جينرات النسبة المئوية للحصول على نتيجة الخاص بك.</li>
-      <li>استخدم زر النسخ ليحفظ النتائج إلى لوحتك</li>
+      <li>حدد القيم الدنيا والقصوى (القيمة الافتراضية هي 0-100).</li>
+      <li>اختر عدد المنازل العشرية من 0 إلى 3.</li>
+      <li>حدد عدد القيم التي تريد توليدها في وقت واحد (حتى 20).</li>
+      <li>انقر على "إنشاء النسبة المئوية" للحصول على النتيجة.</li>
+      <li>استخدم زر النسخ لحفظ النتائج في الحافظة.</li>
     </ol>
 
-    <h2>الاستخدامات المشتركة</h2>
+    <h2>الاستخدامات الشائعة</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>تبسيط معدلات الخصم أو علامات الأسعار في عمليات الأعمال التجارية</li>
-      <li>توليد قيم الاحتمالات العشوائية للترميز أو تطوير اللعبة</li>
-      <li>التمارين المدرسية في مجال الاحتمالات والإحصاءات</li>
-      <li>أدوات تصوير البيانات الاختبارية بنسب مئوية عشوائية واقعية</li>
-      <li>ألعاب صنع القرار حيثما تحدد نسبة مئوية من العتبة نتيجة</li>
-      <li>الإنجاز العشوائي أو التقدم المحرز فيما يتعلق بقيم البارايين</li>
+      <li>محاكاة معدلات الخصم أو هوامش الربح في التمارين التجارية</li>
+      <li>توليد قيم احتمالية عشوائية لأغراض البرمجة أو تطوير الألعاب</li>
+      <li>تمارين صفية في الاحتمالات والإحصاء</li>
+      <li>اختبار أدوات تصور البيانات باستخدام مدخلات نسب مئوية عشوائية واقعية</li>
+      <li>ألعاب اتخاذ القرار حيث تحدد نسبة مئوية معينة النتيجة</li>
+      <li>قيم عشوائية لإكمال أو شريط التقدم في تصميم واجهة المستخدم</li>
     </ul>
 
-    <h2>لماذا تستخدم سبينيت</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">كل قيمة تولد في مركبك بدون أي بيانات ترسل في أي مكان سجل النتائج يتتبع نواتجك الأخيرة حتى تتمكن من مقارنة القيم دون أخذ ملاحظات يعمل على أي جهاز بدون تركيب أو إشارة، ويدعم النطاقات التي تتجاوز صفر إلى 100 من أجل المرونة الكاملة.</p>
+    <h2>لماذا تستخدم Spinnit</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">يتم توليد كل قيمة في متصفحك دون إرسال أي بيانات إلى أي مكان. يسجل سجل النتائج مخرجاتك الأخيرة لتتمكن من مقارنة القيم دون الحاجة إلى تدوين ملاحظات. يعمل على أي جهاز دون تثبيت أو تسجيل دخول، ويدعم نطاقات تتجاوز 0-100 لمرونة كاملة.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة المتكررة</h2>
+    <h2>الأسئلة الشائعة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني تحديد الدقة العشرية؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم الأماكن العشرية تنخفض تجعلك تختار صفراً (أرقام الحفر) أو 1 أو 2 أو 3 أماكن عشرية في كل نتيجة</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني ضبط دقة الأرقام العشرية؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. تتيح لك القائمة المنسدلة للمنازل العشرية اختيار 0 (أعداد صحيحة)، أو 1، أو 2، أو 3 منازل عشرية في كل نتيجة يتم إنشاؤها.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني توليد أكثر من قيمة واحدة في كل مرة؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم حددي "كم قيمة؟" إلى ما يصل إلى 20 و كل النتائج ستظهر معاً</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني توليد أكثر من قيمة واحدة في وقت واحد؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. اضبط حقل "كم عدد القيم؟" على 20 كحد أقصى وستظهر جميع النتائج معًا، مفصولة بفواصل.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة حرة في استخدامها؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاناً تماماً بدون إشارة مطلوبة</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة مجانية الاستخدام؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاني تماماً ولا يتطلب التسجيل.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، كل أدوات سبينيت هي المتنقل الأول والعمل على أي جهاز.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف المحمول؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">الأدوات ذات الصلة</h2>
     <div class="related-grid">
-      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> عدد المولدات</a>
-      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> بكرة النرد</a>
-      <a class="related-card" href="colour-generator.html"><span class="ri">🎨</span> مولد اللون</a>
-      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> قائمة المتثاقل</a>
+      <a class="related-card" href="random-number.html"><span class="ri">🎲</span> مولد الأرقام العشوائية</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> أداة رمي النرد</a>
+      <a class="related-card" href="colour-generator.html"><span class="ri">🎨</span> مولد الألوان</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> مُبدِّل القوائم</a>
     </div>
   </section>
 
