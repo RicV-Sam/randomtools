@@ -33,7 +33,7 @@ module.exports = {
           tools: "الأدوات",
           blog: "المدونة",
           allTools: "كل الأدوات",
-          footerTagline: "مجاني دائما",
+          footerTagline: "مجاني دائماً",
           privacy: "الخصوصية",
           terms: "الشروط",
           about: "من نحن",

@@ -10,6 +10,7 @@ _site/
 
 # Translation cache (regenerates on demand)
 .translation-cache/
+arabic-polish-suggestions.json
 
 # Local secrets
 .env
