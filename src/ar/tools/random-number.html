@@ -1,6 +1,6 @@
 ---
 layout: layouts/base.njk
-title: مولد الأرقام العشوائية - أداة مجانية عبر الإنترنت | سبينيت
+title: مولد الأرقام العشوائية - أداة مجانية عبر الإنترنت | Spinnit
 description: >-
   قم بتوليد أرقام عشوائية فوراً ضمن أي نطاق مخصص. أداة مجانية للألعاب، والهدايا،
   والإحصائيات، واتخاذ القرارات.
@@ -19,7 +19,7 @@ jsonLd: |-
     }
   }
 extraHead: >
-  <meta name="twitter:title" content="مولد الأرقام العشوائية | سبينيت">
+  <meta name="twitter:title" content="مولد الأرقام العشوائية | Spinnit">
 
   <meta name="twitter:description" content="قم بتوليد أرقام عشوائية فوراً بين أي
   حد أدنى وحد أقصى. مجاني ومتوافق مع الأجهزة المحمولة.">
@@ -38,26 +38,26 @@ extraHead: >
       },
       {
         "@type": "Question",
-        "name": "هل يمكنني توليد عدة أرقام في وقت واحد؟",
+        "name": "هل يمكنني توليد عدة أرقام دفعة واحدة؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم. اضبط حقل \"كم عدد الأرقام؟\" على أي قيمة بين 1 و 100 وستظهر جميع النتائج معًا."
+          "text": "نعم. اضبط حقل \"عدد الأرقام\" على أي قيمة بين 1 و 100 وستظهر جميع النتائج معًا."
         }
       },
       {
         "@type": "Question",
-        "name": "هل هذه الأداة مجانية الاستخدام؟",
+        "name": "هل الأداة مجانية؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، مجاني تماماً ولا يتطلب التسجيل."
+          "text": "نعم، مجانية تمامًا ولا تتطلب تسجيلًا."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يعمل هذا على الهاتف المحمول؟",
+        "name": "هل يعمل هذا على الجوال؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز."
+          "text": "نعم، جميع أدوات Spinnit مخصصة للأجهزة المحمولة وتعمل على أي جهاز."
         }
       }
     ]
@@ -104,7 +104,7 @@ pageScript: |
       const btn = document.getElementById('copyBtn');
       btn.textContent = 'تم النسخ!';
       btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'نسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
+      setTimeout(() => { btn.textContent = 'انسخ النتيجة'; btn.classList.remove('copied'); }, 2000);
     });
   }
 
@@ -140,16 +140,16 @@ dir: rtl
       </div>
     </div>
     <div class="control-group">
-      <label>كم عدد الأرقام؟</label>
+      <label>عدد الأرقام</label>
       <input type="number" id="count" value="1" min="1" max="100">
     </div>
   </div>
 
   <button class="btn-generate" onclick="generate()">توليد رقم</button>
-  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">نسخ النتيجة</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">انسخ النتيجة</button>
 
   <div class="history" id="historySection" style="display:none">
-    <div class="history-label">النتائج الحديثة</div>
+    <div class="history-label">النتائج الأخيرة</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
@@ -159,13 +159,13 @@ dir: rtl
   <section class="tool-content" style="margin-top:2rem;">
     <p>تتيح لك أداة توليد الأرقام العشوائية اختيار أي رقم فورًا ضمن نطاق محدد من الأرقام. سواء كنت تُجري مسابقة، أو تُدرّس الإحصاء، أو تُنهي نقاشًا وديًا، فإنها تُعطيك نتيجة عادلة وموضوعية في كل مرة. ما عليك سوى تحديد النطاق، واختيار عدد الأرقام التي تحتاجها، ثم الضغط على زر "توليد".</p>
 
-    <h2>كيفية الاستخدام</h2>
+    <h2>طريقة الاستخدام</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
       <li>أدخل قيمة دنيا في حقل "الحد الأدنى" (القيمة الافتراضية هي 1).</li>
       <li>أدخل قيمة قصوى في حقل الحد الأقصى (القيمة الافتراضية هي 100).</li>
       <li>حدد عدد الأرقام التي تريد توليدها في المرة الواحدة (حتى 100).</li>
-      <li>انقر على "إنشاء رقم" أو اضغط على مفتاح المسافة أو مفتاح الإدخال.</li>
-      <li>استخدم زر النسخ لحفظ نتائجك في الحافظة.</li>
+      <li>اضغط زر "إنشاء رقم" أو اضغط مفتاح المسافة أو الإدخال.</li>
+      <li>استخدم زر النسخ لحفظ النتائج في الحافظة.</li>
     </ol>
 
     <h2>الاستخدامات الشائعة</h2>
@@ -178,10 +178,10 @@ dir: rtl
       <li>تخصيص أرقام عشوائية للطلاب أو أماكن جلوسهم في الفصل الدراسي</li>
     </ul>
 
-    <h2>لماذا تستخدم Spinnit</h2>
+    <h2>لماذا تختار Spinnit</h2>
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">يُنتج مُولّد Spinnit نتائج فورية في متصفحك دون الحاجة إلى أي إعداد أو حساب. تتم عملية التوزيع العشوائي محليًا، لذا لا يتم إرسال أي بيانات تُدخلها إلى خادم. يحتفظ سجل النتائج بآخر عشر نتائج لك، مما يُتيح لك المقارنة دون الحاجة إلى تدوين الملاحظات. يعمل البرنامج بكفاءة تامة على الهواتف المحمولة والأجهزة اللوحية وأجهزة الكمبيوتر المكتبية.</p>
 
-    <h2>العشوائية والإنصاف</h2>
+    <h2>العشوائية والنزاهة</h2>
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">صُممت هذه الأداة للاختيارات العشوائية اليومية: أرقام الفصول الدراسية، ورميات النرد في الألعاب، ومعرفات تذاكر اليانصيب، والعينات السريعة، والقرارات الودية. تستخدم الأداة تقنية العشوائية الزائفة عبر المتصفح، وهي سريعة وعادلة للاستخدام العادي، ولكن لا ينبغي استخدامها لمفاتيح الأمان، أو أنظمة المقامرة، أو السحوبات القانونية، أو أي شيء يتطلب عشوائية مُدققة.</p>
 
     <h2>أمثلة</h2>
@@ -194,31 +194,31 @@ dir: rtl
   </section>
 
   <section class="tool-content" style="margin-top:1.5rem;">
-    <h2>المجموعات الشائعة</h2>
+    <h2>مجموعات شائعة</h2>
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">انتقل مباشرة إلى نطاق شائع: <a href="random-number-1-2.html">1–2</a> · <a href="random-number-1-5.html">1–5</a> · <a href="random-number-1-6.html">1-6 (نرد)</a> · <a href="random-number-1-10.html">1–10</a> · <a href="random-number-1-20.html">1–20 (D20)</a> · <a href="random-number-1-25.html">1–25</a> · <a href="random-number-1-50.html">1–50</a> · <a href="random-number-1-100.html">1–100</a> · <a href="random-number-1-1000.html">1–1000</a> · <a href="random-number-1-1000000.html">1–1,000,000</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة الشائعة</h2>
+    <h2>الأسئلة المتكررة</h2>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل النتيجة مناسبة للاختيارات العشوائية اليومية؟</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. يستخدم المولد وظيفة توليد الأرقام العشوائية الزائفة المدمجة في متصفحك، وهي مناسبة للألعاب والأنشطة الصفية والهدايا والقرارات اليومية. وهي غير مخصصة لأغراض التشفير.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني توليد عدة أرقام في وقت واحد؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. قم بتعيين حقل "كم عدد الأرقام؟" إلى أي قيمة بين 1 و 100 وستظهر جميع النتائج معًا، مفصولة بفواصل.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني توليد عدة أرقام دفعة واحدة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. قم بتعيين حقل "عدد الأرقام" إلى أي قيمة بين 1 و 100 وستظهر جميع النتائج معًا، مفصولة بفواصل.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة مجانية الاستخدام؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاني تماماً ولا يتطلب التسجيل.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل الأداة مجانية؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجانية تمامًا ولا تتطلب تسجيلًا.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف المحمول؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الجوال؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، جميع أدوات Spinnit مخصصة للأجهزة المحمولة وتعمل على أي جهاز.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <h2 class="related-label">أدوات ذات صلة</h2>
     <div class="related-grid">
       <a class="related-card" href="dice-roller.html"><span class="ri">⚄</span> أداة رمي النرد</a>
-      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> رمية عملة معدنية</a>
-      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> مولد أرقام اليانصيب</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> رمي عملة معدنية</a>
+      <a class="related-card" href="lottery-picker.html"><span class="ri">🍀</span> مولد أرقام يانصيب</a>
       <a class="related-card" href="percentage-generator.html"><span class="ri">📊</span> نسبة عشوائية</a>
     </div>
   </section>

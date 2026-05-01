@@ -13,13 +13,13 @@ jsonLd: |-
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "أداة رمي النرد",
-    "description": "قم برمي أي نرد عبر الإنترنت — D4، D6، D8، D10، D12، D20، D100 ونرد مخصص",
+    "description": "ارمِ أي نرد على الإنترنت — D4، D6، D8، D10، D12، D20، D100 أو نرد مخصص",
     "url": "https://spinnit.site/ar/tools/dice-roller.html",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web"
   }
 extraHead: >
-  <meta name="twitter:title" content="أداة رمي النرد | سبينيت">
+  <meta name="twitter:title" content="أداة رمي النرد | Spinnit">
 
   <meta name="twitter:description" content="قم برمي أي نرد عبر الإنترنت. من D4
   إلى D100، مع إمكانية تخصيص الأوجه. مجاني ومتوافق مع الأجهزة المحمولة.">
@@ -30,7 +30,7 @@ extraHead: >
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "هل يمكنني رمي عدة نرد في وقت واحد؟",
+        "name": "هل يمكنني رمي عدة نرد في نفس الوقت؟",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "نعم. اضبط حقل \"عدد النرد\" على 20 كحد أقصى، وستعرض الأداة كل نتيجة على حدة بالإضافة إلى المجموع الكلي."
@@ -38,7 +38,7 @@ extraHead: >
       },
       {
         "@type": "Question",
-        "name": "ما هي أنواع النرد المتاحة؟",
+        "name": "ما أنواع النرد المتاحة؟",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "تتوفر الإعدادات المسبقة D4، D6، D8، D10، D12، D20، وD100. يمكنك أيضًا اختيار \"مخصص\" وإدخال أي عدد من الأوجه من 2 إلى 1000."
@@ -46,18 +46,18 @@ extraHead: >
       },
       {
         "@type": "Question",
-        "name": "هل هذه الأداة مجانية الاستخدام؟",
+        "name": "هل هذه الأداة مجانية؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، مجاني تماماً ولا يتطلب التسجيل."
+          "text": "نعم، الأداة مجانية بالكامل ولا تتطلب تسجيلًا."
         }
       },
       {
         "@type": "Question",
-        "name": "هل يعمل هذا على الهاتف المحمول؟",
+        "name": "هل تعمل هذه الأداة على الهواتف المحمولة؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز."
+          "text": "نعم، جميع أدوات Spinnit مصممة خصيصًا لتناسب الأجهزة المحمولة وتعمل على جميع الأجهزة."
         }
       }
     ]
@@ -130,14 +130,14 @@ dir: rtl
   <div class="tool-header">
     <div class="tool-icon">⚄</div>
     <h1>أداة رمي النرد</h1>
-    <p>قم برمي أي نوع من النرد، أي عدد من المرات</p>
+    <p>ارمِ أي نوع نرد بأي عدد من المرات</p>
   </div>
 
   <!-- AdSense -->
   <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
 
   <div class="result-box" id="resultBox" aria-live="polite" aria-atomic="true">
-    <div class="result-label" id="rollLabel">ألقِ النرد</div>
+    <div class="result-label" id="rollLabel">ارمِ النرد</div>
     <div class="result-number" id="result" style="font-size:clamp(1.8rem,10vw,4rem);">—</div>
     <div id="totalLabel" style="font-size:13px;color:var(--text2);display:none;"></div>
   </div>
@@ -146,18 +146,18 @@ dir: rtl
     <div class="control-group">
       <label>نوع النرد</label>
       <select id="diceType">
-        <option value="4">D4 (رباعي الجوانب)</option>
-        <option value="6" selected>D6 (سداسي الأضلاع)</option>
-        <option value="8">D8 (ثماني الأضلاع)</option>
+        <option value="4">D4 (رباعي الوجه)</option>
+        <option value="6" selected>D6 (سداسي الأوجه)</option>
+        <option value="8">D8 (ثماني الأوجه)</option>
         <option value="10">D10 (عشرة أضلاع)</option>
-        <option value="12">D12 (12 ضلعًا)</option>
-        <option value="20">D20 (مربع ذو 20 وجهًا)</option>
+        <option value="12">D12 (اثنا عشر وجهًا)</option>
+        <option value="20">D20 (عشرون وجهًا)</option>
         <option value="100">D100 (النسبة المئوية)</option>
         <option value="custom">مخصص</option>
       </select>
     </div>
     <div class="control-group" id="customGroup" style="display:none">
-      <label>جوانب مخصصة</label>
+      <label>عدد جوانب مخصص</label>
       <input type="number" id="customSides" value="30" min="2" max="1000">
     </div>
     <div class="control-group">
@@ -178,7 +178,7 @@ dir: rtl
   <button class="btn-generate" onclick="rollDice()">رمي النرد</button>
 
   <div class="history" id="historySection" style="display:none;margin-top:1rem;">
-    <div class="history-label">سجل التاريخ</div>
+    <div class="history-label">سجل النتائج</div>
     <div class="history-list" id="historyList"></div>
   </div>
 
@@ -187,11 +187,11 @@ dir: rtl
 
     <h2>كيفية الاستخدام</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li>اختر نوع النرد من القائمة المنسدلة (D4، D6، D8، D10، D12، D20، D100، أو مخصص).</li>
-      <li>إذا اخترت "مخصص"، فأدخل عدد الجوانب التي تحتاجها.</li>
-      <li>حدد عدد النرد الذي سيتم رميه في المرة الواحدة (حتى 20).</li>
-      <li>انقر فوق "رمي النرد"، أو استخدم أزرار الرمي السريع للأنواع الأكثر شيوعًا.</li>
-      <li>اضغط على مفتاح المسافة للتدحرج مرة أخرى على الفور دون استخدام الماوس.</li>
+      <li>اختر نوع النرد من القائمة (D4، D6، D8، D10، D12، D20، D100، أو مخصص).</li>
+      <li>إذا اخترت "مخصص"، أدخل عدد الجوانب التي تريدها.</li>
+      <li>حدد عدد النرد المراد رميه دفعة واحدة (حتى 20).</li>
+      <li>اضغط "ارم النرد" أو استخدم أزرار الرمي السريع للأنواع الشائعة.</li>
+      <li>اضغط مفتاح المسافة لإعادة الرمي فوراً دون استخدام الماوس.</li>
     </ol>
 
     <h2>الاستخدامات الشائعة</h2>
@@ -204,7 +204,7 @@ dir: rtl
       <li>حلّ القرارات داخل اللعبة أثناء لعب ألعاب الفيديو</li>
     </ul>
 
-    <h2>لماذا تستخدم Spinnit</h2>
+    <h2>لماذا تختار Spinnit</h2>
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">تُجرى جميع عمليات رمي النرد محليًا في متصفحك - لا حاجة لتثبيت أي تطبيق ولا أوقات تحميل. تدعم الأداة ما يصل إلى 20 نردًا في وقت واحد مع حساب المجموع تلقائيًا، مما يجعلها مثالية للاعبي ألعاب تقمص الأدوار الذين يحتاجون إلى نتائج سريعة أثناء اللعب. لا حاجة للتسجيل، ولا يتم تخزين أي بيانات، وتعمل على أي جهاز.</p>
   </section>
 
@@ -212,7 +212,7 @@ dir: rtl
     <h2>أساسيات الاحتمالات في لعبة النرد</h2>
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">يُعطي النرد الواحد المتوازن كل وجه نفس الاحتمالية. فمثلاً، يُعطي النرد ذو الستة أوجه (D6) احتمالية 1 من 6 لكل نتيجة، بينما يُعطي النرد ذو العشرين وجهاً (D20) احتمالية 1 من 20. عند رمي عدة نرد وجمع نتائجها، تصبح المجاميع الوسطى أكثر شيوعاً: فمع رمي نردين سداسيين (2d6)، يظهر الرقم 7 أكثر بكثير من الرقمين 2 أو 12، وذلك لوجود عدد أكبر من التوليفات التي تُنتجه.</p>
 
-    <h2>أمثلة على ألعاب تقمص الأدوار وألعاب الطاولة</h2>
+    <h2>أمثلة على ألعاب تقمص الأدوار والألعاب اللوحية</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
       <li><strong style="color:var(--text);">اختبار D&D:</strong> اختر D20 وقم برميه مرة واحدة لرمية هجوم أو رمية إنقاذ أو اختبار قدرة.</li>
       <li><strong style="color:var(--text);">نتيجة رمية الضرر:</strong> قم بتعيين D6 أو D8 أو D10 وقم بزيادة عدد النرد للتعاويذ أو الأسلحة أو هجمات الوحوش.</li>
@@ -223,26 +223,26 @@ dir: rtl
 
   <section class="tool-content" style="margin-top:1.5rem;">
     <h2>إعدادات النرد الشائعة</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تجاوز مرحلة الإعداد للرميات الشائعة: <a href="roll-2d6.html">قم برمي نردين سداسيين الأوجه (2d6).</a> · <a href="roll-3d6.html">قم برمي 3d6</a> · <a href="roll-4d6-drop-lowest.html">أقل معدل سقوط لـ 4d6 (إحصائيات D&D)</a> · <a href="roll-d100.html">قم برمي النرد ذي المئة وجه</a> · <a href="roll-d10.html">قم برمي النرد ذي العشرة أوجه (d10).</a> · <a href="random-number-1-20.html">قم برمي النرد ذي العشرين وجهًا</a> · <a href="random-number-1-6.html">قم برمي النرد ذي الستة أوجه</a>.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">تجاوز مرحلة الإعداد للرميات الشائعة: <a href="roll-2d6.html">ارمِ نردين سداسيي الأوجه (2d6)</a> · <a href="roll-3d6.html">ارمِ 3d6</a> · <a href="roll-4d6-drop-lowest.html">4d6 مع استبعاد الأقل (إحصائيات D&D)</a> · <a href="roll-d100.html">ارمِ نرد المئة وجه</a> · <a href="roll-d10.html">ارمِ نرد العشرة أوجه (d10)</a> · <a href="random-number-1-20.html">ارمِ نرد العشرين وجهًا</a> · <a href="random-number-1-6.html">ارمِ نرد الستة أوجه</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
-    <h2>الأسئلة الشائعة</h2>
+    <h2>الأسئلة المتكررة</h2>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني رمي عدة نرد في وقت واحد؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. اضبط حقل "عدد النرد" على 20 كحد أقصى، وستعرض الأداة كل نتيجة على حدة بالإضافة إلى المجموع الكلي.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يمكنني رمي عدة نرد في نفس الوقت؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم. اضبط "عدد النرد" حتى 20، وستُظهر الأداة نتائج كل نرد على حدة بالإضافة إلى المجموع الكلي.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ما هي أنواع النرد المتاحة؟</h3>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">ما أنواع النرد المتاحة؟</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">تتوفر الإعدادات المسبقة D4، D6، D8، D10، D12، D20، وD100. يمكنك أيضًا اختيار "مخصص" وإدخال أي عدد من الأوجه من 2 إلى 1000.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة مجانية الاستخدام؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، مجاني تماماً ولا يتطلب التسجيل.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل هذه الأداة مجانية؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، الأداة مجانية بالكامل ولا تتطلب تسجيلًا.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل يعمل هذا على الهاتف المحمول؟</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، جميع أدوات Spinnit مصممة خصيصاً للأجهزة المحمولة وتعمل على أي جهاز.</p>
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">هل تعمل هذه الأداة على الهواتف المحمولة؟</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">نعم، جميع أدوات Spinnit مصممة خصيصًا لتناسب الأجهزة المحمولة وتعمل على جميع الأجهزة.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
-    <h2 class="related-label">الأدوات ذات الصلة</h2>
+    <h2 class="related-label">أدوات ذات صلة</h2>
     <div class="related-grid">
       <a class="related-card" href="random-number.html"><span class="ri">🎲</span> مولد الأرقام العشوائية</a>
       <a class="related-card" href="coin-flip.html"><span class="ri">🪙</span> رمية عملة معدنية</a>
