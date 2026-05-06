@@ -84,6 +84,7 @@ canvas:focus-visible,
   font-weight: 700;
   color: var(--text);
   letter-spacing: -0.02em;
+  text-decoration: none;
 }
 .nav-logo span { color: var(--accent2); }
 .nav-back {
@@ -95,6 +96,15 @@ canvas:focus-visible,
   transition: color 0.2s;
 }
 .nav-back:hover { color: var(--text); }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.nav-links a { color: var(--text2); }
+.nav-links a:hover { color: var(--text); }
 
 /* HERO */
 .hero {
@@ -177,6 +187,40 @@ canvas:focus-visible,
   color: var(--accent2);
   font-family: var(--mono);
 }
+.link-clusters {
+  max-width: 960px;
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+}
+.link-clusters h2 {
+  font-size: clamp(1.1rem,3vw,1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+.cluster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 10px;
+}
+.cluster-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+}
+.cluster-card h3 {
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.cluster-card a {
+  display: block;
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.8;
+}
+.cluster-card a:hover { color: var(--accent2); }
 
 /* TOOL PAGE */
 .tool-page {
@@ -420,6 +464,12 @@ canvas:focus-visible,
 }
 .related-card:hover { border-color: var(--border2); color: var(--text); }
 .related-card .ri { font-size: 16px; }
+.related-note {
+  margin-top: 0.9rem;
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+}
 
 /* CATEGORY HUBS */
 .hub-page {
@@ -504,6 +554,10 @@ footer {
 }
 footer a { color: var(--text3); }
 footer a:hover { color: var(--text2); }
+.footer-popular {
+  margin-top: 0.75rem;
+  color: var(--text3);
+}
 
 /* SPINNER WHEEL */
 .wheel-container {
@@ -583,6 +637,8 @@ canvas#wheel { max-width: 100%; border-radius: 50%; }
   .control-row { grid-template-columns: 1fr; }
   .related-grid { grid-template-columns: 1fr; }
   .nav { padding: 0.75rem 1rem; }
+  .nav-links { gap: 8px; font-size: 11px; }
+  .nav-back { max-width: 8rem; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 }
 
 /* RTL locale support */

@@ -1,6 +1,6 @@
 ---
 layout: layouts/base.njk
-title: "Lottery Number Generator – UK, US &amp; More | Spinnit"
+title: "Lottery Number Generator – UK, US & More | Spinnit"
 description: "Generate random lottery numbers for UK Lotto, EuroMillions, Powerball, Mega Millions and more. Free lucky number picker."
 canonical: "https://spinnit.site/tools/lottery-picker.html"
 jsonLd: |
@@ -16,7 +16,7 @@ extraHead: |
         {
           "@type": "Question",
           "name": "Are these numbers truly random?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The generator uses a random shuffle of all possible numbers, giving every combination an equal chance of appearing." }
+          "acceptedAnswer": { "@type": "Answer", "text": "The generator uses a standard shuffle of the available numbers so each line is picked without replacement. It is useful for casual lucky picks, not for improving lottery odds." }
         },
         {
           "@type": "Question",
@@ -88,15 +88,23 @@ pageScript: |
   
   function pickLine(cfg) {
     const pool = Array.from({length:cfg.mainMax}, (_,i) => i+1);
-    const shuffled = pool.sort(() => Math.random()-0.5);
+    const shuffled = shufflePool(pool);
     const main = shuffled.slice(0, cfg.main).sort((a,b)=>a-b);
     const bonusBalls = [];
     if (cfg.bonus > 0) {
-      const bPool = Array.from({length:cfg.bonusMax}, (_,i)=>i+1).sort(()=>Math.random()-0.5);
+      const bPool = shufflePool(Array.from({length:cfg.bonusMax}, (_,i)=>i+1));
       for(let i=0;i<cfg.bonus;i++) bonusBalls.push(bPool[i]);
       bonusBalls.sort((a,b)=>a-b);
     }
     return {main, bonus: bonusBalls};
+  }
+
+  function shufflePool(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
   }
   
   function pick() {
@@ -231,14 +239,14 @@ pageScript: |
     </ul>
 
     <h2>Why Use Spinnit</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Numbers are picked using a fair random shuffle — the same method used to deal cards — so every combination is equally likely. The tool covers nine major lotteries plus a fully configurable custom mode. Free, instant, no account required, and works perfectly on mobile.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Numbers are picked with a standard Fisher-Yates shuffle, similar to shuffling a deck before dealing. The tool covers nine major lotteries plus a fully configurable custom mode. Free, instant, no account required, and works on mobile.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Frequently Asked Questions</h2>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are these numbers truly random?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The generator uses a random shuffle of all possible numbers, giving every combination an equal chance of appearing. No number is more likely than any other.</p>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">The generator shuffles the available numbers and picks without replacement, so a line will not contain duplicates. It is useful for casual lucky picks, but it does not improve your odds of winning.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate multiple lines at once?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set the "Number of lines" field to up to 6 and all lines will be generated together, clearly labelled and separated.</p>

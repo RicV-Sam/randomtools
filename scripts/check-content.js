@@ -151,6 +151,20 @@ function main() {
     errors.push("sitemap data is missing Arabic URLs");
   }
 
+  if (!Array.isArray(pageLocales.sitemapEntries) || pageLocales.sitemapEntries.length !== pageLocales.sitemapUrls.length) {
+    errors.push("sitemap entries must match sitemap URL count");
+  } else {
+    for (const entry of pageLocales.sitemapEntries) {
+      if (!entry || !pageLocales.sitemapUrls.includes(entry.loc)) {
+        errors.push(`sitemap entry has unknown loc (${entry && entry.loc})`);
+        continue;
+      }
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(entry.lastmod || "")) {
+        errors.push(`sitemap entry has invalid lastmod for ${entry.loc}`);
+      }
+    }
+  }
+
   if (errors.length) {
     console.error(`check-content failed with ${errors.length} issue(s):`);
     for (const e of errors) console.error(`- ${e}`);
