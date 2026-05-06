@@ -4,6 +4,7 @@ const matter = require("gray-matter");
 
 const SRC = path.resolve(__dirname, "..");
 const languages = require("./languages.json");
+const site = require("./site.json");
 const localizedCodes = new Set(languages.available.map((l) => l.code).filter((code) => code !== languages.default));
 
 function walk(dir, out = []) {
@@ -28,6 +29,15 @@ function urlFromRel(rel) {
 
 const pageLocales = {};
 const sitemapUrls = [];
+const sitemapEntryMap = new Map();
+
+function formatDate(value) {
+  if (!value) return site.sitemapLastmod || "2026-05-06";
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  const text = String(value).trim();
+  const match = text.match(/^\d{4}-\d{2}-\d{2}/);
+  return match ? match[0] : (site.sitemapLastmod || "2026-05-06");
+}
 
 function sortUrl(a, b) {
   if (a === "https://spinnit.site/") return -1;
@@ -50,10 +60,17 @@ for (const file of walk(SRC)) {
 
   if (!parsed.data.noindex && parsed.data.canonical) {
     const loc = String(parsed.data.canonical).replace(/\/index\.html$/, "/");
+    const lastmod = formatDate(parsed.data.dateModified || parsed.data.updated || parsed.data.datePublished);
     if (!sitemapUrls.includes(loc)) sitemapUrls.push(loc);
+    if (!sitemapEntryMap.has(loc)) {
+      sitemapEntryMap.set(loc, { loc, lastmod });
+    } else if (lastmod > sitemapEntryMap.get(loc).lastmod) {
+      sitemapEntryMap.get(loc).lastmod = lastmod;
+    }
   }
 }
 
 pageLocales.sitemapUrls = sitemapUrls.sort(sortUrl);
+pageLocales.sitemapEntries = Array.from(sitemapEntryMap.values()).sort((a, b) => sortUrl(a.loc, b.loc));
 
 module.exports = pageLocales;
