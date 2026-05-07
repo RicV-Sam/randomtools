@@ -15,7 +15,10 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsenseClient }}" crossorigin="anonymous"></script>
 <title>{{ title }}</title>
 <meta name="description" content="{{ description }}">
-{%- if noindex %}
+{%- set canonicalPath = canonical | replace(site.url, "") if canonical else page.url %}
+{%- set localeIncomplete = translationStatus == "incomplete" or (incompleteLocalePages and incompleteLocalePages.indexOf(canonicalPath) != -1) or (incompleteLocalePages and incompleteLocalePages.indexOf(page.url) != -1) %}
+{%- set isNoindex = noindex or localeIncomplete %}
+{%- if isNoindex %}
 <meta name="robots" content="noindex, follow">
 {%- endif %}
 {%- if ogTitle or title %}
@@ -36,9 +39,9 @@
 {%- endif %}
 {#- hreflang alternates: derive each language's URL from the canonical by
     stripping any current language prefix and prepending the target's. -#}
-{%- if canonical and languages and not noAlternates %}
+{%- if canonical and languages and not noAlternates and not isNoindex %}
 {%- set currentLang = lang or languages.default %}
-{%- set basePath = canonical | replace(site.url, "") %}
+{%- set basePath = canonicalPath %}
 {%- if currentLang != languages.default %}
   {%- set stripped = basePath | replace("/" + currentLang + "/", "/") %}
 {%- else %}
