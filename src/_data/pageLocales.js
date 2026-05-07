@@ -5,6 +5,7 @@ const matter = require("gray-matter");
 const SRC = path.resolve(__dirname, "..");
 const languages = require("./languages.json");
 const site = require("./site.json");
+const incompleteLocalePages = new Set(require("./incompleteLocalePages.json"));
 const localizedCodes = new Set(languages.available.map((l) => l.code).filter((code) => code !== languages.default));
 
 function walk(dir, out = []) {
@@ -45,6 +46,18 @@ function sortUrl(a, b) {
   return a.localeCompare(b);
 }
 
+function localizedUrl(lang, url) {
+  if (lang === languages.default) return url;
+  const locale = languages.available.find((l) => l.code === lang);
+  const prefix = locale && locale.prefix ? locale.prefix : `/${lang}`;
+  return `${prefix}${url}`;
+}
+
+function isIndexReady(lang, url, data) {
+  if (data.noindex || data.translationStatus === "incomplete") return false;
+  return !incompleteLocalePages.has(localizedUrl(lang, url));
+}
+
 for (const file of walk(SRC)) {
   let rel = path.relative(SRC, file).replace(/\\/g, "/");
   const first = rel.split("/")[0];
@@ -55,10 +68,13 @@ for (const file of walk(SRC)) {
   if (parsed.data.permalink === false) continue;
 
   const url = urlFromRel(rel);
-  if (!pageLocales[url]) pageLocales[url] = [];
-  if (!pageLocales[url].includes(lang)) pageLocales[url].push(lang);
+  const indexReady = isIndexReady(lang, url, parsed.data);
+  if (indexReady) {
+    if (!pageLocales[url]) pageLocales[url] = [];
+    if (!pageLocales[url].includes(lang)) pageLocales[url].push(lang);
+  }
 
-  if (!parsed.data.noindex && parsed.data.canonical) {
+  if (indexReady && parsed.data.canonical) {
     const loc = String(parsed.data.canonical).replace(/\/index\.html$/, "/");
     const lastmod = formatDate(parsed.data.dateModified || parsed.data.updated || parsed.data.datePublished);
     if (!sitemapUrls.includes(loc)) sitemapUrls.push(loc);

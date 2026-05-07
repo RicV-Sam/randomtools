@@ -9,6 +9,7 @@ const SITE_URL = "https://spinnit.site";
 const languages = JSON.parse(fs.readFileSync(path.join(SRC, "_data", "languages.json"), "utf8"));
 const localeMap = Object.fromEntries(languages.available.map((l) => [l.code, l]));
 const pageLocales = require(path.join(SRC, "_data", "pageLocales.js"));
+const incompleteLocalePages = JSON.parse(fs.readFileSync(path.join(SRC, "_data", "incompleteLocalePages.json"), "utf8"));
 
 function walk(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -17,6 +18,17 @@ function walk(dir, out = []) {
     else if (entry.isFile() && entry.name.endsWith(".html")) out.push(full);
   }
   return out;
+}
+
+function urlFromRel(rel) {
+  const withoutExt = rel.replace(/\.html$/, "");
+  if (withoutExt === "index") return "/";
+  if (withoutExt.endsWith("/index")) return `/${withoutExt.replace(/\/index$/, "/")}`;
+  return `/${withoutExt}.html`;
+}
+
+function urlForFile(file) {
+  return urlFromRel(path.relative(SRC, file).replace(/\\/g, "/"));
 }
 
 function fail(list, file, message) {
@@ -136,10 +148,12 @@ function checkArabicEnglishLeftovers(errors, file, raw) {
 function main() {
   const files = walk(SRC);
   const errors = [];
+  const fileUrls = new Set();
 
   for (const file of files) {
     const raw = fs.readFileSync(file, "utf8");
     const { data } = matter(raw);
+    fileUrls.add(urlForFile(file));
     checkJsonLd(errors, file, data);
     checkLocalizedUrls(errors, file, data);
     checkArabicEnglishLeftovers(errors, file, raw);
@@ -162,6 +176,15 @@ function main() {
       if (!/^\d{4}-\d{2}-\d{2}$/.test(entry.lastmod || "")) {
         errors.push(`sitemap entry has invalid lastmod for ${entry.loc}`);
       }
+    }
+  }
+
+  for (const url of incompleteLocalePages) {
+    if (!fileUrls.has(url)) {
+      errors.push(`incomplete locale page does not exist (${url})`);
+    }
+    if (pageLocales.sitemapUrls.includes(`${SITE_URL}${url}`)) {
+      errors.push(`incomplete locale page is present in sitemap data (${url})`);
     }
   }
 
