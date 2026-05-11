@@ -1,17 +1,19 @@
 ---
 layout: layouts/base.njk
-title: "Random Number Between 1 and 50 – Free Instant Picker | Spinnit"
-description: "Generate a random number between 1 and 50 instantly. Free fair picker for bingo, giveaways, group activities and classroom games."
-ogTitle: "Random Number Between 1 and 50 | Spinnit"
-ogDescription: "Instant fair random pick from 1 to 50 — great for bingo and mid-size draws."
+title: "Random Number 1–50 — Free Bingo & Raffle Number Picker | Spinnit"
+description: "Pick a random number between 1 and 50 for bingo calls, raffles and 50-person draws. Free, fair, instant — call multiple numbers in one tap."
+ogTitle: "Random Number 1–50 — Bingo & Raffle Picker | Spinnit"
+ogDescription: "Fair 1–50 number picker — bingo, raffles, mid-size draws. Call multiple in one tap."
 canonical: "https://spinnit.site/tools/random-number-1-50.html"
 jsonLd: |
   {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Number Between 1 and 50","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 extraHead: |
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-      {"@type":"Question","name":"Are both 1 and 50 possible?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every number from 1 to 50 has a 2% chance on every draw."}},
-      {"@type":"Question","name":"Can I use this to call bingo?","acceptedAnswer":{"@type":"Answer","text":"Yes for 1–50 bingo. For no-repeat draws, shuffle a list of 1–50 and call them in shuffled order."}},
+      {"@type":"Question","name":"How do I use a random number 1–50 picker for bingo?","acceptedAnswer":{"@type":"Answer","text":"For a 1–50 bingo game, tap Generate before each call. For a real no-repeat cage where every number is called once, use the List Shuffler with numbers 1–50 and call them in shuffled order."}},
+      {"@type":"Question","name":"Can I use random number 1–50 to pick a raffle winner?","acceptedAnswer":{"@type":"Answer","text":"Yes. Number each entry from 1 to 50, announce the range before drawing, then tap Generate once. Screen-record the draw or show the result on a projector to keep it transparent."}},
+      {"@type":"Question","name":"Can I generate multiple random numbers between 1 and 50 at once?","acceptedAnswer":{"@type":"Answer","text":"Yes — set 'How many numbers?' up to 100. Draws are independent so duplicates can appear. For unique-only picks (no repeats), use the List Shuffler instead."}},
+      {"@type":"Question","name":"Are both 1 and 50 possible?","acceptedAnswer":{"@type":"Answer","text":"Yes. The range is inclusive — every number from 1 to 50 has a 2% chance on every draw."}},
       {"@type":"Question","name":"Does the generator remember previous picks?","acceptedAnswer":{"@type":"Answer","text":"It shows your last ten picks but won't exclude them. Each draw is statistically independent."}}
     ]}
   </script>
@@ -51,8 +53,8 @@ pageScript: |
 
   <div class="tool-header">
     <div class="tool-icon">🔢</div>
-    <h1>Random Number Between 1 and 50</h1>
-    <p>A fair pick from one to fifty</p>
+    <h1>Random number 1 to 50 — instant, fair, free</h1>
+    <p>Built for bingo calls, raffles and any 50-entry draw. Tap once.</p>
   </div>
 
   <div class="result-box" id="resultBox">
@@ -76,7 +78,7 @@ pageScript: |
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>A range of 1 to 50 is one of the most common mid-size draws. It's big enough to feel like a real draw, small enough that every number feels reachable. Perfect for school bingo, mid-size raffles, and any group of up to fifty people.</p>
+    <p>A random number between 1 and 50 is one of the most common mid-size draws — big enough to feel like a proper draw, small enough that every number feels reachable. Built for school and office bingo, raffle winner selection, 50-entry giveaways, and any group of up to fifty people. Generate one number per tap or call up to 100 at once. Free, fair, no sign-up, works on phones and projectors.</p>
 
     <h2>Where 1–50 shines</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -97,11 +99,17 @@ pageScript: |
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Frequently Asked Questions</h2>
 
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How do I use a random number 1–50 picker for bingo?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">For a 1–50 bingo game, tap Generate before each call. For a real no-repeat cage where every number is called once, use the <a href="list-shuffler.html">List Shuffler</a> with numbers 1–50 and call them in shuffled order.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use random number 1–50 to pick a raffle winner?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Number each entry from 1 to 50, announce the range before drawing, then tap Generate once. Screen-record the draw or show the result on a projector to keep it transparent.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate multiple random numbers between 1 and 50 at once?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes — set <em>How many numbers?</em> up to 100. Draws are independent so duplicates can appear. For unique-only picks (no repeats), use the List Shuffler instead.</p>
+
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are both 1 and 50 possible?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The range is inclusive — every number from 1 to 50 has a 2% chance on every draw.</p>
-
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this to call bingo?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">For 1–50 bingo style games, yes. For real no-repeat bingo, shuffle a list of 1–50 with the List Shuffler and call them in shuffled order.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does the generator remember previous picks?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">It shows your last ten picks on screen, but won't exclude them. Each draw is statistically independent.</p>

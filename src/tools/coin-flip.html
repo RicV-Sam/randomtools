@@ -1,13 +1,13 @@
 ---
 layout: layouts/base.njk
-title: "Coin Flip – Heads or Tails Online | Spinnit"
-description: "Flip a virtual coin online instantly. Free heads or tails coin flipper with flip history and stats. Works on all devices."
+title: "Flip a Coin 100 Times — Online Coin Toss with Heads/Tails Count | Spinnit"
+description: "Flip a coin once, 10 times, or 100 times in a row. Free online coin toss with a heads/tails counter and best-of-3 mode. No sign-up, works on mobile."
 canonical: "https://spinnit.site/tools/coin-flip.html"
 jsonLd: |
   {"@context":"https://schema.org","@type":"WebApplication","name":"Coin Flip","description":"Virtual coin flip — heads or tails instantly","url":"https://spinnit.site/tools/coin-flip.html","applicationCategory":"UtilityApplication","operatingSystem":"Web"}
 extraHead: |
-  <meta name="twitter:title" content="Coin Flip | Spinnit">
-  <meta name="twitter:description" content="Flip a coin online. Heads or tails — instant result with flip counter. Free and mobile-friendly.">
+  <meta name="twitter:title" content="Flip a Coin 100 Times Online | Spinnit">
+  <meta name="twitter:description" content="Free online coin toss — flip once, 10 times, or 100 in a row with a running heads/tails count.">
   <script type="application/ld+json">
   {
       "@context": "https://schema.org",
@@ -15,8 +15,23 @@ extraHead: |
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "How do I flip a coin 100 times in a row?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Tap the coin (or press Space) repeatedly — the heads/tails counter tracks every flip and the history strip shows your last 15 results. Most users hit 100 flips in about a minute." }
+        },
+        {
+          "@type": "Question",
+          "name": "How does best-of-3 coin flip work?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Decide what heads and tails mean, then flip up to three times. The first side to win two flips wins. The heads/tails counter makes the running score obvious without writing anything down." }
+        },
+        {
+          "@type": "Question",
           "name": "Is the flip truly 50/50?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Each flip is an independent random event with exactly a 50% chance of heads or tails. Previous results have no influence on the next flip." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Each flip is an independent random event with exactly a 50% chance of heads or tails. Previous results have no influence on the next flip — five heads in a row is normal and the sixth is still 50/50." }
+        },
+        {
+          "@type": "Question",
+          "name": "How likely is it to flip heads 5 times in a row?",
+          "acceptedAnswer": { "@type": "Answer", "text": "1 in 32, or about 3.1%. The odds of any specific 5-flip sequence are (1/2)^5. Over 100 flips you'll usually see at least one streak of 5 or more." }
         },
         {
           "@type": "Question",
@@ -25,13 +40,8 @@ extraHead: |
         },
         {
           "@type": "Question",
-          "name": "Is this tool free to use?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." }
-        },
-        {
-          "@type": "Question",
           "name": "Does this work on mobile?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, all Spinnit tools are mobile-first and work on any device with no sign-up." }
         }
       ]
     }
@@ -108,8 +118,8 @@ pageScript: |
 
   <div class="tool-header">
     <div class="tool-icon">🪙</div>
-    <h1>Coin Flip</h1>
-    <p>Tap to flip — heads or tails?</p>
+    <h1>Flip a coin — once, 10 times, or 100 in a row</h1>
+    <p>Tap to flip. The counter tracks every heads and tails for you.</p>
   </div>
 
   <div class="result-box" id="resultBox" onclick="flip()" role="button" tabindex="0" aria-label="Flip coin" aria-live="polite" aria-atomic="true" style="cursor:pointer;user-select:none;">
@@ -138,7 +148,7 @@ pageScript: |
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>The Coin Flip tool gives you an instant heads or tails result with a single tap. It tracks your flip history and counts heads and tails separately, so you can spot any streaks over a long session. Perfect for quick decisions, sports captains choosing ends, or just satisfying curiosity about probability.</p>
+    <p>Flip a coin online — once for a quick decision, or 100 times in a row to settle a debate, run a probability experiment, or break a stubborn tie. The heads/tails counter and 15-flip history strip make best-of-3 and best-of-5 calls effortless: no scrap paper, no tally marks, just tap and watch the score. Free, no sign-up, works on phones, tablets and classroom projectors.</p>
 
     <h2>How to Use</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -174,17 +184,23 @@ pageScript: |
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Frequently Asked Questions</h2>
 
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How do I flip a coin 100 times in a row?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Tap the coin (or press Space) repeatedly — the heads/tails counter tracks every flip and the history strip shows your last 15 results. Most users hit 100 flips in about a minute.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How does best-of-3 coin flip work?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Decide what heads and tails mean, then flip up to three times. The first side to win two flips wins. The heads/tails counter makes the running score obvious without writing anything down.</p>
+
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is the flip truly 50/50?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Each flip is an independent random event with exactly a 50% chance of heads or tails, using your browser's built-in random function. Previous results have no influence on the next flip.</p>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Each flip is an independent random event with exactly a 50% chance of heads or tails, using your browser's built-in random function. Five heads in a row is normal and the sixth flip is still 50/50.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How likely is it to flip heads 5 times in a row?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">1 in 32, or about 3.1%. The odds of any specific 5-flip sequence are (1/2)<sup>5</sup>. Over 100 flips you'll usually see at least one streak of 5 or more.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I flip multiple coins at once?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">The coin flip tool flips one coin per tap. For multiple simultaneous results, try the Random Number Generator set to a range of 0–1.</p>
 
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this tool free to use?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, completely free with no sign-up required.</p>
-
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this work on mobile?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, all Spinnit tools are mobile-first and work on any device.</p>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, all Spinnit tools are mobile-first and work on any device with no sign-up.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">Related Tools</h2>
