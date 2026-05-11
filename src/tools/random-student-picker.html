@@ -1,17 +1,20 @@
 ---
 layout: layouts/base.njk
-title: "Random Student Picker – Free Classroom Name Picker | Spinnit"
-description: "A free random student picker for teachers. Paste your class roster, tap once to pick a student. Works on projectors, phones and tablets. No sign-up."
-ogTitle: "Random Student Picker | Spinnit"
-ogDescription: "Free classroom name picker — paste names, tap to pick. Projector-friendly."
+title: "Random Student Picker (No Repeats) — Fair Classroom Name Picker | Spinnit"
+description: "Random student picker with no-repeats mode — every student gets a turn before any name is called twice. Free, projector-friendly, no sign-up."
+ogTitle: "Random Student Picker — No Repeats Until Everyone's Picked | Spinnit"
+ogDescription: "Fair classroom name picker — paste your roster, tap to pick, no repeats until everyone's had a turn."
 canonical: "https://spinnit.site/tools/random-student-picker.html"
 jsonLd: |
   {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Student Picker","applicationCategory":"EducationalApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 extraHead: |
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-      {"@type":"Question","name":"Is my class list saved anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Names live only in your browser tab. Nothing is sent to a server."}},
-      {"@type":"Question","name":"What happens when every student has been picked?","acceptedAnswer":{"@type":"Answer","text":"The tool announces the list is complete and you can tap Reset to start again."}},
+      {"@type":"Question","name":"How does no-repeat mode work in the random student picker?","acceptedAnswer":{"@type":"Answer","text":"Tick 'Don't pick the same student twice' and every student gets called once before any name can be picked again. Once everyone's had a turn the tool announces the round is complete — tap Reset to start a fresh round."}},
+      {"@type":"Question","name":"Is this random student picker fair for cold calling?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each remaining student has the same chance on every pick, and no-repeat mode guarantees an equal turn count across the round — removing any perception that you're targeting individuals."}},
+      {"@type":"Question","name":"Can I use the student picker on a classroom projector?","acceptedAnswer":{"@type":"Answer","text":"Yes. The picked name renders in large text designed to read from the back of the room. Press F11 for full-screen, and the tool works on any device including interactive whiteboards."}},
+      {"@type":"Question","name":"Is my class list saved anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Names live only in your browser tab. Nothing is sent to a server and no account is required — close the tab and the roster is gone."}},
+      {"@type":"Question","name":"What happens when every student has been picked?","acceptedAnswer":{"@type":"Answer","text":"The tool announces the list is complete and you can tap Reset to start again from the full roster."}},
       {"@type":"Question","name":"Can I use this for a whole-school assembly?","acceptedAnswer":{"@type":"Answer","text":"Yes. There's no roster length limit and the picker runs instantly even on hundreds of names."}}
     ]}
   </script>
@@ -81,8 +84,8 @@ pageScript: |
 
   <div class="tool-header">
     <div class="tool-icon">🎒</div>
-    <h1>Random Student Picker</h1>
-    <p>Paste your class roster, tap once to pick a student</p>
+    <h1>Pick a student at random — without repeats until everyone's had a turn</h1>
+    <p>Paste your class roster, tap once. No-repeat mode keeps it fair.</p>
   </div>
 
   <div class="result-box" id="resultBox">
@@ -110,7 +113,7 @@ pageScript: |
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>A random student picker is the calmest way to call on the class. No hands up, no favourites, no guessing who's been quiet — the tool picks, and everyone accepts the result. Paste your roster once, tap once per question, and the "don't pick twice" option makes sure every student gets a turn before anyone gets asked again.</p>
+    <p>A random student picker with no-repeats mode is the calmest way to call on the class — every student gets a turn before any name comes up twice. No hands up, no favourites, no guessing who's been quiet. Paste your roster once, tap once per question, and tick "Don't pick the same student twice" to guarantee a fair rotation across the whole lesson. Free, projector-friendly, no sign-up, runs entirely in your browser so the roster never leaves the device.</p>
 
     <h2>How teachers use it</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -131,11 +134,20 @@ pageScript: |
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Frequently Asked Questions</h2>
 
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How does no-repeat mode work in the random student picker?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Tick "Don't pick the same student twice" and every student gets called once before any name can be picked again. Once everyone's had a turn the tool announces the round is complete — tap <em>Reset list</em> to start a fresh round.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this random student picker fair for cold calling?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Each remaining student has the same chance on every pick, and no-repeat mode guarantees an equal turn count across the round — removing any perception that you're targeting individuals.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use the student picker on a classroom projector?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The picked name renders in large text designed to read from the back of the room. Press F11 for full-screen, and the tool works on any device including interactive whiteboards.</p>
+
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is my class list saved anywhere?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. The names live only in this browser tab. Close the tab and they're gone — nothing is sent to a server, and no account is required.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What happens when every student has been picked?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">If "Don't pick the same student twice" is ticked, the tool announces the list is complete and lets you tap <em>Reset list</em> to start again from the full roster.</p>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">The tool announces the list is complete and lets you tap <em>Reset list</em> to start again from the full roster.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this for a whole-school assembly?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes — there's no limit on the roster length, and the picker runs instantly even on a list of several hundred names.</p>

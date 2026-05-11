@@ -1,18 +1,20 @@
 ---
 layout: layouts/base.njk
-title: "Random Number Between 1 and 100 – Free Generator | Spinnit"
-description: "Generate a random number between 1 and 100 instantly. Free online picker for raffles, giveaways, percentages and classroom activities. No sign-up."
-ogTitle: "Random Number Between 1 and 100 | Spinnit"
-ogDescription: "Free instant random number between 1 and 100. Perfect for raffles, percentages and giveaways."
+title: "Random Number 1–100 — Giveaway & Raffle Winner Picker | Spinnit"
+description: "Pick a random number between 1 and 100 for giveaways, raffle winners, percentage rolls and 100-entry draws. Free, fair, instant — no sign-up."
+ogTitle: "Random Number 1–100 — Giveaway & Raffle Winner Picker | Spinnit"
+ogDescription: "Pick a fair random number 1 to 100 — built for giveaways, raffle draws and percentage rolls."
 canonical: "https://spinnit.site/tools/random-number-1-100.html"
 jsonLd: |
   {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Number Between 1 and 100","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 extraHead: |
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"How do I pick a giveaway winner with a random number 1–100?","acceptedAnswer":{"@type":"Answer","text":"Number each entry from 1 to 100, announce the range and method publicly before drawing, then tap Generate once. Screen-record the pick or display the result on a live stream to keep the draw transparent and auditable."}},
+      {"@type":"Question","name":"Can I generate multiple random numbers between 1 and 100 at once?","acceptedAnswer":{"@type":"Answer","text":"Yes — set 'How many numbers?' up to 100. Draws are independent so duplicates can appear. For unique-only winner picks, use the List Shuffler with numbers 1–100 instead."}},
+      {"@type":"Question","name":"Is a random number 1–100 picker fair enough for a real raffle?","acceptedAnswer":{"@type":"Answer","text":"Yes. The generator uses the browser's built-in random function, which is unbiased and unpredictable in practice. Many small raffles, livestream giveaways and social media draws rely on exactly this method."}},
       {"@type":"Question","name":"Are both 1 and 100 included?","acceptedAnswer":{"@type":"Answer","text":"Yes. The range is inclusive on both ends, so both 1 and 100 can appear as results."}},
-      {"@type":"Question","name":"Is every number equally likely?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each integer from 1 to 100 has the same 1-in-100 chance of being picked."}},
-      {"@type":"Question","name":"Can I use this for a real giveaway?","acceptedAnswer":{"@type":"Answer","text":"Yes. The generator is unbiased and unpredictable. Announce the range and method before drawing to keep it transparent."}}
+      {"@type":"Question","name":"Is every number equally likely?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each integer from 1 to 100 has the same 1-in-100 chance of being picked on each generation."}}
     ]}
   </script>
 pageScript: |
@@ -57,8 +59,8 @@ pageScript: |
 
   <div class="tool-header">
     <div class="tool-icon">🎲</div>
-    <h1>Random Number Between 1 and 100</h1>
-    <p>Instantly pick a fair number from 1 to 100</p>
+    <h1>Pick a random number 1 to 100 — fair giveaway draw</h1>
+    <p>Built for raffle winners, giveaways and percentage rolls. Tap once.</p>
   </div>
 
   <div class="result-box" id="resultBox">
@@ -82,7 +84,7 @@ pageScript: |
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>A random number between 1 and 100 is the go-to picker for raffles, percentage rolls and classroom demonstrations. This generator gives you a fair result in one tap with no setup, no sign-up and no tracking. Every number from 1 to 100 has an equal chance of appearing.</p>
+    <p>A random number between 1 and 100 is the go-to pick for giveaway winners, raffle draws, percentage rolls and any 100-entry decision. Number your entries 1 to 100, tap Generate, and announce the result — fair, transparent, and easy to screen-record for a public draw. Every number from 1 to 100 has an equal chance of appearing on every tap. Free, no sign-up, no tracking; works on phones, tablets, projectors and live streams.</p>
 
     <h2>When you might need this</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -103,14 +105,20 @@ pageScript: |
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Frequently Asked Questions</h2>
 
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How do I pick a giveaway winner with a random number 1–100?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Number each entry from 1 to 100, announce the range and method publicly before drawing, then tap Generate once. Screen-record the pick or display the result on a live stream to keep the draw transparent and auditable.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate multiple random numbers between 1 and 100 at once?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes — set <em>How many numbers?</em> up to 100. Draws are independent so duplicates can appear. For unique-only winner picks, use the <a href="list-shuffler.html">List Shuffler</a> with numbers 1–100 instead.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is a random number 1–100 picker fair enough for a real raffle?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The generator uses the browser's built-in random function, which is unbiased and unpredictable in practice. Many small raffles, livestream giveaways and social-media draws rely on exactly this method — always announce the range and method first to keep it transparent.</p>
+
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are both 1 and 100 included?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The range is inclusive on both ends, so both 1 and 100 can appear as results.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is every number equally likely?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Each integer from 1 to 100 has the same 1-in-100 chance of being picked on each generation.</p>
-
-    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this for a real giveaway?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The generator is driven by the browser's cryptographic entropy source, which is unbiased and unpredictable. Always announce the range and method before drawing to keep the process transparent.</p>
   </section>
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">Related Tools</h2>
