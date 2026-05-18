@@ -34,6 +34,11 @@ const sitemapEntryMap = new Map();
 const sitemapAllowlist = new Set([
   "https://spinnit.site/",
   "https://spinnit.site/classroom-random-tools/",
+  "https://spinnit.site/classroom-random-tools/random-student-picker-guide/",
+  "https://spinnit.site/classroom-random-tools/no-repeat-student-picker/",
+  "https://spinnit.site/classroom-random-tools/random-team-generator-for-classrooms/",
+  "https://spinnit.site/classroom-random-tools/wheel-of-names-classroom-ideas/",
+  "https://spinnit.site/classroom-random-tools/fair-classroom-participation/",
   "https://spinnit.site/tools/",
   "https://spinnit.site/tools/random-student-picker.html",
   "https://spinnit.site/tools/wheel-of-names.html",
@@ -68,6 +73,7 @@ function priorityFor(loc) {
   const p = loc.replace("https://spinnit.site", "");
   if (p === "/" || p === "") return "1.0";
   if (p === "/classroom-random-tools/") return "0.95";
+  if (p.startsWith("/classroom-random-tools/")) return "0.85";
   if (p.startsWith("/ar/")) return "0.3";
   if (p.startsWith("/de/")) return "0.5";
   if (p.startsWith("/tools/")) return "0.9";
