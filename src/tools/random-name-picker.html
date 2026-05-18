@@ -1,0 +1,131 @@
+---
+layout: layouts/base.njk
+title: "Random Name Picker for Classrooms, Games and Giveaways | Spinnit"
+description: "Paste a list of names and pick one at random. Useful for classrooms, games, giveaways, teams and everyday decisions."
+ogTitle: "Random Name Picker | Spinnit"
+ogDescription: "Paste names and pick one or several at random. Free, fast, and useful for classrooms, games and giveaways."
+canonical: "https://spinnit.site/tools/random-name-picker.html"
+dateModified: "2026-05-18"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "Classroom Random Tools"
+    url: "/classroom-random-tools/"
+  - label: "Random Name Picker"
+    url: "/tools/random-name-picker.html"
+jsonLd: |
+  {"@context":"https://schema.org","@type":"WebPage","name":"Random Name Picker","url":"https://spinnit.site/tools/random-name-picker.html","description":"Paste a list of names and pick one or more at random."}
+extraHead: |
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Can I use this random name picker in class?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste a class list and pick one or more names for questions, presentations, activities or classroom games."}},
+      {"@type":"Question","name":"Are names uploaded to Spinnit?","acceptedAnswer":{"@type":"Answer","text":"No. The picker runs in your browser and does not upload your list."}},
+      {"@type":"Question","name":"Can I pick more than one name?","acceptedAnswer":{"@type":"Answer","text":"Yes. Set how many names to pick and the tool will return that many unique names from the current list."}}
+    ]}
+  </script>
+pageScript: |
+  function getNames() {
+    return document.getElementById('namesInput').value.split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
+  }
+  function pick() {
+    const names = getNames();
+    if (!names.length) { alert('Paste some names first.'); return; }
+    const count = Math.min(parseInt(document.getElementById('count').value) || 1, Math.min(50, names.length));
+    const pool = [...names];
+    const picks = [];
+    for (let i = 0; i < count; i++) {
+      const idx = Math.floor(Math.random() * pool.length);
+      picks.push(pool.splice(idx, 1)[0]);
+    }
+    document.getElementById('result').textContent = picks.join(', ');
+    const box = document.getElementById('resultBox');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  }
+  function copyResult() {
+    const val = document.getElementById('result').textContent;
+    if (val === '-') return;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy result'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  bindGlobalShortcut(pick);
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">&#127922;</div>
+    <h1>Random Name Picker</h1>
+    <p>Paste a list of names and pick one or more at random</p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-label">your pick</div>
+    <div class="result-number" id="result" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">-</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Names (one per line or comma-separated)</label>
+      <textarea id="namesInput" rows="7" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;" placeholder="Maya&#10;Leo&#10;Sofia&#10;Noah"></textarea>
+    </div>
+    <div class="control-group" style="margin-top:10px;">
+      <label>How many to pick?</label>
+      <input type="number" id="count" value="1" min="1" max="50">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="pick()">PICK NAME</button>
+  <button class="btn-copy" id="copyBtn" onclick="copyResult()" style="margin-top:8px;">Copy result</button>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>This random name picker is a quick way to choose from a list without spinning a wheel. Teachers can use it for questions, presentation order, classroom games, or choosing helpers. It also works for giveaways, teams, meetings, party games and everyday decisions.</p>
+
+    <h2>How to use it</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Paste names into the box, one per line or separated by commas.</li>
+      <li>Choose how many names you want to pick.</li>
+      <li>Click Pick Name to get a random result.</li>
+      <li>Use Copy result if you need to paste the chosen name elsewhere.</li>
+    </ol>
+
+    <h2>Classroom examples</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Pick one student to answer the next question.</li>
+      <li>Pick three students for a quick review activity.</li>
+      <li>Choose a presentation order or reading order.</li>
+      <li>Pick a classroom helper, topic, reward or game option.</li>
+    </ul>
+
+    <h2>Privacy</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Names stay in your browser while you use the page. Spinnit does not require a login and does not upload your list.</p>
+
+    <h2>Related classroom tools</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For a teacher-specific picker with no-repeat mode, use the <a href="random-student-picker.html">Random Student Picker</a>. For a visual classroom display, try the <a href="wheel-of-names.html">Wheel of Names</a>. For group work, use the <a href="team-picker.html">Random Team Generator</a> or <a href="list-shuffler.html">List Shuffler</a>. You can also start from the <a href="/classroom-random-tools/">Classroom Random Tools hub</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this random name picker in class?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Paste a class list and pick one or more names for questions, presentations, activities or classroom games.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are names uploaded to Spinnit?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. The picker runs in your browser and does not upload your list.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I pick more than one name?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set how many names to pick and the tool will return that many unique names from the current list.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-student-picker.html"><span class="ri">&#127890;</span> Student Picker</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">&#127905;</span> Wheel of Names</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">&#128101;</span> Team Picker</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">&#128256;</span> List Shuffler</a>
+    </div>
+    <p class="related-note"><a href="/classroom-random-tools/">View all classroom random picker tools</a>.</p>
+  </section>
+</main>

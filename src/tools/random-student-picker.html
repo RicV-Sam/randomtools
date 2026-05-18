@@ -1,12 +1,20 @@
 ---
 layout: layouts/base.njk
-title: "Random Student Picker (No Repeats) — Fair Classroom Name Picker | Spinnit"
-description: "Random student picker with no-repeats mode — every student gets a turn before any name is called twice. Free, projector-friendly, no sign-up."
+title: "Random Student Picker - No Repeats Classroom Tool | Spinnit"
+description: "Pick students fairly from a class list with a free random student picker. Use no-repeat mode, save time in class, and make classroom participation easier."
 ogTitle: "Random Student Picker — No Repeats Until Everyone's Picked | Spinnit"
 ogDescription: "Fair classroom name picker — paste your roster, tap to pick, no repeats until everyone's had a turn."
 canonical: "https://spinnit.site/tools/random-student-picker.html"
+dateModified: "2026-05-18"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "Classroom Random Tools"
+    url: "/classroom-random-tools/"
+  - label: "Random Student Picker"
+    url: "/tools/random-student-picker.html"
 jsonLd: |
-  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Student Picker","applicationCategory":"EducationalApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  {"@context":"https://schema.org","@type":"WebPage","name":"Random Student Picker","url":"https://spinnit.site/tools/random-student-picker.html","description":"Pick students fairly from a class list with no-repeat mode."}
 extraHead: |
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
@@ -115,6 +123,8 @@ pageScript: |
   <section class="tool-content" style="margin-top:2rem;">
     <p>A random student picker with no-repeats mode is the calmest way to call on the class — every student gets a turn before any name comes up twice. No hands up, no favourites, no guessing who's been quiet. Paste your roster once, tap once per question, and tick "Don't pick the same student twice" to guarantee a fair rotation across the whole lesson. Free, projector-friendly, no sign-up, runs entirely in your browser so the roster never leaves the device.</p>
 
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">This tool is part of Spinnit's <a href="/classroom-random-tools/">Classroom Random Tools</a> cluster for teachers.</p>
+
     <h2>How teachers use it</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
       <li><strong>Cold calling</strong> — ask a question, let the tool pick who answers</li>
@@ -128,7 +138,7 @@ pageScript: |
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">The picked name is rendered in large text so it reads from the back of the room. For an even bigger display, press F11 to go full-screen. Names entered in the roster are never sent anywhere — the whole tool runs in your browser.</p>
 
     <h2>Want a visual wheel?</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For a spinning animated version that kids love, use the <a href="wheel-of-names.html">Wheel of Names</a>. It supports the same name-list input with a proper wheel animation. Also try the <a href="random-name-picker-no-repeat.html">no-repeat name picker</a>, the <a href="team-picker.html">Team Picker</a> for group work, or the <a href="list-shuffler.html">List Shuffler</a> to shuffle a roster in one go.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For a spinning animated version that kids love, use the <a href="wheel-of-names.html">Wheel of Names</a>. It supports the same name-list input with a proper wheel animation. Also try the <a href="random-name-picker.html">Random Name Picker</a>, the <a href="team-picker.html">Team Picker</a> for group work, or the <a href="list-shuffler.html">List Shuffler</a> to shuffle a roster in one go.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
@@ -157,9 +167,10 @@ pageScript: |
     <div class="related-grid">
       <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Wheel of Names</a>
       <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
-      <a class="related-card" href="random-name-picker-no-repeat.html"><span class="ri">🎯</span> No-Repeat Picker</a>
+      <a class="related-card" href="random-name-picker.html"><span class="ri">🎯</span> Name Picker</a>
       <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
     </div>
+    <p class="related-note"><a href="/classroom-random-tools/">View all classroom random picker tools</a>.</p>
   </section>
 
 </main>
