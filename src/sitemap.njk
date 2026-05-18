@@ -5,6 +5,6 @@ eleventyExcludeFromCollections: true
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {%- for entry in pageLocales.sitemapEntries %}
-  <url><loc>{{ entry.loc }}</loc><lastmod>{{ entry.lastmod }}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>{{ entry.loc }}</loc><lastmod>{{ entry.lastmod }}</lastmod><changefreq>{{ entry.changefreq }}</changefreq><priority>{{ entry.priority }}</priority></url>
 {%- endfor %}
 </urlset>

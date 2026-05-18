@@ -1,4 +1,4 @@
-const CACHE = 'spinnit-v2';
+const CACHE = 'spinnit-v3';
 const OFFLINE_URL = '/offline.html';
 const ASSETS = [
   '/',
@@ -9,6 +9,7 @@ const ASSETS = [
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   '/tools/',
+  '/classroom-random-tools/',
   '/tools/random-number.html',
   '/tools/dice-roller.html',
   '/tools/coin-flip.html',
@@ -24,7 +25,6 @@ const ASSETS = [
   '/tools/random-country.html',
   '/tools/random-name-generator.html',
   '/tools/dice/',
-  '/tools/classroom/',
   '/tools/giveaway/',
   '/tools/decision-makers/',
   '/tools/password-security/',
