@@ -1,0 +1,79 @@
+---
+layout: layouts/base.njk
+title: "How to Use a Random Number Generator Fairly | Spinnit"
+description: "A practical guide to using a random number generator: choose clear ranges, include endpoints, draw multiple numbers, and avoid simple fairness mistakes."
+ogTitle: "How to Use a Random Number Generator"
+ogDescription: "Choose clear ranges, avoid bias, and document simple random number draws."
+ogType: article
+canonical: "https://spinnit.site/blog/how-to-use-a-random-number-generator.html"
+navBackHref: "/blog/"
+navBackLabel: "blog"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Use a Random Number Generator",
+    "description": "A practical guide to using random number generators for everyday draws and decisions.",
+    "author": { "@type": "Organization", "name": "Spinnit" },
+    "publisher": { "@type": "Organization", "name": "Spinnit", "url": "https://spinnit.site/" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "mainEntityOfPage": "https://spinnit.site/blog/how-to-use-a-random-number-generator.html"
+  }
+extraHead: |
+  <meta name="twitter:card" content="summary_large_image">
+pageStyle: |
+  .prose { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .prose .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.75rem; }
+  .prose h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 0.5rem; background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .prose .byline { font-family: var(--mono); font-size: 12px; color: var(--text3); margin-bottom: 2.5rem; }
+  .prose h2 { font-size: 18px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; margin: 2.25rem 0 0.75rem; }
+  .prose p, .prose li { font-size: 15px; color: var(--text2); line-height: 1.75; }
+  .prose ul, .prose ol { padding-left: 1.35rem; margin: 0.5rem 0 1rem; }
+  .prose li { margin-bottom: 0.35rem; }
+  .prose a { color: var(--accent2); }
+  .prose a:hover { color: var(--text); }
+  .prose strong { color: var(--text); }
+  .cta-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 2rem 0; }
+  .cta-card h3 { margin-top: 0; color: var(--text); font-size: 16px; }
+  .cta-card p { margin: 0.4rem 0; font-size: 14px; }
+  .cta-card a { font-family: var(--mono); font-size: 13px; }
+---
+<article class="prose">
+  <p class="eyebrow">Random numbers</p>
+  <h1>How to use a random number generator fairly</h1>
+  <p class="byline">Published 25 May 2026 &middot; 4 min read</p>
+
+  <p>A random number generator is simple, but the setup around it matters. Most disputes come from unclear ranges, duplicate entries, or changing the rule after the result appears. Decide those things first and the actual draw becomes boring in the best possible way.</p>
+
+  <h2>Start with a clear range</h2>
+  <p>Write down the lowest and highest possible number before you generate anything. If you have 100 tickets, the range is 1 to 100. If spreadsheet rows 2 through 251 contain entries, either renumber them 1 to 250 or make it clear that row 2 is part of the draw.</p>
+
+  <p>For custom ranges, use the <a href="/tools/random-number.html">Random Number Generator</a>. For common ranges, presets such as <a href="/tools/random-number-1-10.html">1 to 10</a>, <a href="/tools/random-number-1-20.html">1 to 20</a> and <a href="/tools/random-number-1-100.html">1 to 100</a> save setup time.</p>
+
+  <h2>Remember that endpoints are included</h2>
+  <p>On Spinnit, a range of 1 to 100 can return 1, 100, or any integer between them. That is usually what people expect, but it is worth saying out loud for public draws: "I am drawing one number from 1 through 100, inclusive."</p>
+
+  <h2>Use multiple results carefully</h2>
+  <p>If you need three winners, decide whether you want three separate draws or one draw that returns three numbers. For everyday use, generating several numbers at once is fine. For a public giveaway, a cleaner approach is often to draw the main winner first, then draw backups in order so everyone understands the sequence.</p>
+
+  <h2>Avoid accidental bias</h2>
+  <ul>
+    <li>Do not redraw just because the result "feels weird". Streaks and surprising numbers are normal.</li>
+    <li>Do not change the range after seeing the result.</li>
+    <li>Do not map names to numbers after the draw. Assign numbers first, then generate.</li>
+    <li>For names, handles or options, use a <a href="/tools/name-picker-tools/">name picker tool</a> instead of numbering them by hand.</li>
+  </ul>
+
+  <h2>Document simple public draws</h2>
+  <p>For a classroom activity, you probably do not need proof. For a giveaway, raffle or community draw, record the entry list, the range, the draw time and the result. A screen recording or screenshot is usually enough for small informal draws, as long as the rules were clear before the draw happened.</p>
+
+  <div class="cta-card">
+    <h3>Use the right number tool</h3>
+    <p><a href="/tools/random-number.html">Random Number Generator</a> - custom ranges and multiple results</p>
+    <p><a href="/tools/random-number-tools/">Random Number Tools hub</a> - common ranges and presets</p>
+    <p><a href="/tools/random-number-1-100.html">Random Number 1-100</a> - raffles, percentages and classroom picks</p>
+  </div>
+
+  <p>The rule of thumb is simple: define the range, generate once, keep the result. The tool does the random part; your job is to make the setup clear enough that nobody has to guess what the result means.</p>
+</article>
