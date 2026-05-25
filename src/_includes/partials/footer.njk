@@ -1,10 +1,14 @@
 <footer>
 {%- set localePrefix = locale.prefix or '' -%}
 {%- set labels = locale.labels or {} -%}
+{%- set aiHref = localePrefix + '/ai/' -%}
+{%- if localePrefix == '/de' -%}
+  {%- set aiHref = '/ai/' -%}
+{%- endif -%}
 {%- if footerVariant == "short" %}
   <p>Spinnit &copy; {{ site.year }} - {{ labels.footerTagline or 'free forever' }} &nbsp;|&nbsp; <a href="{{ localePrefix }}/privacy.html">{{ labels.privacy or 'Privacy' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/about.html">{{ labels.about or 'About' }}</a></p>
 {%- else %}
-  <p>Spinnit &copy; {{ site.year }} - {{ labels.footerTagline or 'free forever' }} &nbsp;|&nbsp; <a href="{{ localePrefix }}/tools/">{{ labels.allTools or 'All Tools' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/blog/">{{ labels.blog or 'Blog' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/ai/">AI tools</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/privacy.html">{{ labels.privacy or 'Privacy' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/terms.html">{{ labels.terms or 'Terms' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/about.html">{{ labels.about or 'About' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/contact.html">{{ labels.contact or 'Contact' }}</a></p>
+  <p>Spinnit &copy; {{ site.year }} - {{ labels.footerTagline or 'free forever' }} &nbsp;|&nbsp; <a href="{{ localePrefix }}/tools/">{{ labels.allTools or 'All Tools' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/blog/">{{ labels.blog or 'Blog' }}</a> &nbsp;|&nbsp; <a href="{{ aiHref }}">AI tools</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/privacy.html">{{ labels.privacy or 'Privacy' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/terms.html">{{ labels.terms or 'Terms' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/about.html">{{ labels.about or 'About' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/contact.html">{{ labels.contact or 'Contact' }}</a></p>
   <p class="footer-popular">Popular: <a href="{{ localePrefix }}/tools/random-number.html">Random Number</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/tools/dice-roller.html">Dice Roller</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/tools/wheel-of-names.html">Wheel of Names</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/tools/team-picker.html">Team Picker</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/tools/password-generator.html">Password Generator</a></p>
 {%- endif %}
 </footer>
