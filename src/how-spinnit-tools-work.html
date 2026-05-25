@@ -1,0 +1,71 @@
+---
+layout: layouts/base.njk
+title: "How Spinnit Tools Work - Randomness, Privacy & Fair Use"
+description: "How Spinnit's random tools work in the browser, how everyday randomness differs from secure password generation, and when to use each tool."
+ogTitle: "How Spinnit Tools Work"
+ogDescription: "A practical explanation of Spinnit's browser-based random tools, privacy approach, and fairness limits."
+canonical: "https://spinnit.site/how-spinnit-tools-work.html"
+dateModified: "2026-05-25"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "How Spinnit Tools Work",
+    "url": "https://spinnit.site/how-spinnit-tools-work.html",
+    "description": "How Spinnit's random tools work in the browser, including randomness, privacy and fair-use guidance.",
+    "isPartOf": { "@type": "WebSite", "name": "Spinnit", "url": "https://spinnit.site/" }
+  }
+---
+<main class="hub-page">
+  <h1>How Spinnit tools work</h1>
+  <p class="lede">Spinnit is built as a set of lightweight browser tools. You open a page, enter the options you need, and the result is generated on your device. This page explains what that means for randomness, privacy, fairness and sensible use.</p>
+
+  <section class="hub-section">
+    <h2>Browser-first tools</h2>
+    <p class="hub-note">The random number, name picker, wheel, dice, team picker and list tools run in your browser with JavaScript. Spinnit does not need an account, server database or uploaded file to produce a result. If you paste a class list, giveaway entries or names into a tool, the tool logic uses that text in the page you already have open.</p>
+    <p class="hub-note">Some site-level services, such as Google measurement or advertising scripts, may load separately as described in the <a href="/privacy.html">Privacy Policy</a>. Spinnit tool code is not designed to send your pasted lists, generated passwords or random results to Spinnit servers.</p>
+  </section>
+
+  <section class="hub-section">
+    <h2>Randomness by tool type</h2>
+    <div class="hub-grid">
+      <div class="hub-card">
+        <h3>Everyday random tools</h3>
+        <p>Tools such as the random number generator, dice roller, coin flip, name picker and list shuffler use browser-based pseudo-randomness. That is appropriate for games, classrooms, informal draws and everyday choices.</p>
+      </div>
+      <div class="hub-card">
+        <h3>Password generator</h3>
+        <p>The password generator uses the browser Web Cryptography API through <code>crypto.getRandomValues()</code>, which is designed for stronger random values than ordinary game-style randomness.</p>
+      </div>
+      <div class="hub-card">
+        <h3>Fairness depends on setup</h3>
+        <p>A random tool can only choose fairly from the options it receives. Duplicate names, missing entries, unclear rules or changing the list after the draw can all make a result feel unfair.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section">
+    <h2>When Spinnit is a good fit</h2>
+    <div class="hub-grid">
+      <a class="hub-card" href="/tools/random-number.html"><h3>Numbered draws</h3><p>Pick from ticket numbers, spreadsheet rows, classroom seat numbers or custom numeric ranges.</p></a>
+      <a class="hub-card" href="/tools/random-student-picker.html"><h3>Classroom turns</h3><p>Pick students fairly, especially when no-repeat mode helps everyone get a turn before repeats.</p></a>
+      <a class="hub-card" href="/tools/random-winner-picker.html"><h3>Informal winners</h3><p>Draw winners from a pasted list once your entry rules and duplicate handling are clear.</p></a>
+      <a class="hub-card" href="/tools/password-generator.html"><h3>Strong passwords</h3><p>Create unique passwords with secure browser randomness, then save them in a password manager.</p></a>
+    </div>
+  </section>
+
+  <section class="hub-section">
+    <h2>When not to rely on it alone</h2>
+    <p class="hub-note">Do not use everyday Spinnit random tools as the sole system for gambling, legal lotteries, financial decisions, medical decisions, security keys, official audits or any draw that requires certified randomness and independent oversight. For those situations, use the required official process. Spinnit is best for fast, transparent, low-stakes random choices.</p>
+  </section>
+
+  <section class="hub-section">
+    <h2>Useful next pages</h2>
+    <div class="hub-grid">
+      <a class="hub-card" href="/randomness-and-fairness.html"><h3>Randomness and fairness</h3><p>How to prepare lists, handle duplicates and explain a random result clearly.</p></a>
+      <a class="hub-card" href="/tools/random-number-tools/"><h3>Random number tools</h3><p>Choose the right number generator or range preset.</p></a>
+      <a class="hub-card" href="/tools/name-picker-tools/"><h3>Name picker tools</h3><p>Compare wheels, pickers, no-repeat tools, shufflers and winner pickers.</p></a>
+      <a class="hub-card" href="/privacy.html"><h3>Privacy Policy</h3><p>Read the practical privacy details for Spinnit and third-party services.</p></a>
+    </div>
+  </section>
+</main>

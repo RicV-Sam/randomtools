@@ -1,0 +1,92 @@
+---
+layout: layouts/base.njk
+title: "Dice Notation Guide - d4, d6, d8, d10, d12, d20 and d100 | Spinnit"
+description: "Learn dice notation for tabletop games: what d20 means, how 2d6 works, when to use d100, and which online dice roller to use."
+ogTitle: "Dice Notation Guide"
+ogDescription: "A practical guide to d4, d6, d8, d10, d12, d20, d100 and multi-dice rolls."
+ogType: article
+canonical: "https://spinnit.site/blog/dice-notation-guide.html"
+dateModified: "2026-05-25"
+navBackHref: "/blog/"
+navBackLabel: "blog"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Dice Notation Guide - d4, d6, d8, d10, d12, d20 and d100",
+    "description": "A practical guide to tabletop dice notation and common online dice rolls.",
+    "author": { "@type": "Organization", "name": "Spinnit" },
+    "publisher": { "@type": "Organization", "name": "Spinnit", "url": "https://spinnit.site/" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "mainEntityOfPage": "https://spinnit.site/blog/dice-notation-guide.html"
+  }
+pageStyle: |
+  .prose { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .prose .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.75rem; }
+  .prose h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 0.5rem; background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .prose .byline { font-family: var(--mono); font-size: 12px; color: var(--text3); margin-bottom: 2.5rem; }
+  .prose h2 { font-size: 18px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; margin: 2.25rem 0 0.75rem; }
+  .prose h3 { font-size: 15px; font-weight: 600; color: var(--accent2); font-family: var(--mono); letter-spacing: 0.03em; margin: 1.75rem 0 0.5rem; }
+  .prose p, .prose li { font-size: 15px; color: var(--text2); line-height: 1.75; }
+  .prose ul, .prose ol { padding-left: 1.35rem; margin: 0.5rem 0 1rem; }
+  .prose li { margin-bottom: 0.35rem; }
+  .prose a { color: var(--accent2); }
+  .prose a:hover { color: var(--text); }
+  .prose strong { color: var(--text); }
+  .prose code { font-family: var(--mono); font-size: 13px; color: var(--accent2); background: var(--bg2); padding: 2px 6px; border-radius: 4px; }
+  .cta-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 2rem 0; }
+  .cta-card h3 { margin-top: 0; color: var(--text); font-family: inherit; text-transform: none; letter-spacing: -0.01em; font-size: 16px; }
+  .cta-card p { margin: 0.4rem 0; font-size: 14px; }
+  .cta-card a { font-family: var(--mono); font-size: 13px; }
+---
+<article class="prose">
+  <p class="eyebrow">Tabletop dice</p>
+  <h1>Dice notation explained</h1>
+  <p class="byline">Published 25 May 2026 &middot; 6 min read</p>
+
+  <p>Tabletop games often describe dice with short codes like <code>d20</code>, <code>2d6</code> or <code>1d100</code>. Once you know the pattern, the notation is easy: the number before the <code>d</code> tells you how many dice to roll, and the number after the <code>d</code> tells you how many sides each die has.</p>
+
+  <h2>The basic pattern</h2>
+  <p><code>NdX</code> means "roll N dice, each with X sides." So <code>1d20</code> means roll one twenty-sided die. <code>2d6</code> means roll two six-sided dice and add them together. If the first number is missing, people usually mean one die: <code>d6</code> is the same as <code>1d6</code>.</p>
+
+  <h2>Common dice and what they are for</h2>
+  <ul>
+    <li><strong>d4:</strong> small damage rolls, potions, improvised effects and compact random tables.</li>
+    <li><strong>d6:</strong> board games, classic dice rolls, many damage rolls and quick random choices.</li>
+    <li><strong>d8:</strong> weapon damage, hit dice and mid-sized random tables.</li>
+    <li><strong>d10:</strong> percentile systems, resource tables and games built around ten-step outcomes.</li>
+    <li><strong>d12:</strong> larger damage rolls and twelve-option tables.</li>
+    <li><strong>d20:</strong> ability checks, attacks and saving throws in many d20-style tabletop games.</li>
+    <li><strong>d100:</strong> percentile rolls, loot tables, encounter tables and rare-event checks.</li>
+  </ul>
+
+  <h2>Multi-dice rolls</h2>
+  <p>When notation starts with a number higher than one, roll that many dice and add them. <code>3d6</code> means roll three six-sided dice. <code>4d6</code> means roll four six-sided dice. Some rules add an extra instruction, such as <code>4d6 drop lowest</code>, where you roll four dice, remove the lowest die, and add the remaining three.</p>
+  <p>Spinnit has presets for <a href="/tools/roll-2d6.html">2d6</a>, <a href="/tools/roll-3d6.html">3d6</a>, <a href="/tools/roll-4d6-drop-lowest.html">4d6 drop lowest</a>, <a href="/tools/roll-d10.html">d10</a> and <a href="/tools/roll-d100.html">d100</a>.</p>
+
+  <h2>Modifiers: plus and minus numbers</h2>
+  <p>You will often see rolls like <code>1d20 + 5</code> or <code>2d6 - 1</code>. Roll the dice first, add them if there is more than one, then apply the modifier. A <code>1d20 + 5</code> roll that lands on 12 becomes 17. A <code>2d6 - 1</code> roll with dice showing 4 and 3 becomes 6.</p>
+
+  <h2>Advantage and disadvantage</h2>
+  <p>Some games ask you to roll two d20s and keep one. With advantage, roll two d20s and use the higher result. With disadvantage, roll two d20s and use the lower result. The notation may be written informally as "roll with advantage" rather than as a pure dice code.</p>
+
+  <h2>Percentile dice and d100</h2>
+  <p>A d100 result gives a number from 1 to 100. Physical tables often roll two ten-sided dice: one for the tens digit and one for the ones digit. Online, a <a href="/tools/roll-d100.html">d100 roller</a> can return the percentile result directly. Use it for loot tables, random encounters, event odds or any rule that asks for a percentage-style roll.</p>
+
+  <h2>Which online dice tool should I use?</h2>
+  <ul>
+    <li>Use the <a href="/tools/dice-roller.html">full Dice Roller</a> when you need custom dice or several dice at once.</li>
+    <li>Use the <a href="/tools/dice/">Dice Roller Tools hub</a> when you want to jump between presets.</li>
+    <li>Use <a href="/tools/roll-4d6-drop-lowest.html">4d6 Drop Lowest</a> for D&amp;D-style ability scores.</li>
+    <li>Use the <a href="/tools/random-number-tools/">Random Number Tools hub</a> when the result is a plain number range rather than a dice roll.</li>
+  </ul>
+
+  <div class="cta-card">
+    <h3>Roll now</h3>
+    <p>-> <a href="/tools/dice-roller.html">Dice Roller</a></p>
+    <p>-> <a href="/tools/dice/">Dice Roller Tools hub</a></p>
+    <p>-> <a href="/blog/how-to-roll-4d6-drop-lowest-for-dnd.html">4d6 drop lowest guide</a></p>
+    <p>-> <a href="/blog/dice-roller-for-tabletop-games.html">Online dice roller for tabletop games</a></p>
+  </div>
+</article>

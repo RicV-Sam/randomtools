@@ -31,29 +31,16 @@ function urlFromRel(rel) {
 const pageLocales = {};
 const sitemapUrls = [];
 const sitemapEntryMap = new Map();
-const sitemapAllowlist = new Set([
-  "https://spinnit.site/",
-  "https://spinnit.site/classroom-random-tools/",
-  "https://spinnit.site/classroom-random-tools/random-student-picker-guide/",
-  "https://spinnit.site/classroom-random-tools/no-repeat-student-picker/",
-  "https://spinnit.site/classroom-random-tools/random-team-generator-for-classrooms/",
-  "https://spinnit.site/classroom-random-tools/wheel-of-names-classroom-ideas/",
-  "https://spinnit.site/classroom-random-tools/fair-classroom-participation/",
-  "https://spinnit.site/tools/",
-  "https://spinnit.site/tools/random-student-picker.html",
-  "https://spinnit.site/tools/wheel-of-names.html",
-  "https://spinnit.site/tools/random-name-picker.html",
-  "https://spinnit.site/tools/team-picker.html",
-  "https://spinnit.site/tools/list-shuffler.html",
-  "https://spinnit.site/tools/random-number.html",
-  "https://spinnit.site/tools/coin-flip.html",
-  "https://spinnit.site/tools/dice-roller.html",
-  "https://spinnit.site/blog/how-to-use-a-wheel-of-names-for-classroom.html",
-  "https://spinnit.site/blog/how-to-pick-random-teams-fairly.html",
-  "https://spinnit.site/privacy.html",
-  "https://spinnit.site/contact.html",
+const localizedSitemapAllowlist = new Set([
   "https://spinnit.site/ar/"
 ]);
+const sitemapPathBlocklist = [
+  /^\/(?:ar|de)\//,
+  /^\/ai\//,
+  /^\/offline\.html$/,
+  /^\/404\.html$/,
+  /\/404\.html$/
+];
 
 function formatDate(value) {
   if (!value) return site.sitemapLastmod || "2026-05-06";
@@ -79,14 +66,14 @@ function priorityFor(loc) {
   if (p.startsWith("/tools/")) return "0.9";
   if (p.startsWith("/blog/")) return "0.8";
   if (p.startsWith("/ai/")) return "0.7";
-  if (/^\/(about|contact|privacy|terms)\.html$/.test(p)) return "0.4";
+  if (/^\/(about|contact|privacy|terms|how-spinnit-tools-work|randomness-and-fairness)\.html$/.test(p)) return "0.4";
   return "0.6";
 }
 
 function changefreqFor(loc) {
   const p = loc.replace("https://spinnit.site", "");
   if (p === "/" || p === "/tools/" || p === "/blog/" || p === "/ai/") return "weekly";
-  if (/^\/(about|contact|privacy|terms)\.html$/.test(p)) return "yearly";
+  if (/^\/(about|contact|privacy|terms|how-spinnit-tools-work|randomness-and-fairness)\.html$/.test(p)) return "yearly";
   return "monthly";
 }
 
@@ -100,6 +87,12 @@ function localizedUrl(lang, url) {
 function isIndexReady(lang, url, data) {
   if (data.noindex || data.translationStatus === "incomplete") return false;
   return !incompleteLocalePages.has(localizedUrl(lang, url));
+}
+
+function isSitemapAllowed(lang, loc) {
+  if (lang !== languages.default) return localizedSitemapAllowlist.has(loc);
+  const p = loc.replace(site.url, "") || "/";
+  return !sitemapPathBlocklist.some((rx) => rx.test(p));
 }
 
 for (const file of walk(SRC)) {
@@ -120,7 +113,7 @@ for (const file of walk(SRC)) {
 
   if (indexReady && parsed.data.canonical) {
     const loc = String(parsed.data.canonical).replace(/\/index\.html$/, "/");
-    if (!sitemapAllowlist.has(loc)) continue;
+    if (!isSitemapAllowed(lang, loc)) continue;
     const lastmod = formatDate(parsed.data.dateModified || parsed.data.updated || parsed.data.datePublished);
     if (!sitemapUrls.includes(loc)) sitemapUrls.push(loc);
     if (!sitemapEntryMap.has(loc)) {
