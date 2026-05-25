@@ -1,17 +1,28 @@
 ---
 layout: layouts/base.njk
-title: "Random Student Picker – Free Classroom Name Picker | Spinnit"
-description: "A free random student picker for teachers. Paste your class roster, tap once to pick a student. Works on projectors, phones and tablets. No sign-up."
-ogTitle: "Random Student Picker | Spinnit"
-ogDescription: "Free classroom name picker — paste names, tap to pick. Projector-friendly."
+title: "Random Student Picker - No Repeats Classroom Tool | Spinnit"
+description: "Pick students fairly from a class list with a free random student picker. Use no-repeat mode, save time in class, and make classroom participation easier."
+ogTitle: "Random Student Picker — No Repeats Until Everyone's Picked | Spinnit"
+ogDescription: "Fair classroom name picker — paste your roster, tap to pick, no repeats until everyone's had a turn."
 canonical: "https://spinnit.site/tools/random-student-picker.html"
+dateModified: "2026-05-25"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "Classroom Random Tools"
+    url: "/classroom-random-tools/"
+  - label: "Random Student Picker"
+    url: "/tools/random-student-picker.html"
 jsonLd: |
-  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Student Picker","applicationCategory":"EducationalApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  {"@context":"https://schema.org","@type":"WebPage","name":"Random Student Picker","url":"https://spinnit.site/tools/random-student-picker.html","description":"Pick students fairly from a class list with no-repeat mode."}
 extraHead: |
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-      {"@type":"Question","name":"Is my class list saved anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Names live only in your browser tab. Nothing is sent to a server."}},
-      {"@type":"Question","name":"What happens when every student has been picked?","acceptedAnswer":{"@type":"Answer","text":"The tool announces the list is complete and you can tap Reset to start again."}},
+      {"@type":"Question","name":"How does no-repeat mode work in the random student picker?","acceptedAnswer":{"@type":"Answer","text":"Tick 'Don't pick the same student twice' and every student gets called once before any name can be picked again. Once everyone's had a turn the tool announces the round is complete — tap Reset to start a fresh round."}},
+      {"@type":"Question","name":"Is this random student picker fair for cold calling?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each remaining student has the same chance on every pick, and no-repeat mode guarantees an equal turn count across the round — removing any perception that you're targeting individuals."}},
+      {"@type":"Question","name":"Can I use the student picker on a classroom projector?","acceptedAnswer":{"@type":"Answer","text":"Yes. The picked name renders in large text designed to read from the back of the room. Press F11 for full-screen, and the tool works on any device including interactive whiteboards."}},
+      {"@type":"Question","name":"Is my class list saved anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Names live only in your browser tab. Nothing is sent to a server and no account is required — close the tab and the roster is gone."}},
+      {"@type":"Question","name":"What happens when every student has been picked?","acceptedAnswer":{"@type":"Answer","text":"The tool announces the list is complete and you can tap Reset to start again from the full roster."}},
       {"@type":"Question","name":"Can I use this for a whole-school assembly?","acceptedAnswer":{"@type":"Answer","text":"Yes. There's no roster length limit and the picker runs instantly even on hundreds of names."}}
     ]}
   </script>
@@ -81,8 +92,8 @@ pageScript: |
 
   <div class="tool-header">
     <div class="tool-icon">🎒</div>
-    <h1>Random Student Picker</h1>
-    <p>Paste your class roster, tap once to pick a student</p>
+    <h1>Random Student Picker for teachers — fair classroom turns with no-repeat mode</h1>
+    <p>Paste your class roster, tap once, and keep classroom participation calm, fair, and easy to run.</p>
   </div>
 
   <div class="result-box" id="resultBox">
@@ -110,7 +121,9 @@ pageScript: |
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>A random student picker is the calmest way to call on the class. No hands up, no favourites, no guessing who's been quiet — the tool picks, and everyone accepts the result. Paste your roster once, tap once per question, and the "don't pick twice" option makes sure every student gets a turn before anyone gets asked again.</p>
+    <p>A random student picker with no-repeat mode is a simple way for teachers to pick a student at random without falling back on the same confident voices. Every student can get a turn before any name appears twice, which helps with cold-calling, reading turns, quick quizzes, and fair participation across a whole lesson. Paste your roster once, tap once per question, and the picker keeps the process visible and easy to accept.</p>
+
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">This page is the main classroom picker in Spinnit's <a href="/classroom-random-tools/">Classroom Random Tools</a> cluster. If you want the teaching guidance behind it, read the <a href="/classroom-random-tools/random-student-picker-guide/">Random Student Picker guide for teachers</a> or the <a href="/classroom-random-tools/no-repeat-student-picker/">No-Repeat Student Picker guide</a>.</p>
 
     <h2>How teachers use it</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -124,18 +137,30 @@ pageScript: |
     <h2>Projector tips</h2>
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">The picked name is rendered in large text so it reads from the back of the room. For an even bigger display, press F11 to go full-screen. Names entered in the roster are never sent anywhere — the whole tool runs in your browser.</p>
 
-    <h2>Want a visual wheel?</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For a spinning animated version that kids love, use the <a href="wheel-of-names.html">Wheel of Names</a>. It supports the same name-list input with a proper wheel animation. Also try the <a href="random-name-picker-no-repeat.html">no-repeat name picker</a>, the <a href="team-picker.html">Team Picker</a> for group work, or the <a href="list-shuffler.html">List Shuffler</a> to shuffle a roster in one go.</p>
+    <h2>Build a fair participation routine</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Ask the question first, give a few seconds of think time, then pick the student. That keeps the picker supportive rather than stressful. If you want a fuller explanation of classroom routines, use the <a href="/classroom-random-tools/random-student-picker-guide/">Random Student Picker guide</a>. If your main concern is avoiding repeat picks across a lesson, use the <a href="/classroom-random-tools/no-repeat-student-picker/">No-Repeat Student Picker guide</a>.</p>
+
+    <h2>Need a different classroom tool?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For a visual wheel on a projector or whiteboard, use the <a href="/tools/wheel-of-names-for-classroom.html">Wheel of Names for Classroom</a>. For group work, use the <a href="/tools/team-picker.html">Random Team Generator</a>. To compare the whole classroom cluster, go back to the <a href="/classroom-random-tools/">Classroom Random Tools hub</a>.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Frequently Asked Questions</h2>
 
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How does no-repeat mode work in the random student picker?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Tick "Don't pick the same student twice" and every student gets called once before any name can be picked again. Once everyone's had a turn the tool announces the round is complete — tap <em>Reset list</em> to start a fresh round.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this random student picker fair for cold calling?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Each remaining student has the same chance on every pick, and no-repeat mode guarantees an equal turn count across the round — removing any perception that you're targeting individuals.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use the student picker on a classroom projector?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The picked name renders in large text designed to read from the back of the room. Press F11 for full-screen, and the tool works on any device including interactive whiteboards.</p>
+
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is my class list saved anywhere?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. The names live only in this browser tab. Close the tab and they're gone — nothing is sent to a server, and no account is required.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What happens when every student has been picked?</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;">If "Don't pick the same student twice" is ticked, the tool announces the list is complete and lets you tap <em>Reset list</em> to start again from the full roster.</p>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">The tool announces the list is complete and lets you tap <em>Reset list</em> to start again from the full roster.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this for a whole-school assembly?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes — there's no limit on the roster length, and the picker runs instantly even on a list of several hundred names.</p>
@@ -143,11 +168,12 @@ pageScript: |
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Wheel of Names</a>
+      <a class="related-card" href="wheel-of-names-for-classroom.html"><span class="ri">🎡</span> Classroom Wheel</a>
       <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
-      <a class="related-card" href="random-name-picker-no-repeat.html"><span class="ri">🎯</span> No-Repeat Picker</a>
-      <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
+      <a class="related-card" href="/classroom-random-tools/random-student-picker-guide/"><span class="ri">📘</span> Student Picker Guide</a>
+      <a class="related-card" href="/classroom-random-tools/no-repeat-student-picker/"><span class="ri">✅</span> No-Repeat Guide</a>
     </div>
+    <p class="related-note"><a href="/classroom-random-tools/">View all classroom random picker tools</a>.</p>
   </section>
 
 </main>
