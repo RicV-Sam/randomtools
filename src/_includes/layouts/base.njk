@@ -133,6 +133,53 @@ window.bindGlobalShortcut = function (action, options) {
     }
   });
 };
+
+window.copySpinnitText = function (text, button, resetLabel) {
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(function () {
+    if (!button) return;
+    const original = resetLabel || button.textContent;
+    button.textContent = "Copied!";
+    button.classList.add("copied");
+    setTimeout(function () {
+      button.textContent = original;
+      button.classList.remove("copied");
+    }, 2000);
+  });
+};
+
+window.spinnitEmbedCode = function (path, title) {
+  const src = new URL(path, window.location.origin).toString();
+  return `<iframe src="${src}" title="${title}" width="100%" height="640" loading="lazy" style="border:0;border-radius:12px;max-width:720px;"></iframe>`;
+};
+
+window.copySpinnitEmbed = function (path, title, button) {
+  window.copySpinnitText(window.spinnitEmbedCode(path, title), button, "Copy embed");
+};
+
+window.shareOrCopySpinnit = function (payload, button) {
+  const data = payload || {};
+  if (navigator.share) {
+    navigator.share({
+      title: data.title || document.title,
+      text: data.text || "",
+      url: data.url || window.location.href
+    }).catch(function () {});
+    return;
+  }
+  const text = [data.text, data.url || window.location.href].filter(Boolean).join("\n");
+  window.copySpinnitText(text, button, "Share");
+};
+
+window.toggleSpinnitProjectorMode = function (button) {
+  const active = document.body.classList.toggle("projector-mode");
+  if (button) button.textContent = active ? "Exit projector" : "Projector mode";
+  if (active && document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().catch(function () {});
+  } else if (!active && document.fullscreenElement && document.exitFullscreen) {
+    document.exitFullscreen().catch(function () {});
+  }
+};
 </script>
 
 {%- if pageScript %}

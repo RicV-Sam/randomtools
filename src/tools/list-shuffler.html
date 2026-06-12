@@ -98,6 +98,23 @@ pageScript: |
       setTimeout(() => { btn.textContent = 'Copy shuffled list'; btn.classList.remove('copied'); }, 2000);
     });
   }
+
+  function listShareText() {
+    if (!shuffledItems.length) return 'List Shuffler on Spinnit: paste any list and turn it into a fair random order.';
+    return shuffledItems.map((item, i) => `${i + 1}. ${item}`).join('\n');
+  }
+
+  function shareShuffledList(button) {
+    window.shareOrCopySpinnit({
+      title: 'Random List Shuffler | Spinnit',
+      text: listShareText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyListShufflerEmbed(button) {
+    window.copySpinnitEmbed('/tools/list-shuffler.html', 'Random List Shuffler - Spinnit', button);
+  }
   
   function escapeHtml(str) {
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -133,6 +150,11 @@ pageScript: |
 
   <button class="btn-generate" onclick="shuffle()">SHUFFLE LIST</button>
   <button class="btn-copy" id="copyBtn" onclick="copyList()" style="margin-top:8px;">Copy shuffled list</button>
+  <div class="tool-actions">
+    <button class="btn-copy" onclick="shareShuffledList(this)">Share</button>
+    <button class="btn-copy" onclick="copyListShufflerEmbed(this)">Copy embed</button>
+    <button class="btn-copy" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
 
   <div class="output-list" id="output"></div>
 

@@ -52,6 +52,8 @@ pageStyle: |
   .team-members { display:flex;flex-wrap:wrap;gap:6px; }
   .member-chip { background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:13px;color:var(--text); }
 pageScript: |
+  let latestTeams = [];
+  let latestTeamPrefix = 'Team';
   
   function pickTeams() {
     const raw = document.getElementById('nameList').value.trim();
@@ -69,17 +71,53 @@ pageScript: |
   
     const teams = Array.from({length: numTeams}, () => []);
     shuffled.forEach((name, i) => teams[i % numTeams].push(name));
+    latestTeams = teams;
+    latestTeamPrefix = prefix;
   
     const out = document.getElementById('teamsOutput');
     const colors = ['#a78bfa','#34d399','#fb923c','#60a5fa','#f472b6','#facc15'];
     out.innerHTML = teams.map((members, i) => `
       <div class="team-card">
-        <div class="team-title" style="color:${colors[i % colors.length]}">${prefix} ${i + 1} · ${members.length} players</div>
-        <div class="team-members">${members.map(m => `<span class="member-chip">${m}</span>`).join('')}</div>
+        <div class="team-title" style="color:${colors[i % colors.length]}">${escapeHtml(prefix)} ${i + 1} · ${members.length} players</div>
+        <div class="team-members">${members.map(m => `<span class="member-chip">${escapeHtml(m)}</span>`).join('')}</div>
       </div>
     `).join('');
+    updateTeamsShareCard();
   
     out.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function teamsShareText() {
+    if (!latestTeams.length) return 'Random Team Generator on Spinnit: paste names, choose team count, and split a class or group fairly.';
+    return latestTeams.map((members, i) => `${latestTeamPrefix} ${i + 1}: ${members.join(', ')}`).join('\n');
+  }
+
+  function updateTeamsShareCard() {
+    const card = document.getElementById('teamsShareSummary');
+    if (!card) return;
+    card.textContent = latestTeams.length
+      ? `${latestTeams.length} teams ready to copy, share or project.`
+      : 'Generate teams, then copy or share the group list for a lesson slide, PE activity or workshop note.';
+  }
+
+  function copyTeams(button) {
+    window.copySpinnitText(teamsShareText(), button, 'Copy teams');
+  }
+
+  function shareTeamPicker(button) {
+    window.shareOrCopySpinnit({
+      title: 'Random Team Generator | Spinnit',
+      text: teamsShareText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyTeamPickerEmbed(button) {
+    window.copySpinnitEmbed('/tools/team-picker.html', 'Random Team Generator - Spinnit', button);
   }
 ---
 <main class="tool-page">
@@ -108,6 +146,13 @@ pageScript: |
   </div>
 
   <button class="btn-generate" onclick="pickTeams()">PICK TEAMS</button>
+  <div class="tool-actions">
+    <button class="btn-copy" onclick="copyTeams(this)">Copy teams</button>
+    <button class="btn-copy" onclick="shareTeamPicker(this)">Share</button>
+    <button class="btn-copy" onclick="copyTeamPickerEmbed(this)">Copy embed</button>
+    <button class="btn-copy" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
+  <div class="result-share-card"><strong>Share card:</strong> <span id="teamsShareSummary">Generate teams, then copy or share the group list for a lesson slide, PE activity or workshop note.</span></div>
 
   <div id="teamsOutput" class="teams-output"></div>
 

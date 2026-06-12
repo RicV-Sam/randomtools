@@ -390,6 +390,67 @@ canvas:focus-visible,
 .btn-copy:hover { border-color: var(--border2); color: var(--text); }
 .btn-copy.copied { color: #4ade80; border-color: #4ade80; }
 
+.tool-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.tool-actions .btn-copy {
+  margin-top: 0;
+  min-height: 42px;
+}
+
+.result-share-card {
+  margin-top: 1rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.result-share-card strong {
+  color: var(--text);
+}
+
+body.projector-mode {
+  overflow-x: hidden;
+}
+
+body.projector-mode .nav,
+body.projector-mode .breadcrumbs,
+body.projector-mode footer,
+body.projector-mode .tool-content,
+body.projector-mode .tool-faq,
+body.projector-mode .related,
+body.projector-mode .ad-slot {
+  display: none;
+}
+
+body.projector-mode .tool-page {
+  max-width: 980px;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+}
+
+body.projector-mode .tool-header {
+  margin-bottom: 1.25rem;
+}
+
+body.projector-mode .result-box {
+  min-height: 260px;
+  border-color: var(--border2);
+  box-shadow: 0 18px 70px rgba(0,0,0,0.42);
+}
+
+body.projector-mode .result-number {
+  font-size: clamp(3.5rem, 12vw, 8rem) !important;
+}
+
 /* HISTORY */
 .history {
   margin-top: 1.5rem;
@@ -635,6 +696,7 @@ canvas#wheel { max-width: 100%; border-radius: 50%; }
 
 @media (max-width: 480px) {
   .control-row { grid-template-columns: 1fr; }
+  .tool-actions { grid-template-columns: 1fr; }
   .related-grid { grid-template-columns: 1fr; }
   .nav { padding: 0.75rem 1rem; }
   .nav-links { gap: 8px; font-size: 11px; }

@@ -20,6 +20,7 @@ pageScript: |
   
   const DEFAULT_NAMES = ['Aisha','Benjamin','Chloe','Daniel','Eva','Finn','Grace','Harry','Ivy','Jack','Kai','Leo','Mia','Nina','Oliver','Poppy','Quinn','Ruby','Samuel','Tara','Umar','Violet','Willow','Xander','Yasmin','Zane'];
   document.getElementById('namesInput').value = DEFAULT_NAMES.join('\n');
+  let lastPicked = null;
   
   function getNames() {
     return document.getElementById('namesInput').value.split(/\n|,/).map(n => n.trim()).filter(n => n.length > 0);
@@ -28,11 +29,41 @@ pageScript: |
     const names = getNames();
     if (!names.length) { alert('Add some names first.'); return; }
     const winner = names[Math.floor(Math.random() * names.length)];
+    lastPicked = winner;
     document.getElementById('result').textContent = winner;
     const box = document.getElementById('resultBox');
     box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+    updateWheelShareCard();
   }
-  function clearResult() { document.getElementById('result').textContent = '—'; }
+  function clearResult() {
+    lastPicked = null;
+    document.getElementById('result').textContent = '—';
+    updateWheelShareCard();
+  }
+  function wheelShareText() {
+    if (!lastPicked) return 'Classroom Wheel of Names on Spinnit: paste a roster and pick students fairly on a projector or whiteboard.';
+    return `Classroom wheel picked: ${lastPicked}.`;
+  }
+  function updateWheelShareCard() {
+    const card = document.getElementById('wheelShareSummary');
+    if (!card) return;
+    card.textContent = lastPicked
+      ? wheelShareText()
+      : 'Spin once, then copy or share the picked name for a slide, class note or quick activity record.';
+  }
+  function copyWheelResult(button) {
+    window.copySpinnitText(wheelShareText(), button, 'Copy result');
+  }
+  function shareClassroomWheel(button) {
+    window.shareOrCopySpinnit({
+      title: 'Classroom Wheel of Names | Spinnit',
+      text: wheelShareText(),
+      url: window.location.href
+    }, button);
+  }
+  function copyClassroomWheelEmbed(button) {
+    window.copySpinnitEmbed('/tools/wheel-of-names-for-classroom.html', 'Classroom Wheel of Names - Spinnit', button);
+  }
   bindGlobalShortcut(pick);
 ---
 <main class="tool-page">
@@ -57,6 +88,13 @@ pageScript: |
 
   <button class="btn-generate" onclick="pick()">SPIN</button>
   <button class="btn-copy" onclick="clearResult()" style="margin-top:8px;">Clear</button>
+  <div class="tool-actions">
+    <button class="btn-copy" onclick="copyWheelResult(this)">Copy result</button>
+    <button class="btn-copy" onclick="shareClassroomWheel(this)">Share</button>
+    <button class="btn-copy" onclick="copyClassroomWheelEmbed(this)">Copy embed</button>
+    <button class="btn-copy" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
+  <div class="result-share-card"><strong>Share card:</strong> <span id="wheelShareSummary">Spin once, then copy or share the picked name for a slide, class note or quick activity record.</span></div>
 
   <section class="tool-content" style="margin-top:2rem;">
     <p>A wheel of names is one of the simplest teaching tools to add to your routine — and one of the most effective for fair student participation. This page gives you a quick picker above, and below it, a practical guide to using a name wheel without it becoming noise in your lesson.</p>

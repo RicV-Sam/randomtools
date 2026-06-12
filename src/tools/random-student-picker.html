@@ -67,6 +67,7 @@ pageScript: |
       document.getElementById('remainingLabel').style.display = 'none';
     }
     lastPicked = winner;
+    updateShareCard();
   }
   
   function resetList() {
@@ -75,6 +76,7 @@ pageScript: |
     document.getElementById('result').textContent = '—';
     document.getElementById('remainingLabel').style.display = 'none';
     document.getElementById('historySection').style.display = 'none';
+    updateShareCard();
   }
   
   function renderHistory() {
@@ -83,6 +85,37 @@ pageScript: |
     if (pickedSet.size === 0) { sec.style.display = 'none'; return; }
     sec.style.display = 'block';
     list.innerHTML = [...pickedSet].map(n => `<span class="history-item">${n}</span>`).join('');
+  }
+
+  function currentStudentShareText() {
+    if (!lastPicked) return 'Random Student Picker on Spinnit: paste a class roster, pick fairly, and use no-repeat mode for classroom turns.';
+    const names = getNames();
+    const remaining = document.getElementById('removePicked').checked ? Math.max(names.length - pickedSet.size, 0) : names.length;
+    return `Picked student: ${lastPicked}. ${remaining} student${remaining === 1 ? '' : 's'} left in the pool.`;
+  }
+
+  function updateShareCard() {
+    const card = document.getElementById('studentShareSummary');
+    if (!card) return;
+    card.textContent = lastPicked
+      ? currentStudentShareText()
+      : 'Pick a student, then copy or share the result for a class slide, lesson note or supply-teacher handover.';
+  }
+
+  function copyPickedStudent(button) {
+    window.copySpinnitText(currentStudentShareText(), button, 'Copy result');
+  }
+
+  function shareStudentPicker(button) {
+    window.shareOrCopySpinnit({
+      title: 'Random Student Picker | Spinnit',
+      text: currentStudentShareText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyStudentPickerEmbed(button) {
+    window.copySpinnitEmbed('/tools/random-student-picker.html', 'Random Student Picker - Spinnit', button);
   }
   
   document.getElementById('namesInput').addEventListener('input', resetList);
@@ -114,6 +147,13 @@ pageScript: |
 
   <button class="btn-generate" onclick="pick()">PICK A STUDENT</button>
   <button class="btn-copy" onclick="resetList()" style="margin-top:8px;">Reset list</button>
+  <div class="tool-actions">
+    <button class="btn-copy" onclick="copyPickedStudent(this)">Copy result</button>
+    <button class="btn-copy" onclick="shareStudentPicker(this)">Share</button>
+    <button class="btn-copy" onclick="copyStudentPickerEmbed(this)">Copy embed</button>
+    <button class="btn-copy" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
+  <div class="result-share-card"><strong>Share card:</strong> <span id="studentShareSummary">Pick a student, then copy or share the result for a class slide, lesson note or supply-teacher handover.</span></div>
 
   <div class="history" id="historySection" style="display:none">
     <div class="history-label">Already picked</div>
@@ -138,7 +178,7 @@ pageScript: |
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">The picked name is rendered in large text so it reads from the back of the room. For an even bigger display, press F11 to go full-screen. Names entered in the roster are never sent anywhere — the whole tool runs in your browser.</p>
 
     <h2>Want a visual wheel?</h2>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For a spinning animated version that kids love, use the <a href="wheel-of-names.html">Wheel of Names</a>. It supports the same name-list input with a proper wheel animation. Also try the <a href="random-name-picker.html">Random Name Picker</a>, the <a href="team-picker.html">Team Picker</a> for group work, or the <a href="list-shuffler.html">List Shuffler</a> to shuffle a roster in one go.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For a teacher-friendly visual version, use the <a href="wheel-of-names-for-classroom.html">Classroom Wheel of Names</a>. For a broader public draw, use the main <a href="wheel-of-names.html">Wheel of Names</a>. Also try the <a href="random-name-picker.html">Random Name Picker</a>, the <a href="team-picker.html">Team Picker</a> for group work, or the <a href="list-shuffler.html">List Shuffler</a> to shuffle a roster in one go.</p>
   </section>
 
   <section class="tool-faq" style="margin-top:2rem;">
@@ -165,7 +205,7 @@ pageScript: |
 <section class="related" style="margin-top:2rem;">
     <h2 class="related-label">Related Tools</h2>
     <div class="related-grid">
-      <a class="related-card" href="wheel-of-names.html"><span class="ri">🎡</span> Wheel of Names</a>
+      <a class="related-card" href="wheel-of-names-for-classroom.html"><span class="ri">🎡</span> Classroom Wheel</a>
       <a class="related-card" href="team-picker.html"><span class="ri">👥</span> Team Picker</a>
       <a class="related-card" href="random-name-picker.html"><span class="ri">🎯</span> Name Picker</a>
       <a class="related-card" href="list-shuffler.html"><span class="ri">🔀</span> List Shuffler</a>
