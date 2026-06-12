@@ -1,0 +1,328 @@
+---
+layout: layouts/base.njk
+title: "Chore Wheel Generator - Roommate & Family Rotation | Spinnit"
+description: "Make a fair chore wheel for roommates, families or shared houses. Rotate chores weekly or daily, copy the plan, no sign-up required."
+ogTitle: "Chore Wheel Generator - Free Rotation Maker | Spinnit"
+ogDescription: "Create a roommate, family or house-share chore wheel with fair rotating assignments."
+canonical: "https://spinnit.site/tools/chore-wheel-generator.html"
+dateModified: "2026-06-12"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Chore Wheel Generator"
+    url: "/tools/chore-wheel-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Chore Wheel Generator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/chore-wheel-generator.html",
+    "description": "A free browser-based chore wheel and chore rota generator for roommates, families and shared houses.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does the chore wheel generator work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Add people and chores, choose a daily, weekly or monthly rotation, and the tool creates a rotating assignment plan where chores move between people each period." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this as a roommate chore chart?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The tool is built for roommates, families, shared houses, dorms and small teams that need a fair chore rota." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the chore rota saved or uploaded?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The plan is generated in your browser. You can copy the result, but Spinnit does not require an account or upload the list." }
+      }
+    ]
+  }
+  </script>
+pageScript: |
+  const DEFAULT_PEOPLE = ["Alex", "Jamie", "Morgan", "Taylor"];
+  const DEFAULT_CHORES = ["Kitchen", "Bathroom", "Bins", "Vacuum", "Dishes", "Living room"];
+
+  const peopleInput = document.getElementById("chorePeople");
+  const choresInput = document.getElementById("choreTasks");
+  peopleInput.value = DEFAULT_PEOPLE.join("\n");
+  choresInput.value = DEFAULT_CHORES.join("\n");
+
+  let chorePlan = [];
+  let choreSeedOrder = [];
+  let choreCreatedAt = "";
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function readLines(id) {
+    return document.getElementById(id).value
+      .split(/\n|,/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  function randomIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function shuffleList(items) {
+    const output = [...items];
+    for (let i = output.length - 1; i > 0; i--) {
+      const j = randomIndex(i + 1);
+      [output[i], output[j]] = [output[j], output[i]];
+    }
+    return output;
+  }
+
+  function periodLabel(index, cadence, startDateText) {
+    const start = startDateText ? new Date(`${startDateText}T00:00:00`) : null;
+    if (!start || Number.isNaN(start.getTime())) return `${cadence} ${index + 1}`;
+    const date = new Date(start);
+    if (cadence === "Day") date.setDate(start.getDate() + index);
+    if (cadence === "Week") date.setDate(start.getDate() + (index * 7));
+    if (cadence === "Month") date.setMonth(start.getMonth() + index);
+    return `${cadence} ${index + 1} - ${date.toLocaleDateString()}`;
+  }
+
+  function generateChoreWheel() {
+    const people = readLines("chorePeople");
+    const chores = readLines("choreTasks");
+    const periods = Math.max(1, Math.min(12, Number(document.getElementById("chorePeriods").value) || 4));
+    const cadence = document.getElementById("choreCadence").value;
+    const startDate = document.getElementById("choreStartDate").value;
+    const randomStart = document.getElementById("choreRandomStart").checked;
+
+    if (people.length < 2) {
+      alert("Add at least two people.");
+      return;
+    }
+    if (chores.length < 1) {
+      alert("Add at least one chore.");
+      return;
+    }
+
+    choreSeedOrder = randomStart ? shuffleList(people) : [...people];
+    chorePlan = [];
+    for (let period = 0; period < periods; period++) {
+      const assignments = chores.map((chore, choreIndex) => ({
+        chore,
+        person: choreSeedOrder[(choreIndex + period) % choreSeedOrder.length]
+      }));
+      chorePlan.push({
+        label: periodLabel(period, cadence, startDate),
+        assignments
+      });
+    }
+    choreCreatedAt = new Date().toLocaleString();
+    renderChorePlan();
+  }
+
+  function renderChorePlan() {
+    const result = document.getElementById("choreResult");
+    const tableWrap = document.getElementById("choreTableWrap");
+    if (!chorePlan.length) {
+      result.textContent = "-";
+      document.getElementById("choreStatus").textContent = "Add people and chores, then generate a fair rota.";
+      tableWrap.innerHTML = "";
+      document.getElementById("choreReceipt").innerHTML = "<strong>Fairness receipt:</strong> no chore wheel has been generated yet.";
+      document.getElementById("choreShareSummary").textContent = "Generate a chore wheel, then copy or share the rota.";
+      return;
+    }
+
+    const first = chorePlan[0].assignments.map((item) => `${item.chore}: ${item.person}`).join(" | ");
+    result.textContent = chorePlan[0].label;
+    document.getElementById("choreStatus").textContent = first;
+
+    tableWrap.innerHTML = `<table class="rotation-table">
+      <thead><tr><th>Period</th><th>Assignments</th></tr></thead>
+      <tbody>${chorePlan.map((period) => `<tr><td>${escapeHtml(period.label)}</td><td>${period.assignments.map((item) => `<strong>${escapeHtml(item.chore)}</strong>: ${escapeHtml(item.person)}`).join("<br>")}</td></tr>`).join("")}</tbody>
+    </table>`;
+
+    document.getElementById("choreReceipt").innerHTML = `<strong>Fairness receipt:</strong> ${escapeHtml(choreReceiptText().replace("Chore wheel receipt: ", ""))}`;
+    document.getElementById("choreShareSummary").textContent = `Generated ${chorePlan.length} period chore rota for ${choreSeedOrder.length} people and ${chorePlan[0].assignments.length} chores.`;
+  }
+
+  function choreReceiptText() {
+    if (!chorePlan.length) return "Chore wheel receipt: no plan generated.";
+    return `Chore wheel receipt: ${chorePlan.length} periods, ${choreSeedOrder.length} people, ${chorePlan[0].assignments.length} chores. Starting order: ${choreSeedOrder.join(" > ")}. Generated: ${choreCreatedAt}. Plan: ${chorePlan.map((period) => `${period.label}: ${period.assignments.map((item) => `${item.chore}=${item.person}`).join(", ")}`).join(" | ")}`;
+  }
+
+  function copyChorePlan(button) {
+    window.copySpinnitText(choreReceiptText(), button, "Copy rota");
+  }
+
+  function shareChorePlan(button) {
+    window.shareOrCopySpinnit({
+      title: "Chore Wheel Generator | Spinnit",
+      text: choreReceiptText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyChoreEmbed(button) {
+    window.copySpinnitEmbed("/tools/chore-wheel-generator.html", "Chore Wheel Generator - Spinnit", button);
+  }
+
+  function loadChoreTemplate(type) {
+    if (type === "roommates") {
+      peopleInput.value = "Alex\nJamie\nMorgan\nTaylor";
+      choresInput.value = "Kitchen\nBathroom\nBins\nVacuum\nDishes\nLiving room";
+    }
+    if (type === "family") {
+      peopleInput.value = "Mum\nDad\nSam\nRiley";
+      choresInput.value = "Set table\nClear dishes\nFeed pets\nLaundry helper\nTidy living room";
+    }
+    if (type === "office") {
+      peopleInput.value = "Avery\nBlake\nCasey\nDevon";
+      choresInput.value = "Coffee area\nMeeting room reset\nPlants\nShared fridge check";
+    }
+    renderChorePlan();
+  }
+
+  document.getElementById("choreStartDate").valueAsDate = new Date();
+  peopleInput.addEventListener("input", renderChorePlan);
+  choresInput.addEventListener("input", renderChorePlan);
+  bindGlobalShortcut(generateChoreWheel);
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">CW</div>
+    <h1>Chore wheel generator</h1>
+    <p>Create a fair chore rota for roommates, families or shared houses.</p>
+  </div>
+
+  <div class="result-box" id="choreResultBox">
+    <div class="result-label">first rotation</div>
+    <div class="result-number" id="choreResult" style="font-size:clamp(1.25rem,6vw,2.35rem);word-break:break-word;">-</div>
+    <div id="choreStatus" style="font-size:13px;color:var(--text2);margin-top:6px;">Add people and chores, then generate a fair rota.</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label for="chorePeople">People</label>
+      <textarea id="chorePeople" rows="5" autocomplete="off"></textarea>
+    </div>
+    <div class="control-group">
+      <label for="choreTasks">Chores</label>
+      <textarea id="choreTasks" rows="6" autocomplete="off"></textarea>
+    </div>
+    <div class="control-row">
+      <div class="control-group">
+        <label for="choreCadence">Rotate every</label>
+        <select id="choreCadence">
+          <option>Week</option>
+          <option>Day</option>
+          <option>Month</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="chorePeriods">Periods to show</label>
+        <input id="chorePeriods" type="number" value="4" min="1" max="12">
+      </div>
+    </div>
+    <div class="control-row">
+      <div class="control-group">
+        <label for="choreStartDate">Start date</label>
+        <input id="choreStartDate" type="date">
+      </div>
+      <div class="control-group">
+        <label><input type="checkbox" id="choreRandomStart" checked style="margin-right:6px;vertical-align:middle;"> Random starting order</label>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generateChoreWheel()">GENERATE CHORE WHEEL</button>
+  <div class="template-buttons">
+    <button class="btn-copy" onclick="loadChoreTemplate('roommates')">Roommates</button>
+    <button class="btn-copy" onclick="loadChoreTemplate('family')">Family</button>
+    <button class="btn-copy" onclick="loadChoreTemplate('office')">Office</button>
+  </div>
+
+  <div class="tool-actions">
+    <button class="btn-copy" onclick="copyChorePlan(this)">Copy rota</button>
+    <button class="btn-copy" onclick="shareChorePlan(this)">Share</button>
+    <button class="btn-copy" onclick="copyChoreEmbed(this)">Copy embed</button>
+    <button class="btn-copy" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="choreShareSummary">Generate a chore wheel, then copy or share the rota.</span></div>
+
+  <section class="rotation-panel">
+    <div class="rotation-kicker">Roommate chore chart</div>
+    <h2>Generated chore rota</h2>
+    <div id="choreTableWrap"></div>
+    <div class="rotation-receipt" id="choreReceipt"><strong>Fairness receipt:</strong> no chore wheel has been generated yet.</div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>This chore wheel generator makes a fair rotating chore chart from your people and task lists. It works for roommates, families, dorms, shared houses and small office spaces. Add the people, add the chores, choose daily, weekly or monthly rotation, then copy the plan.</p>
+
+    <h2>Search intent this page serves</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">People search for chore wheel generator, roommate chore chart generator, weekly chore rotation, family chore wheel, house chore rota and chore rota generator. The useful answer is not another generic article - it is a tool that makes the rota immediately.</p>
+
+    <h2>How the rotation stays fair</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The tool creates a starting person order, then moves each chore one person along in every new period. That means the bathroom, bins, kitchen or dishes do not stay with the same person forever. If you choose a random starting order, the first week is shuffled before the rotation begins.</p>
+
+    <h2>Good chore wheel setup</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Keep chore names short so the copied rota is easy to read.</li>
+      <li>Split heavy tasks into smaller tasks if one chore is much harder than the rest.</li>
+      <li>Regenerate only before the rota starts, not after seeing who got which task.</li>
+      <li>Use the <a href="/tools/fair-rotation-generator.html">Fair Rotation Generator</a> for one-list turns instead of chore assignments.</li>
+    </ul>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Chore wheel FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can this make a roommate chore chart?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Add each roommate and each recurring chore, then generate a weekly rota. The copy button gives you a plain-text version for WhatsApp, Slack, email or a noticeboard.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What if there are more chores than people?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">That is fine. Some people will receive more than one chore in a period, and the assignments rotate in future periods.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this a printable chore wheel?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Use your browser print command after generating the rota, or copy the result into a document if you want to style it before printing.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="fair-rotation-generator.html"><span class="ri">FR</span> Fair Rotation</a>
+      <a class="related-card" href="meeting-rotation-generator.html"><span class="ri">MR</span> Meeting Rotation</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">LS</span> List Shuffler</a>
+      <a class="related-card" href="wheel-of-names.html"><span class="ri">WN</span> Wheel of Names</a>
+    </div>
+    <p class="related-note">For duplicate and no-repeat rules, read <a href="/randomness-and-fairness.html">Randomness and fairness</a>.</p>
+  </section>
+
+</main>

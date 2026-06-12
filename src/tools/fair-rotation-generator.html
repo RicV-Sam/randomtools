@@ -1,0 +1,304 @@
+---
+layout: layouts/base.njk
+title: "Fair Rotation Generator - Random No-Repeat Picker | Spinnit"
+description: "Create a fair random rotation from any list. Pick names, tasks or turns without repeats until everyone has had a go. Free, no sign-up, browser-based."
+ogTitle: "Fair Rotation Generator - No-Repeat Random Picker | Spinnit"
+ogDescription: "Paste a list and create a fair random rotation with no repeats, copyable results and a fairness receipt."
+canonical: "https://spinnit.site/tools/fair-rotation-generator.html"
+dateModified: "2026-06-12"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Fair Rotation Generator"
+    url: "/tools/fair-rotation-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Fair Rotation Generator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/fair-rotation-generator.html",
+    "description": "A browser-based no-repeat random rotation generator for names, tasks, turns, chores, meeting roles and classroom participation.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a fair rotation generator?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A fair rotation generator takes a list and creates a random order where every item appears once before any item repeats. It is useful for turns, chores, classroom participation, presentation order and meeting roles." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this random rotation repeat names?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Each generated round includes every visible entry once. Start a new round when the rotation is complete." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my list uploaded?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The rotation is generated in your browser. Spinnit does not need an account and does not upload the list to a database." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I copy or share the rotation?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The page includes copy and share controls for the rotation order and fairness receipt." }
+      }
+    ]
+  }
+  </script>
+pageScript: |
+  const DEFAULT_ROTATION_ITEMS = [
+    "Avery",
+    "Blake",
+    "Casey",
+    "Devon",
+    "Emery",
+    "Finley",
+    "Harper",
+    "Jordan"
+  ];
+
+  const rotationItemsInput = document.getElementById("rotationItems");
+  rotationItemsInput.value = DEFAULT_ROTATION_ITEMS.join("\n");
+
+  let rotationOrder = [];
+  let rotationIndex = 0;
+  let rotationRound = 0;
+  let lastRotationPick = "";
+  let rotationCreatedAt = "";
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function readRotationItems() {
+    return rotationItemsInput.value
+      .split(/\n|,/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  function randomIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function shuffleList(items) {
+    const output = [...items];
+    for (let i = output.length - 1; i > 0; i--) {
+      const j = randomIndex(i + 1);
+      [output[i], output[j]] = [output[j], output[i]];
+    }
+    return output;
+  }
+
+  function startRotation() {
+    const items = readRotationItems();
+    if (items.length < 2) {
+      alert("Add at least two names, tasks or options first.");
+      return;
+    }
+    rotationOrder = shuffleList(items);
+    rotationIndex = 0;
+    rotationRound += 1;
+    lastRotationPick = "";
+    rotationCreatedAt = new Date().toLocaleString();
+    document.getElementById("rotationResult").textContent = "Ready";
+    document.getElementById("rotationStatus").textContent = `${items.length} entries shuffled for round ${rotationRound}. Tap Pick next to reveal the first turn.`;
+    renderRotationOrder();
+    updateRotationReceipt();
+  }
+
+  function pickNextRotation() {
+    if (!rotationOrder.length) {
+      startRotation();
+      if (!rotationOrder.length) return;
+    }
+    if (rotationIndex >= rotationOrder.length) {
+      document.getElementById("rotationResult").textContent = "Round complete";
+      document.getElementById("rotationStatus").textContent = `All ${rotationOrder.length} entries have had one turn. Generate a new rotation for the next round.`;
+      updateRotationReceipt();
+      return;
+    }
+    lastRotationPick = rotationOrder[rotationIndex];
+    rotationIndex += 1;
+    const box = document.getElementById("rotationResultBox");
+    document.getElementById("rotationResult").textContent = lastRotationPick;
+    document.getElementById("rotationStatus").textContent = `${rotationOrder.length - rotationIndex} left before repeats.`;
+    box.classList.remove("pop");
+    void box.offsetWidth;
+    box.classList.add("pop");
+    renderRotationOrder();
+    updateRotationReceipt();
+  }
+
+  function resetRotation() {
+    rotationOrder = [];
+    rotationIndex = 0;
+    lastRotationPick = "";
+    rotationCreatedAt = "";
+    document.getElementById("rotationResult").textContent = "-";
+    document.getElementById("rotationStatus").textContent = "Paste a list, then generate a fair no-repeat order.";
+    document.getElementById("rotationOrder").innerHTML = "";
+    updateRotationReceipt();
+  }
+
+  function renderRotationOrder() {
+    const order = document.getElementById("rotationOrder");
+    if (!rotationOrder.length) {
+      order.innerHTML = "";
+      return;
+    }
+    order.innerHTML = rotationOrder.map((item, index) => {
+      const state = index < rotationIndex ? "picked" : "waiting";
+      const label = index < rotationIndex ? "picked" : `turn ${index + 1}`;
+      return `<div class="rotation-row"><strong>${label}</strong><span>${escapeHtml(item)}</span></div>`;
+    }).join("");
+  }
+
+  function rotationReceiptText() {
+    if (!rotationOrder.length) {
+      return "Fair rotation receipt: no rotation has been generated yet.";
+    }
+    const method = window.crypto && window.crypto.getRandomValues ? "browser crypto random shuffle" : "browser random shuffle";
+    const nextText = rotationIndex >= rotationOrder.length ? "round complete" : `${rotationOrder.length - rotationIndex} entries left`;
+    return `Fair rotation receipt: round ${rotationRound}, ${rotationOrder.length} entries, ${nextText}. Method: ${method}, no repeats within the round. Generated: ${rotationCreatedAt}. Order: ${rotationOrder.join(" > ")}`;
+  }
+
+  function updateRotationReceipt() {
+    const text = rotationReceiptText();
+    document.getElementById("rotationReceipt").innerHTML = `<strong>Fairness receipt:</strong> ${escapeHtml(text.replace("Fair rotation receipt: ", ""))}`;
+    document.getElementById("rotationShareSummary").textContent = lastRotationPick
+      ? `Next pick: ${lastRotationPick}. ${rotationOrder.length - rotationIndex} left before repeats.`
+      : "Generate a rotation, then copy the order or share the fairness receipt.";
+  }
+
+  function copyRotationOrder(button) {
+    window.copySpinnitText(rotationReceiptText(), button, "Copy rotation");
+  }
+
+  function shareRotation(button) {
+    window.shareOrCopySpinnit({
+      title: "Fair Rotation Generator | Spinnit",
+      text: rotationReceiptText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyRotationEmbed(button) {
+    window.copySpinnitEmbed("/tools/fair-rotation-generator.html", "Fair Rotation Generator - Spinnit", button);
+  }
+
+  rotationItemsInput.addEventListener("input", resetRotation);
+  bindGlobalShortcut(pickNextRotation);
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">ROT</div>
+    <h1>Fair rotation generator</h1>
+    <p>Random order, no repeats until everyone has had a turn.</p>
+  </div>
+
+  <div class="result-box" id="rotationResultBox">
+    <div class="result-label">next in rotation</div>
+    <div class="result-number" id="rotationResult" style="font-size:clamp(1.6rem,8vw,3rem);word-break:break-word;">-</div>
+    <div id="rotationStatus" style="font-size:13px;color:var(--text2);margin-top:6px;">Paste a list, then generate a fair no-repeat order.</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label for="rotationItems">Names, tasks or options</label>
+      <textarea id="rotationItems" rows="8" autocomplete="off"></textarea>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="startRotation()">GENERATE ROTATION</button>
+  <button class="btn-copy" onclick="pickNextRotation()" style="margin-top:8px;">Pick next</button>
+  <button class="btn-copy" onclick="resetRotation()" style="margin-top:8px;">Reset</button>
+
+  <div class="tool-actions">
+    <button class="btn-copy" onclick="copyRotationOrder(this)">Copy rotation</button>
+    <button class="btn-copy" onclick="shareRotation(this)">Share</button>
+    <button class="btn-copy" onclick="copyRotationEmbed(this)">Copy embed</button>
+    <button class="btn-copy" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="rotationShareSummary">Generate a rotation, then copy the order or share the fairness receipt.</span></div>
+
+  <section class="rotation-panel" aria-live="polite">
+    <div class="rotation-kicker">No-repeat order</div>
+    <h2>Rotation order</h2>
+    <div class="rotation-grid" id="rotationOrder"></div>
+    <div class="rotation-receipt" id="rotationReceipt"><strong>Fairness receipt:</strong> no rotation has been generated yet.</div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>A fair rotation generator is different from a normal random picker. A normal picker can choose the same person twice in a row. This tool creates a shuffled order first, then works through that order so every name, task or option appears once before anything repeats.</p>
+
+    <h2>Best used for</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Classroom turns:</strong> questions, reading, jobs, board work and presentation order.</li>
+      <li><strong>Work meetings:</strong> facilitator, note-taker, demo order, standup order and retro prompts.</li>
+      <li><strong>Household tasks:</strong> roommates, family chores, bins, dishes and weekly cleaning jobs.</li>
+      <li><strong>Groups and clubs:</strong> game turns, speaking order, volunteer order and practice rotations.</li>
+    </ul>
+
+    <h2>Why this page targets fair rotation searches</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">People often search for a random rotation generator, no-repeat random picker, fair turn picker, task rotation generator or name picker without repeats. Those are the same underlying problem: create a random order once, then move through it transparently. Spinnit keeps the page focused on that job instead of spinning out thin variants.</p>
+
+    <h2>Privacy and fairness notes</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The rotation runs in your browser. Your list is not uploaded to a Spinnit account or database. The fairness receipt is a plain-language summary you can copy into a lesson note, meeting doc or shared message. It is useful for transparency, but it is not a legal audit certificate.</p>
+
+    <h2>Related rotation tools</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For a household-specific version, use the <a href="/tools/chore-wheel-generator.html">Chore Wheel Generator</a>. For work teams, use the <a href="/tools/meeting-rotation-generator.html">Meeting Rotation Generator</a>. For class participation, use the <a href="/tools/random-student-picker.html">Random Student Picker</a>. For a full one-shot random order, use the <a href="/tools/list-shuffler.html">List Shuffler</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Fair rotation FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What is a fair rotation generator?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">It is a no-repeat random picker. It turns your list into a shuffled order, then reveals or copies that order so everyone gets one turn before the next round starts.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this repeat names?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Not within the same round. If the same name appears twice in your input list, those are treated as two entries, so clean duplicates first if each person should only appear once.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this better than a wheel of names?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Use a wheel when you want a visual reveal. Use a fair rotation when the important part is equal turns over time.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="chore-wheel-generator.html"><span class="ri">CW</span> Chore Wheel</a>
+      <a class="related-card" href="meeting-rotation-generator.html"><span class="ri">MR</span> Meeting Rotation</a>
+      <a class="related-card" href="random-name-picker-no-repeat.html"><span class="ri">NR</span> No-Repeat Picker</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">LS</span> List Shuffler</a>
+    </div>
+    <p class="related-note">For method notes, read <a href="/randomness-and-fairness.html">Randomness and fairness</a>.</p>
+  </section>
+
+</main>

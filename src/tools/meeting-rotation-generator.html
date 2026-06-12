@@ -1,0 +1,309 @@
+---
+layout: layouts/base.njk
+title: "Meeting Rotation Generator - Standup & Team Roles | Spinnit"
+description: "Create a fair meeting rotation for standup order, facilitators, note-takers, demos and team roles. Free, no sign-up, browser-based."
+ogTitle: "Meeting Rotation Generator - Fair Team Role Rota | Spinnit"
+ogDescription: "Rotate meeting roles fairly across a team: facilitator, notes, demo order, standup order and more."
+canonical: "https://spinnit.site/tools/meeting-rotation-generator.html"
+dateModified: "2026-06-12"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Meeting Rotation Generator"
+    url: "/tools/meeting-rotation-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Meeting Rotation Generator",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/meeting-rotation-generator.html",
+    "description": "A free browser-based meeting rotation generator for standup order, facilitators, note-takers, demos and team responsibilities.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What can I rotate with this meeting rotation generator?",
+        "acceptedAnswer": { "@type": "Answer", "text": "You can rotate standup order, meeting facilitator, note-taker, demo presenter, retrospective host, timekeeper or any recurring team role." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the tool require an account?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The meeting rota is generated in your browser and can be copied into Slack, Teams, Notion, Google Docs or a calendar note." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use it for agile standups?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the default role list or replace it with only Standup order if you just need a fair speaking sequence." }
+      }
+    ]
+  }
+  </script>
+pageScript: |
+  const DEFAULT_MEMBERS = ["Avery", "Blake", "Casey", "Devon", "Emery", "Finley"];
+  const DEFAULT_ROLES = ["Facilitator", "Notes", "Timekeeper", "Demo first"];
+
+  const membersInput = document.getElementById("meetingMembers");
+  const rolesInput = document.getElementById("meetingRoles");
+  membersInput.value = DEFAULT_MEMBERS.join("\n");
+  rolesInput.value = DEFAULT_ROLES.join("\n");
+
+  let meetingPlan = [];
+  let meetingSeedOrder = [];
+  let meetingCreatedAt = "";
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function readLines(id) {
+    return document.getElementById(id).value
+      .split(/\n|,/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  function randomIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function shuffleList(items) {
+    const output = [...items];
+    for (let i = output.length - 1; i > 0; i--) {
+      const j = randomIndex(i + 1);
+      [output[i], output[j]] = [output[j], output[i]];
+    }
+    return output;
+  }
+
+  function meetingLabel(index) {
+    const label = document.getElementById("meetingLabel").value.trim() || "Meeting";
+    return `${label} ${index + 1}`;
+  }
+
+  function generateMeetingRotation() {
+    const members = readLines("meetingMembers");
+    const roles = readLines("meetingRoles");
+    const count = Math.max(1, Math.min(12, Number(document.getElementById("meetingCount").value) || 4));
+    const randomStart = document.getElementById("meetingRandomStart").checked;
+
+    if (members.length < 2) {
+      alert("Add at least two team members.");
+      return;
+    }
+    if (roles.length < 1) {
+      alert("Add at least one meeting role.");
+      return;
+    }
+
+    meetingSeedOrder = randomStart ? shuffleList(members) : [...members];
+    meetingPlan = [];
+    for (let meeting = 0; meeting < count; meeting++) {
+      const assignments = roles.map((role, roleIndex) => ({
+        role,
+        person: meetingSeedOrder[(roleIndex + meeting) % meetingSeedOrder.length]
+      }));
+      const speakingOrder = meetingSeedOrder.map((member, memberIndex) => meetingSeedOrder[(memberIndex + meeting) % meetingSeedOrder.length]);
+      meetingPlan.push({
+        label: meetingLabel(meeting),
+        assignments,
+        speakingOrder
+      });
+    }
+    meetingCreatedAt = new Date().toLocaleString();
+    renderMeetingPlan();
+  }
+
+  function renderMeetingPlan() {
+    const result = document.getElementById("meetingResult");
+    const tableWrap = document.getElementById("meetingTableWrap");
+    if (!meetingPlan.length) {
+      result.textContent = "-";
+      document.getElementById("meetingStatus").textContent = "Add team members and roles, then generate a fair meeting rota.";
+      tableWrap.innerHTML = "";
+      document.getElementById("meetingReceipt").innerHTML = "<strong>Fairness receipt:</strong> no meeting rotation has been generated yet.";
+      document.getElementById("meetingShareSummary").textContent = "Generate a meeting rotation, then copy or share it.";
+      return;
+    }
+
+    result.textContent = meetingPlan[0].label;
+    document.getElementById("meetingStatus").textContent = meetingPlan[0].assignments.map((item) => `${item.role}: ${item.person}`).join(" | ");
+    tableWrap.innerHTML = `<table class="rotation-table">
+      <thead><tr><th>Meeting</th><th>Roles</th><th>Speaking order</th></tr></thead>
+      <tbody>${meetingPlan.map((meeting) => `<tr><td>${escapeHtml(meeting.label)}</td><td>${meeting.assignments.map((item) => `<strong>${escapeHtml(item.role)}</strong>: ${escapeHtml(item.person)}`).join("<br>")}</td><td>${escapeHtml(meeting.speakingOrder.join(" > "))}</td></tr>`).join("")}</tbody>
+    </table>`;
+    document.getElementById("meetingReceipt").innerHTML = `<strong>Fairness receipt:</strong> ${escapeHtml(meetingReceiptText().replace("Meeting rotation receipt: ", ""))}`;
+    document.getElementById("meetingShareSummary").textContent = `Generated ${meetingPlan.length} meeting rotations for ${meetingSeedOrder.length} team members.`;
+  }
+
+  function meetingReceiptText() {
+    if (!meetingPlan.length) return "Meeting rotation receipt: no plan generated.";
+    return `Meeting rotation receipt: ${meetingPlan.length} meetings, ${meetingSeedOrder.length} members, ${meetingPlan[0].assignments.length} roles. Starting order: ${meetingSeedOrder.join(" > ")}. Generated: ${meetingCreatedAt}. Plan: ${meetingPlan.map((meeting) => `${meeting.label}: roles ${meeting.assignments.map((item) => `${item.role}=${item.person}`).join(", ")}; speaking ${meeting.speakingOrder.join(" > ")}`).join(" | ")}`;
+  }
+
+  function copyMeetingPlan(button) {
+    window.copySpinnitText(meetingReceiptText(), button, "Copy rota");
+  }
+
+  function shareMeetingPlan(button) {
+    window.shareOrCopySpinnit({
+      title: "Meeting Rotation Generator | Spinnit",
+      text: meetingReceiptText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyMeetingEmbed(button) {
+    window.copySpinnitEmbed("/tools/meeting-rotation-generator.html", "Meeting Rotation Generator - Spinnit", button);
+  }
+
+  function loadMeetingTemplate(type) {
+    if (type === "standup") {
+      rolesInput.value = "Standup first";
+      document.getElementById("meetingLabel").value = "Standup";
+    }
+    if (type === "agile") {
+      rolesInput.value = "Facilitator\nNotes\nTimekeeper\nDemo first";
+      document.getElementById("meetingLabel").value = "Sprint meeting";
+    }
+    if (type === "workshop") {
+      rolesInput.value = "Host\nScribe\nTimekeeper\nFirst presenter\nWrap-up";
+      document.getElementById("meetingLabel").value = "Workshop";
+    }
+    renderMeetingPlan();
+  }
+
+  membersInput.addEventListener("input", renderMeetingPlan);
+  rolesInput.addEventListener("input", renderMeetingPlan);
+  bindGlobalShortcut(generateMeetingRotation);
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">MR</div>
+    <h1>Meeting rotation generator</h1>
+    <p>Rotate standup order, facilitators, note-takers and team roles fairly.</p>
+  </div>
+
+  <div class="result-box" id="meetingResultBox">
+    <div class="result-label">first meeting</div>
+    <div class="result-number" id="meetingResult" style="font-size:clamp(1.25rem,6vw,2.35rem);word-break:break-word;">-</div>
+    <div id="meetingStatus" style="font-size:13px;color:var(--text2);margin-top:6px;">Add team members and roles, then generate a fair meeting rota.</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label for="meetingMembers">Team members</label>
+      <textarea id="meetingMembers" rows="6" autocomplete="off"></textarea>
+    </div>
+    <div class="control-group">
+      <label for="meetingRoles">Roles to rotate</label>
+      <textarea id="meetingRoles" rows="5" autocomplete="off"></textarea>
+    </div>
+    <div class="control-row">
+      <div class="control-group">
+        <label for="meetingLabel">Meeting label</label>
+        <input id="meetingLabel" type="text" value="Meeting">
+      </div>
+      <div class="control-group">
+        <label for="meetingCount">Meetings to show</label>
+        <input id="meetingCount" type="number" value="4" min="1" max="12">
+      </div>
+    </div>
+    <div class="control-group">
+      <label><input type="checkbox" id="meetingRandomStart" checked style="margin-right:6px;vertical-align:middle;"> Random starting order</label>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generateMeetingRotation()">GENERATE MEETING ROTATION</button>
+  <div class="template-buttons">
+    <button class="btn-copy" onclick="loadMeetingTemplate('standup')">Standup</button>
+    <button class="btn-copy" onclick="loadMeetingTemplate('agile')">Agile roles</button>
+    <button class="btn-copy" onclick="loadMeetingTemplate('workshop')">Workshop</button>
+  </div>
+
+  <div class="tool-actions">
+    <button class="btn-copy" onclick="copyMeetingPlan(this)">Copy rota</button>
+    <button class="btn-copy" onclick="shareMeetingPlan(this)">Share</button>
+    <button class="btn-copy" onclick="copyMeetingEmbed(this)">Copy embed</button>
+    <button class="btn-copy" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="meetingShareSummary">Generate a meeting rotation, then copy or share it.</span></div>
+
+  <section class="rotation-panel">
+    <div class="rotation-kicker">Team role rota</div>
+    <h2>Generated meeting rotation</h2>
+    <div id="meetingTableWrap"></div>
+    <div class="rotation-receipt" id="meetingReceipt"><strong>Fairness receipt:</strong> no meeting rotation has been generated yet.</div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>This meeting rotation generator creates a fair rota for recurring team responsibilities. Use it for agile standups, sprint ceremonies, weekly team meetings, workshops, demo order, note-taking, facilitator rotation or any recurring role that should not fall on the same person every time.</p>
+
+    <h2>Why it is useful for teams</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Teams often need a simple standup order generator or meeting role rota, but they do not need project-management software just to decide who facilitates next. This tool creates a fair order in seconds and gives you a copyable result for Slack, Teams, Notion, Google Docs or a calendar description.</p>
+
+    <h2>High-intent searches this supports</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>meeting rotation generator</strong> for recurring team roles.</li>
+      <li><strong>standup order generator</strong> for agile and daily scrum meetings.</li>
+      <li><strong>facilitator rotation</strong> for workshops and retrospectives.</li>
+      <li><strong>team role rota</strong> for note-takers, hosts and timekeepers.</li>
+    </ul>
+
+    <h2>Privacy note</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The tool runs in your browser. Team member names are not uploaded to Spinnit, and there is no account or workspace connection. For simple one-list turns instead of role assignments, use the <a href="/tools/fair-rotation-generator.html">Fair Rotation Generator</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Meeting rotation FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can this create a standup order?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Click the Standup template or enter a single role such as "Standup first". The generated table includes a speaking order for each meeting.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I rotate multiple roles at once?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Add roles such as facilitator, notes, timekeeper and demo first. The rota moves each responsibility along the team list for future meetings.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this for remote teams?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Copy the output into Slack, Microsoft Teams, Notion, Google Docs, Confluence or your meeting agenda.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="fair-rotation-generator.html"><span class="ri">FR</span> Fair Rotation</a>
+      <a class="related-card" href="chore-wheel-generator.html"><span class="ri">CW</span> Chore Wheel</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">TP</span> Team Picker</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">LS</span> List Shuffler</a>
+    </div>
+    <p class="related-note">For fairness setup, read <a href="/randomness-and-fairness.html">Randomness and fairness</a>.</p>
+  </section>
+
+</main>
