@@ -29,6 +29,8 @@ Useful maintenance commands:
 ```bash
 npm run clean
 npm run polish:ar:scan
+npm run submit:bing -- --dry-run
+npm run submit:indexnow -- --dry-run
 ```
 
 There is no `lint` script currently.
@@ -38,6 +40,8 @@ There is no `lint` script currently.
 - Page titles, descriptions, canonicals, Open Graph metadata, and page JSON-LD are mostly controlled by front matter.
 - The sitemap is generated from pages with `canonical` front matter unless `noindex` is set.
 - `robots.txt` allows crawling and points to `https://spinnit.site/sitemap.xml`.
+- Bing URL submission is available through `npm run submit:bing`. Set `BING_WEBMASTER_API_KEY` locally or as a GitHub Actions secret. The script reads `_site/sitemap.xml` by default, checks Bing quota, and submits in batches of up to 500 URLs.
+- IndexNow submission is available through `npm run submit:indexnow`. Set `INDEXNOW_API_KEY` locally or as a GitHub Actions secret. The deployment workflow writes the required public key file into `_site`, then submits the live sitemap URLs through IndexNow. Do not use the private Bing Webmaster API key for IndexNow.
 - Keep important tools reachable from the homepage, tool index, footer, related-tool blocks, and relevant blog guides.
 - Avoid fake ratings, fake reviews, exaggerated claims, and long SEO copy above the actual tool interface.
 

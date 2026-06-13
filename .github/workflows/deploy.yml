@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      INDEXNOW_API_KEY: ${{ secrets.INDEXNOW_API_KEY }}
     steps:
       - uses: actions/checkout@v6
 
@@ -28,6 +30,9 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run check:content
+      - name: Write IndexNow key file
+        if: env.INDEXNOW_API_KEY != ''
+        run: npm run indexnow:key
 
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
@@ -40,6 +45,23 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
+      INDEXNOW_API_KEY: ${{ secrets.INDEXNOW_API_KEY }}
+      BING_SITE_URL: https://spinnit.site
+      INDEXNOW_SITE_URL: https://spinnit.site
     steps:
       - id: deployment
         uses: actions/deploy-pages@v5
+      - uses: actions/checkout@v6
+        if: env.BING_WEBMASTER_API_KEY != '' || env.INDEXNOW_API_KEY != ''
+      - uses: actions/setup-node@v6
+        if: env.BING_WEBMASTER_API_KEY != '' || env.INDEXNOW_API_KEY != ''
+        with:
+          node-version-file: .nvmrc
+      - name: Submit URLs to Bing Webmaster
+        if: env.BING_WEBMASTER_API_KEY != ''
+        run: node scripts/submit-bing.js --sitemap https://spinnit.site/sitemap.xml
+      - name: Submit URLs to IndexNow
+        if: env.INDEXNOW_API_KEY != ''
+        run: node scripts/submit-indexnow.js --sitemap https://spinnit.site/sitemap.xml
