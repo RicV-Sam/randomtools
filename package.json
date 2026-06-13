@@ -11,6 +11,9 @@
     "check:source": "node scripts/check-content.js",
     "check:seo": "node scripts/check-seo.js",
     "check:content": "node scripts/check-content.js && node scripts/check-seo.js",
+    "submit:bing": "node scripts/submit-bing.js",
+    "indexnow:key": "node scripts/write-indexnow-key.js",
+    "submit:indexnow": "node scripts/submit-indexnow.js",
     "polish:ar:scan": "node scripts/polish-arabic.js --scan",
     "polish:ar": "node scripts/polish-arabic.js"
   },
