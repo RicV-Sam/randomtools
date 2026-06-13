@@ -1,8 +1,8 @@
 ---
 layout: layouts/base.njk
-title: "Spinnit - Free Random Tools for Classrooms, Football & Senior Games"
-description: "Free random tools organised by use: classroom tools, football tools, senior-friendly games, dice, wheels, number generators and everyday pickers."
-ogDescription: "Free classroom tools, football randomizers, senior-friendly games, dice, names, wheels, numbers and everyday pickers. No sign-up."
+title: "Spinnit - Free Random Tools, AI Tool Radar & Password Tools"
+description: "Free random tools, AI tool decision guides, password tools, classroom tools, football tools, senior-friendly games, dice, wheels and everyday pickers."
+ogDescription: "Free random tools, AI Tool Radar, password tools, classroom tools, football randomizers, senior-friendly games, dice, names, wheels and everyday pickers."
 canonical: "https://spinnit.site/"
 dateModified: "2026-06-13"
 hideNav: true
@@ -18,7 +18,7 @@ jsonLd: |
         "@id": "https://spinnit.site/#website",
         "name": "Spinnit",
         "url": "https://spinnit.site/",
-        "description": "Free online random generators, classroom tools, football tools and senior-friendly games."
+        "description": "Free online random generators, AI tool decision guides, password tools, classroom tools, football tools and senior-friendly games."
       },
       {
         "@type": "WebPage",
@@ -26,11 +26,13 @@ jsonLd: |
         "name": "Spinnit - Free Random Tools",
         "url": "https://spinnit.site/",
         "isPartOf": { "@id": "https://spinnit.site/#website" },
-        "description": "Browse free random tools by category, including classroom tools, football tools, senior-friendly games and everyday generators.",
+        "description": "Browse free random tools, AI tool decision guides, password tools, classroom tools, football tools, senior-friendly games and everyday generators.",
         "mainEntity": [
           { "@id": "https://spinnit.site/#classroom-tools" },
           { "@id": "https://spinnit.site/#football-tools" },
           { "@id": "https://spinnit.site/#senior-tools" },
+          { "@id": "https://spinnit.site/#ai-tool-radar" },
+          { "@id": "https://spinnit.site/#password-privacy" },
           { "@id": "https://spinnit.site/#more-tools" }
         ]
       },
@@ -75,12 +77,36 @@ jsonLd: |
       },
       {
         "@type": "ItemList",
+        "@id": "https://spinnit.site/#ai-tool-radar",
+        "name": "AI Tool Radar",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "AI Tool Radar", "url": "https://spinnit.site/ai/" },
+          { "@type": "ListItem", "position": 2, "name": "AI Tool Picker", "url": "https://spinnit.site/ai/picker/" },
+          { "@type": "ListItem", "position": 3, "name": "Best AI Tools", "url": "https://spinnit.site/ai/best/" },
+          { "@type": "ListItem", "position": 4, "name": "AI Tool Comparisons", "url": "https://spinnit.site/ai/compare/" },
+          { "@type": "ListItem", "position": 5, "name": "AI Tool Reviews", "url": "https://spinnit.site/ai/tools/" },
+          { "@type": "ListItem", "position": 6, "name": "ChatGPT vs Claude", "url": "https://spinnit.site/ai/compare/chatgpt-vs-claude.html" }
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://spinnit.site/#password-privacy",
+        "name": "Password and Privacy Tools",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Password Generator", "url": "https://spinnit.site/tools/password-generator.html" },
+          { "@type": "ListItem", "position": 2, "name": "Password Security Tools", "url": "https://spinnit.site/tools/password-security/" },
+          { "@type": "ListItem", "position": 3, "name": "Privacy Policy", "url": "https://spinnit.site/privacy.html" },
+          { "@type": "ListItem", "position": 4, "name": "How Spinnit Tools Work", "url": "https://spinnit.site/how-spinnit-tools-work.html" }
+        ]
+      },
+      {
+        "@type": "ItemList",
         "@id": "https://spinnit.site/#more-tools",
         "name": "More Useful Tools",
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Random Number Generator", "url": "https://spinnit.site/tools/random-number.html" },
           { "@type": "ListItem", "position": 2, "name": "Wheel of Names", "url": "https://spinnit.site/tools/wheel-of-names.html" },
-          { "@type": "ListItem", "position": 3, "name": "Password Generator", "url": "https://spinnit.site/tools/password-generator.html" },
+          { "@type": "ListItem", "position": 3, "name": "Decision Maker Tools", "url": "https://spinnit.site/tools/decision-makers/" },
           { "@type": "ListItem", "position": 4, "name": "Random Colour Generator", "url": "https://spinnit.site/tools/colour-generator.html" },
           { "@type": "ListItem", "position": 5, "name": "Lottery Number Picker", "url": "https://spinnit.site/tools/lottery-picker.html" },
           { "@type": "ListItem", "position": 6, "name": "Giveaway Winner Picker", "url": "https://spinnit.site/tools/random-winner-picker.html" }
@@ -166,6 +192,12 @@ pageStyle: |
   .home-category.seniors .tool-card {
     border-color: rgba(251,191,36,0.16);
   }
+  .home-category.ai .tool-card {
+    border-color: rgba(56,189,248,0.16);
+  }
+  .home-category.password .tool-card {
+    border-color: rgba(248,113,113,0.16);
+  }
   .home-note {
     background: var(--bg2);
     border: 1px solid var(--border);
@@ -214,6 +246,8 @@ pageScript: |
     <a href="#classroom-tools">classroom tools</a>
     <a href="#football-tools">football tools</a>
     <a href="#senior-tools">senior games</a>
+    <a href="#ai-tool-radar">AI tools</a>
+    <a href="#password-privacy">passwords</a>
     <a href="/tools/">browse all tools &rarr;</a>
     <a href="/blog/">guides</a>
   </div>
@@ -222,7 +256,7 @@ pageScript: |
 <section class="hero">
   <div class="hero-eyebrow">free &middot; fast &middot; no sign-up</div>
   <h1>One tap. A fair pick.</h1>
-  <p>Free random tools organised for classrooms, football fans, senior-friendly games, group picks and everyday decisions. No sign-up, mobile-first.</p>
+  <p>Free random tools organised for classrooms, football fans, senior-friendly games, group picks and everyday decisions, plus AI Tool Radar for choosing useful AI tools. No sign-up, mobile-first.</p>
   <p style="margin-top:0.75rem;"><a href="#classroom-tools" style="color:var(--accent2);font-family:var(--mono);font-size:13px;text-decoration:none;">Browse by category &rarr;</a> <span style="color:var(--text3);font-family:var(--mono);font-size:13px;">or</span> <a href="/tools/" style="color:var(--accent2);font-family:var(--mono);font-size:13px;text-decoration:none;">view every tool</a></p>
 </section>
 
@@ -381,12 +415,98 @@ pageScript: |
     </div>
   </section>
 
+  <section class="home-category ai" id="ai-tool-radar">
+    <div class="home-section-head">
+      <div>
+        <div class="section-kicker">choose useful AI tools</div>
+        <h2>AI Tool Radar</h2>
+        <p>Spinnit also helps users choose useful AI tools without getting lost in huge directories. Start with the picker, compare popular assistants, or browse practical shortlists by use case.</p>
+      </div>
+      <a class="section-cta" href="/ai/">Open AI Tool Radar &rarr;</a>
+    </div>
+    <div class="home-tool-grid">
+      <a class="tool-card" href="/ai/">
+        <div class="tool-icon">AI</div>
+        <h3>AI Tool Radar</h3>
+        <p>Start at the AI hub if you want the quickest route to useful reviews, comparisons and shortlists.</p>
+        <div class="tool-arrow">browse AI tools &rarr;</div>
+      </a>
+      <a class="tool-card" href="/ai/picker/">
+        <div class="tool-icon">PK</div>
+        <h3>AI Tool Picker</h3>
+        <p>Use a simple decision path to find the right type of AI tool for your workflow.</p>
+        <div class="tool-arrow">use the picker &rarr;</div>
+      </a>
+      <a class="tool-card" href="/ai/best/">
+        <div class="tool-icon">BT</div>
+        <h3>Best AI Tools</h3>
+        <p>Open curated shortlists for productivity, students, small business, creators and free-first tools.</p>
+        <div class="tool-arrow">browse shortlists &rarr;</div>
+      </a>
+      <a class="tool-card" href="/ai/compare/">
+        <div class="tool-icon">VS</div>
+        <h3>AI Tool Comparisons</h3>
+        <p>Compare popular tools by workflow fit, including assistants, research tools and creator tools.</p>
+        <div class="tool-arrow">compare AI tools &rarr;</div>
+      </a>
+      <a class="tool-card" href="/ai/tools/">
+        <div class="tool-icon">RV</div>
+        <h3>AI Tool Reviews</h3>
+        <p>Browse practical reviews for ChatGPT, Claude, Gemini, Perplexity, Cursor and creator tools.</p>
+        <div class="tool-arrow">read reviews &rarr;</div>
+      </a>
+      <a class="tool-card" href="/ai/compare/chatgpt-vs-claude.html">
+        <div class="tool-icon">CC</div>
+        <h3>ChatGPT vs Claude</h3>
+        <p>Start with the comparison many people need before choosing a daily AI assistant.</p>
+        <div class="tool-arrow">read comparison &rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="home-category password" id="password-privacy">
+    <div class="home-section-head">
+      <div>
+        <div class="section-kicker">passwords and trust</div>
+        <h2>Password &amp; Privacy</h2>
+        <p>Use these pages when you need a random password, want basic password safety guidance, or want to understand how Spinnit handles tool inputs and site trust information.</p>
+      </div>
+      <a class="section-cta" href="/tools/password-security/">Open password hub &rarr;</a>
+    </div>
+    <div class="home-tool-grid">
+      <a class="tool-card" href="/tools/password-generator.html">
+        <div class="tool-icon">PW</div>
+        <h3>Password Generator</h3>
+        <p>Create strong random passwords in your browser with length, number and symbol controls.</p>
+        <div class="tool-arrow">generate a password &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/password-security/">
+        <div class="tool-icon">PS</div>
+        <h3>Password Security Tools</h3>
+        <p>Learn how to use generated passwords safely and when a password manager matters.</p>
+        <div class="tool-arrow">read password basics &rarr;</div>
+      </a>
+      <a class="tool-card" href="/privacy.html">
+        <div class="tool-icon">PR</div>
+        <h3>Privacy Policy</h3>
+        <p>Read how Spinnit explains tool inputs, analytics, ads and technical browsing data.</p>
+        <div class="tool-arrow">read privacy policy &rarr;</div>
+      </a>
+      <a class="tool-card" href="/how-spinnit-tools-work.html">
+        <div class="tool-icon">HW</div>
+        <h3>How Spinnit Tools Work</h3>
+        <p>See how browser-based tools, random picks and password generation are explained.</p>
+        <div class="tool-arrow">read methodology &rarr;</div>
+      </a>
+    </div>
+  </section>
+
   <section class="home-category more" id="more-tools">
     <div class="home-section-head">
       <div>
         <div class="section-kicker">useful everyday generators</div>
         <h2>More Useful Tools</h2>
-        <p>A curated set of popular utilities for numbers, names, giveaways, colours, passwords and quick picks. If you need the full list, the tools index has every Spinnit page in one place.</p>
+        <p>A curated set of popular utilities for numbers, names, giveaways, colours and quick picks. If you need the full list, the tools index has every Spinnit page in one place.</p>
       </div>
       <a class="section-cta" href="/tools/">Explore all tools &rarr;</a>
     </div>
@@ -403,11 +523,11 @@ pageScript: |
         <p>Add any names or options and spin a visual wheel to pick one at random.</p>
         <div class="tool-arrow">spin the wheel &rarr;</div>
       </a>
-      <a class="tool-card" href="/tools/password-generator.html">
-        <div class="tool-icon">PW</div>
-        <h3>Password Generator</h3>
-        <p>Create random passwords with length, number, symbol and ambiguity controls.</p>
-        <div class="tool-arrow">make a password &rarr;</div>
+      <a class="tool-card" href="/tools/decision-makers/">
+        <div class="tool-icon">DM</div>
+        <h3>Decision Maker Tools</h3>
+        <p>Use coin flips, yes-or-no wheels and random picks when you need a quick decision.</p>
+        <div class="tool-arrow">browse decision tools &rarr;</div>
       </a>
       <a class="tool-card" href="/tools/colour-generator.html">
         <div class="tool-icon">CG</div>
@@ -431,18 +551,18 @@ pageScript: |
   </section>
 
   <div class="home-note">
-    Looking for something more specific? Browse the <a href="/tools/">complete Spinnit tools index</a>, read <a href="/how-spinnit-tools-work.html">how Spinnit tools work</a>, or use the <a href="/randomness-and-fairness.html">randomness and fairness guide</a> before classroom picks, team draws or giveaways.
+    Looking for something more specific? Browse the <a href="/tools/">complete Spinnit tools index</a>, try <a href="/ai/">AI Tool Radar</a>, read <a href="/how-spinnit-tools-work.html">how Spinnit tools work</a>, or use the <a href="/randomness-and-fairness.html">randomness and fairness guide</a> before classroom picks, team draws or giveaways.
   </div>
 
 </main>
 
 <section aria-label="About Spinnit" style="max-width:960px;margin:0 auto 3rem;padding:0 1.5rem;">
   <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Free Random Tools by Category</h2>
-  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Spinnit offers free random generators and browser tools for lessons, football nights, senior-friendly games, teams, names, numbers, passwords, colours and everyday decisions. The homepage groups the most useful tools by audience so you can start faster.</p>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Spinnit offers free random generators, AI tool decision guides and browser tools for lessons, football nights, senior-friendly games, teams, names, numbers, passwords, colours and everyday decisions. The homepage groups the most useful tools by audience so you can start faster.</p>
 
   <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Built for Everyone, Everywhere</h2>
-  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Every Spinnit tool works in the browser with no sign-up and no app install. Start with the <a href="/classroom-random-tools/" style="color:var(--accent2);">classroom random tools hub</a>, the <a href="/tools/football/" style="color:var(--accent2);">football random tools hub</a>, <a href="/tools/games-for-older-people.html" style="color:var(--accent2);">games for older people</a>, or the <a href="/tools/" style="color:var(--accent2);">full tools index</a>.</p>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Every Spinnit tool works in the browser with no sign-up and no app install. Start with the <a href="/classroom-random-tools/" style="color:var(--accent2);">classroom random tools hub</a>, the <a href="/tools/football/" style="color:var(--accent2);">football random tools hub</a>, <a href="/tools/games-for-older-people.html" style="color:var(--accent2);">games for older people</a>, <a href="/ai/" style="color:var(--accent2);">AI Tool Radar</a>, or the <a href="/tools/" style="color:var(--accent2);">full tools index</a>.</p>
 
   <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">How the tools work</h2>
-  <p style="font-size:14px;color:var(--text2);line-height:1.8;">Spinnit uses browser-based random tools for everyday picks and stronger browser cryptography for generated passwords. Read <a href="/how-spinnit-tools-work.html" style="color:var(--accent2);">how Spinnit tools work</a> or use the <a href="/randomness-and-fairness.html" style="color:var(--accent2);">randomness and fairness guide</a> before classroom picks, team draws, giveaways or public selections.</p>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;">Spinnit uses browser-based random tools for everyday picks and stronger browser cryptography for generated passwords. Read <a href="/how-spinnit-tools-work.html" style="color:var(--accent2);">how Spinnit tools work</a>, the <a href="/tools/password-security/" style="color:var(--accent2);">password security hub</a>, or the <a href="/randomness-and-fairness.html" style="color:var(--accent2);">randomness and fairness guide</a> before classroom picks, team draws, giveaways or public selections.</p>
 </section>

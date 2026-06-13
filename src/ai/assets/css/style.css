@@ -360,6 +360,28 @@ table {
   margin-top: 1.5rem;
 }
 
+.ai-commercial-note {
+  padding: 0 0 2.5rem;
+}
+
+.ai-commercial-note .container {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(12, 18, 31, 0.84);
+  box-shadow: var(--shadow);
+  padding: 1rem 1.2rem;
+}
+
+.ai-commercial-note p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.94rem;
+}
+
+.ai-commercial-note strong {
+  color: var(--text);
+}
+
 .status-row {
   padding: 0.95rem 1.2rem;
   border-radius: var(--radius-md);

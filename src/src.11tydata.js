@@ -55,6 +55,12 @@ module.exports = {
       // Otherwise preserve the source path (/privacy.html stays /privacy.html).
       return `${data.page.filePathStem}.html`;
     },
+    aiCommercialNotice: (data) => {
+      if (data.noAiCommercialNotice || !data.page || !data.page.filePathStem) return false;
+
+      const stem = data.page.filePathStem;
+      return stem.startsWith("/ai/") && !stem.includes("/404") && !stem.includes("/templates/");
+    },
     breadcrumbs: (data) => {
       if (data.noBreadcrumbs || data.hideNav || !data.page || !data.page.filePathStem) return null;
 

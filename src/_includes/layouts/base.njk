@@ -113,6 +113,14 @@
 
 {{ content | safe }}
 
+{%- if aiCommercialNotice %}
+<section class="ai-commercial-note" aria-label="AI tool pricing and disclosure note">
+  <div class="container">
+    <p><strong>AI tool note:</strong> AI tools, plans, free limits and features can change quickly. Use these pages as practical decision guides, then confirm current details on each provider's official site before subscribing. If sponsored or affiliate links are added later, they should be disclosed clearly and should not change the price you pay. Read <a href="/ai/how-we-review/">how we review AI tools</a> and the <a href="/affiliate-disclosure.html">affiliate disclosure</a>.</p>
+  </div>
+</section>
+{%- endif %}
+
 {% include "partials/footer.njk" %}
 
 <script>

@@ -40,6 +40,7 @@ const AI_SITEMAP_POLICY =
 const aiSitemapAllowedPaths = new Set([
   "/ai/",
   "/ai/all-tools/",
+  "/ai/best/",
   "/ai/best/best-ai-tools-for-content-creators.html",
   "/ai/best/best-ai-tools-for-productivity.html",
   "/ai/best/best-ai-tools-for-small-business.html",
@@ -58,6 +59,7 @@ const aiSitemapAllowedPaths = new Set([
   "/ai/categories/ai-research-tools.html",
   "/ai/categories/ai-video-tools.html",
   "/ai/categories/ai-writing-tools.html",
+  "/ai/compare/",
   "/ai/compare/chatgpt-vs-claude.html",
   "/ai/compare/chatgpt-vs-perplexity.html",
   "/ai/compare/claude-vs-gemini.html",
@@ -66,6 +68,7 @@ const aiSitemapAllowedPaths = new Set([
   "/ai/how-we-review/",
   "/ai/picker/",
   "/ai/suggest-a-tool/",
+  "/ai/tools/",
   "/ai/tools/chatgpt.html",
   "/ai/tools/claude.html",
   "/ai/tools/cursor.html",
