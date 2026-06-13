@@ -1,0 +1,1160 @@
+---
+layout: layouts/base.njk
+title: "Free Games for Older People - Large Print Trivia, Crossword & Word Games | Spinnit"
+description: "Free senior-friendly browser games with large print, read-aloud questions, trivia, crossword, word scrambles, memory pairs and conversation prompts."
+ogTitle: "Free Games for Older People | Spinnit"
+ogDescription: "Large-print trivia, crossword, word games and conversation prompts for older adults, families and carers."
+canonical: "https://spinnit.site/tools/games-for-older-people.html"
+dateModified: "2026-06-13"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Games for Older People"
+    url: "/tools/games-for-older-people.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Free Games for Older People",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/games-for-older-people.html",
+    "description": "A free browser-based collection of senior-friendly games with large print, read-aloud questions, trivia, crossword, word scrambles, memory pairs and conversation prompts.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true,
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Older adults, seniors, families and carers"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What games are included?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The page includes large-print trivia, a mini crossword, word scrambles, memory pairs and conversation prompts." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can the questions be read aloud?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, when the browser supports speech synthesis. The read-aloud feature uses the device browser voice and does not send questions to an external voice service." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are these games medical treatment or memory therapy?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. These games are for enjoyment, family play and accessible entertainment. They are not medical treatment, diagnosis or therapy." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need an account?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The games run in the browser with no account or app install." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .senior-page {
+    max-width: 960px;
+  }
+  .reader-panel,
+  .senior-note {
+    background: linear-gradient(135deg, rgba(251,191,36,0.12), rgba(52,211,153,0.08));
+    border: 1px solid rgba(251,191,36,0.28);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin: 1.1rem 0;
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .reader-panel {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .reader-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .reader-panel strong,
+  .senior-note strong {
+    color: var(--text);
+  }
+  .reader-status {
+    color: var(--text3);
+    font-size: 13px;
+  }
+  .senior-tabs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+    margin: 1.4rem 0 1rem;
+  }
+  .senior-tab {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    color: var(--text2);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .senior-tab.active {
+    color: var(--text);
+    border-color: rgba(251,191,36,0.55);
+    background: rgba(251,191,36,0.13);
+  }
+  .senior-game {
+    display: none;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  .senior-game.active {
+    display: block;
+  }
+  .senior-game h2 {
+    margin: 0 0 0.45rem;
+    font-size: clamp(1.25rem, 4vw, 1.7rem);
+  }
+  .game-help {
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.75;
+    margin: 0 0 1rem;
+  }
+  .question-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  .question-kicker {
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+  .question-text {
+    color: var(--text);
+    font-size: clamp(1.25rem, 5vw, 1.8rem);
+    line-height: 1.35;
+    margin: 0;
+  }
+  .answer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px;
+    margin: 1rem 0;
+  }
+  .answer-btn,
+  .large-game-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1.4;
+    min-height: 58px;
+    padding: 0.85rem 1rem;
+    text-align: left;
+  }
+  .answer-btn.correct {
+    background: rgba(52,211,153,0.18);
+    border-color: rgba(52,211,153,0.55);
+  }
+  .answer-btn.wrong {
+    background: rgba(248,113,113,0.14);
+    border-color: rgba(248,113,113,0.45);
+  }
+  .answer-btn:disabled {
+    cursor: default;
+    opacity: 0.9;
+  }
+  .status-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 15px;
+    line-height: 1.65;
+    margin: 0.9rem 0;
+    padding: 0.9rem;
+  }
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+    margin: 1rem 0;
+  }
+  .metric-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.8rem;
+  }
+  .metric-card strong {
+    display: block;
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+  }
+  .metric-card span {
+    color: var(--text);
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .crossword-wrap {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) minmax(240px, 0.85fr);
+    gap: 1rem;
+    align-items: start;
+  }
+  .crossword-board {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: 3px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    padding: 3px;
+  }
+  .crossword-cell {
+    aspect-ratio: 1;
+    background: var(--bg3);
+    position: relative;
+  }
+  .crossword-cell.block {
+    background: #05070d;
+  }
+  .crossword-cell.correct {
+    background: rgba(52,211,153,0.18);
+  }
+  .crossword-cell.wrong {
+    background: rgba(248,113,113,0.16);
+  }
+  .crossword-cell input {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font-size: clamp(1rem, 4vw, 1.45rem);
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .crossword-number {
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 10px;
+    pointer-events: none;
+  }
+  .clue-panel {
+    display: grid;
+    gap: 8px;
+  }
+  .clue-list {
+    display: grid;
+    gap: 6px;
+  }
+  .clue-button {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1.45;
+    padding: 0.7rem;
+    text-align: left;
+  }
+  .clue-button.active {
+    border-color: rgba(251,191,36,0.6);
+    color: var(--text);
+  }
+  .scramble-letters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 1rem 0;
+  }
+  .letter-tile {
+    background: rgba(96,165,250,0.14);
+    border: 1px solid rgba(96,165,250,0.35);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: clamp(1.5rem, 7vw, 2.25rem);
+    font-weight: 900;
+    min-width: 48px;
+    padding: 0.45rem 0.75rem;
+    text-align: center;
+  }
+  .memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin: 1rem 0;
+  }
+  .memory-card {
+    min-height: 82px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg3);
+    color: var(--text);
+    font-size: clamp(1rem, 4vw, 1.35rem);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .memory-card.revealed {
+    background: rgba(96,165,250,0.16);
+    border-color: rgba(96,165,250,0.45);
+  }
+  .memory-card.matched {
+    background: rgba(52,211,153,0.16);
+    border-color: rgba(52,211,153,0.45);
+  }
+  .prompt-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  .prompt-card strong {
+    display: block;
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.45rem;
+    text-transform: uppercase;
+  }
+  .prompt-card p {
+    color: var(--text);
+    font-size: clamp(1.2rem, 5vw, 1.7rem);
+    line-height: 1.4;
+    margin: 0;
+  }
+  .big-comfort .senior-game {
+    font-size: 18px;
+  }
+  .big-comfort .btn-copy,
+  .big-comfort .btn-generate,
+  .big-comfort .senior-tab,
+  .big-comfort .answer-btn,
+  .big-comfort .large-game-btn {
+    min-height: 62px;
+    font-size: 17px;
+  }
+  .big-comfort .memory-card {
+    min-height: 104px;
+  }
+  @media (max-width: 780px) {
+    .crossword-wrap {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 640px) {
+    .memory-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .crossword-board {
+      gap: 2px;
+      padding: 2px;
+    }
+  }
+pageScript: |
+  const seniorPage = document.getElementById("seniorGamesPage");
+  let biggerControls = false;
+  let autoRead = false;
+  let currentReadText = "";
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function randomIndex(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  function shuffleList(items) {
+    const output = [...items];
+    for (let i = output.length - 1; i > 0; i--) {
+      const j = randomIndex(i + 1);
+      [output[i], output[j]] = [output[j], output[i]];
+    }
+    return output;
+  }
+
+  function setReaderStatus(message) {
+    document.getElementById("readerStatus").textContent = message;
+  }
+
+  function canReadAloud() {
+    return "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+  }
+
+  function readAloud(text) {
+    const cleanText = String(text || "").trim();
+    if (!cleanText) {
+      setReaderStatus("Nothing to read yet. Choose a question, clue or prompt first.");
+      return;
+    }
+    if (!canReadAloud()) {
+      setReaderStatus("Read-aloud is not supported in this browser.");
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.rate = Number(document.getElementById("readerRate").value) || 0.9;
+    utterance.pitch = 1;
+    utterance.onend = () => setReaderStatus("Finished reading.");
+    utterance.onerror = () => setReaderStatus("The browser could not read this aloud.");
+    window.speechSynthesis.speak(utterance);
+    setReaderStatus("Reading aloud...");
+  }
+
+  function stopReading() {
+    if (canReadAloud()) window.speechSynthesis.cancel();
+    setReaderStatus("Read-aloud stopped.");
+  }
+
+  function readCurrentText() {
+    readAloud(currentReadText);
+  }
+
+  function maybeAutoRead(text) {
+    currentReadText = text || currentReadText;
+    if (autoRead) readAloud(currentReadText);
+  }
+
+  function toggleAutoRead(input) {
+    autoRead = Boolean(input.checked);
+    setReaderStatus(autoRead ? "Auto-read is on for new questions and prompts." : "Auto-read is off.");
+    if (autoRead && currentReadText) readAloud(currentReadText);
+  }
+
+  function toggleBiggerControls(button) {
+    biggerControls = !biggerControls;
+    seniorPage.classList.toggle("big-comfort", biggerControls);
+    if (button) button.textContent = biggerControls ? "Use standard controls" : "Use bigger controls";
+  }
+
+  function showSeniorGame(gameId) {
+    document.querySelectorAll(".senior-tab").forEach((tab) => {
+      const active = tab.dataset.game === gameId;
+      tab.classList.toggle("active", active);
+      tab.setAttribute("aria-selected", active ? "true" : "false");
+    });
+    document.querySelectorAll(".senior-game").forEach((panel) => {
+      panel.classList.toggle("active", panel.id === `game-${gameId}`);
+    });
+    const readTextByGame = {
+      trivia: currentTrivia ? triviaReadText(currentTrivia) : "Trivia game. Choose a category and press new question.",
+      crossword: activeCrosswordClue ? clueReadText(activeCrosswordClue) : "Crossword game. Choose a clue, then type letters into the grid.",
+      scramble: currentScramble ? scrambleReadText(currentScramble) : "Word scramble. Unscramble the letters to make the answer.",
+      memory: "Memory pairs. Turn over two cards and try to find a matching pair.",
+      prompts: currentPrompt ? promptReadText(currentPrompt) : "Conversation prompts. Press new prompt to get a topic."
+    };
+    currentReadText = readTextByGame[gameId] || "";
+  }
+
+  const triviaQuestions = [
+    { category: "General", question: "What is the capital city of Germany?", choices: ["Berlin", "Munich", "Hamburg", "Cologne"], answer: "Berlin", fact: "Berlin is the capital and largest city of Germany." },
+    { category: "General", question: "Which ocean is the largest on Earth?", choices: ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean"], answer: "Pacific Ocean", fact: "The Pacific Ocean is the largest ocean." },
+    { category: "General", question: "Which river runs through London?", choices: ["Thames", "Severn", "Mersey", "Tyne"], answer: "Thames", fact: "The River Thames runs through London." },
+    { category: "General", question: "Which musical instrument has black and white keys?", choices: ["Piano", "Flute", "Violin", "Trumpet"], answer: "Piano", fact: "A piano keyboard has black and white keys." },
+    { category: "General", question: "Who wrote the novel Pride and Prejudice?", choices: ["Jane Austen", "Charles Dickens", "Charlotte Bronte", "Agatha Christie"], answer: "Jane Austen", fact: "Pride and Prejudice was written by Jane Austen." },
+    { category: "General", question: "Who was the first person to walk on the Moon?", choices: ["Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "Michael Collins"], answer: "Neil Armstrong", fact: "Neil Armstrong walked on the Moon in 1969." },
+    { category: "General", question: "Which country is famous for the Black Forest?", choices: ["Germany", "Austria", "Switzerland", "France"], answer: "Germany", fact: "The Black Forest is in south-west Germany." },
+    { category: "General", question: "What is the currency of Japan?", choices: ["Yen", "Won", "Dollar", "Rupee"], answer: "Yen", fact: "Japan uses the yen." },
+    { category: "General", question: "Which board game has a piece called a knight?", choices: ["Chess", "Scrabble", "Monopoly", "Cluedo"], answer: "Chess", fact: "The knight is the chess piece that moves in an L shape." },
+    { category: "General", question: "How many cards are in a standard deck of playing cards?", choices: ["52", "48", "40", "60"], answer: "52", fact: "A standard deck has 52 cards, not including jokers." },
+    { category: "History", question: "In which year did the United States declare independence?", choices: ["1776", "1812", "1914", "1066"], answer: "1776", fact: "The Declaration of Independence was adopted in 1776." },
+    { category: "History", question: "Which British queen reigned for most of the 19th century?", choices: ["Queen Victoria", "Queen Elizabeth I", "Queen Anne", "Queen Mary"], answer: "Queen Victoria", fact: "Queen Victoria reigned from 1837 to 1901." },
+    { category: "History", question: "In which year did the Titanic sink?", choices: ["1912", "1905", "1920", "1939"], answer: "1912", fact: "The Titanic sank in April 1912." },
+    { category: "History", question: "The Great Wall is most closely associated with which country?", choices: ["China", "India", "Japan", "Egypt"], answer: "China", fact: "The Great Wall is in China." },
+    { category: "History", question: "Which city is home to the Eiffel Tower?", choices: ["Paris", "Rome", "Madrid", "Vienna"], answer: "Paris", fact: "The Eiffel Tower stands in Paris." },
+    { category: "History", question: "What was rationed in Britain during the Second World War?", choices: ["Food", "Televisions", "Mobile phones", "Air travel"], answer: "Food", fact: "Food rationing affected everyday life in wartime Britain." },
+    { category: "History", question: "Which ancient people built pyramids at Giza?", choices: ["Egyptians", "Romans", "Vikings", "Aztecs"], answer: "Egyptians", fact: "The Giza pyramids were built in ancient Egypt." },
+    { category: "History", question: "Which ship is linked with Charles Darwin's voyage?", choices: ["HMS Beagle", "Mayflower", "Cutty Sark", "Endeavour"], answer: "HMS Beagle", fact: "Darwin travelled on HMS Beagle." },
+    { category: "Geography", question: "What is the capital city of France?", choices: ["Paris", "Lyon", "Marseille", "Nice"], answer: "Paris", fact: "Paris is the capital city of France." },
+    { category: "Geography", question: "Which country has cities called Sydney and Melbourne?", choices: ["Australia", "Canada", "New Zealand", "South Africa"], answer: "Australia", fact: "Sydney and Melbourne are major Australian cities." },
+    { category: "Geography", question: "Which continent is Brazil in?", choices: ["South America", "Europe", "Africa", "Asia"], answer: "South America", fact: "Brazil is the largest country in South America." },
+    { category: "Geography", question: "Mount Everest is part of which mountain range?", choices: ["Himalayas", "Alps", "Andes", "Rockies"], answer: "Himalayas", fact: "Mount Everest is in the Himalayas." },
+    { category: "Geography", question: "Which city is known as the Big Apple?", choices: ["New York City", "Los Angeles", "Chicago", "Boston"], answer: "New York City", fact: "New York City is nicknamed the Big Apple." },
+    { category: "Geography", question: "Which country is shaped like a boot?", choices: ["Italy", "Greece", "Portugal", "Norway"], answer: "Italy", fact: "Italy is often described as boot-shaped." },
+    { category: "Geography", question: "Which sea lies between Britain and Norway?", choices: ["North Sea", "Mediterranean Sea", "Black Sea", "Baltic Sea"], answer: "North Sea", fact: "The North Sea lies east of Great Britain." },
+    { category: "Geography", question: "What is the capital city of the United States?", choices: ["Washington, D.C.", "New York City", "Boston", "Philadelphia"], answer: "Washington, D.C.", fact: "Washington, D.C. is the US capital." },
+    { category: "Music & Film", question: "Which city are The Beatles most associated with?", choices: ["Liverpool", "London", "Manchester", "Birmingham"], answer: "Liverpool", fact: "The Beatles formed in Liverpool." },
+    { category: "Music & Film", question: "Elvis Presley is often called the King of what?", choices: ["Rock and Roll", "Jazz", "Opera", "Disco"], answer: "Rock and Roll", fact: "Elvis is often called the King of Rock and Roll." },
+    { category: "Music & Film", question: "Somewhere Over the Rainbow is from which film?", choices: ["The Wizard of Oz", "Mary Poppins", "Casablanca", "Grease"], answer: "The Wizard of Oz", fact: "The song appears in The Wizard of Oz." },
+    { category: "Music & Film", question: "Which film is set mostly around Rick's Cafe?", choices: ["Casablanca", "Jaws", "Rocky", "The Sound of Music"], answer: "Casablanca", fact: "Rick's Cafe is central to Casablanca." },
+    { category: "Music & Film", question: "Which singer was known for I Walk the Line?", choices: ["Johnny Cash", "Frank Sinatra", "Bob Dylan", "Tom Jones"], answer: "Johnny Cash", fact: "I Walk the Line is a Johnny Cash song." },
+    { category: "Music & Film", question: "Which film features a great white shark?", choices: ["Jaws", "Ben-Hur", "The Graduate", "Chitty Chitty Bang Bang"], answer: "Jaws", fact: "Jaws is famous for its shark." },
+    { category: "Music & Film", question: "Which musical features the Von Trapp family?", choices: ["The Sound of Music", "Oliver!", "Cats", "My Fair Lady"], answer: "The Sound of Music", fact: "The Sound of Music follows the Von Trapp family." },
+    { category: "Music & Film", question: "Which instrument did Louis Armstrong famously play?", choices: ["Trumpet", "Drums", "Harp", "Cello"], answer: "Trumpet", fact: "Louis Armstrong was a celebrated trumpet player." },
+    { category: "Nature", question: "Which animal is known as the ship of the desert?", choices: ["Camel", "Horse", "Elephant", "Donkey"], answer: "Camel", fact: "Camels are called ships of the desert." },
+    { category: "Nature", question: "What is the fastest land animal?", choices: ["Cheetah", "Lion", "Greyhound", "Kangaroo"], answer: "Cheetah", fact: "The cheetah is the fastest land animal." },
+    { category: "Nature", question: "What is the largest mammal?", choices: ["Blue whale", "Elephant", "Giraffe", "Hippopotamus"], answer: "Blue whale", fact: "The blue whale is the largest mammal." },
+    { category: "Nature", question: "What does a caterpillar turn into?", choices: ["Butterfly", "Frog", "Bee", "Snail"], answer: "Butterfly", fact: "Many caterpillars become butterflies or moths." },
+    { category: "Nature", question: "What tree produces acorns?", choices: ["Oak", "Pine", "Willow", "Palm"], answer: "Oak", fact: "Acorns grow on oak trees." },
+    { category: "Nature", question: "What do bees make?", choices: ["Honey", "Milk", "Silk", "Wool"], answer: "Honey", fact: "Honey bees make honey." },
+    { category: "Nature", question: "A young frog is called what?", choices: ["Tadpole", "Foal", "Cub", "Calf"], answer: "Tadpole", fact: "Frogs begin life as tadpoles." },
+    { category: "Nature", question: "Which planet is known as the Red Planet?", choices: ["Mars", "Venus", "Jupiter", "Mercury"], answer: "Mars", fact: "Mars is known as the Red Planet." },
+    { category: "Sport", question: "In football, how many players start on the pitch for one team?", choices: ["11", "9", "10", "12"], answer: "11", fact: "A football team starts with 11 players on the pitch." },
+    { category: "Sport", question: "Which sport uses wickets?", choices: ["Cricket", "Tennis", "Golf", "Boxing"], answer: "Cricket", fact: "Cricket uses wickets." },
+    { category: "Sport", question: "How many Olympic rings are there?", choices: ["5", "4", "6", "7"], answer: "5", fact: "The Olympic symbol has five rings." },
+    { category: "Sport", question: "In tennis, what comes after deuce if a player wins the next point?", choices: ["Advantage", "Love", "Set", "Match"], answer: "Advantage", fact: "After deuce, the next point gives advantage." },
+    { category: "Sport", question: "How many pins are set up in ten-pin bowling?", choices: ["10", "8", "9", "12"], answer: "10", fact: "Ten-pin bowling uses 10 pins." },
+    { category: "Sport", question: "What shape is a rugby ball?", choices: ["Oval", "Square", "Flat", "Star-shaped"], answer: "Oval", fact: "A rugby ball is oval." },
+    { category: "Sport", question: "Which sport is played at Wimbledon?", choices: ["Tennis", "Football", "Golf", "Cycling"], answer: "Tennis", fact: "Wimbledon is a major tennis tournament." },
+    { category: "Sport", question: "In golf, what is the target called?", choices: ["Hole", "Net", "Wicket", "Goal"], answer: "Hole", fact: "Golfers aim to get the ball into the hole." },
+    { category: "Food & Home", question: "Which fruit is often used to make marmalade?", choices: ["Orange", "Banana", "Pear", "Grape"], answer: "Orange", fact: "Orange marmalade is a classic preserve." },
+    { category: "Food & Home", question: "What drink is made by steeping leaves in hot water?", choices: ["Tea", "Lemonade", "Milk", "Cider"], answer: "Tea", fact: "Tea is made by steeping tea leaves." },
+    { category: "Food & Home", question: "Which kitchen item boils water?", choices: ["Kettle", "Toaster", "Sieve", "Grater"], answer: "Kettle", fact: "A kettle is used to boil water." },
+    { category: "Food & Home", question: "Which food is traditionally paired with chips in Britain?", choices: ["Fish", "Pancakes", "Rice", "Pasta"], answer: "Fish", fact: "Fish and chips is a traditional British meal." },
+    { category: "Food & Home", question: "Which item is used to tell the time on a wall?", choices: ["Clock", "Mirror", "Picture", "Shelf"], answer: "Clock", fact: "A wall clock tells the time." },
+    { category: "Food & Home", question: "Which dairy food is often sliced for a sandwich?", choices: ["Cheese", "Jam", "Rice", "Apple"], answer: "Cheese", fact: "Cheese is often sliced for sandwiches." },
+    { category: "Food & Home", question: "What do you use to unlock a door?", choices: ["Key", "Spoon", "Comb", "Stamp"], answer: "Key", fact: "A key unlocks a door." },
+    { category: "Food & Home", question: "Which room usually has a bath or shower?", choices: ["Bathroom", "Garage", "Dining room", "Loft"], answer: "Bathroom", fact: "A bathroom usually has a bath or shower." },
+    { category: "Words", question: "What is the opposite of ancient?", choices: ["Modern", "Quiet", "Narrow", "Heavy"], answer: "Modern", fact: "Modern is an opposite of ancient." },
+    { category: "Words", question: "What is the plural of mouse?", choices: ["Mice", "Mouses", "Mousees", "Meese"], answer: "Mice", fact: "The plural of mouse is mice." },
+    { category: "Words", question: "What do we call a book of maps?", choices: ["Atlas", "Diary", "Novel", "Menu"], answer: "Atlas", fact: "An atlas is a book of maps." },
+    { category: "Words", question: "What language is the greeting bonjour from?", choices: ["French", "German", "Spanish", "Italian"], answer: "French", fact: "Bonjour is French." },
+    { category: "Words", question: "What language is the greeting Guten Tag from?", choices: ["German", "French", "Welsh", "Portuguese"], answer: "German", fact: "Guten Tag is German." },
+    { category: "Words", question: "What language is the greeting hola from?", choices: ["Spanish", "Dutch", "Greek", "Swedish"], answer: "Spanish", fact: "Hola is Spanish." },
+    { category: "Words", question: "Which month comes after April?", choices: ["May", "March", "June", "August"], answer: "May", fact: "May comes after April." },
+    { category: "Words", question: "What shape has three sides?", choices: ["Triangle", "Circle", "Square", "Hexagon"], answer: "Triangle", fact: "A triangle has three sides." }
+  ];
+
+  let currentTrivia = null;
+  let triviaAsked = 0;
+  let triviaScore = 0;
+  let lastTriviaQuestion = "";
+
+  function triviaReadText(item) {
+    return `${item.category}. ${item.question}. Choices: ${item.choices.join(", ")}.`;
+  }
+
+  function renderCategoryOptions() {
+    const categories = ["All"].concat([...new Set(triviaQuestions.map((item) => item.category))]);
+    document.getElementById("triviaCategory").innerHTML = categories.map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`).join("");
+  }
+
+  function nextTriviaQuestion() {
+    const category = document.getElementById("triviaCategory").value;
+    let pool = triviaQuestions.filter((item) => category === "All" || item.category === category);
+    if (pool.length > 1) pool = pool.filter((item) => item.question !== lastTriviaQuestion);
+    currentTrivia = pool[randomIndex(pool.length)];
+    lastTriviaQuestion = currentTrivia.question;
+    document.getElementById("triviaCategoryLabel").textContent = `${currentTrivia.category} question`;
+    document.getElementById("triviaQuestion").textContent = currentTrivia.question;
+    document.getElementById("triviaAnswers").innerHTML = currentTrivia.choices.map((choice) => `<button type="button" class="answer-btn" onclick="answerTrivia('${escapeHtml(choice)}')">${escapeHtml(choice)}</button>`).join("");
+    document.getElementById("triviaResult").textContent = "Choose an answer, or press Read question aloud.";
+    currentReadText = triviaReadText(currentTrivia);
+    maybeAutoRead(currentReadText);
+  }
+
+  function answerTrivia(choice) {
+    if (!currentTrivia) return;
+    triviaAsked += 1;
+    const correct = choice === currentTrivia.answer;
+    if (correct) triviaScore += 1;
+    document.querySelectorAll("#triviaAnswers .answer-btn").forEach((button) => {
+      button.disabled = true;
+      if (button.textContent === currentTrivia.answer) button.classList.add("correct");
+      if (button.textContent === choice && !correct) button.classList.add("wrong");
+    });
+    document.getElementById("triviaResult").textContent = correct
+      ? `Correct. ${currentTrivia.fact}`
+      : `Not this time. The answer is ${currentTrivia.answer}. ${currentTrivia.fact}`;
+    document.getElementById("triviaAsked").textContent = triviaAsked;
+    document.getElementById("triviaScore").textContent = triviaScore;
+    currentReadText = `${document.getElementById("triviaResult").textContent}`;
+  }
+
+  function resetTrivia() {
+    triviaAsked = 0;
+    triviaScore = 0;
+    document.getElementById("triviaAsked").textContent = "0";
+    document.getElementById("triviaScore").textContent = "0";
+    nextTriviaQuestion();
+  }
+
+  const crosswordRows = [
+    "RADIO#TEA#",
+    "I#####O###",
+    "VINYL#A###",
+    "E#####S###",
+    "R#PLANTS##",
+    "##L#######",
+    "PHOTO#B###",
+    "##T###O###",
+    "######O###",
+    "MUSIC#K###"
+  ];
+
+  const crosswordClues = [
+    { number: 1, direction: "Across", row: 0, col: 0, answer: "RADIO", clue: "A household device for listening to stations, music and news." },
+    { number: 2, direction: "Down", row: 0, col: 0, answer: "RIVER", clue: "A natural stream of water flowing toward the sea, a lake or another river." },
+    { number: 3, direction: "Across", row: 0, col: 6, answer: "TEA", clue: "A warm drink often served in a cup." },
+    { number: 4, direction: "Down", row: 0, col: 6, answer: "TOAST", clue: "Bread browned by heat." },
+    { number: 5, direction: "Across", row: 2, col: 0, answer: "VINYL", clue: "A record format played on a turntable." },
+    { number: 6, direction: "Across", row: 4, col: 2, answer: "PLANTS", clue: "Living things you may grow in a garden or on a windowsill." },
+    { number: 7, direction: "Down", row: 4, col: 2, answer: "PLOT", clue: "A small piece of land, or the story of a film or book." },
+    { number: 8, direction: "Across", row: 6, col: 0, answer: "PHOTO", clue: "A picture taken with a camera." },
+    { number: 9, direction: "Down", row: 6, col: 6, answer: "BOOK", clue: "Pages bound together for reading." },
+    { number: 10, direction: "Across", row: 9, col: 0, answer: "MUSIC", clue: "Organised sound with rhythm, melody or harmony." }
+  ];
+
+  let activeCrosswordClue = crosswordClues[0];
+
+  function crosswordNumbers() {
+    const numbers = {};
+    crosswordClues.forEach((clue) => {
+      numbers[`${clue.row}-${clue.col}`] = clue.number;
+    });
+    return numbers;
+  }
+
+  function renderCrossword() {
+    const numbers = crosswordNumbers();
+    const board = document.getElementById("crosswordBoard");
+    board.innerHTML = crosswordRows.flatMap((row, rowIndex) => {
+      return row.split("").map((letter, colIndex) => {
+        if (letter === "#") return '<div class="crossword-cell block" aria-hidden="true"></div>';
+        const number = numbers[`${rowIndex}-${colIndex}`] ? `<span class="crossword-number">${numbers[`${rowIndex}-${colIndex}`]}</span>` : "";
+        return `<div class="crossword-cell" id="cwCell-${rowIndex}-${colIndex}">${number}<input id="cw-${rowIndex}-${colIndex}" maxlength="1" aria-label="Crossword row ${rowIndex + 1} column ${colIndex + 1}" oninput="formatCrosswordInput(this)"></div>`;
+      });
+    }).join("");
+    renderClues();
+  }
+
+  function renderClues() {
+    const across = crosswordClues.filter((clue) => clue.direction === "Across");
+    const down = crosswordClues.filter((clue) => clue.direction === "Down");
+    document.getElementById("acrossClues").innerHTML = across.map(clueButtonHtml).join("");
+    document.getElementById("downClues").innerHTML = down.map(clueButtonHtml).join("");
+    selectCrosswordClue(0);
+  }
+
+  function clueButtonHtml(clue) {
+    const index = crosswordClues.indexOf(clue);
+    return `<button type="button" class="clue-button" data-clue-index="${index}" onclick="selectCrosswordClue(${index})"><strong>${clue.number} ${clue.direction}.</strong> ${escapeHtml(clue.clue)}</button>`;
+  }
+
+  function clueReadText(clue) {
+    return `Crossword clue ${clue.number} ${clue.direction}. ${clue.clue}`;
+  }
+
+  function selectCrosswordClue(index) {
+    activeCrosswordClue = crosswordClues[index] || crosswordClues[0];
+    document.querySelectorAll(".clue-button").forEach((button) => {
+      button.classList.toggle("active", Number(button.dataset.clueIndex) === index);
+    });
+    document.getElementById("activeClue").textContent = `${activeCrosswordClue.number} ${activeCrosswordClue.direction}: ${activeCrosswordClue.clue}`;
+    currentReadText = clueReadText(activeCrosswordClue);
+    const firstInput = document.getElementById(`cw-${activeCrosswordClue.row}-${activeCrosswordClue.col}`);
+    if (firstInput) firstInput.focus();
+    if (autoRead) readAloud(currentReadText);
+  }
+
+  function formatCrosswordInput(input) {
+    input.value = input.value.toUpperCase().replace(/[^A-Z]/g, "").slice(0, 1);
+  }
+
+  function checkCrossword() {
+    let filled = 0;
+    let correct = 0;
+    let total = 0;
+    crosswordRows.forEach((row, rowIndex) => {
+      row.split("").forEach((letter, colIndex) => {
+        if (letter === "#") return;
+        total += 1;
+        const input = document.getElementById(`cw-${rowIndex}-${colIndex}`);
+        const cell = document.getElementById(`cwCell-${rowIndex}-${colIndex}`);
+        cell.classList.remove("correct", "wrong");
+        const value = (input.value || "").toUpperCase();
+        if (value) filled += 1;
+        if (value === letter) {
+          correct += 1;
+          cell.classList.add("correct");
+        } else if (value) {
+          cell.classList.add("wrong");
+        }
+      });
+    });
+    document.getElementById("crosswordStatus").textContent = `${correct} of ${total} letters correct. ${filled < total ? "Keep going at your own pace." : "Puzzle checked."}`;
+    currentReadText = document.getElementById("crosswordStatus").textContent;
+  }
+
+  function revealCrossword() {
+    crosswordRows.forEach((row, rowIndex) => {
+      row.split("").forEach((letter, colIndex) => {
+        if (letter === "#") return;
+        document.getElementById(`cw-${rowIndex}-${colIndex}`).value = letter;
+        document.getElementById(`cwCell-${rowIndex}-${colIndex}`).classList.add("correct");
+      });
+    });
+    document.getElementById("crosswordStatus").textContent = "Crossword revealed. You can clear it and try again later.";
+  }
+
+  function clearCrossword() {
+    document.querySelectorAll(".crossword-cell input").forEach((input) => {
+      input.value = "";
+      input.parentElement.classList.remove("correct", "wrong");
+    });
+    document.getElementById("crosswordStatus").textContent = "Crossword cleared.";
+  }
+
+  const scrambleItems = [
+    { answer: "GARDEN", hint: "A place for flowers, plants or vegetables." },
+    { answer: "RADIO", hint: "A device for listening to stations and music." },
+    { answer: "TEAPOT", hint: "A pot used to make tea." },
+    { answer: "JIGSAW", hint: "A puzzle made from interlocking pieces." },
+    { answer: "LIBRARY", hint: "A place where people borrow books." },
+    { answer: "CAMERA", hint: "A device used to take photos." },
+    { answer: "PUZZLE", hint: "A game or problem to solve." },
+    { answer: "BISCUIT", hint: "A small sweet snack often served with tea." },
+    { answer: "WINDOW", hint: "A glass opening that lets light in." },
+    { answer: "MARKET", hint: "A place with stalls or shops." },
+    { answer: "HOLIDAY", hint: "A break or trip away." },
+    { answer: "FLOWERS", hint: "Colourful blooms in a garden or vase." },
+    { answer: "KETTLE", hint: "A kitchen item for boiling water." },
+    { answer: "FOOTBALL", hint: "A sport with goals and eleven players per side." },
+    { answer: "CRICKET", hint: "A sport with bats, balls and wickets." },
+    { answer: "SEASIDE", hint: "A place by the sea." },
+    { answer: "BRIDGE", hint: "A structure over water or a card game." },
+    { answer: "CHAIR", hint: "Something you sit on." },
+    { answer: "LETTER", hint: "A written message or a character in the alphabet." },
+    { answer: "PIANO", hint: "A keyboard instrument." },
+    { answer: "FAMILY", hint: "Relatives and loved ones." },
+    { answer: "CINEMA", hint: "A place to watch films." },
+    { answer: "PICNIC", hint: "A meal eaten outdoors." },
+    { answer: "SUNSHINE", hint: "Bright light from the sun." }
+  ];
+
+  let currentScramble = null;
+
+  function scrambleWord(word) {
+    let scrambled = shuffleList(word.split("")).join("");
+    if (scrambled === word && word.length > 1) {
+      scrambled = word.slice(1) + word[0];
+    }
+    return scrambled;
+  }
+
+  function scrambleReadText(item) {
+    return `Word scramble. Hint: ${item.hint}. Letters: ${item.scrambled.split("").join(", ")}.`;
+  }
+
+  function newScramble() {
+    const item = scrambleItems[randomIndex(scrambleItems.length)];
+    currentScramble = { ...item, scrambled: scrambleWord(item.answer) };
+    document.getElementById("scrambleHint").textContent = currentScramble.hint;
+    document.getElementById("scrambleLetters").innerHTML = currentScramble.scrambled.split("").map((letter) => `<span class="letter-tile">${escapeHtml(letter)}</span>`).join("");
+    document.getElementById("scrambleGuess").value = "";
+    document.getElementById("scrambleStatus").textContent = "Type the word, then check your answer.";
+    currentReadText = scrambleReadText(currentScramble);
+    maybeAutoRead(currentReadText);
+  }
+
+  function checkScramble() {
+    if (!currentScramble) return;
+    const guess = document.getElementById("scrambleGuess").value.trim().toUpperCase();
+    const correct = guess === currentScramble.answer;
+    document.getElementById("scrambleStatus").textContent = correct
+      ? `Correct. The word is ${currentScramble.answer}.`
+      : `Not quite. Try again, or reveal the word if you want a clue.`;
+    currentReadText = document.getElementById("scrambleStatus").textContent;
+  }
+
+  function revealScramble() {
+    if (!currentScramble) return;
+    document.getElementById("scrambleGuess").value = currentScramble.answer;
+    document.getElementById("scrambleStatus").textContent = `The answer is ${currentScramble.answer}.`;
+    currentReadText = document.getElementById("scrambleStatus").textContent;
+  }
+
+  const memoryWords = ["Radio", "Garden", "Teapot", "Piano", "Photo", "Book", "Cinema", "Seaside", "Bridge", "Market"];
+  let memoryDeck = [];
+  let memoryFlipped = [];
+  let memoryMatched = [];
+  let memoryMoves = 0;
+  let memoryLocked = false;
+
+  function startSeniorMemory() {
+    memoryDeck = shuffleList(memoryWords.slice(0, 6).flatMap((word) => [word, word]));
+    memoryFlipped = [];
+    memoryMatched = [];
+    memoryMoves = 0;
+    memoryLocked = false;
+    document.getElementById("memoryStatus").textContent = "Find the matching pairs. No timer, no score pressure.";
+    renderSeniorMemory();
+  }
+
+  function renderSeniorMemory() {
+    document.getElementById("memoryGrid").innerHTML = memoryDeck.map((word, index) => {
+      const matched = memoryMatched.includes(index);
+      const revealed = matched || memoryFlipped.includes(index);
+      const className = matched ? " matched" : revealed ? " revealed" : "";
+      return `<button type="button" class="memory-card${className}" onclick="flipSeniorMemory(${index})" aria-label="${revealed ? "Card showing " + escapeHtml(word) : "Hidden memory card"}">${revealed ? escapeHtml(word) : "?"}</button>`;
+    }).join("");
+    document.getElementById("memoryMoves").textContent = memoryMoves;
+    document.getElementById("memoryMatches").textContent = memoryMatched.length / 2;
+  }
+
+  function flipSeniorMemory(index) {
+    if (memoryLocked || memoryMatched.includes(index) || memoryFlipped.includes(index)) return;
+    memoryFlipped.push(index);
+    if (memoryFlipped.length === 2) {
+      memoryMoves += 1;
+      const [first, second] = memoryFlipped;
+      if (memoryDeck[first] === memoryDeck[second]) {
+        memoryMatched.push(first, second);
+        memoryFlipped = [];
+        document.getElementById("memoryStatus").textContent = `Match found: ${memoryDeck[first]}.`;
+        if (memoryMatched.length === memoryDeck.length) {
+          document.getElementById("memoryStatus").textContent = `All pairs found in ${memoryMoves} moves.`;
+        }
+      } else {
+        memoryLocked = true;
+        document.getElementById("memoryStatus").textContent = "Not a match. The cards will turn back over.";
+        setTimeout(() => {
+          memoryFlipped = [];
+          memoryLocked = false;
+          renderSeniorMemory();
+        }, 900);
+      }
+    }
+    renderSeniorMemory();
+    currentReadText = document.getElementById("memoryStatus").textContent;
+  }
+
+  const conversationPrompts = [
+    { category: "Music", prompt: "Name a song that always reminds you of a particular time or place." },
+    { category: "Music", prompt: "Which singer or band would you happily listen to again today?" },
+    { category: "Food", prompt: "What meal did your family often make when you were younger?" },
+    { category: "Food", prompt: "What is your favourite thing to have with a cup of tea or coffee?" },
+    { category: "Travel", prompt: "Tell me about a place you visited that stayed in your memory." },
+    { category: "Travel", prompt: "If you could sit anywhere for an hour today, where would you choose?" },
+    { category: "Home", prompt: "What object in your home has a good story behind it?" },
+    { category: "Home", prompt: "What room do you find most comfortable, and why?" },
+    { category: "Family", prompt: "Name a family saying, joke or phrase you still remember." },
+    { category: "Family", prompt: "What game did your family play together?" },
+    { category: "School", prompt: "What subject did you enjoy most at school?" },
+    { category: "School", prompt: "Can you remember a teacher who made a difference?" },
+    { category: "Work", prompt: "What was one job or task you learned to do well?" },
+    { category: "Work", prompt: "What advice would you give someone starting their first job?" },
+    { category: "Nature", prompt: "Name three birds, flowers or trees you like." },
+    { category: "Nature", prompt: "What kind of weather do you enjoy most?" },
+    { category: "Sport", prompt: "Which sport do you most enjoy watching or playing?" },
+    { category: "Sport", prompt: "Name a sports moment you remember." },
+    { category: "Films", prompt: "What film could you watch again without getting bored?" },
+    { category: "Films", prompt: "Name an actor or actress you always liked." },
+    { category: "Everyday", prompt: "What is one small thing that makes a day better?" },
+    { category: "Everyday", prompt: "Name three things you can see from where you are sitting." },
+    { category: "Memory", prompt: "What was a favourite shop, cafe or market from your past?" },
+    { category: "Memory", prompt: "What did weekends often feel like when you were younger?" },
+    { category: "Words", prompt: "Think of three words that begin with the letter S." },
+    { category: "Words", prompt: "Name something blue, something green and something red." },
+    { category: "Books", prompt: "What book, poem or newspaper section did you enjoy reading?" },
+    { category: "Books", prompt: "Name a character from a story, film or television programme." },
+    { category: "Garden", prompt: "What would you grow in a garden if someone else did the digging?" },
+    { category: "Garden", prompt: "Name a smell that reminds you of outside." },
+    { category: "Choice", prompt: "Would you rather have a seaside day, garden day or cinema day?" },
+    { category: "Choice", prompt: "Would you rather hear a funny story, a song or a quiz question?" }
+  ];
+
+  let currentPrompt = conversationPrompts[0];
+
+  function promptReadText(prompt) {
+    return `Conversation prompt. ${prompt.category}. ${prompt.prompt}`;
+  }
+
+  function newConversationPrompt() {
+    const options = conversationPrompts.filter((prompt) => prompt.prompt !== currentPrompt.prompt);
+    currentPrompt = options[randomIndex(options.length)];
+    document.getElementById("promptCategory").textContent = currentPrompt.category;
+    document.getElementById("promptText").textContent = currentPrompt.prompt;
+    currentReadText = promptReadText(currentPrompt);
+    maybeAutoRead(currentReadText);
+  }
+
+  function copySeniorGames(button) {
+    window.copySpinnitText("Free games for older people on Spinnit: large-print trivia, crossword, word scrambles, memory pairs and conversation prompts with optional read-aloud questions.", button, "Copy page");
+  }
+
+  function shareSeniorGames(button) {
+    window.shareOrCopySpinnit({
+      title: "Free Games for Older People | Spinnit",
+      text: "Large-print trivia, crossword, word games and conversation prompts for older adults.",
+      url: window.location.href
+    }, button);
+  }
+
+  function copySeniorGamesEmbed(button) {
+    window.copySpinnitEmbed("/tools/games-for-older-people.html", "Free Games for Older People - Spinnit", button);
+  }
+
+  renderCategoryOptions();
+  nextTriviaQuestion();
+  renderCrossword();
+  newScramble();
+  startSeniorMemory();
+  newConversationPrompt();
+  showSeniorGame("trivia");
+  if (!canReadAloud()) {
+    setReaderStatus("Read-aloud is not supported in this browser, but all games still work.");
+  }
+---
+<main class="tool-page senior-page" id="seniorGamesPage">
+
+  <div class="tool-header">
+    <div class="tool-icon">SG</div>
+    <h1>Free games for older people</h1>
+    <p>Large-print trivia, crossword, word games, memory pairs and conversation prompts for relaxed play.</p>
+  </div>
+
+  <div class="senior-note">
+    <strong>Gentle, not medical:</strong> These games are for enjoyment, family time and accessible entertainment. They are not medical treatment, diagnosis, memory therapy or a replacement for professional advice.
+  </div>
+
+  <div class="result-box">
+    <div class="result-label">senior-friendly games</div>
+    <div class="result-number" style="font-size:clamp(1.35rem,7vw,2.7rem);word-break:break-word;">large print + read aloud</div>
+    <div style="font-size:13px;color:var(--text2);margin-top:6px;">Designed for older adults, seniors, families, carers, activity coordinators and anyone who wants slower, clearer browser games.</div>
+  </div>
+
+  <section class="reader-panel" aria-label="Read aloud controls">
+    <div><strong>Read-aloud option:</strong> press "Read current" on any question, clue or prompt. If your browser supports speech synthesis, it uses the device voice in the browser.</div>
+    <div class="reader-row">
+      <button class="btn-copy" type="button" onclick="readCurrentText()">Read current</button>
+      <button class="btn-copy" type="button" onclick="stopReading()">Stop reading</button>
+      <button class="btn-copy" type="button" onclick="toggleBiggerControls(this)">Use bigger controls</button>
+      <label style="color:var(--text2);font-size:14px;"><input type="checkbox" onchange="toggleAutoRead(this)" style="margin-right:6px;vertical-align:middle;"> Auto-read new questions</label>
+      <label for="readerRate" style="color:var(--text2);font-size:14px;">Voice speed</label>
+      <select id="readerRate" style="max-width:130px;">
+        <option value="0.75">Slow</option>
+        <option value="0.9" selected>Comfortable</option>
+        <option value="1">Normal</option>
+      </select>
+    </div>
+    <div class="reader-status" id="readerStatus">Read-aloud ready if your browser supports it.</div>
+  </section>
+
+  <div class="senior-tabs" role="tablist" aria-label="Free games for older people">
+    <button class="senior-tab active" type="button" data-game="trivia" role="tab" aria-selected="true" onclick="showSeniorGame('trivia')">Trivia</button>
+    <button class="senior-tab" type="button" data-game="crossword" role="tab" aria-selected="false" onclick="showSeniorGame('crossword')">Crossword</button>
+    <button class="senior-tab" type="button" data-game="scramble" role="tab" aria-selected="false" onclick="showSeniorGame('scramble')">Word scramble</button>
+    <button class="senior-tab" type="button" data-game="memory" role="tab" aria-selected="false" onclick="showSeniorGame('memory')">Memory pairs</button>
+    <button class="senior-tab" type="button" data-game="prompts" role="tab" aria-selected="false" onclick="showSeniorGame('prompts')">Conversation</button>
+  </div>
+
+  <section class="senior-game active" id="game-trivia" role="tabpanel">
+    <h2>Large-print trivia quiz</h2>
+    <p class="game-help">A relaxed quiz with 60+ built-in questions across general knowledge, history, geography, music, film, nature, sport, food and word categories. Play alone or read the questions to a group.</p>
+
+    <div class="control-row">
+      <div class="control-group">
+        <label for="triviaCategory">Category</label>
+        <select id="triviaCategory"></select>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-kicker" id="triviaCategoryLabel">Trivia question</div>
+      <p class="question-text" id="triviaQuestion">Question loading...</p>
+    </div>
+
+    <div class="answer-grid" id="triviaAnswers"></div>
+
+    <div class="status-box" id="triviaResult" aria-live="polite">Choose an answer, or press Read question aloud.</div>
+
+    <div class="metric-grid">
+      <div class="metric-card"><strong>Questions</strong><span id="triviaAsked">0</span></div>
+      <div class="metric-card"><strong>Correct</strong><span id="triviaScore">0</span></div>
+    </div>
+
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="readCurrentText()">Read question aloud</button>
+      <button class="btn-copy" type="button" onclick="nextTriviaQuestion()">New question</button>
+      <button class="btn-copy" type="button" onclick="resetTrivia()">Reset score</button>
+    </div>
+  </section>
+
+  <section class="senior-game" id="game-crossword" role="tabpanel">
+    <h2>Large-print mini crossword</h2>
+    <p class="game-help">A short crossword with everyday clues. Click a clue, type one letter per square, then check or reveal when ready.</p>
+
+    <div class="crossword-wrap">
+      <div>
+        <div class="crossword-board" id="crosswordBoard" aria-label="Large-print crossword grid"></div>
+        <div class="status-box" id="crosswordStatus" aria-live="polite">Choose a clue and type letters into the grid.</div>
+      </div>
+      <div class="clue-panel">
+        <div class="question-card">
+          <div class="question-kicker">Selected clue</div>
+          <p class="question-text" id="activeClue" style="font-size:clamp(1rem,4vw,1.35rem);">Choose a clue.</p>
+        </div>
+        <h3 style="font-size:14px;color:var(--accent2);font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;margin:0;">Across</h3>
+        <div class="clue-list" id="acrossClues"></div>
+        <h3 style="font-size:14px;color:var(--accent2);font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;margin:0.5rem 0 0;">Down</h3>
+        <div class="clue-list" id="downClues"></div>
+      </div>
+    </div>
+
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="readCurrentText()">Read clue aloud</button>
+      <button class="btn-copy" type="button" onclick="checkCrossword()">Check crossword</button>
+      <button class="btn-copy" type="button" onclick="revealCrossword()">Reveal answers</button>
+      <button class="btn-copy" type="button" onclick="clearCrossword()">Clear grid</button>
+    </div>
+  </section>
+
+  <section class="senior-game" id="game-scramble" role="tabpanel">
+    <h2>Word scramble</h2>
+    <p class="game-help">Unscramble the large letter tiles to make an everyday word. Use the hint, read it aloud, or reveal the answer if you want to keep the game moving.</p>
+
+    <div class="question-card">
+      <div class="question-kicker">Hint</div>
+      <p class="question-text" id="scrambleHint">Hint loading...</p>
+    </div>
+
+    <div class="scramble-letters" id="scrambleLetters" aria-label="Scrambled letters"></div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="scrambleGuess">Your answer</label>
+        <input id="scrambleGuess" type="text" autocomplete="off" placeholder="Type the word">
+      </div>
+    </div>
+
+    <div class="status-box" id="scrambleStatus" aria-live="polite">Type the word, then check your answer.</div>
+
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="readCurrentText()">Read hint aloud</button>
+      <button class="btn-copy" type="button" onclick="checkScramble()">Check answer</button>
+      <button class="btn-copy" type="button" onclick="revealScramble()">Reveal word</button>
+      <button class="btn-copy" type="button" onclick="newScramble()">New scramble</button>
+    </div>
+  </section>
+
+  <section class="senior-game" id="game-memory" role="tabpanel">
+    <h2>Memory pairs</h2>
+    <p class="game-help">Turn over two cards and try to find a matching pair. The words are familiar, high contrast and untimed.</p>
+
+    <div class="memory-grid" id="memoryGrid" aria-label="Memory pairs cards"></div>
+
+    <div class="metric-grid">
+      <div class="metric-card"><strong>Moves</strong><span id="memoryMoves">0</span></div>
+      <div class="metric-card"><strong>Matches</strong><span id="memoryMatches">0</span></div>
+    </div>
+
+    <div class="status-box" id="memoryStatus" aria-live="polite">Find the matching pairs. No timer, no score pressure.</div>
+
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="readAloud('Memory pairs. Turn over two cards and try to find a matching pair. There is no timer.')">Read instructions</button>
+      <button class="btn-copy" type="button" onclick="startSeniorMemory()">New memory game</button>
+    </div>
+  </section>
+
+  <section class="senior-game" id="game-prompts" role="tabpanel">
+    <h2>Conversation prompt game</h2>
+    <p class="game-help">A gentle game for carers, family visits, activity groups or video calls. Use the prompt as a question, or pass it around the room.</p>
+
+    <div class="prompt-card" aria-live="polite">
+      <strong id="promptCategory">Prompt</strong>
+      <p id="promptText">Prompt loading...</p>
+    </div>
+
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="readCurrentText()">Read prompt aloud</button>
+      <button class="btn-copy" type="button" onclick="newConversationPrompt()">New prompt</button>
+    </div>
+  </section>
+
+  <div class="tool-actions">
+    <button class="btn-copy" type="button" onclick="copySeniorGames(this)">Copy page summary</button>
+    <button class="btn-copy" type="button" onclick="shareSeniorGames(this)">Share</button>
+    <button class="btn-copy" type="button" onclick="copySeniorGamesEmbed(this)">Copy embed</button>
+    <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>This page is built for people who want slower, clearer online games: older adults, seniors, families, carers, activity coordinators and anyone who prefers large text over noisy mobile games. The games work in the browser with no account and no install.</p>
+
+    <h2>Games included</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Large-print trivia:</strong> 60+ questions with multiple-choice answers and short facts.</li>
+      <li><strong>Mini crossword:</strong> everyday clues, large boxes and check/reveal buttons.</li>
+      <li><strong>Word scramble:</strong> large letter tiles with familiar words and hints.</li>
+      <li><strong>Memory pairs:</strong> untimed matching cards with simple words.</li>
+      <li><strong>Conversation prompts:</strong> questions for family visits, care homes, clubs and calls.</li>
+    </ul>
+
+    <h2>Read-aloud questions</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The Read current button uses your browser's built-in speech feature when available. It is useful if reading small text is tiring, if a carer is leading a group, or if the game is being played on a tablet across a table. The text is read by the browser; Spinnit does not need to send the question to a separate voice service.</p>
+
+    <h2>Search intent this page serves</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">This page is designed for searches like free games for older people, online games for seniors, large print trivia questions, easy crossword for seniors, word games for older adults, memory games for seniors, read aloud quiz questions and activities for elderly parents. It is a real tool page, not a thin list of links.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Games for older people FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are these games free?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The trivia, crossword, word scramble, memory pairs and conversation prompts are free to use in the browser.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use these games in a care home or activity group?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Use the page on a tablet, laptop or projector. The games are designed for relaxed group play, with large text and optional read-aloud controls.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Do the games claim to improve memory?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. They are entertainment and conversation tools. They do not diagnose, treat or claim to improve memory or health conditions.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does read-aloud work on every device?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">It depends on the browser. Most modern browsers include speech synthesis, but if it is unavailable the games still work normally.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related gentle games</h2>
+    <div class="related-grid">
+      <a class="related-card" href="parkinsons-friendly-games.html"><span class="ri">PG</span> Parkinson's-Friendly Games</a>
+      <a class="related-card" href="dice-roller.html"><span class="ri">D6</span> Dice Roller</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">CF</span> Coin Flip</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">YN</span> Yes / No Wheel</a>
+    </div>
+    <p class="related-note">For broader site methodology, read <a href="/how-spinnit-tools-work.html">how Spinnit tools work</a>.</p>
+  </section>
+
+</main>
