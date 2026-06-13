@@ -1,25 +1,211 @@
 ---
 layout: layouts/base.njk
-title: "Spinnit - Fair Random Pickers, Sports Tools, Gentle Games & Generators"
-description: "Free fair random pickers, football tools, gentle games, rotation generators, classroom tools, dice, coin flips, wheels, name pickers and number generators."
-ogDescription: "Free random tools for dice, names, wheels, numbers, passwords, classrooms and everyday decisions. No sign-up, mobile-first."
+title: "Spinnit - Free Random Tools for Classrooms, Football & Senior Games"
+description: "Free random tools organised by use: classroom tools, football tools, senior-friendly games, dice, wheels, number generators and everyday pickers."
+ogDescription: "Free classroom tools, football randomizers, senior-friendly games, dice, names, wheels, numbers and everyday pickers. No sign-up."
 canonical: "https://spinnit.site/"
 dateModified: "2026-06-13"
 hideNav: true
 extraHead: |
-  <meta name="twitter:title" content="Spinnit — Free Random Tools">
+  <meta name="twitter:title" content="Spinnit - Free Random Tools">
   <meta name="twitter:description" content="Free random tools, pickers, wheels and generators. No sign-up, works on mobile.">
 jsonLd: |
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Spinnit",
-    "url": "https://spinnit.site/",
-    "description": "Free online random generators and tools",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://spinnit.site/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://spinnit.site/#website",
+        "name": "Spinnit",
+        "url": "https://spinnit.site/",
+        "description": "Free online random generators, classroom tools, football tools and senior-friendly games.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://spinnit.site/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://spinnit.site/#webpage",
+        "name": "Spinnit - Free Random Tools",
+        "url": "https://spinnit.site/",
+        "isPartOf": { "@id": "https://spinnit.site/#website" },
+        "description": "Browse free random tools by category, including classroom tools, football tools, senior-friendly games and everyday generators.",
+        "mainEntity": [
+          { "@id": "https://spinnit.site/#classroom-tools" },
+          { "@id": "https://spinnit.site/#football-tools" },
+          { "@id": "https://spinnit.site/#senior-tools" },
+          { "@id": "https://spinnit.site/#more-tools" }
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://spinnit.site/#classroom-tools",
+        "name": "Classroom Tools",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Random Student Picker", "url": "https://spinnit.site/tools/random-student-picker.html" },
+          { "@type": "ListItem", "position": 2, "name": "Classroom Wheel of Names", "url": "https://spinnit.site/tools/wheel-of-names-for-classroom.html" },
+          { "@type": "ListItem", "position": 3, "name": "Random Team Generator", "url": "https://spinnit.site/tools/team-picker.html" },
+          { "@type": "ListItem", "position": 4, "name": "List Shuffler", "url": "https://spinnit.site/tools/list-shuffler.html" },
+          { "@type": "ListItem", "position": 5, "name": "Fair Rotation Generator", "url": "https://spinnit.site/tools/fair-rotation-generator.html" },
+          { "@type": "ListItem", "position": 6, "name": "Random Number 1 to 25", "url": "https://spinnit.site/tools/random-number-1-25.html" }
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://spinnit.site/#football-tools",
+        "name": "Football Tools",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "World Cup Sweepstake Generator", "url": "https://spinnit.site/tools/world-cup-sweepstake-generator.html" },
+          { "@type": "ListItem", "position": 2, "name": "5-a-Side Team Generator", "url": "https://spinnit.site/tools/5-a-side-team-generator.html" },
+          { "@type": "ListItem", "position": 3, "name": "Football Bingo Card Generator", "url": "https://spinnit.site/tools/football-bingo-card-generator.html" },
+          { "@type": "ListItem", "position": 4, "name": "Penalty Shootout Generator", "url": "https://spinnit.site/tools/penalty-shootout-generator.html" },
+          { "@type": "ListItem", "position": 5, "name": "Random Team Picker", "url": "https://spinnit.site/tools/team-picker.html" },
+          { "@type": "ListItem", "position": 6, "name": "List Shuffler", "url": "https://spinnit.site/tools/list-shuffler.html" }
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://spinnit.site/#senior-tools",
+        "name": "Tools for Seniors",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Games for Older People", "url": "https://spinnit.site/tools/games-for-older-people.html" },
+          { "@type": "ListItem", "position": 2, "name": "Parkinson's-Friendly Games", "url": "https://spinnit.site/tools/parkinsons-friendly-games.html" },
+          { "@type": "ListItem", "position": 3, "name": "Coin Flip", "url": "https://spinnit.site/tools/coin-flip.html" },
+          { "@type": "ListItem", "position": 4, "name": "Yes / No Wheel", "url": "https://spinnit.site/tools/yes-no-wheel.html" },
+          { "@type": "ListItem", "position": 5, "name": "Dice Roller", "url": "https://spinnit.site/tools/dice-roller.html" },
+          { "@type": "ListItem", "position": 6, "name": "Random Country Generator", "url": "https://spinnit.site/tools/random-country.html" }
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://spinnit.site/#more-tools",
+        "name": "More Useful Tools",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Random Number Generator", "url": "https://spinnit.site/tools/random-number.html" },
+          { "@type": "ListItem", "position": 2, "name": "Wheel of Names", "url": "https://spinnit.site/tools/wheel-of-names.html" },
+          { "@type": "ListItem", "position": 3, "name": "Password Generator", "url": "https://spinnit.site/tools/password-generator.html" },
+          { "@type": "ListItem", "position": 4, "name": "Random Colour Generator", "url": "https://spinnit.site/tools/colour-generator.html" },
+          { "@type": "ListItem", "position": 5, "name": "Lottery Number Picker", "url": "https://spinnit.site/tools/lottery-picker.html" },
+          { "@type": "ListItem", "position": 6, "name": "Giveaway Winner Picker", "url": "https://spinnit.site/tools/random-winner-picker.html" }
+        ]
+      }
+    ]
+  }
+pageStyle: |
+  .home-nav-links {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .home-nav-links a {
+    font-size: 12px;
+    color: var(--text3);
+    font-family: var(--mono);
+    text-decoration: none;
+  }
+  .home-nav-links a:hover {
+    color: var(--text);
+  }
+  .home-tools {
+    max-width: 1040px;
+    margin: 0 auto 3.5rem;
+    padding: 0 1.5rem;
+  }
+  .home-category {
+    margin-top: 2.5rem;
+  }
+  .home-section-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 1rem;
+  }
+  .home-section-head h2 {
+    font-size: clamp(1.2rem, 3.5vw, 1.65rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.35rem;
+  }
+  .home-section-head p {
+    max-width: 680px;
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .section-kicker {
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .section-cta {
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .home-tool-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .home-tool-grid .tool-card {
+    min-height: 178px;
+  }
+  .home-tool-grid .tool-arrow {
+    color: var(--accent2);
+  }
+  .home-category.classroom .tool-card {
+    border-color: rgba(96,165,250,0.14);
+  }
+  .home-category.football .tool-card {
+    border-color: rgba(52,211,153,0.14);
+  }
+  .home-category.seniors .tool-card {
+    border-color: rgba(251,191,36,0.16);
+  }
+  .home-note {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.75;
+    margin-top: 2.5rem;
+    padding: 1rem 1.15rem;
+  }
+  @media (max-width: 800px) {
+    .home-section-head {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      align-items: start;
+    }
+    .home-tool-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 560px) {
+    .home-nav-links {
+      justify-content: flex-start;
+      gap: 10px;
+      margin-top: 0.75rem;
+    }
+    .nav {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .home-tool-grid {
+      grid-template-columns: 1fr;
+    }
+    .home-tool-grid .tool-card {
+      min-height: auto;
     }
   }
 pageScript: |
@@ -29,20 +215,20 @@ pageScript: |
 ---
 <nav class="nav">
   <div class="nav-logo">spinn<span>it</span></div>
-  <div style="display:flex;gap:14px;align-items:center;">
-    <a href="/classroom-random-tools/" style="font-size:12px;color:var(--text3);font-family:var(--mono);text-decoration:none;">classroom tools</a>
-    <a href="/tools/football/" style="font-size:12px;color:var(--text3);font-family:var(--mono);text-decoration:none;">football tools</a>
-    <a href="/tools/" style="font-size:12px;color:var(--text3);font-family:var(--mono);text-decoration:none;">browse all tools &rarr;</a>
-    <a href="/blog/" style="font-size:12px;color:var(--text3);font-family:var(--mono);text-decoration:none;">guides</a>
-    <a href="/ai/" style="font-size:12px;color:var(--text3);font-family:var(--mono);text-decoration:none;">AI tools</a>
+  <div class="home-nav-links">
+    <a href="#classroom-tools">classroom tools</a>
+    <a href="#football-tools">football tools</a>
+    <a href="#senior-tools">senior games</a>
+    <a href="/tools/">browse all tools &rarr;</a>
+    <a href="/blog/">guides</a>
   </div>
 </nav>
 
 <section class="hero">
-  <div class="hero-eyebrow">free · fast · no sign-up</div>
+  <div class="hero-eyebrow">free &middot; fast &middot; no sign-up</div>
   <h1>One tap. A fair pick.</h1>
-  <p>Free fair random pickers for football, sports, rotations, classrooms, chores, meetings, gentle games, work, giveaways and everyday decisions. No sign-up, mobile-first.</p>
-  <p style="margin-top:0.75rem;"><a href="/classroom-random-tools/" style="color:var(--accent2);font-family:var(--mono);font-size:13px;text-decoration:none;">View classroom random tools &rarr;</a> <span style="color:var(--text3);font-family:var(--mono);font-size:13px;">or</span> <a href="/tools/" style="color:var(--accent2);font-family:var(--mono);font-size:13px;text-decoration:none;">browse all tools</a></p>
+  <p>Free random tools organised for classrooms, football fans, senior-friendly games, group picks and everyday decisions. No sign-up, mobile-first.</p>
+  <p style="margin-top:0.75rem;"><a href="#classroom-tools" style="color:var(--accent2);font-family:var(--mono);font-size:13px;text-decoration:none;">Browse by category &rarr;</a> <span style="color:var(--text3);font-family:var(--mono);font-size:13px;">or</span> <a href="/tools/" style="color:var(--accent2);font-family:var(--mono);font-size:13px;text-decoration:none;">view every tool</a></p>
 </section>
 
 <!-- AdSense Banner -->
@@ -51,262 +237,217 @@ pageScript: |
   <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
 </div>
 
-<section class="link-clusters" aria-label="Classroom tools for teachers">
-  <h2>Classroom tools for teachers</h2>
-  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1rem;max-width:720px;">Pick students fairly, avoid repeated picks, create random teams, shuffle classroom lists, and run quick classroom games with simple tools that work without sign-up.</p>
-  <div class="cluster-grid">
-    <div class="cluster-card">
-      <h3>Start here</h3>
-      <a href="/classroom-random-tools/">Classroom Random Tools hub</a>
-      <a href="/tools/random-student-picker.html">Random Student Picker</a>
-      <a href="/tools/wheel-of-names-for-classroom.html">Classroom Wheel of Names</a>
+<main class="home-tools" aria-label="Spinnit tool categories">
+
+  <section class="home-category classroom" id="classroom-tools">
+    <div class="home-section-head">
+      <div>
+        <div class="section-kicker">for teachers and students</div>
+        <h2>Classroom Tools</h2>
+        <p>Fast tools for lessons, worksheets, group work, classroom games and fair participation. Use them on a laptop, phone or classroom display without creating an account.</p>
+      </div>
+      <a class="section-cta" href="/classroom-random-tools/">View classroom hub &rarr;</a>
     </div>
-    <div class="cluster-card">
-      <h3>Groups and lists</h3>
-      <a href="/tools/team-picker.html">Random Team Generator</a>
-      <a href="/tools/list-shuffler.html">List Shuffler</a>
-      <a href="/tools/fair-rotation-generator.html">Fair Rotation Generator</a>
-      <a href="/tools/random-name-picker.html">Random Name Picker</a>
+    <div class="home-tool-grid">
+      <a class="tool-card" href="/tools/random-student-picker.html">
+        <div class="tool-icon">RS</div>
+        <h3>Random Student Picker</h3>
+        <p>Pick students fairly for questions, reading turns, board work or classroom participation.</p>
+        <div class="tool-arrow">open student picker &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/wheel-of-names-for-classroom.html">
+        <div class="tool-icon">CW</div>
+        <h3>Classroom Wheel of Names</h3>
+        <p>Use a teacher-friendly name wheel for student picks, rewards, activities and review games.</p>
+        <div class="tool-arrow">open classroom wheel &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/team-picker.html">
+        <div class="tool-icon">TM</div>
+        <h3>Random Team Generator</h3>
+        <p>Split a class into random teams for PE, projects, games, workshops or group tasks.</p>
+        <div class="tool-arrow">make class teams &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/list-shuffler.html">
+        <div class="tool-icon">LS</div>
+        <h3>List Shuffler</h3>
+        <p>Shuffle rosters, presentation orders, vocabulary lists or worksheet prompts in seconds.</p>
+        <div class="tool-arrow">shuffle a list &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/fair-rotation-generator.html">
+        <div class="tool-icon">RT</div>
+        <h3>Fair Rotation Generator</h3>
+        <p>Create no-repeat turns for class jobs, speaking order, reading groups or station rotations.</p>
+        <div class="tool-arrow">build a rotation &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/random-number-1-25.html">
+        <div class="tool-icon">25</div>
+        <h3>Random Number 1-25</h3>
+        <p>Pick worksheet questions, seat numbers, small groups or classroom challenge numbers quickly.</p>
+        <div class="tool-arrow">pick a class number &rarr;</div>
+      </a>
     </div>
-    <div class="cluster-card">
-      <h3>Teacher guides</h3>
-      <a href="/blog/how-to-use-a-wheel-of-names-for-classroom.html">Classroom wheel guide</a>
-      <a href="/blog/how-to-pick-random-teams-fairly.html">Fair team-picking guide</a>
-      <a href="/tools/">Browse all tools</a>
+  </section>
+
+  <section class="home-category football" id="football-tools">
+    <div class="home-section-head">
+      <div>
+        <div class="section-kicker">for football fans and groups</div>
+        <h2>Football Tools</h2>
+        <p>Free football randomizers for World Cup sweepstakes, 5-a-side teams, watch parties, penalty games, team draws and tournament planning. These are for fun and organisation, not betting advice.</p>
+      </div>
+      <a class="section-cta" href="/tools/football/">View football tools &rarr;</a>
     </div>
+    <div class="home-tool-grid">
+      <a class="tool-card" href="/tools/world-cup-sweepstake-generator.html">
+        <div class="tool-icon">WC</div>
+        <h3>World Cup Sweepstake Generator</h3>
+        <p>Assign teams randomly for office, family, club or WhatsApp football sweepstakes.</p>
+        <div class="tool-arrow">run a sweepstake &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/5-a-side-team-generator.html">
+        <div class="tool-icon">5A</div>
+        <h3>5-a-Side Team Generator</h3>
+        <p>Create balanced football teams with optional ratings and goalkeeper spreading.</p>
+        <div class="tool-arrow">make football teams &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/football-bingo-card-generator.html">
+        <div class="tool-icon">FB</div>
+        <h3>Football Bingo Card Generator</h3>
+        <p>Generate match bingo cards for World Cup nights, pubs, classrooms and family watch parties.</p>
+        <div class="tool-arrow">make bingo cards &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/penalty-shootout-generator.html">
+        <div class="tool-icon">PS</div>
+        <h3>Penalty Shootout Generator</h3>
+        <p>Simulate a fun best-of-five penalty shootout with sudden death when teams are level.</p>
+        <div class="tool-arrow">start shootout &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/team-picker.html">
+        <div class="tool-icon">TP</div>
+        <h3>Random Team Picker</h3>
+        <p>Split players, fans or tournament entrants into random teams for any sport or game.</p>
+        <div class="tool-arrow">split into teams &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/list-shuffler.html">
+        <div class="tool-icon">FX</div>
+        <h3>Fixture Order Shuffler</h3>
+        <p>Shuffle fixture lists, squad order, fantasy draft order or tournament running order.</p>
+        <div class="tool-arrow">shuffle fixtures &rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="home-category seniors" id="senior-tools">
+    <div class="home-section-head">
+      <div>
+        <div class="section-kicker">simple and accessible</div>
+        <h2>Tools for Seniors</h2>
+        <p>Large-text games and simple everyday tools for older adults, carers, family visits and low-pressure decisions. These are for accessibility and entertainment, not medical advice.</p>
+      </div>
+      <a class="section-cta" href="/tools/games-for-older-people.html">Open senior games &rarr;</a>
+    </div>
+    <div class="home-tool-grid">
+      <a class="tool-card" href="/tools/games-for-older-people.html">
+        <div class="tool-icon">SG</div>
+        <h3>Games for Older People</h3>
+        <p>Play large-print trivia, crossword, word scrambles and memory pairs with read-aloud questions.</p>
+        <div class="tool-arrow">open senior games &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/parkinsons-friendly-games.html">
+        <div class="tool-icon">PG</div>
+        <h3>Parkinson's-Friendly Games</h3>
+        <p>Use gentle browser games with large controls, optional cues and no forced timers.</p>
+        <div class="tool-arrow">open gentle games &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/coin-flip.html">
+        <div class="tool-icon">CF</div>
+        <h3>Coin Flip</h3>
+        <p>Make a quick heads-or-tails choice with a simple, readable result.</p>
+        <div class="tool-arrow">flip a coin &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/yes-no-wheel.html">
+        <div class="tool-icon">YN</div>
+        <h3>Yes / No Wheel</h3>
+        <p>Spin for a light yes-or-no decision, conversation starter or family game prompt.</p>
+        <div class="tool-arrow">spin yes or no &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/dice-roller.html">
+        <div class="tool-icon">D6</div>
+        <h3>Dice Roller</h3>
+        <p>Roll clear on-screen dice for board games, family games and simple number picks.</p>
+        <div class="tool-arrow">roll dice &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/random-country.html">
+        <div class="tool-icon">RC</div>
+        <h3>Random Country Generator</h3>
+        <p>Pick a country for trivia, conversation, geography games or armchair travel ideas.</p>
+        <div class="tool-arrow">pick a country &rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="home-category more" id="more-tools">
+    <div class="home-section-head">
+      <div>
+        <div class="section-kicker">useful everyday generators</div>
+        <h2>More Useful Tools</h2>
+        <p>A curated set of popular utilities for numbers, names, giveaways, colours, passwords and quick picks. If you need the full list, the tools index has every Spinnit page in one place.</p>
+      </div>
+      <a class="section-cta" href="/tools/">Explore all tools &rarr;</a>
+    </div>
+    <div class="home-tool-grid">
+      <a class="tool-card" href="/tools/random-number.html">
+        <div class="tool-icon">RN</div>
+        <h3>Random Number Generator</h3>
+        <p>Generate one or many random numbers in any range for games, lists, draws or testing.</p>
+        <div class="tool-arrow">generate numbers &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/wheel-of-names.html">
+        <div class="tool-icon">WN</div>
+        <h3>Wheel of Names</h3>
+        <p>Add any names or options and spin a visual wheel to pick one at random.</p>
+        <div class="tool-arrow">spin the wheel &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/password-generator.html">
+        <div class="tool-icon">PW</div>
+        <h3>Password Generator</h3>
+        <p>Create random passwords with length, number, symbol and ambiguity controls.</p>
+        <div class="tool-arrow">make a password &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/colour-generator.html">
+        <div class="tool-icon">CG</div>
+        <h3>Random Colour Generator</h3>
+        <p>Generate colour ideas with HEX, RGB and HSL values ready to copy.</p>
+        <div class="tool-arrow">generate colours &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/lottery-picker.html">
+        <div class="tool-icon">LN</div>
+        <h3>Lottery Number Picker</h3>
+        <p>Pick random number sets for lottery-style games including UK Lotto and EuroMillions.</p>
+        <div class="tool-arrow">pick lottery numbers &rarr;</div>
+      </a>
+      <a class="tool-card" href="/tools/random-winner-picker.html">
+        <div class="tool-icon">GW</div>
+        <h3>Giveaway Winner Picker</h3>
+        <p>Paste entries and draw one or more random winners with optional duplicate removal.</p>
+        <div class="tool-arrow">draw a winner &rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="home-note">
+    Looking for something more specific? Browse the <a href="/tools/">complete Spinnit tools index</a>, read <a href="/how-spinnit-tools-work.html">how Spinnit tools work</a>, or use the <a href="/randomness-and-fairness.html">randomness and fairness guide</a> before classroom picks, team draws or giveaways.
   </div>
-</section>
-
-<main class="tools-grid">
-
-  <a class="tool-card" href="tools/random-number.html">
-    <div class="tool-icon">🎲</div>
-    <h3>Random Number Generator</h3>
-    <p>Generate random numbers between any min and max. Single or multiple results.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/dice-roller.html">
-    <div class="tool-icon">⚄</div>
-    <h3>Dice Roller</h3>
-    <p>Roll any number of dice with any number of sides. D6, D20, D100 and custom.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/parkinsons-friendly-games.html">
-    <div class="tool-icon">PG</div>
-    <h3>Parkinson's-Friendly Games</h3>
-    <p>Play gentle browser games with large controls, no forced timers and family word prompts.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/games-for-older-people.html">
-    <div class="tool-icon">SG</div>
-    <h3>Games for Older People</h3>
-    <p>Large-print trivia, crossword, word scrambles and memory games with read-aloud questions.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/coin-flip.html">
-    <div class="tool-icon">🪙</div>
-    <h3>Coin Flip</h3>
-    <p>Flip a coin online. Heads or tails — instant result with flip counter.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/team-picker.html">
-    <div class="tool-icon">👥</div>
-    <h3>Random Team Picker</h3>
-    <p>Split a list of names into random teams. Perfect for sports, school, work.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/world-cup-sweepstake-generator.html">
-    <div class="tool-icon">WC</div>
-    <h3>World Cup Sweepstake Generator</h3>
-    <p>Assign World Cup teams randomly for office, family, club or WhatsApp sweepstakes.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/5-a-side-team-generator.html">
-    <div class="tool-icon">5A</div>
-    <h3>5-a-Side Team Generator</h3>
-    <p>Create fair random football teams with optional ratings and goalkeeper spreading.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/football-bingo-card-generator.html">
-    <div class="tool-icon">FB</div>
-    <h3>Football Bingo Card Generator</h3>
-    <p>Generate watch-party bingo cards for World Cup games and football nights.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/fair-rotation-generator.html">
-    <div class="tool-icon">ROT</div>
-    <h3>Fair Rotation Generator</h3>
-    <p>Create a no-repeat random order for turns, tasks, names, meetings and classrooms.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/chore-wheel-generator.html">
-    <div class="tool-icon">CH</div>
-    <h3>Chore Wheel Generator</h3>
-    <p>Make a fair roommate, family or house-share chore rota with rotating assignments.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/meeting-rotation-generator.html">
-    <div class="tool-icon">MT</div>
-    <h3>Meeting Rotation Generator</h3>
-    <p>Rotate standup order, facilitators, note-takers, demos and recurring team roles.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/yes-no-wheel.html">
-    <div class="tool-icon">🔮</div>
-    <h3>Yes / No Wheel</h3>
-    <p>Can't decide? Spin the wheel for a random yes or no answer.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/wheel-of-names.html">
-    <div class="tool-icon">🎡</div>
-    <h3>Wheel of Names</h3>
-    <p>Add any list of names and spin the wheel to pick a random winner.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/colour-generator.html">
-    <div class="tool-icon">🎨</div>
-    <h3>Random Colour Generator</h3>
-    <p>Generate random colours with HEX, RGB, and HSL values. Copy with one tap.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/password-generator.html">
-    <div class="tool-icon">🔐</div>
-    <h3>Password Generator</h3>
-    <p>Create strong, secure random passwords. Choose length, symbols, numbers.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/lottery-picker.html">
-    <div class="tool-icon">🍀</div>
-    <h3>Lottery Number Picker</h3>
-    <p>Generate random lottery numbers for UK Lotto, EuroMillions, Powerball and more.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/percentage-generator.html">
-    <div class="tool-icon">📊</div>
-    <h3>Random Percentage</h3>
-    <p>Generate a random percentage or decimal. Set min, max and decimal precision.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/list-shuffler.html">
-    <div class="tool-icon">🔀</div>
-    <h3>List Shuffler</h3>
-    <p>Paste any list and instantly shuffle it into a random order.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/random-country.html">
-    <div class="tool-icon">🌍</div>
-    <h3>Random Country Generator</h3>
-    <p>Discover a random country from all 195 nations. Filter by continent.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/random-name-generator.html">
-    <div class="tool-icon">👤</div>
-    <h3>Random Name Generator</h3>
-    <p>Generate realistic names from 10 cultures: English, Japanese, Arabic and more.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
-
-  <a class="tool-card" href="tools/random-winner-picker.html">
-    <div class="tool-icon">🏆</div>
-    <h3>Giveaway Winner Picker</h3>
-    <p>Paste entries and draw one or multiple random winners, with optional duplicate removal.</p>
-    <div class="tool-arrow">use tool →</div>
-  </a>
 
 </main>
 
-<section class="link-clusters" aria-label="Popular Spinnit tool collections">
-  <h2>Find the right random tool faster</h2>
-  <div class="cluster-grid">
-    <div class="cluster-card">
-      <h3>Decision tools</h3>
-      <a href="/tools/decision-makers/">Decision Maker Tools</a>
-      <a href="/tools/coin-flip.html">Coin Flip</a>
-      <a href="/tools/yes-no-wheel.html">Yes / No Wheel</a>
-    </div>
-    <div class="cluster-card">
-      <h3>Random number tools</h3>
-      <a href="/tools/random-number-tools/">Random Number Tools</a>
-      <a href="/tools/random-number.html">Custom Range Generator</a>
-      <a href="/blog/how-to-use-a-random-number-generator.html">Random number guide</a>
-    </div>
-    <div class="cluster-card">
-      <h3>Classroom tools</h3>
-      <a href="/classroom-random-tools/">Classroom Random Tools</a>
-      <a href="/tools/random-student-picker.html">Random Student Picker</a>
-      <a href="/tools/wheel-of-names-for-classroom.html">Classroom Wheel of Names</a>
-      <a href="/blog/how-to-use-a-wheel-of-names-for-classroom.html">Classroom wheel guide</a>
-    </div>
-    <div class="cluster-card">
-      <h3>Fair rotations</h3>
-      <a href="/tools/fair-rotation-generator.html">Fair Rotation Generator</a>
-      <a href="/tools/chore-wheel-generator.html">Chore Wheel Generator</a>
-      <a href="/tools/meeting-rotation-generator.html">Meeting Rotation Generator</a>
-    </div>
-    <div class="cluster-card">
-      <h3>Games and dice</h3>
-      <a href="/tools/dice/">Dice Roller Tools</a>
-      <a href="/tools/dice-roller.html">Dice Roller</a>
-      <a href="/tools/roll-4d6-drop-lowest.html">Roll 4d6 Drop Lowest</a>
-    </div>
-    <div class="cluster-card">
-      <h3>Gentle games</h3>
-      <a href="/tools/games-for-older-people.html">Games for Older People</a>
-      <a href="/tools/parkinsons-friendly-games.html">Parkinson's-Friendly Games</a>
-      <a href="/tools/coin-flip.html">Coin Flip</a>
-      <a href="/tools/yes-no-wheel.html">Yes / No Wheel</a>
-    </div>
-    <div class="cluster-card">
-      <h3>Name pickers</h3>
-      <a href="/tools/name-picker-tools/">Name Picker Tools</a>
-      <a href="/tools/wheel-of-names.html">Wheel of Names</a>
-      <a href="/tools/pick-random-name.html">Pick a Random Name</a>
-    </div>
-    <div class="cluster-card">
-      <h3>Football tools</h3>
-      <a href="/tools/football/">Football Random Tools</a>
-      <a href="/tools/world-cup-sweepstake-generator.html">World Cup Sweepstake Generator</a>
-      <a href="/tools/5-a-side-team-generator.html">5-a-Side Team Generator</a>
-    </div>
-    <div class="cluster-card">
-      <h3>Giveaways and groups</h3>
-      <a href="/tools/giveaway/">Giveaway Random Tools</a>
-      <a href="/tools/random-winner-picker.html">Random Winner Picker</a>
-      <a href="/tools/team-picker.html">Random Team Picker</a>
-    </div>
-  </div>
-</section>
-
 <section aria-label="About Spinnit" style="max-width:960px;margin:0 auto 3rem;padding:0 1.5rem;">
-  <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Free Random Generators Online</h2>
-  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Spinnit offers free random generators for numbers, names, teams, passwords, colours, and more. Every tool runs instantly in your browser with no downloads, no accounts and no complicated setup.</p>
+  <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Free Random Tools by Category</h2>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Spinnit offers free random generators and browser tools for lessons, football nights, senior-friendly games, teams, names, numbers, passwords, colours and everyday decisions. The homepage groups the most useful tools by audience so you can start faster.</p>
 
   <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Built for Everyone, Everywhere</h2>
-  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Whether you need a dice roller for game night, a World Cup sweepstake generator, a 5-a-side team generator, a wheel of names for your classroom, a fair rotation generator for turns, a chore wheel for roommates, games for older people with read-aloud questions, Parkinson's-friendly games with large controls, or a password generator for security — Spinnit has a free tool for it. Every tool works on mobile devices worldwide, and you can <a href="/tools/" style="color:var(--accent2);">browse the full list</a> or start with hubs for <a href="/tools/football/" style="color:var(--accent2);">football random tools</a>, <a href="/tools/random-number-tools/" style="color:var(--accent2);">random number tools</a>, <a href="/tools/name-picker-tools/" style="color:var(--accent2);">name picker tools</a>, <a href="/tools/dice/" style="color:var(--accent2);">dice tools</a>, and <a href="/classroom-random-tools/" style="color:var(--accent2);">classroom random tools</a>.</p>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Every Spinnit tool works in the browser with no sign-up and no app install. Start with the <a href="/classroom-random-tools/" style="color:var(--accent2);">classroom random tools hub</a>, the <a href="/tools/football/" style="color:var(--accent2);">football random tools hub</a>, <a href="/tools/games-for-older-people.html" style="color:var(--accent2);">games for older people</a>, or the <a href="/tools/" style="color:var(--accent2);">full tools index</a>.</p>
 
-  <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Core Tools</h2>
-  <p style="font-size:14px;color:var(--text2);line-height:1.8;">Core Spinnit tools include the <a href="tools/random-number.html" style="color:var(--accent2);">random number generator</a>, <a href="tools/coin-flip.html" style="color:var(--accent2);">coin flip</a>, <a href="tools/wheel-of-names.html" style="color:var(--accent2);">wheel of names</a>, <a href="tools/games-for-older-people.html" style="color:var(--accent2);">games for older people</a>, <a href="tools/parkinsons-friendly-games.html" style="color:var(--accent2);">Parkinson's-friendly games</a>, <a href="tools/world-cup-sweepstake-generator.html" style="color:var(--accent2);">World Cup sweepstake generator</a>, <a href="tools/5-a-side-team-generator.html" style="color:var(--accent2);">5-a-side team generator</a>, <a href="tools/fair-rotation-generator.html" style="color:var(--accent2);">fair rotation generator</a>, <a href="tools/chore-wheel-generator.html" style="color:var(--accent2);">chore wheel generator</a>, <a href="tools/team-picker.html" style="color:var(--accent2);">team picker</a>, <a href="tools/random-winner-picker.html" style="color:var(--accent2);">giveaway winner picker</a>, and <a href="tools/lottery-picker.html" style="color:var(--accent2);">lottery number generator</a>. Each tool is free, fast, and requires no sign-up.</p>
-
-  <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin:1.75rem 0 0.6rem;">How the tools work</h2>
+  <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">How the tools work</h2>
   <p style="font-size:14px;color:var(--text2);line-height:1.8;">Spinnit uses browser-based random tools for everyday picks and stronger browser cryptography for generated passwords. Read <a href="/how-spinnit-tools-work.html" style="color:var(--accent2);">how Spinnit tools work</a> or use the <a href="/randomness-and-fairness.html" style="color:var(--accent2);">randomness and fairness guide</a> before classroom picks, team draws, giveaways or public selections.</p>
 </section>
