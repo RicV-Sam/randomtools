@@ -1,0 +1,351 @@
+---
+layout: layouts/base.njk
+title: "Football Bingo Card Generator - World Cup Watch Party | Spinnit"
+description: "Generate random football bingo cards for World Cup watch parties, classrooms, pubs and family games. Print, copy and regenerate free."
+ogTitle: "Football Bingo Card Generator | Spinnit"
+ogDescription: "Create random football bingo cards with match events like VAR, corners, penalties, cards and added time."
+canonical: "https://spinnit.site/tools/football-bingo-card-generator.html"
+dateModified: "2026-06-12"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "Football Tools"
+    url: "/tools/football/"
+  - label: "Football Bingo Card Generator"
+    url: "/tools/football-bingo-card-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Football Bingo Card Generator",
+    "applicationCategory": "SportsApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/football-bingo-card-generator.html",
+    "description": "A browser-based football bingo card generator for World Cup watch parties and football games.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I make a football bingo card?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Use the default football match events or paste your own, choose the card size, then generate. The tool shuffles the events into a bingo card." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I print the bingo card?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Generate a card, then use your browser's print command or copy the card text." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this for the World Cup?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The default event list is designed for football and World Cup watch parties, but you can edit it for any match." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .bingo-card {
+    display: grid;
+    gap: 6px;
+    margin-top: 1rem;
+  }
+  .bingo-cell {
+    min-height: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.65rem;
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  .bingo-cell.free {
+    background: rgba(124,106,247,0.18);
+    border-color: rgba(167,139,250,0.35);
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-weight: 700;
+  }
+  @media print {
+    .nav,
+    .breadcrumbs,
+    footer,
+    .controls,
+    .tool-actions,
+    .btn-generate,
+    .result-share-card,
+    .tool-content,
+    .tool-faq,
+    .related {
+      display: none !important;
+    }
+    body {
+      background: #fff;
+      color: #000;
+    }
+    .tool-page {
+      max-width: 900px;
+    }
+    .rotation-panel,
+    .bingo-cell {
+      border-color: #111;
+      background: #fff;
+      color: #000;
+    }
+  }
+pageScript: |
+  const DEFAULT_BINGO_EVENTS = [
+    "VAR check",
+    "Penalty appeal",
+    "Yellow card",
+    "Red card",
+    "Corner kick",
+    "Free kick near the box",
+    "Offside flag",
+    "Goalkeeper save",
+    "Shot hits the post",
+    "Header from a corner",
+    "Substitution before 70 minutes",
+    "Added time over 5 minutes",
+    "Manager complains",
+    "Player slips",
+    "Commentator says momentum",
+    "Crowd Mexican wave",
+    "Goal ruled out",
+    "Long throw",
+    "Backheel",
+    "Nutmeg",
+    "Own goal scare",
+    "Captain talks to referee",
+    "Player cramps",
+    "Stoppage for injury",
+    "Last-minute chance",
+    "Penalty scored",
+    "Penalty missed",
+    "Clean tackle replay",
+    "Fans shown in costume",
+    "Weather mentioned"
+  ];
+
+  const bingoEventsInput = document.getElementById("bingoEvents");
+  bingoEventsInput.value = DEFAULT_BINGO_EVENTS.join("\n");
+  let bingoCard = [];
+  let bingoCreatedAt = "";
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function randomIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function shuffleList(items) {
+    const output = [...items];
+    for (let i = output.length - 1; i > 0; i--) {
+      const j = randomIndex(i + 1);
+      [output[i], output[j]] = [output[j], output[i]];
+    }
+    return output;
+  }
+
+  function readEvents() {
+    return bingoEventsInput.value
+      .split(/\n|,/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  function generateBingoCard() {
+    const size = Number(document.getElementById("bingoSize").value) || 5;
+    const includeFree = document.getElementById("includeFreeSpace").checked;
+    const needed = size * size - (includeFree && size % 2 === 1 ? 1 : 0);
+    const events = readEvents();
+    if (events.length < needed) {
+      alert(`Add at least ${needed} events for this card size.`);
+      return;
+    }
+
+    const shuffled = shuffleList(events).slice(0, needed);
+    bingoCard = [];
+    let eventIndex = 0;
+    const freeIndex = includeFree && size % 2 === 1 ? Math.floor((size * size) / 2) : -1;
+    for (let i = 0; i < size * size; i++) {
+      if (i === freeIndex) {
+        bingoCard.push("FREE");
+      } else {
+        bingoCard.push(shuffled[eventIndex]);
+        eventIndex += 1;
+      }
+    }
+    bingoCreatedAt = new Date().toLocaleString();
+    renderBingoCard(size);
+  }
+
+  function renderBingoCard(size) {
+    const card = document.getElementById("bingoCard");
+    if (!bingoCard.length) {
+      document.getElementById("bingoResult").textContent = "-";
+      document.getElementById("bingoStatus").textContent = "Generate a football bingo card for a match or watch party.";
+      card.innerHTML = "";
+      document.getElementById("bingoShareSummary").textContent = "Generate a bingo card, then print, copy or share it.";
+      return;
+    }
+    document.getElementById("bingoResult").textContent = `${size}x${size} card`;
+    document.getElementById("bingoStatus").textContent = "Football bingo card ready.";
+    card.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+    card.innerHTML = bingoCard.map((event) => `<div class="bingo-cell${event === "FREE" ? " free" : ""}">${escapeHtml(event)}</div>`).join("");
+    document.getElementById("bingoShareSummary").textContent = `Generated ${size}x${size} football bingo card.`;
+  }
+
+  function bingoText() {
+    if (!bingoCard.length) return "Football Bingo Card Generator on Spinnit: generate a random football watch-party bingo card.";
+    const size = Math.sqrt(bingoCard.length);
+    const rows = [];
+    for (let i = 0; i < bingoCard.length; i += size) {
+      rows.push(bingoCard.slice(i, i + size).join(" | "));
+    }
+    return `Football bingo card (${size}x${size}). Generated: ${bingoCreatedAt}.\n${rows.join("\n")}`;
+  }
+
+  function copyBingo(button) {
+    window.copySpinnitText(bingoText(), button, "Copy card");
+  }
+
+  function shareBingo(button) {
+    window.shareOrCopySpinnit({
+      title: "Football Bingo Card Generator | Spinnit",
+      text: bingoText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function printBingo() {
+    window.print();
+  }
+
+  function copyBingoEmbed(button) {
+    window.copySpinnitEmbed("/tools/football-bingo-card-generator.html", "Football Bingo Card Generator - Spinnit", button);
+  }
+
+  bingoEventsInput.addEventListener("input", () => renderBingoCard(Number(document.getElementById("bingoSize").value) || 5));
+  bindGlobalShortcut(generateBingoCard);
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">FB</div>
+    <h1>Football bingo card generator</h1>
+    <p>Create random football bingo cards for World Cup watch parties, pubs and classrooms.</p>
+  </div>
+
+  <div class="result-box" id="bingoResultBox">
+    <div class="result-label">card</div>
+    <div class="result-number" id="bingoResult" style="font-size:clamp(1.35rem,7vw,2.7rem);word-break:break-word;">-</div>
+    <div id="bingoStatus" style="font-size:13px;color:var(--text2);margin-top:6px;">Generate a football bingo card for a match or watch party.</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label for="bingoEvents">Football events</label>
+      <textarea id="bingoEvents" rows="10" autocomplete="off"></textarea>
+    </div>
+    <div class="control-row">
+      <div class="control-group">
+        <label for="bingoSize">Card size</label>
+        <select id="bingoSize">
+          <option value="5">5 x 5</option>
+          <option value="4">4 x 4</option>
+          <option value="3">3 x 3</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label><input type="checkbox" id="includeFreeSpace" checked style="margin-right:6px;vertical-align:middle;"> Include free space</label>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generateBingoCard()">GENERATE BINGO CARD</button>
+
+  <div class="tool-actions">
+    <button class="btn-copy" onclick="copyBingo(this)">Copy card</button>
+    <button class="btn-copy" onclick="shareBingo(this)">Share</button>
+    <button class="btn-copy" onclick="printBingo()">Print</button>
+    <button class="btn-copy" onclick="copyBingoEmbed(this)">Copy embed</button>
+  </div>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="bingoShareSummary">Generate a bingo card, then print, copy or share it.</span></div>
+
+  <section class="rotation-panel">
+    <div class="rotation-kicker">Watch party game</div>
+    <h2>Your football bingo card</h2>
+    <div id="bingoCard" class="bingo-card"></div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>This football bingo card generator creates a random card from common match events: VAR checks, corners, cards, penalties, added time, substitutions and near misses. Use it for World Cup watch parties, football pubs, classrooms, youth clubs, family games or a halftime laugh.</p>
+
+    <h2>How to use it for the World Cup</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Use the default event list or add your own football moments.</li>
+      <li>Generate one card per person or team.</li>
+      <li>Print cards or copy the text into a chat.</li>
+      <li>Mark squares when the event happens during the match.</li>
+      <li>First line, corners, full house or custom rule wins.</li>
+    </ol>
+
+    <h2>Editable for any sport</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The event list is editable, so you can turn this into rugby bingo, cricket bingo, Super Bowl bingo, tennis bingo or any watch-party game later.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Football bingo FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I print the card?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Generate a card, then use the Print button or your browser's print command.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I make multiple cards?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Click Generate again to shuffle a new card from the same event list.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use custom football events?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Add your own events, player names, commentator phrases or watch-party rules to the list.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Football Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="world-cup-sweepstake-generator.html"><span class="ri">WC</span> World Cup Sweepstake</a>
+      <a class="related-card" href="penalty-shootout-generator.html"><span class="ri">PS</span> Penalty Shootout</a>
+      <a class="related-card" href="5-a-side-team-generator.html"><span class="ri">5A</span> 5-a-side Teams</a>
+      <a class="related-card" href="football/"><span class="ri">FT</span> Football Tools</a>
+    </div>
+    <p class="related-note">For more match-day tools, browse <a href="/tools/football/">Football Random Tools</a>.</p>
+  </section>
+
+</main>

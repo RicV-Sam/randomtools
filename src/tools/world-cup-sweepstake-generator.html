@@ -1,0 +1,338 @@
+---
+layout: layouts/base.njk
+title: "World Cup Sweepstake Generator 2026 - Free Office Draw | Spinnit"
+description: "Create a free World Cup 2026 sweepstake draw for an office, family, club or WhatsApp group. Randomly assign teams, copy results, no sign-up."
+ogTitle: "World Cup Sweepstake Generator 2026 | Spinnit"
+ogDescription: "Paste participants, assign World Cup teams randomly, copy the draw and share a fairness receipt."
+canonical: "https://spinnit.site/tools/world-cup-sweepstake-generator.html"
+dateModified: "2026-06-12"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "Football Tools"
+    url: "/tools/football/"
+  - label: "World Cup Sweepstake Generator"
+    url: "/tools/world-cup-sweepstake-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "World Cup Sweepstake Generator 2026",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/world-cup-sweepstake-generator.html",
+    "description": "A browser-based World Cup sweepstake generator for assigning teams randomly to participants.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I make a World Cup sweepstake draw?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Add the participant names, check or edit the team list, then generate the draw. The tool shuffles participants and teams before assigning teams at random." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this for an office sweepstake?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The copied result is designed for office chats, email, Slack, Teams, WhatsApp or a printable notice." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this affiliated with FIFA?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Spinnit is an independent random tool. Use FIFA.com for official fixtures, teams and tournament updates." }
+      }
+    ]
+  }
+  </script>
+pageScript: |
+  const DEFAULT_WORLD_CUP_TEAMS = [
+    "Mexico",
+    "South Africa",
+    "Korea Republic",
+    "Czechia",
+    "Canada",
+    "Bosnia and Herzegovina",
+    "Qatar",
+    "Switzerland",
+    "Haiti",
+    "Scotland",
+    "Brazil",
+    "Morocco",
+    "Australia",
+    "Turkiye",
+    "USA",
+    "Paraguay",
+    "Cote d'Ivoire",
+    "Ecuador",
+    "Germany",
+    "Curacao",
+    "Netherlands",
+    "Japan",
+    "Sweden",
+    "Tunisia",
+    "IR Iran",
+    "New Zealand",
+    "Belgium",
+    "Egypt",
+    "Saudi Arabia",
+    "Uruguay",
+    "Spain",
+    "Cabo Verde",
+    "France",
+    "Senegal",
+    "Iraq",
+    "Norway",
+    "Argentina",
+    "Algeria",
+    "Austria",
+    "Jordan",
+    "Portugal",
+    "Congo DR",
+    "Uzbekistan",
+    "Colombia",
+    "Ghana",
+    "Panama",
+    "England",
+    "Croatia"
+  ];
+
+  const DEFAULT_PARTICIPANTS = ["Alex", "Jamie", "Morgan", "Taylor", "Sam", "Riley", "Casey", "Jordan"];
+  const sweepParticipantsInput = document.getElementById("sweepParticipants");
+  const sweepTeamsInput = document.getElementById("sweepTeams");
+  sweepParticipantsInput.value = DEFAULT_PARTICIPANTS.join("\n");
+  sweepTeamsInput.value = DEFAULT_WORLD_CUP_TEAMS.join("\n");
+
+  let sweepDraw = [];
+  let sweepLeftoverTeams = [];
+  let sweepCreatedAt = "";
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function readLines(id) {
+    return document.getElementById(id).value
+      .split(/\n|,/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  function randomIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function shuffleList(items) {
+    const output = [...items];
+    for (let i = output.length - 1; i > 0; i--) {
+      const j = randomIndex(i + 1);
+      [output[i], output[j]] = [output[j], output[i]];
+    }
+    return output;
+  }
+
+  function generateSweepstake() {
+    const participants = readLines("sweepParticipants");
+    const teams = readLines("sweepTeams");
+    const teamsEach = Math.max(1, Math.min(4, Number(document.getElementById("teamsEach").value) || 1));
+    if (!participants.length) {
+      alert("Add at least one participant.");
+      return;
+    }
+    if (!teams.length) {
+      alert("Add at least one team.");
+      return;
+    }
+
+    const shuffledParticipants = shuffleList(participants);
+    const shuffledTeams = shuffleList(teams);
+    sweepDraw = shuffledParticipants.map((person) => ({ person, teams: [] }));
+
+    let teamIndex = 0;
+    for (let round = 0; round < teamsEach; round++) {
+      for (const entry of sweepDraw) {
+        if (teamIndex >= shuffledTeams.length) break;
+        entry.teams.push(shuffledTeams[teamIndex]);
+        teamIndex += 1;
+      }
+    }
+    sweepDraw = sweepDraw.filter((entry) => entry.teams.length > 0);
+    sweepLeftoverTeams = shuffledTeams.slice(teamIndex);
+    sweepCreatedAt = new Date().toLocaleString();
+    renderSweepstake();
+  }
+
+  function renderSweepstake() {
+    const result = document.getElementById("sweepResult");
+    const tableWrap = document.getElementById("sweepTableWrap");
+    if (!sweepDraw.length) {
+      result.textContent = "-";
+      document.getElementById("sweepStatus").textContent = "Add participants and teams, then generate a draw.";
+      tableWrap.innerHTML = "";
+      document.getElementById("sweepReceipt").innerHTML = "<strong>Fairness receipt:</strong> no sweepstake draw has been generated yet.";
+      document.getElementById("sweepShareSummary").textContent = "Generate a sweepstake draw, then copy or share the results.";
+      return;
+    }
+
+    result.textContent = `${sweepDraw.length} entries`;
+    document.getElementById("sweepStatus").textContent = sweepLeftoverTeams.length
+      ? `${sweepLeftoverTeams.length} teams left unassigned.`
+      : "Every listed team has been assigned.";
+
+    tableWrap.innerHTML = `<table class="rotation-table">
+      <thead><tr><th>Participant</th><th>Team draw</th></tr></thead>
+      <tbody>${sweepDraw.map((entry) => `<tr><td>${escapeHtml(entry.person)}</td><td>${entry.teams.map(escapeHtml).join("<br>")}</td></tr>`).join("")}</tbody>
+    </table>`;
+
+    document.getElementById("sweepReceipt").innerHTML = `<strong>Fairness receipt:</strong> ${escapeHtml(sweepReceiptText().replace("World Cup sweepstake receipt: ", ""))}`;
+    document.getElementById("sweepShareSummary").textContent = `Draw ready for ${sweepDraw.length} participants. Copy it for WhatsApp, Slack, Teams or print.`;
+  }
+
+  function sweepReceiptText() {
+    if (!sweepDraw.length) return "World Cup sweepstake receipt: no draw generated.";
+    const assigned = sweepDraw.reduce((sum, entry) => sum + entry.teams.length, 0);
+    return `World Cup sweepstake receipt: ${sweepDraw.length} participants, ${assigned} teams assigned, ${sweepLeftoverTeams.length} teams unassigned. Generated: ${sweepCreatedAt}. Draw: ${sweepDraw.map((entry) => `${entry.person}: ${entry.teams.join(", ")}`).join(" | ")}${sweepLeftoverTeams.length ? `. Unassigned teams: ${sweepLeftoverTeams.join(", ")}` : ""}`;
+  }
+
+  function copySweepstake(button) {
+    window.copySpinnitText(sweepReceiptText(), button, "Copy draw");
+  }
+
+  function shareSweepstake(button) {
+    window.shareOrCopySpinnit({
+      title: "World Cup Sweepstake Generator | Spinnit",
+      text: sweepReceiptText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copySweepstakeEmbed(button) {
+    window.copySpinnitEmbed("/tools/world-cup-sweepstake-generator.html", "World Cup Sweepstake Generator - Spinnit", button);
+  }
+
+  function resetWorldCupTeams() {
+    sweepTeamsInput.value = DEFAULT_WORLD_CUP_TEAMS.join("\n");
+    renderSweepstake();
+  }
+
+  sweepParticipantsInput.addEventListener("input", renderSweepstake);
+  sweepTeamsInput.addEventListener("input", renderSweepstake);
+  bindGlobalShortcut(generateSweepstake);
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">WC</div>
+    <h1>World Cup sweepstake generator 2026</h1>
+    <p>Randomly assign teams for an office, family, club or WhatsApp sweepstake.</p>
+  </div>
+
+  <div class="result-box" id="sweepResultBox">
+    <div class="result-label">draw status</div>
+    <div class="result-number" id="sweepResult" style="font-size:clamp(1.35rem,7vw,2.7rem);word-break:break-word;">-</div>
+    <div id="sweepStatus" style="font-size:13px;color:var(--text2);margin-top:6px;">Add participants and teams, then generate a draw.</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label for="sweepParticipants">Participants</label>
+      <textarea id="sweepParticipants" rows="7" autocomplete="off"></textarea>
+    </div>
+    <div class="control-group">
+      <label for="sweepTeams">Teams</label>
+      <textarea id="sweepTeams" rows="9" autocomplete="off"></textarea>
+    </div>
+    <div class="control-row">
+      <div class="control-group">
+        <label for="teamsEach">Teams per participant</label>
+        <input id="teamsEach" type="number" value="1" min="1" max="4">
+      </div>
+      <div class="control-group">
+        <label>Official team check</label>
+        <button class="btn-copy" type="button" onclick="resetWorldCupTeams()">Reset sample teams</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generateSweepstake()">GENERATE WORLD CUP DRAW</button>
+
+  <div class="tool-actions">
+    <button class="btn-copy" onclick="copySweepstake(this)">Copy draw</button>
+    <button class="btn-copy" onclick="shareSweepstake(this)">Share</button>
+    <button class="btn-copy" onclick="copySweepstakeEmbed(this)">Copy embed</button>
+    <button class="btn-copy" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="sweepShareSummary">Generate a sweepstake draw, then copy or share the results.</span></div>
+
+  <section class="rotation-panel">
+    <div class="rotation-kicker">Office sweepstake draw</div>
+    <h2>Generated draw</h2>
+    <div id="sweepTableWrap"></div>
+    <div class="rotation-receipt" id="sweepReceipt"><strong>Fairness receipt:</strong> no sweepstake draw has been generated yet.</div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>This free World Cup sweepstake generator randomly assigns football teams to participants. It is built for office sweepstakes, family games, club nights, WhatsApp groups and watch parties. Paste the names, check the team list, generate the draw and copy the result.</p>
+
+    <h2>World Cup 2026 note</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The sample team list is editable. For official teams, fixtures, results and tournament changes, check <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams">FIFA's World Cup teams page</a> and <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums">FIFA's match schedule page</a>. Spinnit is independent and is not affiliated with FIFA.</p>
+
+    <h2>How to run a fair sweepstake</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Write the participant list before generating the draw.</li>
+      <li>Check the team list before generating the draw.</li>
+      <li>Choose how many teams each participant should receive.</li>
+      <li>Generate once, then copy the fairness receipt to the group chat.</li>
+      <li>Avoid redrawing after seeing which teams people received unless everyone agrees.</li>
+    </ol>
+
+    <h2>What this tool does not do</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">This tool does not set entry fees, odds, prizes, betting markets or gambling rules. It simply creates a random team assignment for informal sweepstakes and games.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>World Cup sweepstake FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this for an office sweepstake?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The copied result works well in email, Slack, Teams, WhatsApp or a printed office notice.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What if I have fewer participants than teams?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Increase teams per participant or leave some teams unassigned. The receipt shows how many teams were assigned and left over.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use it for the Women's World Cup, Euros or AFCON?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Replace the team list with any tournament field and generate the draw the same way.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Football Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="5-a-side-team-generator.html"><span class="ri">5A</span> 5-a-side Teams</a>
+      <a class="related-card" href="football-bingo-card-generator.html"><span class="ri">FB</span> Football Bingo</a>
+      <a class="related-card" href="penalty-shootout-generator.html"><span class="ri">PS</span> Penalty Shootout</a>
+      <a class="related-card" href="football/"><span class="ri">FT</span> Football Tools</a>
+    </div>
+    <p class="related-note">For more sports randomizers, browse the <a href="/tools/football/">Football Random Tools hub</a>.</p>
+  </section>
+
+</main>

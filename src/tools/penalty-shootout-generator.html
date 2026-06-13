@@ -1,0 +1,237 @@
+---
+layout: layouts/base.njk
+title: "Penalty Shootout Generator - Random Football Simulator | Spinnit"
+description: "Generate a random penalty shootout between two football teams. Best-of-five, sudden death, custom scoring chance, copy and share results."
+ogTitle: "Penalty Shootout Generator | Spinnit"
+ogDescription: "Create a random penalty shootout result for football watch parties, games and classroom activities."
+canonical: "https://spinnit.site/tools/penalty-shootout-generator.html"
+dateModified: "2026-06-12"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "Football Tools"
+    url: "/tools/football/"
+  - label: "Penalty Shootout Generator"
+    url: "/tools/penalty-shootout-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Penalty Shootout Generator",
+    "applicationCategory": "SportsApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/penalty-shootout-generator.html",
+    "description": "A browser-based random penalty shootout generator for football games and watch parties.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does the penalty shootout generator work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Choose two teams, set a scoring chance, and generate. The tool simulates five penalties each and sudden death if the score is level." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this based on real football odds?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. It is a random party and game simulator. You can adjust the scoring chance, but it is not a betting or prediction tool." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I copy the shootout result?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The generated shootout can be copied or shared as a plain-text result." }
+      }
+    ]
+  }
+  </script>
+pageScript: |
+  let shootoutRounds = [];
+  let shootoutCreatedAt = "";
+  let shootoutWinner = "";
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function randomChance(percent) {
+    if (window.crypto && window.crypto.getRandomValues) {
+      const values = new Uint32Array(1);
+      window.crypto.getRandomValues(values);
+      return (values[0] / 0xffffffff) * 100 < percent;
+    }
+    return Math.random() * 100 < percent;
+  }
+
+  function canStopEarly(round, scoreA, scoreB) {
+    const remaining = 5 - round;
+    return scoreA > scoreB + remaining || scoreB > scoreA + remaining;
+  }
+
+  function generateShootout() {
+    const teamA = document.getElementById("shootoutTeamA").value.trim() || "Team A";
+    const teamB = document.getElementById("shootoutTeamB").value.trim() || "Team B";
+    const chance = Math.max(5, Math.min(95, Number(document.getElementById("scoreChance").value) || 75));
+    let scoreA = 0;
+    let scoreB = 0;
+    shootoutRounds = [];
+
+    for (let round = 1; round <= 5; round++) {
+      const aScored = randomChance(chance);
+      if (aScored) scoreA += 1;
+      const bScored = randomChance(chance);
+      if (bScored) scoreB += 1;
+      shootoutRounds.push({ round, teamA: aScored, teamB: bScored, suddenDeath: false, scoreA, scoreB });
+      if (canStopEarly(round, scoreA, scoreB)) break;
+    }
+
+    let suddenRound = 6;
+    while (scoreA === scoreB && suddenRound < 30) {
+      const aScored = randomChance(chance);
+      const bScored = randomChance(chance);
+      if (aScored) scoreA += 1;
+      if (bScored) scoreB += 1;
+      shootoutRounds.push({ round: suddenRound, teamA: aScored, teamB: bScored, suddenDeath: true, scoreA, scoreB });
+      suddenRound += 1;
+    }
+
+    shootoutWinner = scoreA > scoreB ? teamA : teamB;
+    shootoutCreatedAt = new Date().toLocaleString();
+    renderShootout(teamA, teamB, scoreA, scoreB, chance);
+  }
+
+  function renderShootout(teamA, teamB, scoreA, scoreB, chance) {
+    document.getElementById("shootoutResult").textContent = `${shootoutWinner} win`;
+    document.getElementById("shootoutStatus").textContent = `${teamA} ${scoreA}-${scoreB} ${teamB} after penalties.`;
+    document.getElementById("shootoutTableWrap").innerHTML = `<table class="rotation-table">
+      <thead><tr><th>Kick</th><th>${escapeHtml(teamA)}</th><th>${escapeHtml(teamB)}</th><th>Score</th></tr></thead>
+      <tbody>${shootoutRounds.map((row) => `<tr><td>${row.suddenDeath ? "SD " : ""}${row.round}</td><td>${row.teamA ? "Scored" : "Missed"}</td><td>${row.teamB ? "Scored" : "Missed"}</td><td>${row.scoreA}-${row.scoreB}</td></tr>`).join("")}</tbody>
+    </table>`;
+    document.getElementById("shootoutReceipt").innerHTML = `<strong>Result receipt:</strong> ${escapeHtml(shootoutText().replace("Penalty shootout result: ", ""))}`;
+    document.getElementById("shootoutShareSummary").textContent = `Shootout generated at ${chance}% scoring chance. Copy or share the result.`;
+  }
+
+  function shootoutText() {
+    if (!shootoutRounds.length) return "Penalty shootout result: no shootout generated.";
+    const teamA = document.getElementById("shootoutTeamA").value.trim() || "Team A";
+    const teamB = document.getElementById("shootoutTeamB").value.trim() || "Team B";
+    const last = shootoutRounds[shootoutRounds.length - 1];
+    return `Penalty shootout result: ${shootoutWinner} beat ${shootoutWinner === teamA ? teamB : teamA} ${last.scoreA}-${last.scoreB}. Generated: ${shootoutCreatedAt}. Kicks: ${shootoutRounds.map((row) => `${row.suddenDeath ? "SD" : "R"}${row.round} ${teamA} ${row.teamA ? "scored" : "missed"}, ${teamB} ${row.teamB ? "scored" : "missed"} (${row.scoreA}-${row.scoreB})`).join(" | ")}`;
+  }
+
+  function copyShootout(button) {
+    window.copySpinnitText(shootoutText(), button, "Copy result");
+  }
+
+  function shareShootout(button) {
+    window.shareOrCopySpinnit({
+      title: "Penalty Shootout Generator | Spinnit",
+      text: shootoutText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyShootoutEmbed(button) {
+    window.copySpinnitEmbed("/tools/penalty-shootout-generator.html", "Penalty Shootout Generator - Spinnit", button);
+  }
+
+  bindGlobalShortcut(generateShootout);
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">PS</div>
+    <h1>Penalty shootout generator</h1>
+    <p>Generate a random football penalty shootout with sudden death.</p>
+  </div>
+
+  <div class="result-box" id="shootoutResultBox">
+    <div class="result-label">winner</div>
+    <div class="result-number" id="shootoutResult" style="font-size:clamp(1.35rem,7vw,2.7rem);word-break:break-word;">-</div>
+    <div id="shootoutStatus" style="font-size:13px;color:var(--text2);margin-top:6px;">Enter two teams, then generate the shootout.</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-row">
+      <div class="control-group">
+        <label for="shootoutTeamA">Team A</label>
+        <input id="shootoutTeamA" type="text" value="England">
+      </div>
+      <div class="control-group">
+        <label for="shootoutTeamB">Team B</label>
+        <input id="shootoutTeamB" type="text" value="Brazil">
+      </div>
+    </div>
+    <div class="control-group">
+      <label for="scoreChance">Scoring chance (%)</label>
+      <input id="scoreChance" type="number" value="75" min="5" max="95">
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generateShootout()">GENERATE SHOOTOUT</button>
+
+  <div class="tool-actions">
+    <button class="btn-copy" onclick="copyShootout(this)">Copy result</button>
+    <button class="btn-copy" onclick="shareShootout(this)">Share</button>
+    <button class="btn-copy" onclick="copyShootoutEmbed(this)">Copy embed</button>
+    <button class="btn-copy" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="shootoutShareSummary">Generate a shootout, then copy or share the result.</span></div>
+
+  <section class="rotation-panel">
+    <div class="rotation-kicker">Football simulator</div>
+    <h2>Generated shootout</h2>
+    <div id="shootoutTableWrap"></div>
+    <div class="rotation-receipt" id="shootoutReceipt"><strong>Result receipt:</strong> no shootout has been generated yet.</div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>This penalty shootout generator creates a random best-of-five football penalty shootout and continues into sudden death if the score is level. Use it for World Cup watch parties, football debates, classroom games, pub quizzes, FIFA/EA FC house rules or quick social posts.</p>
+
+    <h2>Not a prediction tool</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The scoring chance is a simple random setting for fun. It is not based on team strength, player data, goalkeeper stats, betting odds or real match probabilities.</p>
+
+    <h2>Ways to use it</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Decide a fantasy knockout tie when friends cannot agree.</li>
+      <li>Run a classroom or youth-club football game without a pitch.</li>
+      <li>Add a quick random result to a football watch party.</li>
+      <li>Generate silly "what if" penalty outcomes for World Cup debates.</li>
+    </ul>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Penalty shootout FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does it include sudden death?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. If the teams are level after five penalties each, the generator continues until one team wins a sudden-death round.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I change the scoring chance?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Increase it for a high-scoring shootout or lower it for more misses. The setting is for fun only.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use real teams?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Type any two football teams, countries, schools, clubs or fantasy team names.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Football Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="world-cup-sweepstake-generator.html"><span class="ri">WC</span> World Cup Sweepstake</a>
+      <a class="related-card" href="5-a-side-team-generator.html"><span class="ri">5A</span> 5-a-side Teams</a>
+      <a class="related-card" href="football-bingo-card-generator.html"><span class="ri">FB</span> Football Bingo</a>
+      <a class="related-card" href="football/"><span class="ri">FT</span> Football Tools</a>
+    </div>
+    <p class="related-note">For more, browse <a href="/tools/football/">Football Random Tools</a>.</p>
+  </section>
+
+</main>

@@ -1,0 +1,341 @@
+---
+layout: layouts/base.njk
+title: "5-a-Side Team Generator - Random Football Teams | Spinnit"
+description: "Create fair random 5-a-side, 6-a-side, 7-a-side or 11-a-side football teams. Optional ratings and goalkeeper spreading. Free, no sign-up."
+ogTitle: "5-a-Side Team Generator | Spinnit"
+ogDescription: "Paste football players, choose team size, optionally add ratings or goalkeepers, and generate random teams."
+canonical: "https://spinnit.site/tools/5-a-side-team-generator.html"
+dateModified: "2026-06-12"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "Football Tools"
+    url: "/tools/football/"
+  - label: "5-a-Side Team Generator"
+    url: "/tools/5-a-side-team-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "5-a-Side Team Generator",
+    "applicationCategory": "SportsApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/5-a-side-team-generator.html",
+    "description": "A browser-based football team generator for 5-a-side, 6-a-side, 7-a-side and 11-a-side games.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I generate 5-a-side teams?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Paste the player list, choose 5-a-side as the team size, choose the number of teams, then generate. You can optionally add ratings and mark goalkeepers." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can the tool balance teams by ability?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Add a rating after each player name, such as Alex,5 or Sam,3,gk, then keep balanced mode switched on." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this for 6-a-side, 7-a-side or 11-a-side?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Change the side size or number of teams to match the game you are organising." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .teams-output { display:flex;flex-direction:column;gap:10px;margin-top:1.25rem; }
+  .team-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px; }
+  .team-title { font-family:var(--mono);font-size:12px;color:var(--accent2);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px; }
+  .team-members { display:flex;flex-wrap:wrap;gap:6px; }
+  .member-chip { background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:13px;color:var(--text); }
+  .team-rating {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    margin-left: 5px;
+  }
+pageScript: |
+  const DEFAULT_FOOTBALL_PLAYERS = [
+    "Alex,5,gk",
+    "Ben,4",
+    "Chris,3",
+    "Dan,4",
+    "Eli,2",
+    "Finn,5",
+    "George,3",
+    "Harvey,4",
+    "Isaac,2",
+    "Jay,3"
+  ];
+  const footballPlayersInput = document.getElementById("footballPlayers");
+  footballPlayersInput.value = DEFAULT_FOOTBALL_PLAYERS.join("\n");
+
+  let footballTeams = [];
+  let footballCreatedAt = "";
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function randomIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function shuffleList(items) {
+    const output = [...items];
+    for (let i = output.length - 1; i > 0; i--) {
+      const j = randomIndex(i + 1);
+      [output[i], output[j]] = [output[j], output[i]];
+    }
+    return output;
+  }
+
+  function parsePlayers() {
+    return footballPlayersInput.value
+      .split(/\n/)
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => {
+        const parts = line.split(",").map((part) => part.trim()).filter(Boolean);
+        const name = parts[0];
+        const maybeRating = Number(parts[1]);
+        const rating = Number.isFinite(maybeRating) && maybeRating >= 1 && maybeRating <= 5 ? maybeRating : 3;
+        const tags = parts.slice(1).map((part) => part.toLowerCase());
+        return { name, rating, goalkeeper: tags.includes("gk") || tags.includes("goalkeeper") };
+      });
+  }
+
+  function lowestRatedTeamIndex(teams) {
+    let best = 0;
+    let bestScore = Number.POSITIVE_INFINITY;
+    for (let i = 0; i < teams.length; i++) {
+      const score = teams[i].reduce((sum, player) => sum + player.rating, 0);
+      if (score < bestScore) {
+        best = i;
+        bestScore = score;
+      }
+    }
+    return best;
+  }
+
+  function generateFootballTeams() {
+    const players = parsePlayers();
+    const teamCount = Math.max(2, Math.min(20, Number(document.getElementById("footballTeamCount").value) || 2));
+    const sideSize = Math.max(1, Math.min(11, Number(document.getElementById("footballSideSize").value) || 5));
+    const balanced = document.getElementById("balanceRatings").checked;
+    const spreadKeepers = document.getElementById("spreadGoalkeepers").checked;
+
+    if (players.length < 2) {
+      alert("Add at least two players.");
+      return;
+    }
+
+    footballTeams = Array.from({ length: teamCount }, (_, index) => ({
+      name: `Team ${index + 1}`,
+      players: []
+    }));
+
+    let remaining = shuffleList(players);
+    if (spreadKeepers) {
+      const keepers = shuffleList(remaining.filter((player) => player.goalkeeper));
+      remaining = remaining.filter((player) => !player.goalkeeper);
+      keepers.forEach((keeper, index) => {
+        footballTeams[index % footballTeams.length].players.push(keeper);
+      });
+    }
+
+    if (balanced) {
+      remaining = shuffleList(remaining).sort((a, b) => b.rating - a.rating);
+      for (const player of remaining) {
+        const teamIndex = lowestRatedTeamIndex(footballTeams.map((team) => team.players));
+        footballTeams[teamIndex].players.push(player);
+      }
+    } else {
+      remaining = shuffleList(remaining);
+      remaining.forEach((player, index) => {
+        footballTeams[index % footballTeams.length].players.push(player);
+      });
+    }
+
+    footballCreatedAt = new Date().toLocaleString();
+    renderFootballTeams(sideSize);
+  }
+
+  function renderFootballTeams(sideSize) {
+    const result = document.getElementById("footballResult");
+    const output = document.getElementById("footballTeamsOutput");
+    if (!footballTeams.length) {
+      result.textContent = "-";
+      document.getElementById("footballStatus").textContent = "Paste players, then generate random football teams.";
+      output.innerHTML = "";
+      document.getElementById("footballShareSummary").textContent = "Generate football teams, then copy or share the team sheet.";
+      return;
+    }
+
+    result.textContent = `${footballTeams.length} teams`;
+    const overSize = footballTeams.filter((team) => team.players.length > sideSize).length;
+    document.getElementById("footballStatus").textContent = overSize
+      ? `${overSize} team${overSize === 1 ? "" : "s"} above selected side size.`
+      : "Teams generated.";
+
+    output.innerHTML = footballTeams.map((team) => {
+      const total = team.players.reduce((sum, player) => sum + player.rating, 0);
+      return `<div class="team-card">
+        <div class="team-title">${escapeHtml(team.name)} - ${team.players.length} players - rating ${total}</div>
+        <div class="team-members">${team.players.map((player) => `<span class="member-chip">${escapeHtml(player.name)}${player.goalkeeper ? " GK" : ""}<span class="team-rating">${player.rating}/5</span></span>`).join("")}</div>
+      </div>`;
+    }).join("");
+
+    document.getElementById("footballShareSummary").textContent = `Team sheet ready for ${footballTeams.reduce((sum, team) => sum + team.players.length, 0)} players.`;
+  }
+
+  function footballTeamsText() {
+    if (!footballTeams.length) return "5-a-side Team Generator on Spinnit: paste players and create random football teams.";
+    return `Football team draw: ${footballTeams.length} teams. Generated: ${footballCreatedAt}.\n` + footballTeams.map((team) => {
+      const total = team.players.reduce((sum, player) => sum + player.rating, 0);
+      return `${team.name} (${team.players.length} players, rating ${total}): ${team.players.map((player) => `${player.name}${player.goalkeeper ? " GK" : ""}`).join(", ")}`;
+    }).join("\n");
+  }
+
+  function copyFootballTeams(button) {
+    window.copySpinnitText(footballTeamsText(), button, "Copy teams");
+  }
+
+  function shareFootballTeams(button) {
+    window.shareOrCopySpinnit({
+      title: "5-a-Side Team Generator | Spinnit",
+      text: footballTeamsText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyFootballTeamsEmbed(button) {
+    window.copySpinnitEmbed("/tools/5-a-side-team-generator.html", "5-a-Side Team Generator - Spinnit", button);
+  }
+
+  footballPlayersInput.addEventListener("input", () => renderFootballTeams(Number(document.getElementById("footballSideSize").value) || 5));
+  bindGlobalShortcut(generateFootballTeams);
+---
+<main class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-icon">5A</div>
+    <h1>5-a-side team generator</h1>
+    <p>Create fair random football teams for 5-a-side, 6-a-side, 7-a-side or 11-a-side games.</p>
+  </div>
+
+  <div class="result-box" id="footballResultBox">
+    <div class="result-label">team draw</div>
+    <div class="result-number" id="footballResult" style="font-size:clamp(1.35rem,7vw,2.7rem);word-break:break-word;">-</div>
+    <div id="footballStatus" style="font-size:13px;color:var(--text2);margin-top:6px;">Paste players, then generate random football teams.</div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label for="footballPlayers">Players</label>
+      <textarea id="footballPlayers" rows="10" autocomplete="off"></textarea>
+    </div>
+    <div class="control-row">
+      <div class="control-group">
+        <label for="footballTeamCount">Number of teams</label>
+        <input id="footballTeamCount" type="number" value="2" min="2" max="20">
+      </div>
+      <div class="control-group">
+        <label for="footballSideSize">Side size</label>
+        <select id="footballSideSize">
+          <option value="5">5-a-side</option>
+          <option value="6">6-a-side</option>
+          <option value="7">7-a-side</option>
+          <option value="11">11-a-side</option>
+        </select>
+      </div>
+    </div>
+    <div class="control-group">
+      <label><input type="checkbox" id="balanceRatings" checked style="margin-right:6px;vertical-align:middle;"> Balance optional ratings</label>
+    </div>
+    <div class="control-group">
+      <label><input type="checkbox" id="spreadGoalkeepers" checked style="margin-right:6px;vertical-align:middle;"> Spread goalkeepers where possible</label>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generateFootballTeams()">GENERATE FOOTBALL TEAMS</button>
+
+  <div class="tool-actions">
+    <button class="btn-copy" onclick="copyFootballTeams(this)">Copy teams</button>
+    <button class="btn-copy" onclick="shareFootballTeams(this)">Share</button>
+    <button class="btn-copy" onclick="copyFootballTeamsEmbed(this)">Copy embed</button>
+    <button class="btn-copy" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="footballShareSummary">Generate football teams, then copy or share the team sheet.</span></div>
+
+  <div id="footballTeamsOutput" class="teams-output"></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>This 5-a-side team generator creates random football teams from a player list. It also works for 6-a-side, 7-a-side, 11-a-side, PE lessons, training games, Sunday league warmups, office football and casual kickabouts.</p>
+
+    <h2>Optional ratings and goalkeepers</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For a quick random draw, enter one player per line. For balanced teams, add a rating from 1 to 5 after a comma. To mark a goalkeeper, add <strong>gk</strong>. Example: <code>Alex,5,gk</code> or <code>Sam,3</code>.</p>
+
+    <h2>Best used for</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>5-a-side football teams</li>
+      <li>6-a-side and 7-a-side league nights</li>
+      <li>11-a-side training games</li>
+      <li>PE lessons and school football</li>
+      <li>World Cup watch-party mini games</li>
+      <li>Office football and charity matches</li>
+    </ul>
+
+    <h2>Fairness note</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Ratings are optional and subjective. They help spread strong players across teams, but they are not a ranking system. If you want a pure random draw, untick balanced ratings.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>5-a-side team generator FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I make 5-a-side teams from 10 players?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set the number of teams to 2 and side size to 5-a-side, then generate.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can teams be balanced by ability?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Add optional ratings like <code>Ben,4</code> or <code>Mia,2</code> and keep balanced mode switched on.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can it spread goalkeepers?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Add <code>gk</code> after goalkeeper names. The tool tries to spread them across teams before assigning other players.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Football Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="world-cup-sweepstake-generator.html"><span class="ri">WC</span> World Cup Sweepstake</a>
+      <a class="related-card" href="penalty-shootout-generator.html"><span class="ri">PS</span> Penalty Shootout</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">TP</span> General Team Picker</a>
+      <a class="related-card" href="football/"><span class="ri">FT</span> Football Tools</a>
+    </div>
+    <p class="related-note">For the broader cluster, browse <a href="/tools/football/">Football Random Tools</a>.</p>
+  </section>
+
+</main>
