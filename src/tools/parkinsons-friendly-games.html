@@ -1,0 +1,812 @@
+---
+layout: layouts/base.njk
+title: "Parkinson's-Friendly Games - Free Gentle Online Games | Spinnit"
+description: "Free Parkinson's-friendly browser games with large controls, optional visual cues, memory matching, word prompts and target practice. Not medical treatment."
+ogTitle: "Parkinson's-Friendly Games | Spinnit"
+ogDescription: "Gentle online games with large buttons, no-pressure play, memory matching, word prompts and target practice."
+canonical: "https://spinnit.site/tools/parkinsons-friendly-games.html"
+dateModified: "2026-06-13"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Parkinson's-Friendly Games"
+    url: "/tools/parkinsons-friendly-games.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Parkinson's-Friendly Games",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/parkinsons-friendly-games.html",
+    "description": "A set of free browser-based games with large controls, optional visual cues, memory matching, word prompts and target practice for relaxed family play.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true,
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "People with Parkinson's, carers and families"
+    }
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are these Parkinson's games medical treatment?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. These are simple browser games for relaxed play, family time and gentle practice. They are not medical treatment, diagnosis, rehabilitation or a replacement for professional care." }
+      },
+      {
+        "@type": "Question",
+        "name": "What makes these games Parkinson's-friendly?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The games use large buttons, simple instructions, optional visual cues, no forced timers and adjustable comfort settings." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to install anything?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The games run in the browser and do not require an account or app install." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can carers or family members play too?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The games are designed to be easy to play alone or with a partner, carer, family member or friend." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .gentle-page {
+    max-width: 940px;
+  }
+  .safety-note {
+    background: linear-gradient(135deg, rgba(52,211,153,0.12), rgba(96,165,250,0.08));
+    border: 1px solid rgba(52,211,153,0.26);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin: 1.2rem 0;
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .safety-note strong {
+    color: var(--text);
+  }
+  .comfort-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 8px;
+    margin: 1rem 0 1.25rem;
+  }
+  .game-tabs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+    margin: 1.4rem 0 1rem;
+  }
+  .game-tab {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    color: var(--text2);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .game-tab.active {
+    color: var(--text);
+    border-color: rgba(52,211,153,0.5);
+    background: rgba(52,211,153,0.12);
+  }
+  .game-panel {
+    display: none;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  .game-panel.active {
+    display: block;
+  }
+  .game-panel h2 {
+    margin: 0 0 0.4rem;
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+  }
+  .game-help {
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.75;
+    margin: 0 0 1rem;
+  }
+  .large-status {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.9rem;
+    color: var(--text);
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    line-height: 1.45;
+    margin: 0.9rem 0;
+  }
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+    margin: 1rem 0;
+  }
+  .metric-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.8rem;
+  }
+  .metric-card strong {
+    display: block;
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+  }
+  .metric-card span {
+    color: var(--text);
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .tap-button {
+    min-height: 148px;
+    width: 100%;
+    border: 0;
+    border-radius: 28px;
+    background: radial-gradient(circle at 35% 25%, #bbf7d0, #34d399 48%, #047857 100%);
+    color: #06251a;
+    font-size: clamp(2.2rem, 12vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    cursor: pointer;
+    box-shadow: 0 22px 48px rgba(52,211,153,0.22);
+  }
+  .rhythm-cue {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text2);
+    font-size: 14px;
+    margin: 0.8rem 0;
+  }
+  .cue-light {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    transition: transform 0.15s, background 0.15s;
+  }
+  .cue-light.on {
+    background: #34d399;
+    transform: scale(1.25);
+  }
+  .target-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 1rem 0;
+  }
+  .target-cell {
+    min-height: 98px;
+    border-radius: var(--radius);
+    background: var(--bg3);
+    border: 1px dashed var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .target-button {
+    width: 82px;
+    height: 82px;
+    border: 0;
+    border-radius: 999px;
+    background: radial-gradient(circle at 35% 30%, #fef3c7, #f59e0b 55%, #92400e 100%);
+    color: #241305;
+    font-size: 24px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  .target-button.extra-large {
+    width: 96px;
+    height: 96px;
+  }
+  .memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin: 1rem 0;
+  }
+  .memory-card {
+    min-height: 82px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg3);
+    color: var(--text);
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .memory-card.revealed {
+    background: rgba(96,165,250,0.16);
+    border-color: rgba(96,165,250,0.45);
+  }
+  .memory-card.matched {
+    background: rgba(52,211,153,0.16);
+    border-color: rgba(52,211,153,0.45);
+  }
+  .word-prompt {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  .word-prompt strong {
+    display: block;
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.45rem;
+    text-transform: uppercase;
+  }
+  .word-prompt p {
+    color: var(--text);
+    font-size: clamp(1.1rem, 5vw, 1.55rem);
+    line-height: 1.45;
+    margin: 0;
+  }
+  .examples-box {
+    display: none;
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.75;
+    margin: 0.75rem 0;
+  }
+  .examples-box.visible {
+    display: block;
+  }
+  .source-list {
+    display: grid;
+    gap: 8px;
+    margin-top: 0.9rem;
+  }
+  .source-list a {
+    display: block;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    padding: 0.75rem 0.85rem;
+    text-decoration: none;
+  }
+  .source-list a:hover {
+    border-color: var(--accent2);
+    color: var(--text);
+  }
+  .big-comfort .game-panel {
+    font-size: 18px;
+  }
+  .big-comfort .btn-copy,
+  .big-comfort .btn-generate,
+  .big-comfort .game-tab {
+    min-height: 56px;
+    font-size: 14px;
+  }
+  .big-comfort .target-cell {
+    min-height: 118px;
+  }
+  .big-comfort .memory-card {
+    min-height: 104px;
+  }
+  .reduce-motion .cue-light {
+    transition: none;
+  }
+  @media (max-width: 640px) {
+    .memory-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .target-cell {
+      min-height: 86px;
+    }
+    .target-button {
+      width: 74px;
+      height: 74px;
+    }
+  }
+pageScript: |
+  const gentlePage = document.getElementById("parkinsonsGamesPage");
+  let biggerControls = false;
+  let reducedMotion = false;
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function randomIndex(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  function shuffleList(items) {
+    const output = [...items];
+    for (let i = output.length - 1; i > 0; i--) {
+      const j = randomIndex(i + 1);
+      [output[i], output[j]] = [output[j], output[i]];
+    }
+    return output;
+  }
+
+  function showGentleGame(gameId) {
+    document.querySelectorAll(".game-tab").forEach((tab) => {
+      const active = tab.dataset.game === gameId;
+      tab.classList.toggle("active", active);
+      tab.setAttribute("aria-selected", active ? "true" : "false");
+    });
+    document.querySelectorAll(".game-panel").forEach((panel) => {
+      panel.classList.toggle("active", panel.id === `game-${gameId}`);
+    });
+    stopRhythmCue();
+  }
+
+  function toggleBiggerControls(button) {
+    biggerControls = !biggerControls;
+    gentlePage.classList.toggle("big-comfort", biggerControls);
+    if (button) button.textContent = biggerControls ? "Use standard controls" : "Use bigger controls";
+  }
+
+  function toggleReducedMotion(button) {
+    reducedMotion = !reducedMotion;
+    gentlePage.classList.toggle("reduce-motion", reducedMotion);
+    stopRhythmCue();
+    if (button) button.textContent = reducedMotion ? "Allow visual cue" : "Reduce motion";
+  }
+
+  let rhythmTapCount = 0;
+  let rhythmSteadyCount = 0;
+  let rhythmLastTap = 0;
+  let rhythmCueTimer = null;
+  let rhythmCueBeat = 0;
+
+  function rhythmTargetMs() {
+    const value = document.getElementById("rhythmSpeed").value;
+    if (value === "medium") return 1000;
+    if (value === "brisk") return 750;
+    return 1400;
+  }
+
+  function updateRhythmMetrics(message) {
+    document.getElementById("rhythmTaps").textContent = rhythmTapCount;
+    document.getElementById("rhythmSteady").textContent = rhythmSteadyCount;
+    document.getElementById("rhythmStatus").textContent = message || "Tap along at a comfortable pace. Rest whenever you want.";
+  }
+
+  function tapRhythm() {
+    const now = performance.now();
+    const target = rhythmTargetMs();
+    rhythmTapCount += 1;
+
+    if (rhythmLastTap) {
+      const interval = now - rhythmLastTap;
+      const diff = Math.abs(interval - target);
+      if (diff <= 280) {
+        rhythmSteadyCount += 1;
+        updateRhythmMetrics("Nice steady tap. Keep it easy, or pause for a rest.");
+      } else if (interval < target) {
+        updateRhythmMetrics("That was a little quick. Try a calmer next tap if it feels comfortable.");
+      } else {
+        updateRhythmMetrics("That was a little slow. No problem, this is not a race.");
+      }
+    } else {
+      updateRhythmMetrics("First tap counted. Try another at the same comfortable pace.");
+    }
+    rhythmLastTap = now;
+  }
+
+  function resetRhythm() {
+    rhythmTapCount = 0;
+    rhythmSteadyCount = 0;
+    rhythmLastTap = 0;
+    stopRhythmCue();
+    updateRhythmMetrics("Reset. Tap at any comfortable speed, or start the visual cue.");
+  }
+
+  function startRhythmCue() {
+    stopRhythmCue();
+    if (reducedMotion) {
+      updateRhythmMetrics("Reduced motion is on, so the visual cue is paused.");
+      return;
+    }
+    const cue = document.getElementById("rhythmCueLight");
+    const beatLabel = document.getElementById("rhythmCueLabel");
+    rhythmCueBeat = 0;
+    cue.classList.add("on");
+    beatLabel.textContent = "Cue beat 1 of 16";
+    rhythmCueTimer = setInterval(() => {
+      rhythmCueBeat += 1;
+      cue.classList.toggle("on");
+      beatLabel.textContent = `Cue beat ${Math.min(rhythmCueBeat + 1, 16)} of 16`;
+      if (rhythmCueBeat >= 15) {
+        stopRhythmCue("Cue complete. Rest, repeat, or switch games.");
+      }
+    }, rhythmTargetMs());
+  }
+
+  function stopRhythmCue(message) {
+    if (rhythmCueTimer) {
+      clearInterval(rhythmCueTimer);
+      rhythmCueTimer = null;
+    }
+    const cue = document.getElementById("rhythmCueLight");
+    const beatLabel = document.getElementById("rhythmCueLabel");
+    if (cue) cue.classList.remove("on");
+    if (beatLabel) beatLabel.textContent = message || "Visual cue off";
+  }
+
+  let targetHits = 0;
+  let targetPosition = randomIndex(9);
+
+  function renderTargetBoard() {
+    const board = document.getElementById("targetBoard");
+    const extraLarge = document.getElementById("targetSize").value === "extra";
+    board.innerHTML = Array.from({ length: 9 }, (_, index) => {
+      if (index !== targetPosition) return '<div class="target-cell" aria-hidden="true"></div>';
+      return `<div class="target-cell"><button type="button" class="target-button${extraLarge ? " extra-large" : ""}" onclick="hitTarget()" aria-label="Tap target">Tap</button></div>`;
+    }).join("");
+    document.getElementById("targetHits").textContent = targetHits;
+  }
+
+  function hitTarget() {
+    targetHits += 1;
+    document.getElementById("targetStatus").textContent = `Target hit ${targetHits}. Take your time and tap the next one when ready.`;
+    moveTarget();
+  }
+
+  function moveTarget() {
+    const nextPositions = Array.from({ length: 9 }, (_, index) => index).filter((index) => index !== targetPosition);
+    targetPosition = nextPositions[randomIndex(nextPositions.length)];
+    renderTargetBoard();
+  }
+
+  function resetTarget() {
+    targetHits = 0;
+    targetPosition = randomIndex(9);
+    document.getElementById("targetStatus").textContent = "Tap the big target. There is no timer.";
+    renderTargetBoard();
+  }
+
+  const memoryWords = ["Sun", "Cup", "Ball", "Tree", "Book", "Star"];
+  let memoryDeck = [];
+  let memoryFlipped = [];
+  let memoryMatched = [];
+  let memoryMoves = 0;
+  let memoryLocked = false;
+
+  function startMemoryGame() {
+    const pairs = Number(document.getElementById("memoryPairs").value) || 3;
+    memoryDeck = shuffleList(memoryWords.slice(0, pairs).flatMap((word) => [word, word]));
+    memoryFlipped = [];
+    memoryMatched = [];
+    memoryMoves = 0;
+    memoryLocked = false;
+    document.getElementById("memoryStatus").textContent = "Find the matching pairs. No timer, no score pressure.";
+    renderMemoryGame();
+  }
+
+  function renderMemoryGame() {
+    const grid = document.getElementById("memoryGrid");
+    grid.innerHTML = memoryDeck.map((word, index) => {
+      const isMatched = memoryMatched.includes(index);
+      const isFlipped = memoryFlipped.includes(index);
+      const visible = isMatched || isFlipped;
+      const className = isMatched ? " matched" : visible ? " revealed" : "";
+      const label = visible ? word : "Card";
+      return `<button type="button" class="memory-card${className}" onclick="flipMemoryCard(${index})" aria-label="${visible ? "Card showing " + escapeHtml(word) : "Hidden memory card"}">${visible ? escapeHtml(word) : "?"}</button>`;
+    }).join("");
+    document.getElementById("memoryMoves").textContent = memoryMoves;
+    document.getElementById("memoryMatches").textContent = memoryMatched.length / 2;
+  }
+
+  function flipMemoryCard(index) {
+    if (memoryLocked || memoryMatched.includes(index) || memoryFlipped.includes(index)) return;
+    memoryFlipped.push(index);
+    if (memoryFlipped.length === 2) {
+      memoryMoves += 1;
+      const [first, second] = memoryFlipped;
+      if (memoryDeck[first] === memoryDeck[second]) {
+        memoryMatched.push(first, second);
+        memoryFlipped = [];
+        document.getElementById("memoryStatus").textContent = "Match found. Nice and steady.";
+        if (memoryMatched.length === memoryDeck.length) {
+          document.getElementById("memoryStatus").textContent = `All pairs found in ${memoryMoves} moves.`;
+        }
+      } else {
+        memoryLocked = true;
+        document.getElementById("memoryStatus").textContent = "Not a match. They will turn back over.";
+        setTimeout(() => {
+          memoryFlipped = [];
+          memoryLocked = false;
+          renderMemoryGame();
+        }, 850);
+      }
+    }
+    renderMemoryGame();
+  }
+
+  const wordPrompts = [
+    { topic: "Home", prompt: "Name three things you can see from where you are sitting.", examples: "Example ideas: lamp, window, cup, cushion, plant." },
+    { topic: "Memory", prompt: "Say the name of a place you liked visiting.", examples: "Example ideas: a beach, park, football ground, cafe or family home." },
+    { topic: "Sound", prompt: "Name three sounds you might hear in a kitchen.", examples: "Example ideas: kettle, tap, fridge, plates, radio." },
+    { topic: "Word finding", prompt: "Name a food that begins with B.", examples: "Example ideas: banana, bread, beans, berries, biscuit." },
+    { topic: "Football", prompt: "Name a football team, player or stadium.", examples: "Example ideas: England, Wembley, Arsenal, Manchester United, Celtic." },
+    { topic: "Colour", prompt: "Name something blue, then something green.", examples: "Example ideas: sky, sea, grass, leaves, shirt." },
+    { topic: "Story", prompt: "Finish this sentence: Today I would like to...", examples: "Example ideas: go outside, call someone, watch a match, have tea." },
+    { topic: "Categories", prompt: "Name three animals, then pick your favourite.", examples: "Example ideas: dog, cat, robin, horse, elephant." }
+  ];
+  let currentWordPrompt = wordPrompts[0];
+
+  function newWordPrompt() {
+    const options = wordPrompts.filter((item) => item.prompt !== currentWordPrompt.prompt);
+    currentWordPrompt = options[randomIndex(options.length)];
+    document.getElementById("wordTopic").textContent = currentWordPrompt.topic;
+    document.getElementById("wordPromptText").textContent = currentWordPrompt.prompt;
+    document.getElementById("wordExamples").textContent = currentWordPrompt.examples;
+    document.getElementById("wordExamples").classList.remove("visible");
+  }
+
+  function revealWordExamples() {
+    document.getElementById("wordExamples").classList.add("visible");
+  }
+
+  function copyCurrentPrompt(button) {
+    window.copySpinnitText(`${currentWordPrompt.topic}: ${currentWordPrompt.prompt}`, button, "Copy prompt");
+  }
+
+  function gentleGamesText() {
+    return "Parkinson's-Friendly Games on Spinnit: large-button rhythm tap, big target reach, memory match and word cue games. Not medical treatment.";
+  }
+
+  function copyGentleGames(button) {
+    window.copySpinnitText(gentleGamesText(), button, "Copy page");
+  }
+
+  function shareGentleGames(button) {
+    window.shareOrCopySpinnit({
+      title: "Parkinson's-Friendly Games | Spinnit",
+      text: gentleGamesText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyGentleGamesEmbed(button) {
+    window.copySpinnitEmbed("/tools/parkinsons-friendly-games.html", "Parkinson's-Friendly Games - Spinnit", button);
+  }
+
+  document.getElementById("rhythmSpeed").addEventListener("change", resetRhythm);
+  document.getElementById("targetSize").addEventListener("change", renderTargetBoard);
+  renderTargetBoard();
+  startMemoryGame();
+  newWordPrompt();
+---
+<main class="tool-page gentle-page" id="parkinsonsGamesPage">
+
+  <div class="tool-header">
+    <div class="tool-icon">PG</div>
+    <h1>Parkinson's-friendly games</h1>
+    <p>Free gentle browser games with large controls, no forced timers and simple family-friendly play.</p>
+  </div>
+
+  <div class="safety-note">
+    <strong>Important:</strong> These games are for relaxed play, conversation and gentle practice only. They are not medical treatment, diagnosis, rehabilitation, or a replacement for physiotherapy, occupational therapy or advice from a healthcare professional. Stop if you feel dizzy, tired, in pain or frustrated. Play seated or with support if balance is a concern.
+  </div>
+
+  <div class="result-box">
+    <div class="result-label">choose a game</div>
+    <div class="result-number" style="font-size:clamp(1.4rem,7vw,2.7rem);word-break:break-word;">large, calm, no-pressure</div>
+    <div style="font-size:13px;color:var(--text2);margin-top:6px;">Built for people with Parkinson's, carers, family members and friends who want simple games that do not rush the player.</div>
+  </div>
+
+  <div class="comfort-controls">
+    <button class="btn-copy" type="button" onclick="toggleBiggerControls(this)">Use bigger controls</button>
+    <button class="btn-copy" type="button" onclick="toggleReducedMotion(this)">Reduce motion</button>
+    <button class="btn-copy" type="button" onclick="resetRhythm(); resetTarget(); startMemoryGame(); newWordPrompt();">Reset all games</button>
+  </div>
+
+  <div class="game-tabs" role="tablist" aria-label="Parkinson's-friendly games">
+    <button class="game-tab active" type="button" data-game="rhythm" role="tab" aria-selected="true" onclick="showGentleGame('rhythm')">Rhythm tap</button>
+    <button class="game-tab" type="button" data-game="target" role="tab" aria-selected="false" onclick="showGentleGame('target')">Big target</button>
+    <button class="game-tab" type="button" data-game="memory" role="tab" aria-selected="false" onclick="showGentleGame('memory')">Memory match</button>
+    <button class="game-tab" type="button" data-game="words" role="tab" aria-selected="false" onclick="showGentleGame('words')">Word cues</button>
+  </div>
+
+  <section class="game-panel active" id="game-rhythm" role="tabpanel">
+    <h2>Steady rhythm tap</h2>
+    <p class="game-help">Tap the big button at a comfortable rhythm. You can use the optional visual cue, or just tap at your own pace. This is a timing game, not a test.</p>
+
+    <div class="control-row">
+      <div class="control-group">
+        <label for="rhythmSpeed">Pace</label>
+        <select id="rhythmSpeed">
+          <option value="slow">Slow</option>
+          <option value="medium">Medium</option>
+          <option value="brisk">Brisk</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="tap-button" type="button" onclick="tapRhythm()" aria-label="Tap rhythm button">TAP</button>
+
+    <div class="rhythm-cue" aria-live="polite">
+      <span class="cue-light" id="rhythmCueLight" aria-hidden="true"></span>
+      <span id="rhythmCueLabel">Visual cue off</span>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card"><strong>Taps</strong><span id="rhythmTaps">0</span></div>
+      <div class="metric-card"><strong>Steady taps</strong><span id="rhythmSteady">0</span></div>
+    </div>
+
+    <div class="large-status" id="rhythmStatus" aria-live="polite">Tap along at a comfortable pace. Rest whenever you want.</div>
+
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="startRhythmCue()">Start 16-beat cue</button>
+      <button class="btn-copy" type="button" onclick="stopRhythmCue()">Stop cue</button>
+      <button class="btn-copy" type="button" onclick="resetRhythm()">Reset rhythm</button>
+    </div>
+  </section>
+
+  <section class="game-panel" id="game-target" role="tabpanel">
+    <h2>Big target reach</h2>
+    <p class="game-help">Tap the target wherever it appears. There is no countdown. Use this seated, close to the screen, or with a family member if that feels safer.</p>
+
+    <div class="control-row">
+      <div class="control-group">
+        <label for="targetSize">Target size</label>
+        <select id="targetSize">
+          <option value="large">Large</option>
+          <option value="extra">Extra large</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="target-board" id="targetBoard" aria-label="Big target game board"></div>
+
+    <div class="metric-grid">
+      <div class="metric-card"><strong>Targets hit</strong><span id="targetHits">0</span></div>
+    </div>
+
+    <div class="large-status" id="targetStatus" aria-live="polite">Tap the big target. There is no timer.</div>
+
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="moveTarget()">Move target</button>
+      <button class="btn-copy" type="button" onclick="resetTarget()">Reset target game</button>
+    </div>
+  </section>
+
+  <section class="game-panel" id="game-memory" role="tabpanel">
+    <h2>Memory match</h2>
+    <p class="game-help">Turn over two cards and try to find a pair. The words are short and high contrast, with no timer and no penalty for mistakes.</p>
+
+    <div class="control-row">
+      <div class="control-group">
+        <label for="memoryPairs">Cards</label>
+        <select id="memoryPairs">
+          <option value="3">6 cards</option>
+          <option value="4">8 cards</option>
+          <option value="5">10 cards</option>
+          <option value="6">12 cards</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="memory-grid" id="memoryGrid" aria-label="Memory match cards"></div>
+
+    <div class="metric-grid">
+      <div class="metric-card"><strong>Moves</strong><span id="memoryMoves">0</span></div>
+      <div class="metric-card"><strong>Matches</strong><span id="memoryMatches">0</span></div>
+    </div>
+
+    <div class="large-status" id="memoryStatus" aria-live="polite">Find the matching pairs. No timer, no score pressure.</div>
+
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="startMemoryGame()">New memory game</button>
+    </div>
+  </section>
+
+  <section class="game-panel" id="game-words" role="tabpanel">
+    <h2>Word cue game</h2>
+    <p class="game-help">Use a prompt for conversation, word finding or family play. Say the answer aloud, type it somewhere else, or use it as a carer-led game.</p>
+
+    <div class="word-prompt" aria-live="polite">
+      <strong id="wordTopic">Topic</strong>
+      <p id="wordPromptText">Prompt loading...</p>
+    </div>
+
+    <div class="examples-box" id="wordExamples"></div>
+
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="newWordPrompt()">New prompt</button>
+      <button class="btn-copy" type="button" onclick="revealWordExamples()">Show examples</button>
+      <button class="btn-copy" type="button" onclick="copyCurrentPrompt(this)">Copy prompt</button>
+    </div>
+  </section>
+
+  <div class="tool-actions">
+    <button class="btn-copy" type="button" onclick="copyGentleGames(this)">Copy page summary</button>
+    <button class="btn-copy" type="button" onclick="shareGentleGames(this)">Share</button>
+    <button class="btn-copy" type="button" onclick="copyGentleGamesEmbed(this)">Copy embed</button>
+    <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>These free Parkinson's-friendly games are designed around slower, calmer interaction: large targets, short instructions, optional cues and no forced countdowns. They are useful when a standard mobile game feels too fast, too cluttered or too fiddly.</p>
+
+    <h2>What makes a game Parkinson's-friendly?</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong>Large controls:</strong> tap areas are deliberately big so the game is easier to use on phones, tablets and laptops.</li>
+      <li><strong>No forced timer:</strong> each game can be played slowly, with breaks whenever needed.</li>
+      <li><strong>Simple visual structure:</strong> one main action at a time, high contrast and short text.</li>
+      <li><strong>Partner-friendly:</strong> a carer, friend or family member can read prompts, press buttons or turn the games into a shared activity.</li>
+      <li><strong>Browser-based:</strong> no account, app install or login is needed.</li>
+    </ul>
+
+    <h2>How families can use these games</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Try one short game at a time. Keep sessions light. If the person playing is tired, switch to the word cue game or stop. A good session is one that feels safe and enjoyable, not one that chases a score.</p>
+
+    <h2>Why this page is careful with health claims</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Official Parkinson's resources discuss exercise, physiotherapy, occupational therapy, cues and safe adaptations as part of wider care. Spinnit is not a healthcare provider, so this page does not claim to treat symptoms or replace professional advice. It simply offers free, accessible games that may be easier to play than fast, cluttered games.</p>
+
+    <h2>Helpful official resources</h2>
+    <div class="source-list">
+      <a href="https://www.parkinson.org/living-with-parkinsons/treatment/exercise" rel="noopener">Parkinson's Foundation: Exercise and Parkinson's</a>
+      <a href="https://www.nhs.uk/conditions/parkinsons-disease/treatment/" rel="noopener">NHS: Parkinson's disease treatment and supportive therapies</a>
+      <a href="https://www.parkinsons.org.uk/information/treatments/occupational-therapy" rel="noopener">Parkinson's UK: Occupational therapy</a>
+    </div>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Parkinson's-friendly games FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are these games designed to improve Parkinson's symptoms?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. They are not a treatment plan, medical device or rehabilitation programme. They are simple games with accessibility choices that may make casual play easier.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Which game should I start with?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Start with the word cue game if movement feels tiring, the memory game for quiet play, the target game for large-button tapping, or the rhythm game if a simple beat feels enjoyable.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use these on a tablet?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The page is mobile-first and works in a browser on phones, tablets, laptops and desktops.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is anything saved or uploaded?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No account is needed and these games run in your browser. The games do not ask for personal health information.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Spinnit tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="dice-roller.html"><span class="ri">D6</span> Dice Roller</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">CF</span> Coin Flip</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">YN</span> Yes / No Wheel</a>
+      <a class="related-card" href="random-number.html"><span class="ri">RN</span> Random Number</a>
+    </div>
+    <p class="related-note">For broader site methodology, read <a href="/how-spinnit-tools-work.html">how Spinnit tools work</a> and the <a href="/randomness-and-fairness.html">randomness and fairness guide</a>.</p>
+  </section>
+
+</main>
