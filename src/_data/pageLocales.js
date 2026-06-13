@@ -34,9 +34,49 @@ const sitemapEntryMap = new Map();
 const localizedSitemapAllowlist = new Set([
   "https://spinnit.site/ar/"
 ]);
+const AI_CLUSTER_INDEXABILITY_REVIEWED = "2026-06-13";
+const AI_SITEMAP_POLICY =
+  "Vetted English AI Tool Radar pages are included in the XML sitemap after indexability QA. Localized AI mirrors remain excluded until separately reviewed.";
+const aiSitemapAllowedPaths = new Set([
+  "/ai/",
+  "/ai/all-tools/",
+  "/ai/best/best-ai-tools-for-content-creators.html",
+  "/ai/best/best-ai-tools-for-productivity.html",
+  "/ai/best/best-ai-tools-for-small-business.html",
+  "/ai/best/best-ai-tools-for-students.html",
+  "/ai/blog/best-ai-tools-for-marketing-teams.html",
+  "/ai/blog/best-ai-tools-for-research-workflows.html",
+  "/ai/blog/best-ai-tools-for-solopreneurs.html",
+  "/ai/blog/best-free-ai-tools-2026.html",
+  "/ai/blog/chatgpt-alternatives-worth-trying.html",
+  "/ai/blog/how-to-choose-the-right-ai-tool.html",
+  "/ai/blog/which-ai-tool-should-you-pay-for-first.html",
+  "/ai/categories/ai-audio-tools.html",
+  "/ai/categories/ai-coding-tools.html",
+  "/ai/categories/ai-image-tools.html",
+  "/ai/categories/ai-productivity-tools.html",
+  "/ai/categories/ai-research-tools.html",
+  "/ai/categories/ai-video-tools.html",
+  "/ai/categories/ai-writing-tools.html",
+  "/ai/compare/chatgpt-vs-claude.html",
+  "/ai/compare/chatgpt-vs-perplexity.html",
+  "/ai/compare/claude-vs-gemini.html",
+  "/ai/compare/midjourney-vs-runway.html",
+  "/ai/directory/",
+  "/ai/how-we-review/",
+  "/ai/picker/",
+  "/ai/suggest-a-tool/",
+  "/ai/tools/chatgpt.html",
+  "/ai/tools/claude.html",
+  "/ai/tools/cursor.html",
+  "/ai/tools/elevenlabs.html",
+  "/ai/tools/gemini.html",
+  "/ai/tools/midjourney.html",
+  "/ai/tools/perplexity.html",
+  "/ai/tools/runway.html"
+]);
 const sitemapPathBlocklist = [
   /^\/(?:ar|de)\//,
-  /^\/ai\//,
   /^\/offline\.html$/,
   /^\/404\.html$/,
   /\/404\.html$/
@@ -92,6 +132,7 @@ function isIndexReady(lang, url, data) {
 function isSitemapAllowed(lang, loc) {
   if (lang !== languages.default) return localizedSitemapAllowlist.has(loc);
   const p = loc.replace(site.url, "") || "/";
+  if (p.startsWith("/ai/")) return aiSitemapAllowedPaths.has(p);
   return !sitemapPathBlocklist.some((rx) => rx.test(p));
 }
 
@@ -114,7 +155,13 @@ for (const file of walk(SRC)) {
   if (indexReady && parsed.data.canonical) {
     const loc = String(parsed.data.canonical).replace(/\/index\.html$/, "/");
     if (!isSitemapAllowed(lang, loc)) continue;
-    const lastmod = formatDate(parsed.data.dateModified || parsed.data.updated || parsed.data.datePublished);
+    const locPath = loc.replace(site.url, "") || "/";
+    const lastmod = formatDate(
+      parsed.data.dateModified ||
+      parsed.data.updated ||
+      parsed.data.datePublished ||
+      (aiSitemapAllowedPaths.has(locPath) ? AI_CLUSTER_INDEXABILITY_REVIEWED : null)
+    );
     if (!sitemapUrls.includes(loc)) sitemapUrls.push(loc);
     if (!sitemapEntryMap.has(loc)) {
       sitemapEntryMap.set(loc, { loc, lastmod, priority: priorityFor(loc), changefreq: changefreqFor(loc) });
@@ -126,5 +173,7 @@ for (const file of walk(SRC)) {
 
 pageLocales.sitemapUrls = sitemapUrls.sort(sortUrl);
 pageLocales.sitemapEntries = Array.from(sitemapEntryMap.values()).sort((a, b) => sortUrl(a.loc, b.loc));
+pageLocales.aiSitemapPolicy = AI_SITEMAP_POLICY;
+pageLocales.aiSitemapAllowedPaths = Array.from(aiSitemapAllowedPaths).sort();
 
 module.exports = pageLocales;

@@ -76,6 +76,7 @@
 {% include "partials/nav.njk" %}
 {%- endif %}
 
+{%- set breadcrumbSchema = breadcrumbs or schemaBreadcrumbs %}
 {%- if breadcrumbs %}
 <nav class="breadcrumbs" aria-label="Breadcrumb">
   <ol>
@@ -90,12 +91,14 @@
     {%- endfor %}
   </ol>
 </nav>
+{%- endif %}
+{%- if breadcrumbSchema %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {%- for crumb in breadcrumbs %}
+    {%- for crumb in breadcrumbSchema %}
     {
       "@type": "ListItem",
       "position": {{ loop.index }},

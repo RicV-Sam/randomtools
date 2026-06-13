@@ -58,13 +58,18 @@ function isNoindex(root) {
   return Boolean(robots && /noindex/i.test(robots.getAttribute("content") || ""));
 }
 
+function isLocalizedAiPage(urlPath) {
+  return /^\/(?:ar|de)\/ai\//.test(urlPath);
+}
+
 function isSkippablePage(urlPath) {
   return (
     urlPath === "/404.html" ||
     urlPath.endsWith("/404.html") ||
     urlPath === "/offline.html" ||
-    urlPath.startsWith("/ai/") ||
-    urlPath.startsWith("/ar/ai/")
+    // Localized AI mirrors are not in sitemap/SEO QA until a separate
+    // translation and currentness review approves them.
+    isLocalizedAiPage(urlPath)
   );
 }
 
@@ -219,7 +224,7 @@ function main() {
         continue;
       }
 
-      if (resolved.fragment && !page.urlPath.startsWith("/ai/") && !page.urlPath.startsWith("/ar/ai/")) {
+      if (resolved.fragment && !isLocalizedAiPage(page.urlPath)) {
         const target = pages.get(resolved.path);
         if (target && !hasFragment(target.root, resolved.fragment)) {
           errors.push(`${htmlLabel(page.urlPath)} links to missing fragment "${href}"`);
@@ -235,6 +240,7 @@ function main() {
   const titleBuckets = new Map();
   const h1Buckets = new Map();
   const sitemapPaths = readSitemapPaths(errors);
+  const skippedLocalizedAiPages = Array.from(pages.values()).filter((page) => isLocalizedAiPage(page.urlPath)).length;
 
   for (const page of pages.values()) {
     if (page.noindex || isSkippablePage(page.urlPath)) continue;
@@ -290,7 +296,8 @@ function main() {
     process.exit(1);
   }
 
-  console.log(`check-seo passed (${files.length} HTML files, ${linkCount} internal links, ${sitemapPaths.size} sitemap URLs)`);
+  const aiNote = skippedLocalizedAiPages ? `; ${skippedLocalizedAiPages} localized AI pages skipped intentionally` : "";
+  console.log(`check-seo passed (${files.length} HTML files, ${linkCount} internal links, ${sitemapPaths.size} sitemap URLs${aiNote})`);
 }
 
 main();
