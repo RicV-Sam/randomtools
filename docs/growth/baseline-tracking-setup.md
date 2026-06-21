@@ -32,12 +32,14 @@ Submit these after deployment through the GitHub Pages workflow, IndexNow, and G
 - `https://spinnit.site/classroom-random-tools/fair-classroom-participation/`
 - `https://spinnit.site/classroom-random-tools/no-repeat-student-picker/`
 - `https://spinnit.site/classroom-random-tools/random-student-picker-guide/`
+- `https://spinnit.site/classroom-random-tools/random-team-generator-for-classrooms/`
 - `https://spinnit.site/classroom-random-tools/wheel-of-names-classroom-ideas/`
 - `https://spinnit.site/tools/`
 - `https://spinnit.site/tools/coin-flip.html`
 - `https://spinnit.site/tools/decision-makers/`
 - `https://spinnit.site/tools/random-name-picker.html`
 - `https://spinnit.site/tools/random-student-picker.html`
+- `https://spinnit.site/tools/team-picker.html`
 - `https://spinnit.site/tools/wheel-of-names-for-classroom.html`
 - `https://spinnit.site/tools/wheel-of-names.html`
 
@@ -50,6 +52,8 @@ Track the last 7, 28 and 90 days in Search Console:
 - `random student picker no repeat`
 - `student picker`
 - `cold calling students`
+- `random team generator for classroom`
+- `random group generator for classroom`
 - `wheel of names for teachers`
 - `wheel of names classroom`
 - `random name picker`
