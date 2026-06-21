@@ -23,14 +23,16 @@ Source: `analytics-hub-starter` MCP after `refresh-all-standard-windows`.
 - 90-day query/page evidence:
   - `do teachers pick their students` -> `/classroom-random-tools/random-student-picker-guide/`
   - `flip a coin heads or tails` -> `/tools/coin-flip.html`
-  - `spinnit` -> `/`
-  - `sparknit` -> `/`
+  - `spinnit` -> `/` and `/de/` with average positions around 9-10
+  - `sparknit` -> `/` with average position around 35
 
 ## Sprint URLs
 
 Submit these after deployment through the GitHub Pages workflow, IndexNow, and Google Search Console URL inspection where useful:
 
 - `https://spinnit.site/`
+- `https://spinnit.site/about.html`
+- `https://spinnit.site/how-spinnit-tools-work.html`
 - `https://spinnit.site/blog/coin-flip-decision-guide.html`
 - `https://spinnit.site/classroom-random-tools/`
 - `https://spinnit.site/classroom-random-tools/fair-classroom-participation/`
