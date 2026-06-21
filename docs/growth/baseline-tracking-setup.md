@@ -16,6 +16,7 @@ Source: `analytics-hub-starter` MCP after `refresh-all-standard-windows`.
   - `/tools/wheel-of-names.html` - 9 active users
   - `/tools/random-student-picker.html` - 9 active users
   - `/tools/` - 8 active users
+  - `/tools/list-shuffler.html` - 4 active users
 - 90-day query/page evidence:
   - `do teachers pick their students` -> `/classroom-random-tools/random-student-picker-guide/`
   - `flip a coin heads or tails` -> `/tools/coin-flip.html`
@@ -37,6 +38,7 @@ Submit these after deployment through the GitHub Pages workflow, IndexNow, and G
 - `https://spinnit.site/tools/`
 - `https://spinnit.site/tools/coin-flip.html`
 - `https://spinnit.site/tools/decision-makers/`
+- `https://spinnit.site/tools/list-shuffler.html`
 - `https://spinnit.site/tools/random-name-picker.html`
 - `https://spinnit.site/tools/random-student-picker.html`
 - `https://spinnit.site/tools/team-picker.html`
@@ -54,6 +56,10 @@ Track the last 7, 28 and 90 days in Search Console:
 - `cold calling students`
 - `random team generator for classroom`
 - `random group generator for classroom`
+- `random presentation order`
+- `randomize presentation order`
+- `random station rotation generator`
+- `list shuffler for classroom`
 - `wheel of names for teachers`
 - `wheel of names classroom`
 - `random name picker`
