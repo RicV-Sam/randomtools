@@ -41,6 +41,8 @@ Submit these after deployment through the GitHub Pages workflow, IndexNow, and G
 - `https://spinnit.site/tools/`
 - `https://spinnit.site/tools/coin-flip.html`
 - `https://spinnit.site/tools/decision-makers/`
+- `https://spinnit.site/tools/dice/`
+- `https://spinnit.site/tools/dice-roller.html`
 - `https://spinnit.site/tools/list-shuffler.html`
 - `https://spinnit.site/tools/random-number.html`
 - `https://spinnit.site/tools/random-number-1-25.html`
@@ -73,6 +75,11 @@ Track the last 7, 28 and 90 days in Search Console:
 - `wheel of names classroom`
 - `random name picker`
 - `flip a coin heads or tails`
+- `roll dice online`
+- `online dice roller`
+- `virtual dice roller`
+- `roll d20 online`
+- `roll d6 online`
 - `spinnit`
 - `sparknit`
 
