@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
-title: "Wheel of Names for Teachers - Free Classroom Name Picker | Spinnit"
-description: "Use a free classroom wheel of names to pick students, groups, rewards or activities. Fast, simple and useful on a classroom display in the US, UK or Europe."
+title: "Wheel of Names - Free Random Name Wheel | Spinnit"
+description: "Spin a free Wheel of Names online to pick a random name, student, winner, team, reward or activity. Works for classrooms, giveaways and group decisions."
 canonical: "https://spinnit.site/tools/wheel-of-names.html"
 dateModified: "2026-06-21"
 breadcrumbs:
@@ -14,19 +14,32 @@ breadcrumbs:
 jsonLd: |
   {
     "@context": "https://schema.org",
-    "@type": "WebPage",
+    "@type": "SoftwareApplication",
     "name": "Wheel of Names",
-    "description": "Spinning wheel that picks a random name from a user-defined list",
-    "url": "https://spinnit.site/tools/wheel-of-names.html"
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "description": "Free online Wheel of Names that picks a random name from a user-defined list.",
+    "url": "https://spinnit.site/tools/wheel-of-names.html",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
 extraHead: |
   <meta name="twitter:title" content="Wheel of Names | Spinnit">
-  <meta name="twitter:description" content="Spin the wheel to pick a random name from your list. Free and mobile-friendly.">
+  <meta name="twitter:description" content="Spin a free Wheel of Names online to pick a random name, student, winner or activity.">
   <script type="application/ld+json">
   {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I spin a Wheel of Names online?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Type or paste names into the box, add them to the wheel, then click Spin the Wheel. The wheel spins and displays one random winner when it stops." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use the Wheel of Names for giveaways?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Paste your eligible entries, remove duplicates if your rules require it, then spin once for each prize or winner." }
+        },
         {
           "@type": "Question",
           "name": "Can teachers use the wheel for cold calling?",
@@ -346,7 +359,7 @@ pageScript: |
   <div class="tool-header">
     <div class="tool-icon">🎡</div>
     <h1>Wheel of Names</h1>
-    <p>Add names, spin the wheel, let fate decide</p>
+    <p>Spin a random name wheel for students, winners, teams and activities</p>
   </div>
 
   <!-- AdSense placeholder -->
@@ -383,6 +396,9 @@ pageScript: |
     <p>The Wheel of Names lets you add any list of names or items and spin to pick one at random. Up to 60 entries can sit on the wheel at once, and you can remove individual names at any time. It is useful for classroom pick-a-student moments, group rewards, quick activities, prize draws, competition finals, and any group decision that deserves a bit of theatre.</p>
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">Teachers in the US, UK and Europe can start from the <a href="/classroom-random-tools/">Classroom Random Tools</a> hub to compare the wheel with the student picker, team generator and list shuffler. If the goal is fair cold calling or equal turns, use the <a href="random-student-picker.html">Random Student Picker</a> or read the <a href="/classroom-random-tools/random-student-picker-guide/">teacher guide to random student picking</a>.</p>
 
+    <h2>Spin a wheel of names online</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Use this free name wheel when you need one clear random pick from a list. Paste student names, team members, prize entries, chores, activities or presentation slots, then spin the wheel and read the winner. For everyday random choices it works like a visual random name picker; for class routines it adds a shared moment that students can see on a projector or interactive whiteboard.</p>
+
     <h2>How to Use</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
       <li>Type names into the text area (one per line) and click Add to wheel.</li>
@@ -397,6 +413,7 @@ pageScript: |
       <li>Classroom activities where the teacher picks a student to answer</li>
       <li>Low-stakes cold calling after wait time or partner rehearsal</li>
       <li>Giveaway and prize draws at events or on social media streams</li>
+      <li>Picking random teams, activity choices or presentation order</li>
       <li>Choosing who goes first in board or party games</li>
       <li>Random chore or task assignment in a shared household</li>
       <li>Competition draws at sports clubs or community events</li>
@@ -422,6 +439,12 @@ pageScript: |
 
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How do I spin a Wheel of Names online?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Type or paste names into the box, add them to the wheel, then click <em>Spin the Wheel</em>. The wheel spins and displays one random winner when it stops.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use the Wheel of Names for giveaways?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Paste your eligible entries, remove duplicates if your rules require it, then spin once for each prize or winner.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can teachers use the wheel for cold calling?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Ask the question first, give students thinking time, then spin the wheel. For equal turns across a lesson, use the <a href="random-student-picker.html">student picker with no-repeat mode</a> or the <a href="/classroom-random-tools/random-student-picker-guide/">random student picker guide</a>.</p>
