@@ -1,9 +1,9 @@
 ---
 layout: layouts/base.njk
-title: "Wheel of Names for Teachers - Free Classroom Picker | Spinnit"
-description: "Use a free classroom wheel of names to pick students, groups, rewards or activities. Fast, simple and useful on a classroom display."
+title: "Wheel of Names for Teachers - Free Classroom Name Picker | Spinnit"
+description: "Use a free classroom wheel of names to pick students, groups, rewards or activities. Fast, simple and useful on a classroom display in the US, UK or Europe."
 canonical: "https://spinnit.site/tools/wheel-of-names.html"
-dateModified: "2026-05-18"
+dateModified: "2026-06-21"
 breadcrumbs:
   - label: "Home"
     url: "/"
@@ -27,6 +27,11 @@ extraHead: |
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can teachers use the wheel for cold calling?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Ask the question first, give students thinking time, then spin the wheel. For equal turns across a lesson, use the student picker with no-repeat mode." }
+        },
         {
           "@type": "Question",
           "name": "Can I save my list of names?",
@@ -376,7 +381,7 @@ pageScript: |
 
   <section class="tool-content" style="margin-top:2rem;">
     <p>The Wheel of Names lets you add any list of names or items and spin to pick one at random. Up to 60 entries can sit on the wheel at once, and you can remove individual names at any time. It is useful for classroom pick-a-student moments, group rewards, quick activities, prize draws, competition finals, and any group decision that deserves a bit of theatre.</p>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Teachers can start from the <a href="/classroom-random-tools/">Classroom Random Tools</a> hub to compare the wheel with the student picker, team generator and list shuffler.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Teachers in the US, UK and Europe can start from the <a href="/classroom-random-tools/">Classroom Random Tools</a> hub to compare the wheel with the student picker, team generator and list shuffler. If the goal is fair cold calling or equal turns, use the <a href="random-student-picker.html">Random Student Picker</a> or read the <a href="/classroom-random-tools/random-student-picker-guide/">teacher guide to random student picking</a>.</p>
 
     <h2>How to Use</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -390,6 +395,7 @@ pageScript: |
     <h2>Best Used For</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
       <li>Classroom activities where the teacher picks a student to answer</li>
+      <li>Low-stakes cold calling after wait time or partner rehearsal</li>
       <li>Giveaway and prize draws at events or on social media streams</li>
       <li>Choosing who goes first in board or party games</li>
       <li>Random chore or task assignment in a shared household</li>
@@ -405,7 +411,7 @@ pageScript: |
 
     <h2>Classroom and Giveaway Tips</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
-      <li><strong style="color:var(--text);">For classrooms:</strong> explain that the wheel chooses randomly, then remove or keep names depending on whether repeats are allowed.</li>
+      <li><strong style="color:var(--text);">For classrooms:</strong> explain that the wheel chooses randomly, ask the question before spinning, then remove or keep names depending on whether repeats are allowed.</li>
       <li><strong style="color:var(--text);">For giveaways:</strong> prepare the entry list first, remove duplicates if your rules require it, then spin once for each prize.</li>
       <li><strong style="color:var(--text);">For meetings:</strong> use the wheel to choose speaking order, demo order or who answers the next question.</li>
     </ul>
@@ -416,6 +422,9 @@ pageScript: |
 
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can teachers use the wheel for cold calling?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Ask the question first, give students thinking time, then spin the wheel. For equal turns across a lesson, use the <a href="random-student-picker.html">student picker with no-repeat mode</a> or the <a href="/classroom-random-tools/random-student-picker-guide/">random student picker guide</a>.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I save my list of names?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Your name list is automatically saved to your browser's local storage and will still be there the next time you open the tool on the same device.</p>
