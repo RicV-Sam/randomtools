@@ -32,11 +32,13 @@ Submit these after deployment through the GitHub Pages workflow, IndexNow, and G
 - `https://spinnit.site/classroom-random-tools/fair-classroom-participation/`
 - `https://spinnit.site/classroom-random-tools/no-repeat-student-picker/`
 - `https://spinnit.site/classroom-random-tools/random-student-picker-guide/`
+- `https://spinnit.site/classroom-random-tools/wheel-of-names-classroom-ideas/`
 - `https://spinnit.site/tools/`
 - `https://spinnit.site/tools/coin-flip.html`
 - `https://spinnit.site/tools/decision-makers/`
 - `https://spinnit.site/tools/random-name-picker.html`
 - `https://spinnit.site/tools/random-student-picker.html`
+- `https://spinnit.site/tools/wheel-of-names-for-classroom.html`
 - `https://spinnit.site/tools/wheel-of-names.html`
 
 ## Query Watchlist
