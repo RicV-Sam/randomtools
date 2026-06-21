@@ -1,9 +1,9 @@
 ---
 layout: layouts/base.njk
-title: "Dice Roller – Roll D6, D20 & Custom Dice | Spinnit"
-description: "Roll virtual dice online. Choose D4, D6, D8, D10, D12, D20 or custom sides. Perfect for board games, RPGs and quick decisions."
+title: "Online Dice Roller - Roll D6, D20 & Custom Dice | Spinnit"
+description: "Roll dice online for free. Use a virtual dice roller for D6, D20, D100, board games, D&D, classroom probability and quick decisions."
 canonical: "https://spinnit.site/tools/dice-roller.html"
-dateModified: "2026-05-25"
+dateModified: "2026-06-21"
 jsonLd: |
   {"@context":"https://schema.org","@type":"WebApplication","name":"Dice Roller","description":"Roll any dice online — D4, D6, D8, D10, D12, D20, D100 and custom","url":"https://spinnit.site/tools/dice-roller.html","applicationCategory":"UtilityApplication","operatingSystem":"Web"}
 extraHead: |
@@ -23,6 +23,16 @@ extraHead: |
           "@type": "Question",
           "name": "What dice types are available?",
           "acceptedAnswer": { "@type": "Answer", "text": "D4, D6, D8, D10, D12, D20, and D100 are available as presets. You can also choose Custom and enter any number of sides from 2 to 1000." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this as a virtual dice roller for board games?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use D6 for most board games, 2d6 for games that need two six-sided dice, or custom sides when a game uses unusual dice." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can teachers use this for probability lessons?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Teachers can roll one or more dice on a classroom display, compare individual results and totals, and discuss probability patterns such as why 2d6 totals cluster around 7." }
         },
         {
           "@type": "Question",
@@ -150,7 +160,8 @@ pageScript: |
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>The Dice Roller lets you roll any type of die — from a classic D6 to a D100 or any custom-sided die you define. Choose how many dice to roll at once and get your total instantly. Whether you're mid-session in a tabletop RPG or just need a quick random result, this tool has you covered.</p>
+    <p>The Dice Roller lets you roll dice online for free, from a classic D6 to a D100 or any custom-sided die you define. Choose how many dice to roll at once and get your total instantly. Whether you're playing a board game, teaching probability, running a D&amp;D session, or just need a quick random result, this virtual dice roller has you covered.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Players and teachers in the US, UK and Europe can use this page as a fast online dice roller with no sign-up. For one-tap presets, try <a href="roll-2d6.html">Roll 2d6</a>, <a href="random-number-1-6.html">Roll D6</a>, <a href="random-number-1-20.html">Roll D20</a>, or <a href="roll-d100.html">Roll D100</a>. The <a href="/tools/dice/">Dice Roller Tools</a> hub collects the full set.</p>
 
     <h2>How to Use</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -166,6 +177,8 @@ pageScript: |
       <li>Dungeons &amp; Dragons and other tabletop RPG sessions</li>
       <li>Board games that need specific dice not in the box</li>
       <li>Classroom probability or statistics demonstrations</li>
+      <li>Rolling virtual dice on a classroom display or shared screen</li>
+      <li>Remote game sessions where everyone needs to see the same result</li>
       <li>Game night when physical dice are not to hand</li>
       <li>Testing game mechanics and probability distributions</li>
       <li>Resolving in-game decisions during video game playthroughs</li>
@@ -201,6 +214,12 @@ pageScript: |
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What dice types are available?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">D4, D6, D8, D10, D12, D20, and D100 are available as presets. You can also choose Custom and enter any number of sides from 2 to 1000.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this as a virtual dice roller for board games?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Use D6 for most board games, <a href="roll-2d6.html">2d6</a> for games that need two six-sided dice, or custom sides when a game uses unusual dice.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can teachers use this for probability lessons?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Teachers can roll one or more dice on a classroom display, compare individual results and totals, and discuss probability patterns such as why 2d6 totals cluster around 7.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this tool free to use?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, completely free with no sign-up required.</p>
