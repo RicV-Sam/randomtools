@@ -1,23 +1,46 @@
 ---
 layout: layouts/base.njk
-title: "Spinnit — Kostenlose Zufallsgeneratoren, Glücksräder & Picker"
-description: "Kostenlose Online-Zufallsgeneratoren für alle. Würfel, Münzwurf, Namensrad, Passwortgenerator, Lottozahlen, Zufallsland und mehr. Schnell, kostenlos, keine Anmeldung nötig."
+title: "Spinnit Deutschland - Kostenlose Zufallsgeneratoren & Picker"
+description: "Spinnit bietet kostenlose Zufallsgeneratoren auf Deutsch: Würfel, Münzwurf, Namensrad, Passwortgenerator, Lottozahlen, Zufallsland und mehr. Keine Anmeldung."
 ogDescription: "Kostenlose Online-Zufallsgeneratoren für alle. Würfel, Münzwurf, Namensrad, Passwortgenerator und mehr."
 canonical: "https://spinnit.site/de/"
+dateModified: "2026-06-21"
 hideNav: true
 lang: de
 extraHead: |
-  <meta name="twitter:title" content="Spinnit — Kostenlose Zufallstools">
-  <meta name="twitter:description" content="33 kostenlose Zufallstools und Presets. Keine Anmeldung, funktioniert mobil.">
+  <meta name="twitter:title" content="Spinnit Deutschland - Kostenlose Zufallstools">
+  <meta name="twitter:description" content="Kostenlose Zufallsgeneratoren auf Deutsch: Würfel, Münzwurf, Namensrad und Picker.">
 jsonLd: |
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Spinnit",
-    "url": "https://spinnit.site/de/",
-    "description": "Kostenlose Online-Zufallsgeneratoren und Tools",
-    "inLanguage": "de",
-    "@id": "https://spinnit.site/de/#website"
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://spinnit.site/de/#website",
+        "name": "Spinnit",
+        "alternateName": "Spinnit Deutschland",
+        "url": "https://spinnit.site/de/",
+        "description": "Kostenlose Online-Zufallsgeneratoren und Tools auf Deutsch",
+        "inLanguage": "de"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://spinnit.site/de/#organization",
+        "name": "Spinnit",
+        "url": "https://spinnit.site/de/",
+        "description": "Spinnit bietet kostenlose browserbasierte Zufallsgeneratoren, Würfel, Glücksräder, Namenspicker und Entscheidungstools."
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://spinnit.site/de/#webpage",
+        "name": "Spinnit Deutschland - Kostenlose Zufallsgeneratoren",
+        "url": "https://spinnit.site/de/",
+        "isPartOf": { "@id": "https://spinnit.site/de/#website" },
+        "publisher": { "@id": "https://spinnit.site/de/#organization" },
+        "inLanguage": "de",
+        "description": "Die deutsche Spinnit-Startseite für kostenlose Zufallsgeneratoren, Picker, Würfel, Münzwurf und Namensräder."
+      }
+    ]
   }
 pageScript: |
   if ('serviceWorker' in navigator) {
@@ -31,8 +54,8 @@ pageScript: |
 
 <section class="hero">
   <div class="hero-eyebrow">kostenlos · schnell · ohne Anmeldung</div>
-  <h1>Kostenlose Zufallsgeneratoren &amp; Tools</h1>
-  <p>Dreizehn Kerntools plus 20 spezielle Presets für Entscheidungen, Spiele, Passwörter, Namen und mehr. Läuft perfekt auf Mobilgeräten.</p>
+  <h1>Spinnit: Kostenlose Zufallsgeneratoren &amp; Tools</h1>
+  <p>Spinnit bietet dreizehn Kerntools plus 20 spezielle Presets für Entscheidungen, Spiele, Passwörter, Namen und mehr. Läuft direkt im Browser und perfekt auf Mobilgeräten.</p>
   <p style="margin-top:0.75rem;"><a href="/de/tools/" style="color:var(--accent2);font-family:var(--mono);font-size:13px;text-decoration:none;">→ Alle 33 Tools &amp; Presets ansehen</a></p>
 </section>
 
@@ -139,6 +162,9 @@ pageScript: |
 <section aria-label="Über Spinnit" style="max-width:960px;margin:0 auto 3rem;padding:0 1.5rem;">
   <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Kostenlose Zufallsgeneratoren online</h2>
   <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Spinnit bietet kostenlose Zufallsgeneratoren für Zahlen, Namen, Teams, Passwörter, Farben und mehr. Jedes Tool läuft direkt im Browser — keine Downloads, keine Konten, kein Tracking.</p>
+
+  <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Was ist Spinnit?</h2>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Spinnit ist eine Sammlung schneller Zufallstools für alltägliche Entscheidungen. Auf der deutschen Spinnit-Seite findest du unter anderem den <a href="tools/coin-flip.html" style="color:var(--accent2);">Münzwurf</a>, den <a href="tools/dice-roller.html" style="color:var(--accent2);">Online-Würfel</a>, das <a href="tools/wheel-of-names.html" style="color:var(--accent2);">Namensrad</a> und den <a href="tools/random-number.html" style="color:var(--accent2);">Zufallszahlen-Generator</a>.</p>
 
   <h2 style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;letter-spacing:-0.02em;margin-bottom:0.6rem;">Für jeden, überall</h2>
   <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1.75rem;">Ob Würfel für den Spieleabend, ein Namensrad für den Unterricht oder ein Passwortgenerator für mehr Sicherheit — Spinnit hat das passende kostenlose Tool. Alle Tools funktionieren weltweit perfekt auf Mobilgeräten. Du kannst <a href="/de/tools/" style="color:var(--accent2);">die vollständige Liste</a> durchstöbern, um genau den Picker oder Generator zu finden, den du brauchst.</p>
