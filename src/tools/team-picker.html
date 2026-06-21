@@ -1,9 +1,9 @@
 ---
 layout: layouts/base.njk
 title: "Random Team Generator for Classrooms and Group Activities | Spinnit"
-description: "Create random teams from a list of names. Useful for classrooms, PE lessons, workshops, games and group activities."
+description: "Create random teams from a list of names. Useful for classrooms, PE lessons, workshops, games, group activities and fair student grouping."
 canonical: "https://spinnit.site/tools/team-picker.html"
-dateModified: "2026-06-12"
+dateModified: "2026-06-21"
 breadcrumbs:
   - label: "Home"
     url: "/"
@@ -21,6 +21,11 @@ extraHead: |
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can teachers use this for classroom groups?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Paste the class list, choose the number of groups, and generate random teams for PE, projects, revision games or classroom activities. Teachers can still adjust groups for safety, support needs or lesson goals." }
+        },
         {
           "@type": "Question",
           "name": "Can teams end up with unequal sizes?",
@@ -158,7 +163,7 @@ pageScript: |
 
   <section class="tool-content" style="margin-top:2rem;">
     <p>The Random Team Generator splits any list of names into teams in seconds. Paste your names, choose how many teams you need, and it distributes students or players fairly and randomly every time. Great for PE lessons, classroom projects, sports coaching, trivia nights, and work workshops. For football-specific teams with optional ratings and goalkeeper spreading, use the <a href="5-a-side-team-generator.html">5-a-side team generator</a>.</p>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">This tool is part of Spinnit's <a href="/classroom-random-tools/">Classroom Random Tools</a> cluster for teachers.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">This tool is part of Spinnit's <a href="/classroom-random-tools/">Classroom Random Tools</a> cluster for teachers in the US, UK and Europe. For classroom-specific routines, read the <a href="/classroom-random-tools/random-team-generator-for-classrooms/">random team generator guide for classrooms</a>.</p>
 
     <h2>How to Use</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -172,6 +177,7 @@ pageScript: |
     <h2>Best Used For</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
       <li>PE class or sports day team selection at school</li>
+      <li>Random classroom groups for lessons in the US, UK or Europe</li>
       <li>Splitting employees into groups for workshops or training sessions</li>
       <li>Organising players for trivia quiz nights</li>
       <li>Dividing classmates into project groups fairly</li>
@@ -185,6 +191,9 @@ pageScript: |
 
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Frequently Asked Questions</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can teachers use this for classroom groups?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Paste the class list, choose the number of groups, and generate random teams for PE, projects, revision games or classroom activities. Teachers can still adjust groups for safety, support needs or lesson goals.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can teams end up with unequal sizes?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">If the number of names doesn't divide evenly by the number of teams, some teams will have one extra member. The tool handles this automatically using a round-robin distribution.</p>
