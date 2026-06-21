@@ -1,8 +1,9 @@
 ---
 layout: layouts/base.njk
-title: "Zufallszahlen-Generator — Kostenloses Online-Tool | Spinnit"
-description: "Zufallszahlen sofort erzeugen zwischen frei wählbarem Min und Max. Kostenlos für Spiele, Gewinnspiele, Statistik und Entscheidungen."
+title: "Zufallszahlengenerator Online - Kostenlos | Spinnit"
+description: "Kostenloser Zufallszahlengenerator auf Deutsch. Erzeuge Zahlen zwischen frei wählbarem Minimum und Maximum für Unterricht, Spiele, Auslosungen und Entscheidungen."
 canonical: "https://spinnit.site/de/tools/random-number.html"
+dateModified: "2026-06-21"
 lang: de
 jsonLd: |
   {
@@ -19,13 +20,18 @@ jsonLd: |
     }
   }
 extraHead: |
-  <meta name="twitter:title" content="Zufallszahlen-Generator | Spinnit">
-  <meta name="twitter:description" content="Zufallszahlen sofort erzeugen zwischen beliebigem Min und Max. Kostenlos und mobil.">
+  <meta name="twitter:title" content="Zufallszahlengenerator Online | Spinnit">
+  <meta name="twitter:description" content="Kostenlose Zufallszahlen zwischen beliebigem Minimum und Maximum erzeugen.">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Wie erzeuge ich eine Zufallszahl online?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Gib ein Minimum und Maximum ein, wähle bei Bedarf die Anzahl der Ergebnisse und tippe auf Zahl generieren. Das Ergebnis erscheint sofort im Browser." }
+      },
       {
         "@type": "Question",
         "name": "Ist das Ergebnis wirklich zufällig?",
@@ -93,8 +99,8 @@ pageScript: |
 
   <div class="tool-header">
     <div class="tool-icon">🎲</div>
-    <h1>Zufallszahlen-Generator</h1>
-    <p>Zufällige Zahl zwischen zwei beliebigen Werten — sofort</p>
+    <h1>Zufallszahlengenerator online</h1>
+    <p>Kostenlose Zufallszahlen zwischen Minimum und Maximum erzeugen</p>
   </div>
 
   <div class="result-box" id="resultBox">
@@ -128,7 +134,9 @@ pageScript: |
   </div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>Der Zufallszahlen-Generator liefert dir sofort eine Zahl zwischen einem Minimum und Maximum deiner Wahl. Ob Gewinnspiel, Statistik-Unterricht oder das Beilegen einer freundschaftlichen Diskussion — du bekommst jedes Mal ein faires, unverzerrtes Ergebnis. Bereich einstellen, Anzahl wählen, auf Generieren tippen.</p>
+    <p>Der Zufallszahlengenerator liefert dir sofort eine Zahl zwischen einem Minimum und Maximum deiner Wahl. Ob Gewinnspiel, Statistik-Unterricht, Spielrunde oder schnelle Entscheidung: Du bekommst jedes Mal ein faires Ergebnis direkt im Browser. Bereich einstellen, Anzahl wählen, auf Generieren tippen.</p>
+
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Für deutsche und europäische Nutzer eignet sich das Tool als schneller Zahlen-Picker für Unterricht, Vereine, Teams, Familien und kleine Auslosungen. Lehrkräfte können damit Schülernummern, Sitzplätze, Aufgabennummern oder Zufallsstichproben wählen. Für Namen statt Nummern nutze den <a href="random-student-picker.html">Zufallsschüler-Picker</a> oder das <a href="wheel-of-names.html">Namensrad</a>.</p>
 
     <h2>Anleitung</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -138,6 +146,14 @@ pageScript: |
       <li>Auf „Zahl generieren" tippen oder Leertaste bzw. Enter drücken.</li>
       <li>Mit dem Kopieren-Button die Ergebnisse in die Zwischenablage übernehmen.</li>
     </ol>
+
+    <h2>Beispiele für schnelle Zufallszahlen</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong style="color:var(--text);">Zufallszahl 1 bis 10:</strong> Minimum 1, Maximum 10.</li>
+      <li><strong style="color:var(--text);">Zufallszahl 1 bis 100:</strong> Minimum 1, Maximum 100.</li>
+      <li><strong style="color:var(--text);">Klassenliste:</strong> Maximum auf die Anzahl der Schüler oder Sitzplätze setzen.</li>
+      <li><strong style="color:var(--text);">Auslosung:</strong> Einträge nummerieren und die passende Nummernspanne verwenden.</li>
+    </ul>
 
     <h2>Typische Einsätze</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -160,6 +176,9 @@ pageScript: |
 
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Häufig gestellte Fragen</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Wie erzeuge ich eine Zufallszahl online?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Gib ein Minimum und Maximum ein, wähle bei Bedarf die Anzahl der Ergebnisse und tippe auf <em>Zahl generieren</em>. Das Ergebnis erscheint sofort im Browser.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Ist das Ergebnis wirklich zufällig?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Ja. Der Generator nutzt die eingebaute <code style="color:var(--accent2);font-family:var(--mono);font-size:12px;">Math.random()</code>-Funktion deines Browsers, die unvorhersehbare Ergebnisse auf Basis der System-Entropie liefert. Die nächste Zahl lässt sich nicht vorhersagen.</p>
