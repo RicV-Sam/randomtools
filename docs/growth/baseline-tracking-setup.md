@@ -9,14 +9,17 @@ Source: `analytics-hub-starter` MCP after `refresh-all-standard-windows`.
 - Site: `spinnit.site`
 - GA4 freshness: 2026-06-20
 - GSC freshness: 2026-06-19
-- Latest portfolio rollup: 129 active users, 148 sessions, 281 page views, 0 clicks, 14 impressions
+- Latest portfolio rollup after 2026-06-21 refresh: 129 active users, 148 sessions, 281 page views, 0 clicks, 14 impressions
 - 28-day top GA4 pages:
   - `/classroom-random-tools/` - 74 active users
   - `/` - 42 active users
   - `/tools/wheel-of-names.html` - 9 active users
   - `/tools/random-student-picker.html` - 9 active users
   - `/tools/` - 8 active users
+  - `/tools/random-name-picker.html` - 7 active users
   - `/tools/list-shuffler.html` - 4 active users
+  - `/tools/random-number.html` - 3 active users
+  - `/tools/dice-roller.html` - 3 active users
 - 90-day query/page evidence:
   - `do teachers pick their students` -> `/classroom-random-tools/random-student-picker-guide/`
   - `flip a coin heads or tails` -> `/tools/coin-flip.html`
@@ -39,6 +42,8 @@ Submit these after deployment through the GitHub Pages workflow, IndexNow, and G
 - `https://spinnit.site/tools/coin-flip.html`
 - `https://spinnit.site/tools/decision-makers/`
 - `https://spinnit.site/tools/list-shuffler.html`
+- `https://spinnit.site/tools/random-number.html`
+- `https://spinnit.site/tools/random-number-1-25.html`
 - `https://spinnit.site/tools/random-name-picker.html`
 - `https://spinnit.site/tools/random-student-picker.html`
 - `https://spinnit.site/tools/team-picker.html`
@@ -60,6 +65,10 @@ Track the last 7, 28 and 90 days in Search Console:
 - `randomize presentation order`
 - `random station rotation generator`
 - `list shuffler for classroom`
+- `classroom number picker`
+- `random student number picker`
+- `random number generator for classroom`
+- `random number 1 to 25`
 - `wheel of names for teachers`
 - `wheel of names classroom`
 - `random name picker`
