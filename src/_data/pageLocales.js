@@ -33,7 +33,8 @@ const sitemapUrls = [];
 const sitemapEntryMap = new Map();
 const localizedSitemapAllowlist = new Set([
   "https://spinnit.site/ar/",
-  "https://spinnit.site/de/"
+  "https://spinnit.site/de/",
+  "https://spinnit.site/de/tools/random-number.html"
 ]);
 const AI_CLUSTER_INDEXABILITY_REVIEWED = "2026-06-13";
 const AI_SITEMAP_POLICY =
