@@ -1,9 +1,9 @@
 ---
 layout: layouts/base.njk
-title: "Random Number Generator – Free Online Tool | Spinnit"
-description: "Generate random numbers instantly between any custom range. Free tool for games, giveaways, statistics and decision making."
+title: "Random Number Generator for Classrooms and Draws | Spinnit"
+description: "Generate random numbers instantly between any custom range. Free number picker for classrooms, student numbers, games, giveaways and sampling."
 canonical: "https://spinnit.site/tools/random-number.html"
-dateModified: "2026-05-25"
+dateModified: "2026-06-21"
 jsonLd: |
   {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Number Generator","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 extraHead: |
@@ -23,6 +23,16 @@ extraHead: |
           "@type": "Question",
           "name": "Can I generate multiple numbers at once?",
           "acceptedAnswer": { "@type": "Answer", "text": "Yes. Set the 'How many numbers?' field to any value between 1 and 100 and all results will appear together." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can teachers use this as a classroom number picker?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Set the range to match your class roster, seat numbers or question numbers. For a typical class of 25, the 1-25 preset is a faster classroom number picker." }
+        },
+        {
+          "@type": "Question",
+          "name": "What range should I use for student numbers?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Use 1 to the number of students or numbered items in your list. If your class has 25 students, use 1-25; if it has 30 students, set the maximum to 30." }
         },
         {
           "@type": "Question",
@@ -130,7 +140,8 @@ pageScript: |
   <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>The Random Number Generator lets you instantly pick any number between a minimum and maximum of your choosing. Whether you're running a giveaway, teaching statistics, or settling a friendly argument, it gives you a fair, unbiased result every time. Just set your range, choose how many numbers you need, and hit generate.</p>
+    <p>The Random Number Generator lets you instantly pick any number between a minimum and maximum of your choosing. Whether you're picking a student number in class, running a giveaway, teaching statistics, or settling a friendly argument, it gives you a fair, unbiased result every time. Just set your range, choose how many numbers you need, and hit generate.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Teachers in the US, UK and Europe can use it as a classroom number picker for roll numbers, seat numbers, question numbers and quick probability demonstrations. For a typical class roster, try the <a href="random-number-1-25.html">Random Number 1-25</a> preset; for name-based picks, use the <a href="random-student-picker.html">Random Student Picker</a> or the <a href="/classroom-random-tools/">Classroom Random Tools</a> hub.</p>
 
     <h2>How to Use</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -144,6 +155,8 @@ pageScript: |
     <h2>Best Used For</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
       <li>Picking a raffle or giveaway winner from a numbered list</li>
+      <li>Choosing a student number from a classroom roster</li>
+      <li>Picking a seat number, question number, or numbered prompt</li>
       <li>Generating lucky number ideas for lottery or sweepstakes entries</li>
       <li>Simulating dice in tabletop games that use unusual number ranges</li>
       <li>Statistical sampling exercises in classrooms or research projects</li>
@@ -179,6 +192,12 @@ pageScript: |
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate multiple numbers at once?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set the "How many numbers?" field to any value between 1 and 100 and all results will appear together, separated by commas.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can teachers use this as a classroom number picker?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set the range to match your class roster, seat numbers, question numbers or numbered prompts. For a typical class of 25, the <a href="random-number-1-25.html">1-25 preset</a> is a faster classroom number picker.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What range should I use for student numbers?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Use 1 to the number of students or numbered items in your list. If your class has 25 students, use 1-25; if it has 30 students, set the maximum to 30.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this tool free to use?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, completely free with no sign-up required.</p>
