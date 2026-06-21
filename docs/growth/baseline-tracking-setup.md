@@ -57,6 +57,9 @@ Submit these after deployment through the GitHub Pages workflow, IndexNow, and G
 Track the last 7, 28 and 90 days in Search Console:
 
 - `do teachers pick their students`
+- `why do teachers pick students`
+- `why do teachers call on students randomly`
+- `is cold calling students fair`
 - `random student picker`
 - `random student picker no repeat`
 - `student picker`
