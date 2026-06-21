@@ -1,9 +1,9 @@
 ---
 layout: layouts/base.njk
-title: "Random List Shuffler for Classrooms, Teams and Draws | Spinnit"
-description: "Shuffle names, tasks or entries into a random order. A simple free list shuffler for teachers, teams, games and giveaways."
+title: "Random List Shuffler for Classroom Presentation Order | Spinnit"
+description: "Shuffle names, tasks or entries into a random order. Free list shuffler for teachers, presentation order, station rotations, teams and draws."
 canonical: "https://spinnit.site/tools/list-shuffler.html"
-dateModified: "2026-05-18"
+dateModified: "2026-06-21"
 breadcrumbs:
   - label: "Home"
     url: "/"
@@ -30,6 +30,16 @@ extraHead: |
           "@type": "Question",
           "name": "Is there a limit to how long my list can be?",
           "acceptedAnswer": { "@type": "Answer", "text": "There is no hard limit. The tool handles hundreds of items without any issues." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can teachers use this for presentation order?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Paste a class list, shuffle it, and show numbered results for a random presentation order. For one-at-a-time turns, use the random student picker instead." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use it for station rotations?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Paste student names, group names, roles or stations and shuffle the list to create a quick random rotation order." }
         },
         {
           "@type": "Question",
@@ -159,8 +169,8 @@ pageScript: |
   <div class="output-list" id="output"></div>
 
   <section class="tool-content" style="margin-top:2rem;">
-    <p>The List Shuffler takes any list you paste in and returns it in a random order using a standard shuffle. Teachers can use it to shuffle class rosters, presentation order, station rotations, tasks, or quick classroom draws. You can also show only the top N items from the shuffled result, which makes it a simple way to randomly pick or rank items from a larger pool.</p>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;">This tool is part of Spinnit's <a href="/classroom-random-tools/">Classroom Random Tools</a> cluster for teachers.</p>
+    <p>The List Shuffler takes any list you paste in and returns it in a random order using a standard shuffle. Teachers can use it to shuffle class rosters, presentation order, station rotations, reading order, tasks, or quick classroom draws. You can also show only the top N items from the shuffled result, which makes it a simple way to randomly pick or rank items from a larger pool.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">This tool is part of Spinnit's <a href="/classroom-random-tools/">Classroom Random Tools</a> cluster for teachers in the US, UK and Europe. Use it when you need the whole random order at once; use the <a href="/tools/random-student-picker.html">Random Student Picker</a> for one-at-a-time turns, the <a href="/tools/fair-rotation-generator.html">Fair Rotation Generator</a> for no-repeat turns, and the <a href="/tools/team-picker.html">Random Team Generator</a> for groups.</p>
 
     <h2>How to Use</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
@@ -173,8 +183,9 @@ pageScript: |
 
     <h2>Best Used For</h2>
     <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Creating a random presentation order for a class</li>
+      <li>Planning station rotations, reading order, role order, or activity order</li>
       <li>Randomly ordering a playlist, setlist, or queue</li>
-      <li>Shuffling student names to determine random presentation order</li>
       <li>Randomising a task or to-do list to avoid predictable patterns</li>
       <li>Picking a shortlist of finalists from a longer list of candidates</li>
       <li>Creating random tournament brackets for sports or gaming events</li>
@@ -193,6 +204,12 @@ pageScript: |
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is there a limit to how long my list can be?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">There is no hard limit. The tool handles hundreds of items without any issues. Very large lists may slow the animation slightly, but results are still instant.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can teachers use this for presentation order?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Paste your class list, shuffle it, and keep numbering turned on to show a random presentation order. If you want one student at a time instead of the whole order, use the <a href="/tools/random-student-picker.html">Random Student Picker</a>.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use it for station rotations?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Paste student names, group names, roles, or station labels and shuffle the list to create a quick random rotation order for class activities.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this tool free to use?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, completely free with no sign-up required.</p>
