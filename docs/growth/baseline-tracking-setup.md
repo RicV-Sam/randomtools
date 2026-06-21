@@ -80,6 +80,9 @@ Track the last 7, 28 and 90 days in Search Console:
 - `wheel of names classroom`
 - `random name picker`
 - `flip a coin heads or tails`
+- `heads or tails coin flip`
+- `coin flip heads or tails`
+- `flip coin online`
 - `roll dice online`
 - `online dice roller`
 - `virtual dice roller`
