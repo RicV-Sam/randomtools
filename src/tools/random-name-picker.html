@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
-title: "Random Name Picker for Classrooms, Games and Giveaways | Spinnit"
-description: "Paste a list of names and pick one at random. Useful for classrooms, cold calling, games, giveaways, teams and everyday decisions."
+title: "Random Name Picker - Pick a Name Online | Spinnit"
+description: "Pick a random name online from any list. Free name picker for classrooms, giveaways, games, meetings, teams and everyday decisions."
 ogTitle: "Random Name Picker | Spinnit"
 ogDescription: "Paste names and pick one or several at random. Free, fast, and useful for classrooms, games and giveaways."
 canonical: "https://spinnit.site/tools/random-name-picker.html"
@@ -14,11 +14,13 @@ breadcrumbs:
   - label: "Random Name Picker"
     url: "/tools/random-name-picker.html"
 jsonLd: |
-  {"@context":"https://schema.org","@type":"WebPage","name":"Random Name Picker","url":"https://spinnit.site/tools/random-name-picker.html","description":"Paste a list of names and pick one or more at random."}
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Random Name Picker","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","url":"https://spinnit.site/tools/random-name-picker.html","description":"Free online random name picker that chooses one or more names from a pasted list.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 extraHead: |
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"How do I pick a random name online?","acceptedAnswer":{"@type":"Answer","text":"Paste names into the box, choose how many names to pick, then click Pick Name. The picker returns one or more unique names from your list."}},
       {"@type":"Question","name":"Can I use this random name picker in class?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste a class list and pick one or more names for questions, presentations, activities or classroom games."}},
+      {"@type":"Question","name":"Can I use it for giveaways or prize draws?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste your eligible entries, remove duplicates if your rules require one entry per person, and pick one or more winners."}},
       {"@type":"Question","name":"Can I use it for cold calling?","acceptedAnswer":{"@type":"Answer","text":"Yes, for low-stakes cold calling. Ask the question first, give thinking time, then pick a name. For equal turns, use the random student picker with no-repeat mode."}},
       {"@type":"Question","name":"Are names uploaded to Spinnit?","acceptedAnswer":{"@type":"Answer","text":"No. The picker runs in your browser and does not upload your list."}},
       {"@type":"Question","name":"Can I pick more than one name?","acceptedAnswer":{"@type":"Answer","text":"Yes. Set how many names to pick and the tool will return that many unique names from the current list."}}
@@ -58,7 +60,7 @@ pageScript: |
   <div class="tool-header">
     <div class="tool-icon">&#127922;</div>
     <h1>Random Name Picker</h1>
-    <p>Paste a list of names and pick one or more at random</p>
+    <p>Pick one or more random names online from any list</p>
   </div>
 
   <div class="result-box" id="resultBox">
@@ -84,6 +86,9 @@ pageScript: |
     <p>This random name picker is a quick way to choose from a list without spinning a wheel. Teachers can use it for questions, cold calling, presentation order, classroom games, or choosing helpers. It also works for giveaways, teams, meetings, party games and everyday decisions.</p>
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">For classroom routines in the US, UK and Europe, keep the rule simple: ask the question, give wait time, then pick. If every student should be called once before repeats, use the <a href="random-student-picker.html">Random Student Picker</a> with no-repeat mode or read the <a href="/classroom-random-tools/random-student-picker-guide/">random student picker guide</a>.</p>
 
+    <h2>Pick a random name online</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Paste names, participants, entries, tasks or options into the picker and choose how many results you need. The tool returns unique picks from the current list, so it works for one winner, several helpers, a quick meeting order, classroom turns or a small prize draw. If you want a visual reveal, use the <a href="wheel-of-names.html">Wheel of Names</a>; if you need no repeats across a full round, use the <a href="random-name-picker-no-repeat.html">No-Repeat Name Picker</a>.</p>
+
     <h2>How to use it</h2>
     <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
       <li>Paste names into the box, one per line or separated by commas.</li>
@@ -101,6 +106,13 @@ pageScript: |
       <li>Pick a classroom helper, topic, reward or game option.</li>
     </ul>
 
+    <h2>Giveaways, meetings and games</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li><strong style="color:var(--text);">Giveaways:</strong> paste eligible entries, set the winner count, and copy the result.</li>
+      <li><strong style="color:var(--text);">Meetings:</strong> pick a speaker, demo order, reviewer or next question owner.</li>
+      <li><strong style="color:var(--text);">Games:</strong> choose who starts, who joins a team, or which player takes the next turn.</li>
+    </ul>
+
     <h2>Privacy</h2>
     <p style="font-size:14px;color:var(--text2);line-height:1.8;">Names stay in your browser while you use the page. Spinnit does not require a login and does not upload your list.</p>
 
@@ -111,8 +123,14 @@ pageScript: |
   <section class="tool-faq" style="margin-top:2rem;">
     <h2>Frequently Asked Questions</h2>
 
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How do I pick a random name online?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Paste names into the box, choose how many names to pick, then click <em>Pick Name</em>. The picker returns one or more unique names from your list.</p>
+
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this random name picker in class?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Paste a class list and pick one or more names for questions, presentations, activities or classroom games.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use it for giveaways or prize draws?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Paste your eligible entries, remove duplicates if your rules require one entry per person, and pick one or more winners.</p>
 
     <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use it for cold calling?</h3>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, for low-stakes cold calling. Ask the question first, give thinking time, then pick a name. For equal turns, use the <a href="random-student-picker.html">random student picker with no-repeat mode</a>.</p>
