@@ -1,0 +1,243 @@
+---
+layout: layouts/base.njk
+title: "What Should I Do, Eat or Watch? Free Decision Tools | Spinnit"
+description: "Free what-should-I decision tools: pick an activity, dinner, movie, poll result, yes/no answer or random choice from a list. No sign-up."
+ogTitle: "What Should I Tools | Spinnit"
+ogDescription: "Pick what to do, eat, watch or choose next with free browser decision tools."
+canonical: "https://spinnit.site/what-should-i/"
+dateModified: "2026-06-28"
+permalink: "/what-should-i/index.html"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "What Should I Tools"
+    url: "/what-should-i/"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "What Should I Tools",
+    "url": "https://spinnit.site/what-should-i/",
+    "description": "Free decision tools for choosing what to do, eat, watch or pick next.",
+    "isPartOf": { "@type": "WebSite", "name": "Spinnit", "url": "https://spinnit.site/" },
+    "hasPart": [
+      { "@type": "WebApplication", "name": "Random Activity Picker", "url": "https://spinnit.site/tools/random-activity-picker.html" },
+      { "@type": "WebApplication", "name": "Random Dinner Picker", "url": "https://spinnit.site/tools/random-dinner-picker.html" },
+      { "@type": "WebApplication", "name": "Random Movie Picker", "url": "https://spinnit.site/tools/random-movie-picker.html" },
+      { "@type": "WebApplication", "name": "Random Picker Wheel", "url": "https://spinnit.site/tools/random-picker-wheel.html" },
+      { "@type": "WebApplication", "name": "Random Letter Generator", "url": "https://spinnit.site/tools/random-letter-generator.html" },
+      { "@type": "WebApplication", "name": "Random Word Generator", "url": "https://spinnit.site/tools/random-word-generator.html" },
+      { "@type": "WebApplication", "name": "Random Question Generator", "url": "https://spinnit.site/tools/random-question-generator.html" },
+      { "@type": "WebApplication", "name": "Poll Maker", "url": "https://spinnit.site/tools/poll-maker.html" },
+      { "@type": "WebApplication", "name": "Yes / No Wheel", "url": "https://spinnit.site/tools/yes-no-wheel.html" },
+      { "@type": "WebApplication", "name": "Coin Flip", "url": "https://spinnit.site/tools/coin-flip.html" }
+    ]
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What should I use when I cannot decide?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Use a random picker when every option is acceptable and you just need momentum. Use a poll when the group should decide. Use a coin flip or yes/no wheel for two-choice decisions." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can Spinnit decide what I should do, eat or watch?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Spinnit can pick from your list or a preset list. It does not know your full context, so only include options that are safe, available and realistic." }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I use random tools for important decisions?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Random tools are best for low-stakes choices such as activities, dinner, movies, games, turns and tie-breaks. Do not use them as the sole basis for medical, legal, financial or safety decisions." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .decision-flow {
+    background: linear-gradient(135deg, rgba(96,165,250,0.12), rgba(52,211,153,0.08));
+    border: 1px solid rgba(96,165,250,0.25);
+    border-radius: var(--radius-lg);
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.75;
+    margin: 1.5rem 0 0;
+    padding: 1rem 1.15rem;
+  }
+  .decision-flow strong {
+    color: var(--text);
+  }
+  .use-case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 10px;
+  }
+  .use-case-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .use-case-card h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .use-case-card p,
+  .use-case-card li {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  .use-case-card ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.1rem;
+  }
+---
+<main class="hub-page">
+  <h1>What Should I Do, Eat or Watch?</h1>
+  <p class="lede">Free decision tools for low-stakes everyday choices. Pick what to do, what to eat, what to watch, which option wins, or whether to say yes/no. No sign-up, no download, works on phones, projectors and group chats.</p>
+
+  <div class="decision-flow">
+    <strong>Fast rule:</strong> if every option is acceptable, use a random picker. If the group should choose, use a poll. If there are only two options, use a coin flip or yes/no wheel. If the decision has real consequences, use judgement instead of randomness.
+  </div>
+
+  <section class="hub-section">
+    <h2>Start with the decision you need</h2>
+    <div class="hub-grid">
+      <a class="hub-card" href="/tools/random-activity-picker.html">
+        <h3>What should I do?</h3>
+        <p>Pick a random activity from boredom ideas, family plans, date ideas, weekend options or team breaks.</p>
+      </a>
+      <a class="hub-card" href="/tools/random-dinner-picker.html">
+        <h3>What should I eat?</h3>
+        <p>Choose a dinner, lunch, takeout option, family meal or custom food shortlist.</p>
+      </a>
+      <a class="hub-card" href="/tools/random-movie-picker.html">
+        <h3>What should I watch?</h3>
+        <p>Pick a movie from your watchlist or a preset for family night, date night, comedy or classics.</p>
+      </a>
+      <a class="hub-card" href="/tools/random-question-generator.html">
+        <h3>What should I ask?</h3>
+        <p>Generate a clean question for an icebreaker, classroom prompt, family game, meeting or journal.</p>
+      </a>
+      <a class="hub-card" href="/tools/random-word-generator.html">
+        <h3>What word should I use?</h3>
+        <p>Generate a random word for a game, writing prompt, vocabulary task, test label or creative idea.</p>
+      </a>
+      <a class="hub-card" href="/tools/random-letter-generator.html">
+        <h3>What letter should I use?</h3>
+        <p>Pick a letter A-Z for alphabet games, initials, phonics, word challenges or quick labels.</p>
+      </a>
+      <a class="hub-card" href="/tools/poll-maker.html">
+        <h3>What should we choose?</h3>
+        <p>Run a quick local poll when a group should vote instead of leaving the choice to chance.</p>
+      </a>
+      <a class="hub-card" href="/tools/random-picker-wheel.html">
+        <h3>Spin for a choice</h3>
+        <p>Use a visual picker wheel when the reveal should feel shared, playful or projector-friendly.</p>
+      </a>
+      <a class="hub-card" href="/tools/yes-no-wheel.html">
+        <h3>Should I do it?</h3>
+        <p>Spin a yes/no wheel for a light answer when the decision is genuinely low-stakes.</p>
+      </a>
+      <a class="hub-card" href="/tools/coin-flip.html">
+        <h3>Which of two options?</h3>
+        <p>Flip a coin for binary choices, tie-breaks, who goes first or quick best-of-three decisions.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="hub-section">
+    <h2>Common what-should-I moments</h2>
+    <div class="use-case-grid">
+      <article class="use-case-card">
+        <h3>I'm bored</h3>
+        <p>Use the activity picker with a preset or paste your own list of realistic ideas.</p>
+        <ul>
+          <li><a href="/tools/random-activity-picker.html">Random Activity Picker</a></li>
+          <li><a href="/tools/random-question-generator.html">Random Question Generator</a></li>
+          <li><a href="/tools/random-letter-generator.html">Random Letter Generator</a></li>
+          <li><a href="/tools/random-word-generator.html">Random Word Generator</a></li>
+          <li><a href="/tools/would-you-rather-generator.html">Would You Rather</a></li>
+        </ul>
+      </article>
+      <article class="use-case-card">
+        <h3>Dinner is stuck</h3>
+        <p>Use a dinner shortlist when everyone can accept any option, or use a poll if people have preferences.</p>
+        <ul>
+          <li><a href="/tools/random-dinner-picker.html">Random Dinner Picker</a></li>
+          <li><a href="/tools/poll-maker.html">Poll Maker</a></li>
+        </ul>
+      </article>
+      <article class="use-case-card">
+        <h3>Movie night is endless scrolling</h3>
+        <p>Paste films you can actually watch, then pick one and stop negotiating.</p>
+        <ul>
+          <li><a href="/tools/random-movie-picker.html">Random Movie Picker</a></li>
+          <li><a href="/tools/random-activity-picker.html">Activity Picker</a></li>
+        </ul>
+      </article>
+      <article class="use-case-card">
+        <h3>The group cannot agree</h3>
+        <p>Vote when preference matters. Randomize only after the group accepts the shortlist.</p>
+        <ul>
+          <li><a href="/tools/poll-maker.html">Poll Maker</a></li>
+          <li><a href="/tools/random-picker-wheel.html">Random Picker Wheel</a></li>
+          <li><a href="/tools/wheel-of-names.html">Wheel of Names</a></li>
+        </ul>
+      </article>
+      <article class="use-case-card">
+        <h3>There are two choices</h3>
+        <p>Use a coin flip or yes/no wheel for quick, visible tie-breaks.</p>
+        <ul>
+          <li><a href="/tools/coin-flip.html">Coin Flip</a></li>
+          <li><a href="/tools/yes-no-wheel.html">Yes / No Wheel</a></li>
+        </ul>
+      </article>
+      <article class="use-case-card">
+        <h3>There is a list of options</h3>
+        <p>Paste any list into a picker, spinner or shuffler depending on whether you need one winner or a full order.</p>
+        <ul>
+          <li><a href="/tools/pick-random-name.html">Pick a Random Name</a></li>
+          <li><a href="/tools/list-shuffler.html">List Shuffler</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="hub-section">
+    <h2>When randomness helps</h2>
+    <p class="hub-note">Random choice is best when the decision is reversible, low-stakes and all options are acceptable. It helps break deadlocks, reduce overthinking and make a group process feel fair. It is not a replacement for expertise, consent, safety checks or personal judgement.</p>
+  </section>
+
+  <section class="hub-section">
+    <h2>More decision tools</h2>
+    <div class="hub-grid">
+      <a class="hub-card" href="/tools/decision-makers/"><h3>Decision Maker Tools</h3><p>Browse Spinnit's full set of decision tools, pickers, wheels, polls and tie-breakers.</p></a>
+      <a class="hub-card" href="/tools/random-picker-wheel.html"><h3>Random Picker Wheel</h3><p>Spin for activities, food, chores, prizes, prompts, meeting roles and group choices.</p></a>
+      <a class="hub-card" href="/tools/random-letter-generator.html"><h3>Random Letter Generator</h3><p>Pick letters for alphabet games, initials, phonics and word challenges.</p></a>
+      <a class="hub-card" href="/tools/random-word-generator.html"><h3>Random Word Generator</h3><p>Generate words for games, writing, classrooms, vocabulary practice and creative prompts.</p></a>
+      <a class="hub-card" href="/tools/random-question-generator.html"><h3>Random Question Generator</h3><p>Pick a clean icebreaker, classroom prompt, meeting question or journaling starter.</p></a>
+      <a class="hub-card" href="/randomness-and-fairness.html"><h3>Randomness and Fairness</h3><p>Learn when a random choice feels fair, and when it is the wrong tool.</p></a>
+      <a class="hub-card" href="/blog/coin-flip-decision-guide.html"><h3>Coin Flip Decision Guide</h3><p>Use coin flips clearly for low-stakes binary choices and best-of-three tie-breaks.</p></a>
+    </div>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>What should I tools FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What should I use when I cannot decide?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Use a random picker when every option is acceptable and you just need momentum. Use a poll when the group should decide. Use a coin flip or yes/no wheel for two-choice decisions.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can Spinnit decide what I should do, eat or watch?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Spinnit can pick from your list or a preset list. It does not know your full context, so only include options that are safe, available and realistic.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Should I use random tools for important decisions?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. Random tools are best for low-stakes choices such as activities, dinner, movies, games, turns and tie-breaks. Do not use them as the sole basis for medical, legal, financial or safety decisions.</p>
+  </section>
+</main>

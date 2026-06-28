@@ -1,0 +1,527 @@
+---
+layout: layouts/base.njk
+title: "Random Dinner Picker - What Should I Eat Tonight? | Spinnit"
+description: "Pick a random dinner idea from your own list or a preset. Free what-should-I-eat tool for families, couples, takeout, meal planning and group decisions."
+ogTitle: "Random Dinner Picker | Spinnit"
+ogDescription: "Paste dinner options or choose a preset and let Spinnit pick what to eat tonight."
+canonical: "https://spinnit.site/tools/random-dinner-picker.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Decision Maker Tools"
+    url: "/tools/decision-makers/"
+  - label: "Random Dinner Picker"
+    url: "/tools/random-dinner-picker.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Dinner Picker",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/random-dinner-picker.html",
+    "description": "A free browser-based random dinner picker for choosing what to eat from a custom meal list, takeout shortlist or preset dinner ideas.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does the random dinner picker work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Paste dinner options or load a preset list, then click Pick Dinner. The tool randomly chooses one meal from the current list in your browser." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I paste my own meal list?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Add one dinner idea per line or separate options with commas. The picker works with home meals, takeout choices, restaurant names, leftovers or meal prep options." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this account for allergies, nutrition or dietary needs?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Only include options that are safe and suitable for the people eating. The picker chooses from the list you provide." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I avoid repeat dinner picks?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Turn on avoid repeats this session and the picker will use each dinner option once before the list resets." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .dinner-layout {
+    display: grid;
+    gap: 1rem;
+  }
+  .dinner-card {
+    background: linear-gradient(135deg, rgba(251,146,60,0.14), rgba(52,211,153,0.08));
+    border: 1px solid rgba(251,146,60,0.28);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+  }
+  .dinner-result-title {
+    color: var(--text);
+    font-size: clamp(1.7rem, 7vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.12;
+    margin: 0.25rem 0;
+    overflow-wrap: anywhere;
+  }
+  .dinner-result-meta {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .dinner-tools {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    gap: 8px;
+    margin-top: 0.85rem;
+  }
+  .dinner-preset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+    gap: 8px;
+    margin-top: 0.75rem;
+  }
+  .dinner-preset {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    cursor: pointer;
+    font-size: 13px;
+    min-height: 42px;
+    padding: 0.65rem 0.8rem;
+    text-align: left;
+  }
+  .dinner-preset:hover,
+  .dinner-preset.active {
+    border-color: rgba(251,146,60,0.6);
+    color: var(--text);
+  }
+  .dinner-note {
+    background: rgba(96,165,250,0.1);
+    border: 1px solid rgba(96,165,250,0.25);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 1rem 0;
+    padding: 0.85rem 1rem;
+  }
+  .dinner-history {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+  }
+  .dinner-history h2 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.5rem;
+  }
+  .dinner-history ol {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.8;
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+  .dinner-use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 10px;
+  }
+  .dinner-use {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .dinner-use h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .dinner-use p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  const dinnerPresets = {
+    weeknight: [
+      "Pasta with tomato sauce",
+      "Chicken stir fry",
+      "Tacos",
+      "Baked potatoes",
+      "Rice bowl",
+      "Omelette and salad",
+      "Soup and grilled cheese",
+      "Curry and rice",
+      "Burgers",
+      "Sheet pan vegetables and protein"
+    ],
+    takeout: [
+      "Pizza",
+      "Sushi",
+      "Thai food",
+      "Burgers",
+      "Indian curry",
+      "Tacos",
+      "Chinese takeout",
+      "Fried chicken",
+      "Mediterranean bowls",
+      "Ramen"
+    ],
+    family: [
+      "Spaghetti bolognese",
+      "Homemade pizza",
+      "Chicken fajitas",
+      "Mac and cheese",
+      "Fish fingers and chips",
+      "Meatballs",
+      "Sausages and mash",
+      "Quesadillas",
+      "Lasagne",
+      "Roast chicken"
+    ],
+    healthy: [
+      "Grain bowl",
+      "Salmon and vegetables",
+      "Lentil soup",
+      "Chicken salad",
+      "Turkey chilli",
+      "Vegetable curry",
+      "Stuffed peppers",
+      "Tofu stir fry",
+      "Greek salad with protein",
+      "Bean tacos"
+    ],
+    cheap: [
+      "Beans on toast",
+      "Egg fried rice",
+      "Pasta bake",
+      "Jacket potato",
+      "Lentil dal",
+      "Noodle stir fry",
+      "Vegetable soup",
+      "Tuna pasta",
+      "Chilli and rice",
+      "Breakfast for dinner"
+    ],
+    lunch: [
+      "Sandwiches",
+      "Salad bowls",
+      "Burritos",
+      "Soup",
+      "Poke bowls",
+      "Bagels",
+      "Falafel wraps",
+      "Pasta salad",
+      "Deli counter",
+      "Leftovers"
+    ]
+  };
+
+  let dinnerHistory = [];
+  let usedDinners = new Set();
+
+  function splitDinnerList(value) {
+    return value
+      .split(/\n|,/)
+      .map(item => item.trim())
+      .filter(item => item.length > 0);
+  }
+
+  function uniqueDinners(items) {
+    const seen = new Set();
+    return items.filter(item => {
+      const key = item.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
+  function getDinners() {
+    return uniqueDinners(splitDinnerList(document.getElementById("dinnerInput").value));
+  }
+
+  function resetDinnerSession() {
+    usedDinners = new Set();
+    setDinnerStatus(getDinners().length + " options ready");
+  }
+
+  function randomDinnerIndex(length) {
+    if (window.crypto && window.crypto.getRandomValues) {
+      const values = new Uint32Array(1);
+      const max = Math.floor(0x100000000 / length) * length;
+      do {
+        window.crypto.getRandomValues(values);
+      } while (values[0] >= max);
+      return values[0] % length;
+    }
+    return Math.floor(Math.random() * length);
+  }
+
+  function setDinnerStatus(message) {
+    document.getElementById("dinnerMeta").textContent = message;
+  }
+
+  function loadDinnerPreset(name) {
+    const dinners = dinnerPresets[name] || dinnerPresets.weeknight;
+    document.getElementById("dinnerInput").value = dinners.join("\n");
+    usedDinners = new Set();
+    document.querySelectorAll(".dinner-preset").forEach(button => {
+      button.classList.toggle("active", button.dataset.preset === name);
+    });
+    setDinnerStatus(dinners.length + " preset options loaded");
+  }
+
+  function pickDinner() {
+    const dinners = getDinners();
+    if (!dinners.length) {
+      alert("Add at least one dinner option first.");
+      return;
+    }
+
+    let pool = dinners;
+    const avoidRepeats = document.getElementById("avoidDinnerRepeats").checked;
+    if (avoidRepeats) {
+      const unused = dinners.filter(dinner => !usedDinners.has(dinner.toLowerCase()));
+      if (!unused.length) {
+        usedDinners = new Set();
+        pool = dinners;
+        setDinnerStatus("All options used once; repeat tracker reset.");
+      } else {
+        pool = unused;
+      }
+    }
+
+    const pick = pool[randomDinnerIndex(pool.length)];
+    usedDinners.add(pick.toLowerCase());
+    dinnerHistory.unshift(pick);
+    dinnerHistory = dinnerHistory.slice(0, 10);
+
+    document.getElementById("dinnerResult").textContent = pick;
+    document.getElementById("dinnerShareSummary").textContent = "Dinner picked: " + pick;
+    setDinnerStatus(pool.length + " eligible option" + (pool.length === 1 ? "" : "s") + " in this pick");
+    renderDinnerHistory();
+
+    const card = document.getElementById("dinnerResultCard");
+    card.classList.remove("pop");
+    void card.offsetWidth;
+    card.classList.add("pop");
+  }
+
+  function renderDinnerHistory() {
+    const list = document.getElementById("dinnerHistory");
+    if (!dinnerHistory.length) {
+      list.innerHTML = "<li>No dinners picked yet.</li>";
+      return;
+    }
+    list.innerHTML = dinnerHistory.map(dinner => "<li>" + escapeDinnerHtml(dinner) + "</li>").join("");
+  }
+
+  function escapeDinnerHtml(value) {
+    return value.replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+  }
+
+  function currentDinnerText() {
+    const dinner = document.getElementById("dinnerResult").textContent.trim();
+    if (!dinner || dinner === "-") return "";
+    return dinner;
+  }
+
+  function copyDinnerResult(button) {
+    const dinner = currentDinnerText();
+    if (!dinner) {
+      alert("Pick dinner first.");
+      return;
+    }
+    copyDinnerText("Tonight's dinner pick: " + dinner, button);
+  }
+
+  function copyDinnerList(button) {
+    const dinners = getDinners();
+    if (!dinners.length) {
+      alert("Add dinner options first.");
+      return;
+    }
+    copyDinnerText(dinners.join("\n"), button);
+  }
+
+  function copyDinnerEmbed(button) {
+    const html = '<a href="https://spinnit.site/tools/random-dinner-picker.html">Random Dinner Picker</a>';
+    copyDinnerText(html, button);
+  }
+
+  function shareDinner(button) {
+    const dinner = currentDinnerText();
+    const text = dinner ? "Dinner pick: " + dinner : "Use this random dinner picker to choose what to eat.";
+    if (navigator.share) {
+      navigator.share({
+        title: "Random Dinner Picker",
+        text,
+        url: "https://spinnit.site/tools/random-dinner-picker.html"
+      }).catch(() => {});
+      return;
+    }
+    copyDinnerText(text + " https://spinnit.site/tools/random-dinner-picker.html", button);
+  }
+
+  function copyDinnerText(text, button) {
+    navigator.clipboard.writeText(text).then(() => {
+      const old = button.textContent;
+      button.textContent = "Copied!";
+      button.classList.add("copied");
+      setTimeout(() => {
+        button.textContent = old;
+        button.classList.remove("copied");
+      }, 1800);
+    });
+  }
+
+  document.getElementById("dinnerInput").addEventListener("input", resetDinnerSession);
+  loadDinnerPreset("weeknight");
+  renderDinnerHistory();
+  bindGlobalShortcut(pickDinner);
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">DN</div>
+    <h1>Random Dinner Picker</h1>
+    <p>Pick what to eat tonight from your own list, takeout choices or a ready-made dinner preset.</p>
+  </div>
+
+  <section class="dinner-layout">
+    <div class="dinner-card" id="dinnerResultCard">
+      <div class="result-label">tonight's pick</div>
+      <div class="dinner-result-title" id="dinnerResult">-</div>
+      <div class="dinner-result-meta" id="dinnerMeta">10 preset options loaded</div>
+      <div class="dinner-tools">
+        <button class="btn-copy" type="button" onclick="copyDinnerResult(this)">Copy pick</button>
+        <button class="btn-copy" type="button" onclick="shareDinner(this)">Share</button>
+        <button class="btn-copy" type="button" onclick="copyDinnerList(this)">Copy list</button>
+        <button class="btn-copy" type="button" onclick="copyDinnerEmbed(this)">Copy embed</button>
+        <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="dinnerInput">Dinner options (one per line or comma-separated)</label>
+        <textarea id="dinnerInput" rows="9" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;" placeholder="Pizza&#10;Tacos&#10;Pasta"></textarea>
+      </div>
+      <label style="align-items:center;color:var(--text2);display:flex;font-size:13px;gap:8px;margin-top:0.7rem;">
+        <input id="avoidDinnerRepeats" type="checkbox" checked>
+        Avoid repeats this session
+      </label>
+    </div>
+
+    <button class="btn-generate" type="button" onclick="pickDinner()">PICK DINNER</button>
+
+    <div>
+      <div class="result-label">preset dinner lists</div>
+      <div class="dinner-preset-grid">
+        <button class="dinner-preset active" data-preset="weeknight" type="button" onclick="loadDinnerPreset('weeknight')">Weeknight dinners</button>
+        <button class="dinner-preset" data-preset="takeout" type="button" onclick="loadDinnerPreset('takeout')">Takeout ideas</button>
+        <button class="dinner-preset" data-preset="family" type="button" onclick="loadDinnerPreset('family')">Family meals</button>
+        <button class="dinner-preset" data-preset="healthy" type="button" onclick="loadDinnerPreset('healthy')">Healthy options</button>
+        <button class="dinner-preset" data-preset="cheap" type="button" onclick="loadDinnerPreset('cheap')">Cheap dinners</button>
+        <button class="dinner-preset" data-preset="lunch" type="button" onclick="loadDinnerPreset('lunch')">Lunch choices</button>
+      </div>
+    </div>
+
+    <div class="dinner-note"><strong>Food safety note:</strong> only include options that are safe for the people eating. This picker does not check allergies, nutrition, opening hours, delivery availability or dietary restrictions.</div>
+    <div class="result-share-card"><strong>Share card:</strong> <span id="dinnerShareSummary">Pick dinner, then copy or share it.</span></div>
+
+    <div class="dinner-history">
+      <h2>Recent dinner picks</h2>
+      <ol id="dinnerHistory"></ol>
+    </div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>The Random Dinner Picker helps answer the daily question: what should I eat tonight? Paste meals, restaurant names, takeout options, leftovers or family-approved choices, then let the picker choose one at random. It is useful for couples, families, roommates, group chats, office lunches, meal planning and nights when nobody wants to decide.</p>
+
+    <h2>How to use the random dinner picker</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Paste dinner ideas into the list, one per line or separated by commas.</li>
+      <li>Or load a preset such as weeknight dinners, takeout, family meals or cheap dinners.</li>
+      <li>Leave avoid repeats on if you want every option used once before repeats.</li>
+      <li>Click Pick Dinner and copy or share the result.</li>
+    </ol>
+
+    <h2>Best used for</h2>
+    <div class="dinner-use-grid">
+      <article class="dinner-use">
+        <h3>Weeknight meals</h3>
+        <p>Choose from simple dinners you already know how to make when everyone is hungry.</p>
+      </article>
+      <article class="dinner-use">
+        <h3>Takeout decisions</h3>
+        <p>Paste restaurants or cuisines and let the picker break the tie for a group order.</p>
+      </article>
+      <article class="dinner-use">
+        <h3>Family meal planning</h3>
+        <p>Build a safe, approved dinner list and use it whenever nobody wants to choose.</p>
+      </article>
+      <article class="dinner-use">
+        <h3>Office lunches</h3>
+        <p>Pick from lunch spots, delivery options or team meal ideas without a long chat thread.</p>
+      </article>
+    </div>
+
+    <h2>Custom dinner list ideas</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Try lists such as five quick meals, restaurants nearby, freezer meals, low-cost dinners, vegetarian options, kids' favourites, meals using ingredients you already have, or takeout choices everyone can agree on. The picker removes duplicates during each pick, and no-repeat mode helps avoid the same dinner twice in one session.</p>
+
+    <h2>Polls versus a random dinner pick</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Use this tool when every option on the list is acceptable and you just want a fair choice. If people should vote, use the <a href="/tools/poll-maker.html">Poll Maker</a>. If the choice is between two meals, use the <a href="/tools/coin-flip.html">Coin Flip</a> or <a href="/tools/yes-no-wheel.html">Yes / No Wheel</a>. For what to do before or after dinner, use the <a href="/tools/random-activity-picker.html">Random Activity Picker</a>. For another nightly decision, try the <a href="/tools/random-movie-picker.html">Random Movie Picker</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Random dinner picker FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How does the random dinner picker work?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Paste dinner options or load a preset list, then click <em>Pick Dinner</em>. The tool randomly chooses one meal from the current list in your browser.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I paste my own meal list?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Add one dinner idea per line or separate options with commas. The picker works with home meals, takeout choices, restaurant names, leftovers or meal prep options.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this account for allergies or dietary needs?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. Only include options that are safe and suitable for the people eating. The picker chooses from the list you provide.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I avoid repeat dinner picks?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Turn on avoid repeats this session and the picker will use each dinner option once before the list resets.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/decision-makers/"><span class="ri">DM</span> Decision Tools</a>
+      <a class="related-card" href="poll-maker.html"><span class="ri">PL</span> Poll Maker</a>
+      <a class="related-card" href="random-activity-picker.html"><span class="ri">AC</span> Activity Picker</a>
+      <a class="related-card" href="random-movie-picker.html"><span class="ri">MV</span> Movie Picker</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">CF</span> Coin Flip</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">YN</span> Yes / No Wheel</a>
+      <a class="related-card" href="pick-random-name.html"><span class="ri">PK</span> Pick a Random Name</a>
+    </div>
+  </section>
+</main>

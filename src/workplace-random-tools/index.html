@@ -1,0 +1,219 @@
+---
+layout: layouts/base.njk
+title: "Workplace Random Tools - Team Pickers, Rotas & Meeting Decisions | Spinnit"
+description: "Free workplace random tools for team grouping, standup order, meeting role rotation, workshop groups, task rotas, list shuffling and quick team decisions."
+ogTitle: "Workplace Random Tools | Spinnit"
+ogDescription: "Team pickers, meeting rotas, standup order, workshop groups and quick workplace decision tools with no sign-up."
+canonical: "https://spinnit.site/workplace-random-tools/"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "Workplace Random Tools"
+    url: "/workplace-random-tools/"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Workplace Random Tools",
+    "url": "https://spinnit.site/workplace-random-tools/",
+    "isPartOf": { "@type": "WebSite", "name": "Spinnit", "url": "https://spinnit.site/" },
+    "description": "Free workplace decision tools for polls, team grouping, meeting role rotation, standup order, workshop facilitation and low-stakes team decisions.",
+    "hasPart": [
+      { "@type": "WebApplication", "name": "Meeting Rotation Generator", "url": "https://spinnit.site/tools/meeting-rotation-generator.html" },
+      { "@type": "WebApplication", "name": "Random Team Generator", "url": "https://spinnit.site/tools/team-picker.html" },
+      { "@type": "WebApplication", "name": "Fair Rotation Generator", "url": "https://spinnit.site/tools/fair-rotation-generator.html" },
+      { "@type": "WebApplication", "name": "List Shuffler", "url": "https://spinnit.site/tools/list-shuffler.html" },
+      { "@type": "WebApplication", "name": "Poll Maker", "url": "https://spinnit.site/tools/poll-maker.html" },
+      { "@type": "WebApplication", "name": "Random Picker Wheel", "url": "https://spinnit.site/tools/random-picker-wheel.html" },
+      { "@type": "WebApplication", "name": "Random Question Generator", "url": "https://spinnit.site/tools/random-question-generator.html" },
+      { "@type": "WebApplication", "name": "Truth or Dare Generator", "url": "https://spinnit.site/tools/truth-or-dare-generator.html" },
+      { "@type": "WebApplication", "name": "Draft Order Generator", "url": "https://spinnit.site/tools/draft-order-generator.html" }
+    ]
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What workplace decisions can Spinnit help with?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Spinnit can help with low-stakes workplace decisions such as rotating meeting roles, setting standup order, splitting workshop groups, choosing presentation order, shuffling task lists and picking who goes first." }
+      },
+      {
+        "@type": "Question",
+        "name": "Should random tools make important workplace decisions?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Use these tools for low-stakes operational choices and transparent turn-taking. Do not use random tools as the sole basis for important hiring, pay, legal, medical or disciplinary decisions." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do the workplace tools require an account?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The tools run in the browser and can be copied into Slack, Teams, Notion, Google Docs, Confluence or a meeting agenda." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .playbook-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+    gap: 10px;
+  }
+  .playbook-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .playbook-card h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .playbook-card p,
+  .playbook-card li {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  .playbook-card ol {
+    padding-left: 1.1rem;
+    margin: 0.6rem 0 0.8rem;
+  }
+  .decision-note {
+    background: linear-gradient(135deg, rgba(96,165,250,0.12), rgba(167,139,250,0.08));
+    border: 1px solid rgba(96,165,250,0.25);
+    border-radius: var(--radius-lg);
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.75;
+    margin: 1.5rem 0 0;
+    padding: 1rem 1.15rem;
+  }
+  .decision-note strong {
+    color: var(--text);
+  }
+pageScript: |
+  function copyWorkplacePlaybook(title, steps, button) {
+    window.copySpinnitText(title + "\n\n" + steps.join("\n"), button, "Copy playbook");
+  }
+---
+<main class="hub-page">
+  <h1>Workplace random tools</h1>
+  <p class="lede">Free decision tools for teams, facilitators, managers and workshop leads. Rotate meeting roles, set standup order, split people into groups, shuffle task lists and make low-stakes team decisions without another app or account.</p>
+
+  <div class="decision-note">
+    <strong>Use randomness where it belongs:</strong> these tools are for low-stakes operational choices, fair turns and transparent group setup. Important decisions about hiring, pay, health, legal issues or performance should use human judgement and the right process.
+  </div>
+
+  <section class="hub-section">
+    <h2>Which workplace tool should I use?</h2>
+    <div class="hub-grid">
+      <a class="hub-card" href="/tools/meeting-rotation-generator.html">
+        <h3>Meeting Rotation Generator</h3>
+        <p>Rotate facilitator, note-taker, timekeeper, demo order and standup order across recurring meetings.</p>
+      </a>
+      <a class="hub-card" href="/tools/team-picker.html">
+        <h3>Random Team Generator</h3>
+        <p>Split people into workshop groups, breakout rooms, project teams or practice teams.</p>
+      </a>
+      <a class="hub-card" href="/tools/fair-rotation-generator.html">
+        <h3>Fair Rotation Generator</h3>
+        <p>Create a no-repeat order for turns, tasks, presentations, office jobs or volunteer slots.</p>
+      </a>
+      <a class="hub-card" href="/tools/list-shuffler.html">
+        <h3>List Shuffler</h3>
+        <p>Shuffle agenda items, presentation order, feedback order, interview slots or task lists.</p>
+      </a>
+      <a class="hub-card" href="/tools/poll-maker.html">
+        <h3>Poll Maker</h3>
+        <p>Run a quick live vote for workshop priorities, meeting topics, team activities or group decisions.</p>
+      </a>
+      <a class="hub-card" href="/tools/random-picker-wheel.html">
+        <h3>Random Picker Wheel</h3>
+        <p>Spin a visual wheel for meeting topics, icebreakers, activities, roles, prompts and low-stakes team choices.</p>
+      </a>
+      <a class="hub-card" href="/tools/draft-order-generator.html">
+        <h3>Draft Order Generator</h3>
+        <p>Choose a fair pick order for team games, workshop resources, office pools, giveaways and draft-style activities.</p>
+      </a>
+      <a class="hub-card" href="/tools/random-question-generator.html">
+        <h3>Random Question Generator</h3>
+        <p>Generate clean icebreaker questions, retrospective prompts and team conversation starters.</p>
+      </a>
+      <a class="hub-card" href="/tools/would-you-rather-generator.html">
+        <h3>Would You Rather Generator</h3>
+        <p>Generate quick two-choice icebreaker questions for retrospectives, workshops, offsites and team check-ins.</p>
+      </a>
+      <a class="hub-card" href="/tools/truth-or-dare-generator.html">
+        <h3>Truth or Dare Generator</h3>
+        <p>Use clean workplace truth prompts for low-pressure team icebreakers, retrospectives and offsites.</p>
+      </a>
+      <a class="hub-card" href="/tools/tournament-bracket-generator.html">
+        <h3>Tournament Bracket Generator</h3>
+        <p>Create a knockout bracket for office contests, team games, workshop challenges and friendly competitions.</p>
+      </a>
+      <a class="hub-card" href="/tools/decision-makers/">
+        <h3>Decision Maker Tools</h3>
+        <p>Use a coin flip, yes/no wheel or quick picker when the decision is genuinely low-stakes.</p>
+      </a>
+      <a class="hub-card" href="/randomness-and-fairness.html">
+        <h3>Randomness and Fairness</h3>
+        <p>Read the plain-language fairness guide before using random picks in a group setting.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="hub-section">
+    <h2>Copy a workplace playbook</h2>
+    <div class="playbook-grid">
+      <article class="playbook-card">
+        <h3>Daily standup order</h3>
+        <p>A quick routine for agile teams and recurring check-ins.</p>
+        <ol>
+          <li>Paste team members into Meeting Rotation Generator.</li>
+          <li>Use the Standup template.</li>
+          <li>Generate four to eight future standups.</li>
+          <li>Copy the rota into Slack, Teams or the recurring agenda.</li>
+        </ol>
+        <button class="btn-copy" type="button" onclick="copyWorkplacePlaybook('Daily standup order', ['1. Paste team members into Spinnit Meeting Rotation Generator.', '2. Use the Standup template.', '3. Generate four to eight future standups.', '4. Copy the rota into Slack, Teams or the recurring agenda.'], this)">Copy playbook</button>
+      </article>
+
+      <article class="playbook-card">
+        <h3>Workshop breakout groups</h3>
+        <p>Use this before training, retrospectives or planning sessions.</p>
+        <ol>
+          <li>Paste attendee names into Random Team Generator.</li>
+          <li>Choose the number of breakout groups.</li>
+          <li>Generate and copy the teams.</li>
+          <li>Paste the groups into the facilitator notes or slide deck.</li>
+        </ol>
+        <button class="btn-copy" type="button" onclick="copyWorkplacePlaybook('Workshop breakout groups', ['1. Paste attendee names into Spinnit Random Team Generator.', '2. Choose the number of breakout groups.', '3. Generate and copy the teams.', '4. Paste the groups into the facilitator notes or slide deck.'], this)">Copy playbook</button>
+      </article>
+
+      <article class="playbook-card">
+        <h3>Fair presentation order</h3>
+        <p>A transparent way to decide who presents first without debate.</p>
+        <ol>
+          <li>Paste presenters into Fair Rotation Generator.</li>
+          <li>Generate a no-repeat order.</li>
+          <li>Copy the fairness receipt.</li>
+          <li>Share the order before the session starts.</li>
+        </ol>
+        <button class="btn-copy" type="button" onclick="copyWorkplacePlaybook('Fair presentation order', ['1. Paste presenters into Spinnit Fair Rotation Generator.', '2. Generate a no-repeat order.', '3. Copy the fairness receipt.', '4. Share the order before the session starts.'], this)">Copy playbook</button>
+      </article>
+    </div>
+  </section>
+
+  <section class="hub-section">
+    <h2>Best workplace use cases</h2>
+    <div class="hub-note">
+      <p><strong>Team meetings:</strong> rotate facilitator, notes, timekeeper, demo order, retro host and speaking order.</p>
+      <p><strong>Workshops:</strong> split groups, shuffle agenda order, poll priorities, spin a picker wheel, choose presentation order and generate random questions, discussion prompts, clean truth prompts or icebreakers.</p>
+      <p><strong>Team games:</strong> create draft orders and knockout brackets for office challenges, training games and friendly competitions.</p>
+      <p><strong>Operations:</strong> rotate small tasks, office chores, review queues, volunteer turns and on-call warm-up duties where random allocation is appropriate.</p>
+    </div>
+  </section>
+</main>

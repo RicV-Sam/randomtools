@@ -1,0 +1,508 @@
+---
+layout: layouts/base.njk
+title: "Random Date Generator - Pick Dates Between Two Dates | Spinnit"
+description: "Generate random dates between two dates. Free random date picker for testing, writing prompts, classrooms, planning games, giveaways and sample data."
+ogTitle: "Random Date Generator | Spinnit"
+ogDescription: "Pick one or many random dates in any range, with weekday-only and unique-date options."
+canonical: "https://spinnit.site/tools/random-date-generator.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Random Number Tools"
+    url: "/tools/random-number-tools/"
+  - label: "Random Date Generator"
+    url: "/tools/random-date-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Date Generator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/random-date-generator.html",
+    "description": "A free browser-based random date generator for choosing one or many dates between two dates.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I generate a random date?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Choose a start date, an end date, how many dates you need, then click Generate Dates. The tool picks random calendar dates from the selected range." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I generate multiple random dates?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Set the count from 1 to 100. You can also turn on unique dates if you do not want repeats." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I generate weekdays only?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Turn on weekdays only to exclude Saturdays and Sundays from the generated dates." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are dates uploaded to Spinnit?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The generator runs in your browser and does not upload your selected range." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .date-layout {
+    display: grid;
+    gap: 1rem;
+  }
+  .date-result-card {
+    background: linear-gradient(135deg, rgba(96,165,250,0.14), rgba(52,211,153,0.08));
+    border: 1px solid rgba(96,165,250,0.28);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+  }
+  .date-result-list {
+    color: var(--text);
+    font-size: clamp(1.25rem, 5vw, 2.35rem);
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0.25rem 0;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+  .date-meta {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .date-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    gap: 8px;
+    margin-top: 0.85rem;
+  }
+  .date-option-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    gap: 10px;
+  }
+  .date-checks {
+    display: grid;
+    gap: 8px;
+    margin-top: 0.7rem;
+  }
+  .date-checks label {
+    align-items: center;
+    color: var(--text2);
+    display: flex;
+    font-size: 13px;
+    gap: 8px;
+  }
+  .date-presets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    gap: 8px;
+    margin-top: 0.75rem;
+  }
+  .date-presets button {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    cursor: pointer;
+    font-size: 13px;
+    min-height: 42px;
+    padding: 0.65rem 0.8rem;
+    text-align: left;
+  }
+  .date-presets button:hover {
+    border-color: rgba(96,165,250,0.55);
+    color: var(--text);
+  }
+  .date-history {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+  }
+  .date-history h2 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.5rem;
+  }
+  .date-history ol {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.8;
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+  .date-use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 10px;
+  }
+  .date-use {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .date-use h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .date-use p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  let dateHistory = [];
+  let lastDateResults = [];
+
+  function padDatePart(value) {
+    return String(value).padStart(2, "0");
+  }
+
+  function toIsoDate(date) {
+    return date.getFullYear() + "-" + padDatePart(date.getMonth() + 1) + "-" + padDatePart(date.getDate());
+  }
+
+  function parseLocalDate(value) {
+    const parts = String(value).split("-").map(Number);
+    if (parts.length !== 3 || parts.some(Number.isNaN)) return null;
+    return new Date(parts[0], parts[1] - 1, parts[2]);
+  }
+
+  function dayNumber(date) {
+    return Math.floor(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / 86400000);
+  }
+
+  function dateFromDayNumber(day) {
+    const date = new Date(day * 86400000);
+    return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  }
+
+  function randomDateIndex(length) {
+    if (window.crypto && window.crypto.getRandomValues) {
+      const values = new Uint32Array(1);
+      const max = Math.floor(0x100000000 / length) * length;
+      do {
+        window.crypto.getRandomValues(values);
+      } while (values[0] >= max);
+      return values[0] % length;
+    }
+    return Math.floor(Math.random() * length);
+  }
+
+  function buildDatePool(start, end, weekdaysOnly) {
+    const pool = [];
+    for (let day = dayNumber(start); day <= dayNumber(end); day++) {
+      const date = dateFromDayNumber(day);
+      const weekday = date.getDay();
+      if (weekdaysOnly && (weekday === 0 || weekday === 6)) continue;
+      pool.push(date);
+    }
+    return pool;
+  }
+
+  function formatDateForOutput(date) {
+    const format = document.getElementById("dateFormat").value;
+    if (format === "long") {
+      return date.toLocaleDateString(undefined, { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+    }
+    if (format === "us") {
+      return padDatePart(date.getMonth() + 1) + "/" + padDatePart(date.getDate()) + "/" + date.getFullYear();
+    }
+    if (format === "uk") {
+      return padDatePart(date.getDate()) + "/" + padDatePart(date.getMonth() + 1) + "/" + date.getFullYear();
+    }
+    return toIsoDate(date);
+  }
+
+  function generateDates() {
+    const start = parseLocalDate(document.getElementById("startDate").value);
+    const end = parseLocalDate(document.getElementById("endDate").value);
+    const count = Math.min(Math.max(parseInt(document.getElementById("dateCount").value, 10) || 1, 1), 100);
+    const unique = document.getElementById("uniqueDates").checked;
+    const weekdaysOnly = document.getElementById("weekdaysOnly").checked;
+
+    if (!start || !end) {
+      alert("Choose a valid start and end date.");
+      return;
+    }
+    if (start > end) {
+      alert("End date must be after start date.");
+      return;
+    }
+
+    const pool = buildDatePool(start, end, weekdaysOnly);
+    if (!pool.length) {
+      alert("No dates match this range and filter.");
+      return;
+    }
+    if (unique && count > pool.length) {
+      alert("There are only " + pool.length + " matching dates. Lower the count or turn off unique dates.");
+      return;
+    }
+
+    const working = pool.slice();
+    const picks = [];
+    for (let i = 0; i < count; i++) {
+      const idx = randomDateIndex(working.length);
+      picks.push(working[idx]);
+      if (unique) {
+        working.splice(idx, 1);
+      }
+    }
+
+    lastDateResults = picks.map(formatDateForOutput);
+    const output = lastDateResults.join(count > 1 ? "\n" : "");
+    document.getElementById("dateResult").textContent = output;
+    document.getElementById("dateMeta").textContent = pool.length + " eligible date" + (pool.length === 1 ? "" : "s") + " in range";
+    document.getElementById("dateShareSummary").textContent = "Random date" + (count === 1 ? "" : "s") + ": " + lastDateResults.join(", ");
+    dateHistory.unshift(lastDateResults.join(", "));
+    dateHistory = dateHistory.slice(0, 10);
+    renderDateHistory();
+
+    const card = document.getElementById("dateResultCard");
+    card.classList.remove("pop");
+    void card.offsetWidth;
+    card.classList.add("pop");
+  }
+
+  function renderDateHistory() {
+    const list = document.getElementById("dateHistory");
+    if (!dateHistory.length) {
+      list.innerHTML = "<li>No dates generated yet.</li>";
+      return;
+    }
+    list.innerHTML = dateHistory.map(item => "<li>" + escapeDateHtml(item) + "</li>").join("");
+  }
+
+  function escapeDateHtml(value) {
+    return value.replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+  }
+
+  function copyDateResult(button) {
+    if (!lastDateResults.length) {
+      alert("Generate dates first.");
+      return;
+    }
+    copyDateText(lastDateResults.join("\n"), button);
+  }
+
+  function copyDateEmbed(button) {
+    const html = '<a href="https://spinnit.site/tools/random-date-generator.html">Random Date Generator</a>';
+    copyDateText(html, button);
+  }
+
+  function shareDateResult(button) {
+    const text = lastDateResults.length ? "Random date pick: " + lastDateResults.join(", ") : "Use this random date generator to pick dates between two dates.";
+    if (navigator.share) {
+      navigator.share({
+        title: "Random Date Generator",
+        text,
+        url: "https://spinnit.site/tools/random-date-generator.html"
+      }).catch(() => {});
+      return;
+    }
+    copyDateText(text + " https://spinnit.site/tools/random-date-generator.html", button);
+  }
+
+  function copyDateText(text, button) {
+    navigator.clipboard.writeText(text).then(() => {
+      const old = button.textContent;
+      button.textContent = "Copied!";
+      button.classList.add("copied");
+      setTimeout(() => {
+        button.textContent = old;
+        button.classList.remove("copied");
+      }, 1800);
+    });
+  }
+
+  function setDatePreset(type) {
+    const today = new Date();
+    const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    let end = new Date(start);
+    if (type === "thisYear") {
+      start.setMonth(0, 1);
+      end = new Date(start.getFullYear(), 11, 31);
+    } else if (type === "next30") {
+      end.setDate(start.getDate() + 30);
+    } else if (type === "next365") {
+      end.setDate(start.getDate() + 365);
+    } else if (type === "past100") {
+      start.setFullYear(start.getFullYear() - 100);
+    } else if (type === "school") {
+      start.setMonth(8, 1);
+      end = new Date(start.getFullYear() + 1, 6, 31);
+      document.getElementById("weekdaysOnly").checked = true;
+    }
+    document.getElementById("startDate").value = toIsoDate(start);
+    document.getElementById("endDate").value = toIsoDate(end);
+  }
+
+  const initialStart = new Date();
+  const initialEnd = new Date();
+  initialEnd.setFullYear(initialEnd.getFullYear() + 1);
+  document.getElementById("startDate").value = toIsoDate(initialStart);
+  document.getElementById("endDate").value = toIsoDate(initialEnd);
+  renderDateHistory();
+  bindGlobalShortcut(generateDates);
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">DT</div>
+    <h1>Random Date Generator</h1>
+    <p>Generate one or many random dates between two dates.</p>
+  </div>
+
+  <section class="date-layout">
+    <div class="date-result-card" id="dateResultCard">
+      <div class="result-label">random date</div>
+      <div class="date-result-list" id="dateResult">-</div>
+      <div class="date-meta" id="dateMeta">Choose a range and generate dates</div>
+      <div class="date-actions">
+        <button class="btn-copy" type="button" onclick="copyDateResult(this)">Copy dates</button>
+        <button class="btn-copy" type="button" onclick="shareDateResult(this)">Share</button>
+        <button class="btn-copy" type="button" onclick="copyDateEmbed(this)">Copy embed</button>
+        <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="date-option-row">
+        <div class="control-group">
+          <label for="startDate">Start date</label>
+          <input id="startDate" type="date">
+        </div>
+        <div class="control-group">
+          <label for="endDate">End date</label>
+          <input id="endDate" type="date">
+        </div>
+      </div>
+      <div class="date-option-row" style="margin-top:10px;">
+        <div class="control-group">
+          <label for="dateCount">How many dates?</label>
+          <input id="dateCount" type="number" value="1" min="1" max="100">
+        </div>
+        <div class="control-group">
+          <label for="dateFormat">Format</label>
+          <select id="dateFormat" style="width:100%;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);">
+            <option value="iso">YYYY-MM-DD</option>
+            <option value="long">Long date</option>
+            <option value="us">MM/DD/YYYY</option>
+            <option value="uk">DD/MM/YYYY</option>
+          </select>
+        </div>
+      </div>
+      <div class="date-checks">
+        <label><input id="uniqueDates" type="checkbox" checked> Unique dates only</label>
+        <label><input id="weekdaysOnly" type="checkbox"> Weekdays only</label>
+      </div>
+    </div>
+
+    <button class="btn-generate" type="button" onclick="generateDates()">GENERATE DATES</button>
+
+    <div>
+      <div class="result-label">quick ranges</div>
+      <div class="date-presets">
+        <button type="button" onclick="setDatePreset('next30')">Next 30 days</button>
+        <button type="button" onclick="setDatePreset('next365')">Next 365 days</button>
+        <button type="button" onclick="setDatePreset('thisYear')">This year</button>
+        <button type="button" onclick="setDatePreset('past100')">Past 100 years</button>
+        <button type="button" onclick="setDatePreset('school')">School year weekdays</button>
+      </div>
+    </div>
+
+    <div class="result-share-card"><strong>Share card:</strong> <span id="dateShareSummary">Generate dates, then copy or share them.</span></div>
+
+    <div class="date-history">
+      <h2>Recent generated dates</h2>
+      <ol id="dateHistory"></ol>
+    </div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>The Random Date Generator picks one or more dates between a start date and an end date. Use it for sample data, classroom timelines, writing prompts, planning games, random challenge dates, giveaway windows, spreadsheet tests and everyday random choices that need calendar dates.</p>
+
+    <h2>How to generate random dates</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Choose the start and end date for the range.</li>
+      <li>Set how many random dates you want, from 1 to 100.</li>
+      <li>Choose a date format for copying into docs, spreadsheets or code.</li>
+      <li>Turn on unique dates if you do not want repeats.</li>
+      <li>Turn on weekdays only if weekends should be excluded.</li>
+    </ol>
+
+    <h2>Best used for</h2>
+    <div class="date-use-grid">
+      <article class="date-use">
+        <h3>Testing and sample data</h3>
+        <p>Generate dates for spreadsheets, prototypes, QA data, demos and fake records.</p>
+      </article>
+      <article class="date-use">
+        <h3>Classrooms</h3>
+        <p>Pick random historical dates, timetable examples, timeline tasks or school-year weekdays.</p>
+      </article>
+      <article class="date-use">
+        <h3>Writing prompts</h3>
+        <p>Choose a random date for a story, journal prompt, worldbuilding event or challenge.</p>
+      </article>
+      <article class="date-use">
+        <h3>Games and planning</h3>
+        <p>Pick challenge dates, event windows, fictional birthdays or random planning slots.</p>
+      </article>
+    </div>
+
+    <h2>Weekday and unique date options</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Use weekdays only for school, work and scheduling tasks where weekends should not appear. Use unique dates when each result should be different. If you ask for more unique dates than the range contains, the tool will ask you to reduce the count or widen the range.</p>
+
+    <h2>Related random tools</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">For numeric ranges, use the <a href="/tools/random-number.html">Random Number Generator</a>. For a full random order, use the <a href="/tools/list-shuffler.html">List Shuffler</a>. For everyday choices, start from the <a href="/what-should-i/">What Should I Tools hub</a>. For classroom use, browse <a href="/classroom-random-tools/">Classroom Random Tools</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Random date generator FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How do I generate a random date?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Choose a start date, an end date, how many dates you need, then click <em>Generate Dates</em>. The tool picks random calendar dates from the selected range.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate multiple random dates?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set the count from 1 to 100. You can also turn on unique dates if you do not want repeats.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate weekdays only?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Turn on weekdays only to exclude Saturdays and Sundays from the generated dates.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are dates uploaded to Spinnit?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. The generator runs in your browser and does not upload your selected range.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="random-number.html"><span class="ri">RN</span> Random Number</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">LS</span> List Shuffler</a>
+      <a class="related-card" href="random-activity-picker.html"><span class="ri">AC</span> Activity Picker</a>
+      <a class="related-card" href="/what-should-i/"><span class="ri">WS</span> What Should I</a>
+      <a class="related-card" href="/classroom-random-tools/"><span class="ri">CL</span> Classroom Tools</a>
+      <a class="related-card" href="random-number-tools/"><span class="ri">#</span> Number Tools</a>
+    </div>
+  </section>
+</main>

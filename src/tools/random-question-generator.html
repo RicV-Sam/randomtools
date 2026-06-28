@@ -1,0 +1,458 @@
+---
+layout: layouts/base.njk
+title: "Random Question Generator - Free Icebreaker Questions | Spinnit"
+description: "Generate clean random questions for icebreakers, classrooms, meetings, family games, kids, seniors, journaling and conversation starters. Free, no sign-up."
+ogTitle: "Random Question Generator | Spinnit"
+ogDescription: "Generate clean random questions for icebreakers, classrooms, family games, meetings and conversation starters."
+canonical: "https://spinnit.site/tools/random-question-generator.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Decision Maker Tools"
+    url: "/tools/decision-makers/"
+  - label: "Random Question Generator"
+    url: "/tools/random-question-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Question Generator",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/random-question-generator.html",
+    "description": "A free browser-based random question generator for icebreakers, classrooms, meetings, family games, kids, seniors, journaling and conversation starters.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a random question generator?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A random question generator shows a fresh conversation question for icebreakers, classroom discussions, meetings, family games, journaling or group activities." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the questions clean and family friendly?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The question packs are designed for clean mixed-age use, including kids, classrooms, families, meetings and senior-friendly activity sessions." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can teachers use these questions in class?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the classroom pack for morning meetings, writing prompts, speaking practice, exit tickets and low-pressure discussion." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I copy a set of questions?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Generate several questions, then copy the recent set for a lesson plan, team chat, activity sheet or group message." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .rq-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .rq-card {
+    background: linear-gradient(135deg, rgba(52,211,153,0.12), rgba(96,165,250,0.08));
+    border: 1px solid rgba(52,211,153,0.26);
+    border-radius: var(--radius-lg);
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+  .rq-kicker {
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .rq-question {
+    color: var(--text);
+    font-size: clamp(1.45rem, 6vw, 2.35rem);
+    line-height: 1.25;
+    margin: 0;
+  }
+  .rq-tip {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+    margin-top: 0.75rem;
+  }
+  .rq-history {
+    display: grid;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  .rq-history-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.55;
+    padding: 0.75rem;
+  }
+  .rq-pack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 10px;
+  }
+  .rq-pack {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .rq-pack h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .rq-pack p,
+  .rq-pack li {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  const RQ_PROMPTS = {
+    icebreaker: [
+      "What is a small thing that instantly improves your day?",
+      "What is a skill you would like to learn this year?",
+      "What is your most reliable comfort food?",
+      "What is one place you would happily revisit?",
+      "What song always changes your mood?",
+      "What is a tiny win from this week?",
+      "What is a hobby you think more people should try?",
+      "What is something simple that you are surprisingly good at?"
+    ],
+    funny: [
+      "What harmless thing would you make illegal for one day?",
+      "What would your pet say about you if it could talk?",
+      "What is the most dramatic way to announce that you are making tea?",
+      "What boring chore deserves a theme song?",
+      "What object in the room would be the worst roommate?",
+      "What would your autobiography be called if it had to be silly?",
+      "What food would make the funniest mascot?",
+      "What tiny inconvenience feels like a personal rivalry?"
+    ],
+    deep: [
+      "What decision are you glad you made slowly?",
+      "What is something you understand better now than you did five years ago?",
+      "What kind of day makes you feel most like yourself?",
+      "What value do you want to be more visible in your choices?",
+      "What is a lesson you learned from a small mistake?",
+      "What do you want to make more time for?",
+      "What is one belief you have changed your mind about?",
+      "What makes a conversation feel meaningful to you?"
+    ],
+    classroom: [
+      "What question would you ask a character from today's lesson?",
+      "What is one thing that helped you learn recently?",
+      "Which topic would you like to explore with a project?",
+      "What is one kind way to disagree with someone?",
+      "What is a book, film or game you would recommend to the class?",
+      "What would make group work feel fairer?",
+      "What is one word that describes your learning mood today?",
+      "What is a question you still have?"
+    ],
+    workplace: [
+      "What meeting habit saves the most time?",
+      "What is one small process improvement worth trying?",
+      "What is a work shortcut more people should know?",
+      "What made collaboration easier this week?",
+      "What is one decision that needs a clearer owner?",
+      "What should this team do less often?",
+      "What is a useful thing you learned from another team?",
+      "What would make the next workshop more practical?"
+    ],
+    family: [
+      "What family meal would you bring back for one night?",
+      "What is a favourite memory from a day out?",
+      "What tradition should we keep doing?",
+      "What game or activity should we play again soon?",
+      "What is something kind someone did for you recently?",
+      "What place would you like everyone to visit together?",
+      "What song belongs on a family playlist?",
+      "What small thing makes home feel like home?"
+    ],
+    kids: [
+      "What animal would make the best classroom helper?",
+      "What would you build if you had unlimited cardboard boxes?",
+      "What superpower would help most at school?",
+      "What snack would you invent if anything was possible?",
+      "What would your dream playground include?",
+      "What is the best rainy-day activity?",
+      "What toy, game or book would you recommend to a friend?",
+      "What would you name a friendly robot?"
+    ],
+    senior: [
+      "What song brings back a happy memory?",
+      "What was a favourite meal when you were younger?",
+      "What place have you enjoyed visiting?",
+      "What hobby or pastime have you always liked?",
+      "What is a story people in your family enjoy hearing?",
+      "What small daily routine feels pleasant?",
+      "What advice has stayed with you?",
+      "What old object or photo would you like to talk about?"
+    ],
+    journal: [
+      "What gave you energy today?",
+      "What drained more energy than it deserved?",
+      "What are you avoiding because it feels unclear?",
+      "What would make tomorrow 10 percent easier?",
+      "What is one thing you handled better than before?",
+      "What do you want to remember from this week?",
+      "What deserves a simple next step?",
+      "What are you grateful for that you nearly overlooked?"
+    ]
+  };
+
+  const RQ_LABELS = {
+    icebreaker: "Icebreaker",
+    funny: "Funny",
+    deep: "Deep",
+    classroom: "Classroom",
+    workplace: "Workplace",
+    family: "Family",
+    kids: "Kids",
+    senior: "Senior-friendly",
+    journal: "Journaling"
+  };
+
+  let currentQuestion = null;
+  let questionHistory = [];
+
+  function randomIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function questionPool() {
+    const category = document.getElementById("rqCategory").value;
+    if (category === "all") {
+      return Object.entries(RQ_PROMPTS).flatMap(([key, prompts]) => prompts.map((question) => ({ category: key, question })));
+    }
+    return RQ_PROMPTS[category].map((question) => ({ category, question }));
+  }
+
+  function generateRandomQuestion() {
+    const pool = questionPool();
+    currentQuestion = pool[randomIndex(pool.length)];
+    questionHistory.unshift(currentQuestion);
+    questionHistory = questionHistory.slice(0, 10);
+    renderRandomQuestion();
+    renderQuestionHistory();
+  }
+
+  function renderRandomQuestion() {
+    document.getElementById("rqKicker").textContent = `${RQ_LABELS[currentQuestion.category]} question`;
+    document.getElementById("rqQuestion").textContent = currentQuestion.question;
+    document.getElementById("rqShareSummary").textContent = `${RQ_LABELS[currentQuestion.category]} question: ${currentQuestion.question}`;
+  }
+
+  function renderQuestionHistory() {
+    const history = document.getElementById("rqHistory");
+    history.innerHTML = questionHistory.map(({ category, question }, index) => `
+      <div class="rq-history-item">${index + 1}. <strong>${RQ_LABELS[category]}:</strong> ${escapeQuestionHtml(question)}</div>
+    `).join("");
+  }
+
+  function escapeQuestionHtml(text) {
+    return text.replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+  }
+
+  function questionText() {
+    if (!currentQuestion) return "Random Question Generator on Spinnit: clean questions for icebreakers, classrooms, meetings and conversation starters.";
+    return `${RQ_LABELS[currentQuestion.category]} question: ${currentQuestion.question}\n\nGenerated with Spinnit`;
+  }
+
+  function questionSetText() {
+    if (!questionHistory.length) return questionText();
+    return questionHistory.map(({ category, question }, index) => `${index + 1}. ${RQ_LABELS[category]}: ${question}`).join("\n");
+  }
+
+  function copyRandomQuestion(button) {
+    window.copySpinnitText(questionText(), button, "Copy question");
+  }
+
+  function copyQuestionSet(button) {
+    window.copySpinnitText(questionSetText(), button, "Copy set");
+  }
+
+  function shareRandomQuestion(button) {
+    window.shareOrCopySpinnit({
+      title: "Random Question Generator | Spinnit",
+      text: questionText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyQuestionEmbed(button) {
+    window.copySpinnitEmbed("/tools/random-question-generator.html", "Random Question Generator - Spinnit", button);
+  }
+
+  function loadQuestionPack(category) {
+    document.getElementById("rqCategory").value = category;
+    questionHistory = [];
+    generateRandomQuestion();
+  }
+
+  document.addEventListener("DOMContentLoaded", generateRandomQuestion);
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">Q?</div>
+    <h1>Random Question Generator</h1>
+    <p>Generate clean random questions for icebreakers, classrooms, meetings, family games, kids, seniors and conversation starters.</p>
+  </div>
+
+  <section class="rq-panel">
+    <div class="controls">
+      <div class="control-row">
+        <div class="control-group">
+          <label for="rqCategory">Question category</label>
+          <select id="rqCategory">
+            <option value="all">All clean questions</option>
+            <option value="icebreaker">Icebreaker</option>
+            <option value="funny">Funny</option>
+            <option value="deep">Deep</option>
+            <option value="classroom">Classroom</option>
+            <option value="workplace">Workplace</option>
+            <option value="family">Family</option>
+            <option value="kids">Kids</option>
+            <option value="senior">Senior-friendly</option>
+            <option value="journal">Journaling</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-generate" type="button" onclick="generateRandomQuestion()">GENERATE QUESTION</button>
+    <div class="template-buttons">
+      <button class="btn-copy" type="button" onclick="loadQuestionPack('icebreaker')">Icebreaker</button>
+      <button class="btn-copy" type="button" onclick="loadQuestionPack('classroom')">Classroom</button>
+      <button class="btn-copy" type="button" onclick="loadQuestionPack('workplace')">Workplace</button>
+      <button class="btn-copy" type="button" onclick="loadQuestionPack('funny')">Funny</button>
+      <button class="btn-copy" type="button" onclick="loadQuestionPack('senior')">Senior-friendly</button>
+    </div>
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="copyRandomQuestion(this)">Copy question</button>
+      <button class="btn-copy" type="button" onclick="copyQuestionSet(this)">Copy set</button>
+      <button class="btn-copy" type="button" onclick="shareRandomQuestion(this)">Share</button>
+      <button class="btn-copy" type="button" onclick="copyQuestionEmbed(this)">Copy embed</button>
+      <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+    </div>
+  </section>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="rqShareSummary">Generate a random question, then copy or share it.</span></div>
+
+  <section class="rq-card" aria-live="polite">
+    <div id="rqKicker" class="rq-kicker">Question</div>
+    <p id="rqQuestion" class="rq-question">Generate a question to start.</p>
+    <p class="rq-tip">Use one question for a quick answer, or generate several and copy the set for a lesson, meeting, activity sheet or group chat.</p>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <h2>Recent questions</h2>
+    <div id="rqHistory" class="rq-history"></div>
+
+    <h2>How to use this random question generator</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Choose a category such as icebreaker, classroom, workplace, funny, kids or senior-friendly.</li>
+      <li>Generate a question and let each person answer, vote, write or discuss.</li>
+      <li>Use projector mode for classrooms, meetings and group activity sessions.</li>
+      <li>Copy one question or copy the recent set for a plan, chat or worksheet.</li>
+      <li>Share the page when someone asks for fresh clean conversation starters.</li>
+    </ol>
+
+    <h2>Question packs for every group</h2>
+    <div class="rq-pack-grid">
+      <article class="rq-pack">
+        <h3>Icebreaker questions</h3>
+        <p>Start meetings, workshops, classes and group chats with a low-pressure question everyone can answer.</p>
+      </article>
+      <article class="rq-pack">
+        <h3>Classroom questions</h3>
+        <p>Use quick prompts for morning meetings, speaking practice, opinion writing, exit tickets and reflection.</p>
+      </article>
+      <article class="rq-pack">
+        <h3>Workplace questions</h3>
+        <p>Open retrospectives, offsites and standups with practical prompts about habits, decisions and teamwork.</p>
+      </article>
+      <article class="rq-pack">
+        <h3>Family and kids questions</h3>
+        <p>Generate clean prompts for dinner tables, car trips, family games, sleepovers and mixed-age groups.</p>
+      </article>
+      <article class="rq-pack">
+        <h3>Senior-friendly questions</h3>
+        <p>Use gentle memory, music, food and story prompts for care-home activities, family visits and read-aloud sessions.</p>
+      </article>
+      <article class="rq-pack">
+        <h3>Journaling questions</h3>
+        <p>Pick a reflective prompt when you want to write, plan a next step or notice what mattered today.</p>
+      </article>
+    </div>
+
+    <h2>Why this helps Spinnit grow</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Random question tools are naturally shareable: one person finds a good prompt, copies it into a chat, uses it in a meeting, or sends the generator to a teacher, facilitator or family member. This page is built for repeat use with category packs, recent-question copying, projector mode, embed code and related links into Spinnit's broader decision-tool cluster.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Random question generator FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What kinds of random questions can I generate?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">You can generate icebreaker questions, funny questions, deep questions, classroom questions, workplace prompts, family questions, kids questions, senior-friendly questions and journaling prompts.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are the questions safe for mixed-age groups?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The prompts are written to be clean, practical and suitable for classrooms, family groups, meetings and senior-friendly activity sessions.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use these as icebreaker questions for work?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Use the Icebreaker or Workplace category for meetings, workshops, retrospectives, offsites and team chats.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I copy a list of questions?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Generate several questions, then use Copy set to copy the recent list.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/decision-makers/"><span class="ri">DM</span> Decision Tools</a>
+      <a class="related-card" href="/what-should-i/"><span class="ri">WS</span> What Should I</a>
+      <a class="related-card" href="/classroom-random-tools/"><span class="ri">CL</span> Classroom Tools</a>
+      <a class="related-card" href="/workplace-random-tools/"><span class="ri">WK</span> Workplace Tools</a>
+      <a class="related-card" href="/tools/would-you-rather-generator.html"><span class="ri">WR</span> Would You Rather</a>
+      <a class="related-card" href="/tools/truth-or-dare-generator.html"><span class="ri">TD</span> Truth or Dare</a>
+      <a class="related-card" href="/senior-friendly-games/"><span class="ri">SH</span> Senior Games</a>
+    </div>
+  </section>
+</main>

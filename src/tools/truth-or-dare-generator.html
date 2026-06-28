@@ -1,0 +1,467 @@
+---
+layout: layouts/base.njk
+title: "Truth or Dare Generator - Free Clean Questions & Dares | Spinnit"
+description: "Generate clean truth or dare prompts for kids, classrooms, parties, family games, sleepovers, meetings and icebreakers. Copy or share prompt sets."
+ogTitle: "Truth or Dare Generator | Spinnit"
+ogDescription: "Pick a category and generate clean truth questions or dares for groups, parties, classrooms and family games."
+canonical: "https://spinnit.site/tools/truth-or-dare-generator.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Decision Maker Tools"
+    url: "/tools/decision-makers/"
+  - label: "Truth or Dare Generator"
+    url: "/tools/truth-or-dare-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Truth or Dare Generator",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/truth-or-dare-generator.html",
+    "description": "A free browser-based truth or dare generator with clean prompts for kids, classrooms, families, parties, sleepovers, meetings and icebreakers.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are these truth or dare prompts clean?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The prompts are designed for clean mixed-age use, including kids, classrooms, families, parties and workplace icebreakers." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can teachers use this in class?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the classroom category for low-pressure speaking, writing and movement prompts. Teachers should always adapt prompts to the group." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I choose only truths or only dares?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Choose Truth only, Dare only or Truth or dare mode before generating a prompt." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Spinnit store answers?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The generator runs in your browser and does not require an account." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .tod-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .tod-card {
+    background: linear-gradient(135deg, rgba(251,191,36,0.12), rgba(96,165,250,0.08));
+    border: 1px solid rgba(251,191,36,0.25);
+    border-radius: var(--radius-lg);
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+  .tod-kicker {
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .tod-prompt {
+    color: var(--text);
+    font-size: clamp(1.45rem, 6vw, 2.25rem);
+    line-height: 1.25;
+    margin: 0;
+  }
+  .tod-note {
+    background: rgba(96,165,250,0.1);
+    border: 1px solid rgba(96,165,250,0.25);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 1rem 0;
+    padding: 0.85rem 1rem;
+  }
+  .tod-history {
+    display: grid;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  .tod-history-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.55;
+    padding: 0.75rem;
+  }
+  .tod-pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 1rem 0;
+  }
+  .tod-pill {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text2);
+    font-size: 12px;
+    padding: 0.35rem 0.65rem;
+  }
+  .tod-use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 10px;
+  }
+  .tod-use {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .tod-use h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .tod-use p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  const TOD_PROMPTS = {
+    kids: {
+      truth: [
+        "What is the funniest thing that happened to you this week?",
+        "What food would you happily eat every day?",
+        "What is one thing you are proud of learning?",
+        "Which cartoon or game character would you like to meet?",
+        "What is your favourite thing to do on a rainy day?",
+        "What animal would you choose as a sidekick?"
+      ],
+      dare: [
+        "Make your best silly face for five seconds.",
+        "Pretend to be a robot taking three tiny steps.",
+        "Say the alphabet in your most dramatic voice.",
+        "Balance an imaginary crown on your head for ten seconds.",
+        "Do three slow-motion jumping jacks.",
+        "Invent a superhero pose and hold it for five seconds."
+      ]
+    },
+    classroom: {
+      truth: [
+        "What topic would you like to learn more about?",
+        "What helps you concentrate when work feels difficult?",
+        "Which book, film or game would you recommend to the class?",
+        "What is one classroom job you would be good at?",
+        "What is a question you wish people asked more often?",
+        "What is one kind thing someone did for you recently?"
+      ],
+      dare: [
+        "Give a one-sentence compliment to the group.",
+        "Explain today's topic using only three words.",
+        "Mime a school subject and let people guess it.",
+        "Name three things that begin with the same letter.",
+        "Draw an invisible shape in the air and let someone guess it.",
+        "Share one useful study tip in ten seconds."
+      ]
+    },
+    family: {
+      truth: [
+        "What family tradition do you enjoy most?",
+        "What meal reminds you of home?",
+        "What is a small thing that makes your day better?",
+        "Which place would you like everyone to visit together?",
+        "What is a favourite memory from a holiday or day out?",
+        "What song would you add to a family playlist?"
+      ],
+      dare: [
+        "Tell a tiny story using exactly three sentences.",
+        "Do an impression of someone making breakfast.",
+        "Hum a tune and let the group guess it.",
+        "Choose someone and invent a kind award for them.",
+        "Walk across the room like you are on a red carpet.",
+        "Name three things you can see that are the same colour."
+      ]
+    },
+    party: {
+      truth: [
+        "What is your go-to party snack?",
+        "What song gets you moving every time?",
+        "What game are you surprisingly good at?",
+        "What is the best costume idea you have seen?",
+        "What is a harmless habit your friends know you for?",
+        "What would your perfect game night include?"
+      ],
+      dare: [
+        "Lead a five-second round of applause for someone.",
+        "Invent a dance move and name it.",
+        "Speak like a game-show host for your next sentence.",
+        "Pose like you just won a trophy.",
+        "Create a three-word slogan for the party.",
+        "Start a quick group countdown from five."
+      ]
+    },
+    workplace: {
+      truth: [
+        "What meeting habit saves everyone time?",
+        "What work skill are you trying to improve?",
+        "What is one tool or shortcut you recommend?",
+        "What makes a workshop feel useful?",
+        "What small win from this week deserves more attention?",
+        "What is one thing that helps you focus?"
+      ],
+      dare: [
+        "Summarise the current project in one sentence.",
+        "Give a shout-out to someone for a specific helpful action.",
+        "Rename the next meeting as if it were a film title.",
+        "Share one tiny process improvement idea.",
+        "Describe your day using a weather forecast.",
+        "Pick the next icebreaker question from the group."
+      ]
+    }
+  };
+
+  const TOD_LABELS = {
+    kids: "Kids",
+    classroom: "Classroom",
+    family: "Family",
+    party: "Party",
+    workplace: "Workplace"
+  };
+
+  let currentTod = null;
+  let todHistory = [];
+
+  function randomIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function truthOrDarePool() {
+    const category = document.getElementById("todCategory").value;
+    const mode = document.getElementById("todMode").value;
+    const categories = category === "all" ? Object.keys(TOD_PROMPTS) : [category];
+    return categories.flatMap((categoryKey) => {
+      const types = mode === "both" ? ["truth", "dare"] : [mode];
+      return types.flatMap((type) => TOD_PROMPTS[categoryKey][type].map((prompt) => ({ category: categoryKey, type, prompt })));
+    });
+  }
+
+  function generateTodPrompt() {
+    const pool = truthOrDarePool();
+    currentTod = pool[randomIndex(pool.length)];
+    todHistory.unshift(currentTod);
+    todHistory = todHistory.slice(0, 10);
+    renderTodPrompt();
+    renderTodHistory();
+  }
+
+  function renderTodPrompt() {
+    const typeLabel = currentTod.type === "truth" ? "Truth" : "Dare";
+    document.getElementById("todKicker").textContent = `${TOD_LABELS[currentTod.category]} ${typeLabel}`;
+    document.getElementById("todPrompt").textContent = currentTod.prompt;
+    document.getElementById("todShareSummary").textContent = `${typeLabel} ready: ${currentTod.prompt}`;
+  }
+
+  function renderTodHistory() {
+    document.getElementById("todHistory").innerHTML = todHistory.map((item, index) => `
+      <div class="tod-history-item">${index + 1}. <strong>${TOD_LABELS[item.category]} ${item.type === "truth" ? "Truth" : "Dare"}:</strong> ${item.prompt}</div>
+    `).join("");
+  }
+
+  function todText() {
+    if (!currentTod) return "Truth or Dare Generator on Spinnit: generate clean prompts for parties, classrooms and family games.";
+    const typeLabel = currentTod.type === "truth" ? "Truth" : "Dare";
+    return `${typeLabel}: ${currentTod.prompt}\n\nGenerated with Spinnit`;
+  }
+
+  function todSetText() {
+    if (!todHistory.length) return todText();
+    return todHistory.map((item, index) => `${index + 1}. ${TOD_LABELS[item.category]} ${item.type === "truth" ? "Truth" : "Dare"}: ${item.prompt}`).join("\n");
+  }
+
+  function copyTodPrompt(button) {
+    window.copySpinnitText(todText(), button, "Copy prompt");
+  }
+
+  function copyTodSet(button) {
+    window.copySpinnitText(todSetText(), button, "Copy set");
+  }
+
+  function shareTodPrompt(button) {
+    window.shareOrCopySpinnit({
+      title: "Truth or Dare Generator | Spinnit",
+      text: todText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyTodEmbed(button) {
+    window.copySpinnitEmbed("/tools/truth-or-dare-generator.html", "Truth or Dare Generator - Spinnit", button);
+  }
+
+  function loadTodPack(category, mode) {
+    document.getElementById("todCategory").value = category;
+    document.getElementById("todMode").value = mode || "both";
+    todHistory = [];
+    generateTodPrompt();
+  }
+
+  document.addEventListener("DOMContentLoaded", generateTodPrompt);
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">TD</div>
+    <h1>Truth or Dare Generator</h1>
+    <p>Generate clean truth questions and dares for parties, classrooms, families and icebreakers.</p>
+  </div>
+
+  <section class="tod-panel">
+    <div class="controls">
+      <div class="control-row">
+        <div class="control-group">
+          <label for="todCategory">Prompt category</label>
+          <select id="todCategory">
+            <option value="all">All clean prompts</option>
+            <option value="kids">Kids</option>
+            <option value="classroom">Classroom</option>
+            <option value="family">Family</option>
+            <option value="party">Party</option>
+            <option value="workplace">Workplace</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="todMode">Prompt type</label>
+          <select id="todMode">
+            <option value="both">Truth or dare</option>
+            <option value="truth">Truth only</option>
+            <option value="dare">Dare only</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-generate" type="button" onclick="generateTodPrompt()">GENERATE PROMPT</button>
+    <div class="template-buttons">
+      <button class="btn-copy" type="button" onclick="loadTodPack('kids', 'both')">Kids</button>
+      <button class="btn-copy" type="button" onclick="loadTodPack('classroom', 'both')">Classroom</button>
+      <button class="btn-copy" type="button" onclick="loadTodPack('party', 'both')">Party</button>
+      <button class="btn-copy" type="button" onclick="loadTodPack('workplace', 'truth')">Workplace truths</button>
+    </div>
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="copyTodPrompt(this)">Copy prompt</button>
+      <button class="btn-copy" type="button" onclick="copyTodSet(this)">Copy set</button>
+      <button class="btn-copy" type="button" onclick="shareTodPrompt(this)">Share</button>
+      <button class="btn-copy" type="button" onclick="copyTodEmbed(this)">Copy embed</button>
+      <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+    </div>
+  </section>
+
+  <div class="tod-note"><strong>Clean prompt set:</strong> these truths and dares are written for mixed-age, classroom, family, party and workplace-friendly use. Skip or adapt any prompt that does not suit the group.</div>
+  <div class="result-share-card"><strong>Share card:</strong> <span id="todShareSummary">Generate a truth or dare prompt, then copy or share it.</span></div>
+
+  <section class="tod-card" aria-live="polite">
+    <div id="todKicker" class="tod-kicker">Truth or dare</div>
+    <p id="todPrompt" class="tod-prompt">Prompt loading...</p>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <h2>Recent prompts</h2>
+    <div id="todHistory" class="tod-history"></div>
+
+    <h2>How to use the truth or dare generator</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Choose a category such as kids, classroom, family, party or workplace.</li>
+      <li>Choose truth only, dare only or truth or dare mode.</li>
+      <li>Generate a prompt and let the player answer or complete it.</li>
+      <li>Use Copy set if you want a short prompt list for a lesson, party plan or group chat.</li>
+      <li>Use projector mode for classrooms, sleepovers, parties, workshops and group games.</li>
+    </ol>
+
+    <div class="tod-pill-row">
+      <span class="tod-pill">Clean party game</span>
+      <span class="tod-pill">Classroom speaking prompt</span>
+      <span class="tod-pill">Family game night</span>
+      <span class="tod-pill">Workplace icebreaker</span>
+      <span class="tod-pill">Sleepover prompts</span>
+    </div>
+
+    <h2>Best used for</h2>
+    <div class="tod-use-grid">
+      <article class="tod-use">
+        <h3>Kids and family games</h3>
+        <p>Use clean truths and light dares for mixed-age groups, family game nights, travel games and sleepovers.</p>
+      </article>
+      <article class="tod-use">
+        <h3>Classroom warm-ups</h3>
+        <p>Use classroom prompts for speaking practice, opinion writing, movement breaks and morning meetings.</p>
+      </article>
+      <article class="tod-use">
+        <h3>Party prompts</h3>
+        <p>Generate quick low-pressure prompts when a group needs an easy game without setting up rules.</p>
+      </article>
+      <article class="tod-use">
+        <h3>Workplace icebreakers</h3>
+        <p>Use the workplace category for gentle team check-ins, retrospectives, offsites and workshops.</p>
+      </article>
+    </div>
+
+    <h2>Truth or dare safety note</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Good truth or dare games should stay voluntary, kind and low-pressure. Skip anything that would embarrass, exclude, reveal private information, damage property or make someone uncomfortable. For group decisions instead of prompts, use the <a href="/tools/poll-maker.html">Poll Maker</a>. For two-choice conversation prompts, use the <a href="/tools/would-you-rather-generator.html">Would You Rather Generator</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Truth or dare generator FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are these prompts family friendly?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The prompts are clean and designed for mixed-age use, including kids, classrooms, families and group games.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use only dares?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Set Prompt type to Dare only. You can also choose Truth only or Truth or dare mode.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can teachers use this?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes, with judgement. Choose the Classroom category and keep prompts voluntary, kind and appropriate for the group.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does Spinnit save answers?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. The generator runs in your browser and does not require an account.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="would-you-rather-generator.html"><span class="ri">WR</span> Would You Rather</a>
+      <a class="related-card" href="poll-maker.html"><span class="ri">PL</span> Poll Maker</a>
+      <a class="related-card" href="random-movie-picker.html"><span class="ri">MV</span> Movie Picker</a>
+      <a class="related-card" href="/tools/decision-makers/"><span class="ri">DM</span> Decision Tools</a>
+      <a class="related-card" href="/classroom-random-tools/"><span class="ri">CL</span> Classroom Tools</a>
+      <a class="related-card" href="/workplace-random-tools/"><span class="ri">WK</span> Workplace Tools</a>
+    </div>
+  </section>
+</main>

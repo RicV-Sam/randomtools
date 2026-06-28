@@ -1,0 +1,404 @@
+---
+layout: layouts/base.njk
+title: "Draft Order Generator - Free Random Fantasy Draft Picker | Spinnit"
+description: "Create a free random draft order for fantasy football, sports leagues, board games, office games and classroom picks. Copy, share or embed the order."
+ogTitle: "Draft Order Generator | Spinnit"
+ogDescription: "Paste league members, randomise a fair draft order, choose snake draft view and copy the results."
+canonical: "https://spinnit.site/tools/draft-order-generator.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Football Random Tools"
+    url: "/tools/football/"
+  - label: "Draft Order Generator"
+    url: "/tools/draft-order-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Draft Order Generator",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/draft-order-generator.html",
+    "description": "A free browser-based draft order generator for fantasy sports leagues, game nights, classrooms, office contests and fair pick order decisions.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does the draft order generator work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Paste league members or players, choose the number of rounds and draft type, then Spinnit shuffles the list into a random draft order. The tool can also show a snake draft board." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this for fantasy football?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The draft order generator is designed for fantasy football, fantasy basketball, fantasy baseball and other casual fantasy sports leagues." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a snake draft reverse every round?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. In snake draft mode, odd-numbered rounds use the random order and even-numbered rounds reverse it, so the last pick in one round gets the first pick in the next." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are league member names uploaded?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The draft order is generated in your browser and can be copied or shared without creating an account." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .draft-setup {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .draft-summary {
+    background: rgba(96,165,250,0.11);
+    border: 1px solid rgba(96,165,250,0.26);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 1rem 0;
+    padding: 0.85rem 1rem;
+  }
+  .draft-summary strong {
+    color: var(--text);
+  }
+  .draft-board {
+    display: grid;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+  .draft-round {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.9rem;
+  }
+  .draft-round h2 {
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.7rem;
+    text-transform: uppercase;
+  }
+  .draft-picks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    gap: 8px;
+  }
+  .draft-pick {
+    align-items: center;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    gap: 10px;
+    min-height: 46px;
+    padding: 0.65rem 0.75rem;
+  }
+  .pick-number {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 11px;
+    min-width: 32px;
+  }
+  .pick-name {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+  .draft-pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 1rem 0;
+  }
+  .draft-pill {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text2);
+    font-size: 12px;
+    padding: 0.35rem 0.65rem;
+  }
+pageScript: |
+  const DEFAULT_DRAFT_NAMES = [
+    "Alex",
+    "Bailey",
+    "Casey",
+    "Devon",
+    "Emerson",
+    "Frankie",
+    "Harper",
+    "Jordan",
+    "Morgan",
+    "Taylor"
+  ];
+
+  const draftInput = document.getElementById("draftNames");
+  draftInput.value = DEFAULT_DRAFT_NAMES.join("\n");
+
+  let latestDraftOrder = [];
+  let latestDraftRounds = [];
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function readDraftNames() {
+    return draftInput.value
+      .split(/\n|,/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  function randomIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function shuffleList(items) {
+    const output = [...items];
+    for (let i = output.length - 1; i > 0; i--) {
+      const j = randomIndex(i + 1);
+      [output[i], output[j]] = [output[j], output[i]];
+    }
+    return output;
+  }
+
+  function buildDraftRounds(order, roundCount, draftType) {
+    const rounds = [];
+    for (let round = 1; round <= roundCount; round++) {
+      const names = draftType === "snake" && round % 2 === 0 ? [...order].reverse() : [...order];
+      rounds.push({ round, names });
+    }
+    return rounds;
+  }
+
+  function generateDraftOrder() {
+    const names = readDraftNames();
+    if (names.length < 2) {
+      alert("Add at least two league members, players or entries.");
+      return;
+    }
+
+    const roundCount = Math.max(1, Math.min(20, parseInt(document.getElementById("draftRounds").value, 10) || 1));
+    const draftType = document.getElementById("draftType").value;
+    const shuffleMode = document.getElementById("draftShuffle").value;
+    const order = shuffleMode === "keep" ? names : shuffleList(names);
+    const rounds = buildDraftRounds(order, roundCount, draftType);
+
+    latestDraftOrder = order;
+    latestDraftRounds = rounds;
+
+    const board = document.getElementById("draftBoard");
+    let overallPick = 1;
+    board.innerHTML = rounds.map((roundData) => {
+      const picks = roundData.names.map((name, index) => {
+        const html = `
+          <div class="draft-pick">
+            <span class="pick-number">#${overallPick}</span>
+            <span class="pick-name">${escapeHtml(name)}</span>
+          </div>
+        `;
+        overallPick += 1;
+        return html;
+      }).join("");
+      const direction = draftType === "snake" && roundData.round % 2 === 0 ? "reverse order" : "random order";
+      return `
+        <section class="draft-round">
+          <h2>Round ${roundData.round} - ${direction}</h2>
+          <div class="draft-picks">${picks}</div>
+        </section>
+      `;
+    }).join("");
+
+    const summary = document.getElementById("draftSummary");
+    summary.innerHTML = `<strong>${names.length} entries</strong> across <strong>${roundCount} round${roundCount === 1 ? "" : "s"}</strong>. ${draftType === "snake" ? "Snake draft mode reverses every even round." : "Linear draft mode keeps the same order each round."}`;
+
+    const shareSummary = document.getElementById("draftShareSummary");
+    shareSummary.textContent = `${names.length}-person ${draftType} draft order ready to copy, share or project.`;
+
+    board.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function draftShareText() {
+    if (!latestDraftOrder.length) {
+      return "Draft Order Generator on Spinnit: paste league members and create a fair random draft order.";
+    }
+
+    const type = document.getElementById("draftType").value;
+    const lines = [
+      "Draft order",
+      "",
+      ...latestDraftOrder.map((name, index) => `${index + 1}. ${name}`)
+    ];
+
+    if (latestDraftRounds.length > 1) {
+      lines.push("", `${type === "snake" ? "Snake" : "Linear"} draft board:`);
+      let pickNumber = 1;
+      latestDraftRounds.forEach((roundData) => {
+        lines.push(`Round ${roundData.round}: ${roundData.names.map((name) => `${pickNumber++}. ${name}`).join(" | ")}`);
+      });
+    }
+
+    lines.push("", "Made with Spinnit");
+    return lines.join("\n");
+  }
+
+  function copyDraftOrder(button) {
+    window.copySpinnitText(draftShareText(), button, "Copy order");
+  }
+
+  function shareDraftOrder(button) {
+    window.shareOrCopySpinnit({
+      title: "Draft Order Generator | Spinnit",
+      text: draftShareText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyDraftOrderEmbed(button) {
+    window.copySpinnitEmbed("/tools/draft-order-generator.html", "Draft Order Generator - Spinnit", button);
+  }
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">DR</div>
+    <h1>Draft Order Generator</h1>
+    <p>Create a fair random draft order for fantasy leagues, games and group picks</p>
+  </div>
+
+  <div class="draft-setup">
+    <div class="controls">
+      <div class="control-group">
+        <label>League members, players or teams</label>
+        <textarea id="draftNames" style="min-height:160px;" placeholder="Alex&#10;Bailey&#10;Casey&#10;Devon"></textarea>
+      </div>
+      <div class="control-row">
+        <div class="control-group">
+          <label>Draft type</label>
+          <select id="draftType">
+            <option value="snake">Snake draft</option>
+            <option value="linear">Linear draft</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>Rounds to show</label>
+          <input id="draftRounds" type="number" min="1" max="20" value="3">
+        </div>
+        <div class="control-group">
+          <label>Order mode</label>
+          <select id="draftShuffle">
+            <option value="shuffle">Randomise names</option>
+            <option value="keep">Use pasted order</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" type="button" onclick="generateDraftOrder()">GENERATE DRAFT ORDER</button>
+  <div class="tool-actions">
+    <button class="btn-copy" type="button" onclick="copyDraftOrder(this)">Copy order</button>
+    <button class="btn-copy" type="button" onclick="shareDraftOrder(this)">Share</button>
+    <button class="btn-copy" type="button" onclick="copyDraftOrderEmbed(this)">Copy embed</button>
+    <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+  </div>
+  <div class="result-share-card"><strong>Share card:</strong> <span id="draftShareSummary">Generate a draft order, then copy or share it with your league.</span></div>
+  <div id="draftSummary" class="draft-summary">Paste your league members, choose snake or linear draft, then generate a random pick order.</div>
+  <div id="draftBoard" class="draft-board"></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>The Draft Order Generator creates a random pick order for fantasy football, fantasy basketball, fantasy baseball, sports pools, board game nights, classroom activities, office games and any group where people need a fair first pick. Paste names, generate the order, then copy the result into WhatsApp, Slack, Discord, Teams, email or your league chat.</p>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Use <strong>snake draft</strong> when each round should reverse, so the person with the last pick in round one gets the first pick in round two. Use <strong>linear draft</strong> when every round should keep the same order. If you already have a manually agreed order and only want a board view, switch Order mode to Use pasted order.</p>
+
+    <div class="draft-pill-row">
+      <span class="draft-pill">Fantasy football drafts</span>
+      <span class="draft-pill">Auction nomination order</span>
+      <span class="draft-pill">Board game picks</span>
+      <span class="draft-pill">Office sweepstakes</span>
+      <span class="draft-pill">Classroom choice order</span>
+    </div>
+
+    <h2>How to use the draft order generator</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Paste every league member, player or team into the box, one per line.</li>
+      <li>Choose Snake draft or Linear draft.</li>
+      <li>Set how many rounds you want to display.</li>
+      <li>Click Generate draft order.</li>
+      <li>Copy or share the order with everyone before the draft starts.</li>
+    </ol>
+
+    <h2>Best used for</h2>
+    <ul style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Fantasy football draft order announcements</li>
+      <li>Fantasy basketball, baseball, hockey and F1 league drafts</li>
+      <li>Choosing pick order for board game nights and gaming sessions</li>
+      <li>Drafting World Cup teams, sweepstake teams or tournament teams</li>
+      <li>Assigning first choice in a classroom, workshop or team activity</li>
+      <li>Creating a transparent order before using the <a href="/tools/tournament-bracket-generator.html">Tournament Bracket Generator</a></li>
+    </ul>
+
+    <h2>Fairness note</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">This tool uses a standard Fisher-Yates shuffle with browser crypto randomness where available. It is designed for everyday, casual and league-fair draft orders. For paid contests, regulated competitions or official league rules, agree the process with participants before generating the order.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Draft order generator FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this for fantasy football?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. It is built for fantasy football draft order draws, including snake draft boards that reverse every even round.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">What is the difference between snake and linear draft order?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">A snake draft reverses direction every round. A linear draft keeps the same order every round. Snake drafts are common in fantasy sports because they balance the advantage of picking early.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I copy the draft order?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Generate the order, then use Copy order or Share to send the draft board to your group.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does Spinnit store the names?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. The draft order is generated in your browser. Spinnit does not require an account or upload your pasted list.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/football/"><span class="ri">FT</span> Football Tools</a>
+      <a class="related-card" href="tournament-bracket-generator.html"><span class="ri">BR</span> Tournament Bracket</a>
+      <a class="related-card" href="list-shuffler.html"><span class="ri">LS</span> List Shuffler</a>
+      <a class="related-card" href="team-picker.html"><span class="ri">TP</span> Random Team Generator</a>
+      <a class="related-card" href="/workplace-random-tools/"><span class="ri">WK</span> Workplace Tools</a>
+    </div>
+  </section>
+</main>

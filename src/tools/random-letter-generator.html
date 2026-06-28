@@ -1,0 +1,348 @@
+---
+layout: layouts/base.njk
+title: "Random Letter Generator - Pick Letters A-Z | Spinnit"
+description: "Generate random letters from A-Z. Free random letter picker for alphabet games, classrooms, phonics, word games, initials, passwords and test data."
+ogTitle: "Random Letter Generator | Spinnit"
+ogDescription: "Pick random letters A-Z with vowels, consonants, uppercase, lowercase, unique mode and copy/share controls."
+canonical: "https://spinnit.site/tools/random-letter-generator.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Random Letter Generator"
+    url: "/tools/random-letter-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Letter Generator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/random-letter-generator.html",
+    "description": "A free browser-based random letter generator for alphabet games, classrooms, phonics, word games, initials, passwords and test data.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What can I use a random letter generator for?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Use it for alphabet games, classroom phonics, word games, random initials, vocabulary challenges, passwords, test labels and creative prompts." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I generate vowels or consonants only?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Choose all letters, vowels only or consonants only before generating." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I generate more than one letter?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Generate up to 26 unique letters or more if repeats are allowed." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this random letter picker free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is free, runs in your browser and does not require an account." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .letter-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .letter-result-card {
+    background: linear-gradient(135deg, rgba(52,211,153,0.12), rgba(96,165,250,0.08));
+    border: 1px solid rgba(52,211,153,0.26);
+    border-radius: var(--radius-lg);
+    margin: 1rem 0;
+    padding: 1rem;
+    text-align: center;
+  }
+  .letter-result {
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: clamp(2.6rem, 16vw, 6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin: 0;
+    min-height: 90px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .letter-meta {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 12px;
+    margin-top: 0.65rem;
+  }
+  .letter-history {
+    display: grid;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  .letter-history-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.55;
+    padding: 0.75rem;
+  }
+  .letter-use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 10px;
+  }
+  .letter-use {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .letter-use h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .letter-use p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  const LETTER_SETS = {
+    all: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+    vowels: "AEIOU".split(""),
+    consonants: "BCDFGHJKLMNPQRSTVWXYZ".split("")
+  };
+  const LETTER_LABELS = {
+    all: "A-Z",
+    vowels: "Vowels",
+    consonants: "Consonants"
+  };
+  let letterHistory = [];
+  let lastLetters = [];
+
+  function randomLetterIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function generateRandomLetters() {
+    const mode = document.getElementById("letterMode").value;
+    const caseMode = document.getElementById("letterCase").value;
+    const unique = document.getElementById("uniqueLetters").checked;
+    const countInput = document.getElementById("letterCount");
+    const count = Math.min(Math.max(parseInt(countInput.value, 10) || 1, 1), 100);
+    countInput.value = count;
+
+    const pool = LETTER_SETS[mode].slice();
+    const working = pool.slice();
+    const picked = [];
+    for (let i = 0; i < count; i++) {
+      const source = unique ? working : pool;
+      if (!source.length) break;
+      const index = randomLetterIndex(source.length);
+      picked.push(source[index]);
+      if (unique) working.splice(index, 1);
+    }
+
+    lastLetters = picked.map((letter) => caseMode === "lower" ? letter.toLowerCase() : letter);
+    const output = lastLetters.join(count > 1 ? " " : "");
+    document.getElementById("letterResult").textContent = output || "-";
+    document.getElementById("letterMeta").textContent = LETTER_LABELS[mode] + " | " + lastLetters.length + " letter" + (lastLetters.length === 1 ? "" : "s");
+    document.getElementById("letterShareSummary").textContent = "Random letter" + (lastLetters.length === 1 ? "" : "s") + ": " + lastLetters.join(", ");
+    letterHistory.unshift({ mode, letters: lastLetters });
+    letterHistory = letterHistory.slice(0, 10);
+    renderLetterHistory();
+  }
+
+  function escapeLetterHtml(text) {
+    return text.replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+  }
+
+  function renderLetterHistory() {
+    const history = document.getElementById("letterHistory");
+    history.innerHTML = letterHistory.map((item, index) => `
+      <div class="letter-history-item">${index + 1}. <strong>${LETTER_LABELS[item.mode]}:</strong> ${escapeLetterHtml(item.letters.join(", "))}</div>
+    `).join("");
+  }
+
+  function setLetterMode(mode) {
+    document.getElementById("letterMode").value = mode;
+    generateRandomLetters();
+  }
+
+  function lettersText() {
+    if (!lastLetters.length) return "Random Letter Generator on Spinnit: pick random letters A-Z for games, classrooms and quick prompts.";
+    return lastLetters.join(lastLetters.length > 1 ? "\n" : "") + "\n\nGenerated with Spinnit";
+  }
+
+  function copyLetters(button) {
+    window.copySpinnitText(lettersText(), button, "Copy letters");
+  }
+
+  function shareLetters(button) {
+    window.shareOrCopySpinnit({
+      title: "Random Letter Generator | Spinnit",
+      text: lettersText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyLetterEmbed(button) {
+    window.copySpinnitEmbed("/tools/random-letter-generator.html", "Random Letter Generator - Spinnit", button);
+  }
+
+  document.addEventListener("DOMContentLoaded", generateRandomLetters);
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">AZ</div>
+    <h1>Random Letter Generator</h1>
+    <p>Generate random letters A-Z for alphabet games, classrooms, phonics, word games, initials and test data.</p>
+  </div>
+
+  <section class="letter-panel">
+    <div class="controls">
+      <div class="control-row">
+        <div class="control-group">
+          <label for="letterMode">Letter set</label>
+          <select id="letterMode">
+            <option value="all">A-Z</option>
+            <option value="vowels">Vowels only</option>
+            <option value="consonants">Consonants only</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="letterCase">Case</label>
+          <select id="letterCase">
+            <option value="upper">Uppercase</option>
+            <option value="lower">Lowercase</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="letterCount">How many?</label>
+          <input id="letterCount" type="number" value="1" min="1" max="100">
+        </div>
+      </div>
+      <label style="display:flex;gap:8px;align-items:center;margin-top:10px;color:var(--text2);font-size:13px;">
+        <input id="uniqueLetters" type="checkbox" checked> Unique letters only
+      </label>
+    </div>
+
+    <button class="btn-generate" type="button" onclick="generateRandomLetters()">GENERATE LETTERS</button>
+    <div class="template-buttons">
+      <button class="btn-copy" type="button" onclick="setLetterMode('all')">A-Z</button>
+      <button class="btn-copy" type="button" onclick="setLetterMode('vowels')">Vowels</button>
+      <button class="btn-copy" type="button" onclick="setLetterMode('consonants')">Consonants</button>
+    </div>
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="copyLetters(this)">Copy letters</button>
+      <button class="btn-copy" type="button" onclick="shareLetters(this)">Share</button>
+      <button class="btn-copy" type="button" onclick="copyLetterEmbed(this)">Copy embed</button>
+      <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+    </div>
+  </section>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="letterShareSummary">Generate random letters, then copy or share them.</span></div>
+
+  <section class="letter-result-card" aria-live="polite">
+    <p id="letterResult" class="letter-result">-</p>
+    <div id="letterMeta" class="letter-meta">Ready</div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <h2>Recent letters</h2>
+    <div id="letterHistory" class="letter-history"></div>
+
+    <h2>How to use the random letter generator</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Choose A-Z, vowels only or consonants only.</li>
+      <li>Choose uppercase or lowercase.</li>
+      <li>Pick one letter or generate a list of letters.</li>
+      <li>Use unique mode when letters should not repeat.</li>
+      <li>Copy, share or use projector mode for classrooms and group games.</li>
+    </ol>
+
+    <h2>Best used for</h2>
+    <div class="letter-use-grid">
+      <article class="letter-use">
+        <h3>Classrooms and phonics</h3>
+        <p>Pick letters for alphabet practice, phonics warm-ups, spelling games, letter hunts and whiteboard activities.</p>
+      </article>
+      <article class="letter-use">
+        <h3>Word games</h3>
+        <p>Generate a starting letter for categories, word races, Scattergories-style games, charades rules or vocabulary challenges.</p>
+      </article>
+      <article class="letter-use">
+        <h3>Creative prompts</h3>
+        <p>Use a random initial for character names, project names, writing constraints or brainstorming sessions.</p>
+      </article>
+      <article class="letter-use">
+        <h3>Test data</h3>
+        <p>Create quick letters for labels, groups, options, sample codes, placeholder initials and simple interface tests.</p>
+      </article>
+    </div>
+
+    <h2>Related random word tools</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Need full words instead of letters? Use the <a href="/tools/random-word-generator.html">Random Word Generator</a>. Need a visual choice? Use the <a href="/tools/random-picker-wheel.html">Random Picker Wheel</a>. For classroom activities, start from the <a href="/classroom-random-tools/">Classroom Random Tools</a> hub.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Random letter generator FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate vowels only?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Choose Vowels only to pick from A, E, I, O and U.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate consonants only?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Choose Consonants only to exclude A, E, I, O and U.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can letters repeat?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Turn off unique mode if repeated letters are allowed.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Is this suitable for classrooms?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Use it for alphabet practice, phonics, spelling games, word races and classroom prompts.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/random-word-generator.html"><span class="ri">WD</span> Random Word</a>
+      <a class="related-card" href="/tools/random-question-generator.html"><span class="ri">Q?</span> Random Questions</a>
+      <a class="related-card" href="/classroom-random-tools/"><span class="ri">CL</span> Classroom Tools</a>
+      <a class="related-card" href="/tools/random-picker-wheel.html"><span class="ri">PW</span> Picker Wheel</a>
+      <a class="related-card" href="/tools/random-number.html"><span class="ri">#</span> Random Number</a>
+      <a class="related-card" href="/tools/decision-makers/"><span class="ri">DM</span> Decision Tools</a>
+    </div>
+  </section>
+</main>

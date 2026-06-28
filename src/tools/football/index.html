@@ -1,9 +1,9 @@
 ---
 layout: layouts/base.njk
-title: "Football Random Tools - World Cup, Teams & Watch Party Games | Spinnit"
-description: "Free football random tools for World Cup sweepstakes, 5-a-side teams, penalty shootouts, football bingo cards and sports watch-party games."
+title: "Football Random Tools - World Cup, Drafts, Teams & Games | Spinnit"
+description: "Free football random tools for World Cup sweepstakes, fantasy draft order, 5-a-side teams, penalty shootouts, football bingo cards and sports watch-party games."
 ogTitle: "Football Random Tools | Spinnit"
-ogDescription: "World Cup sweepstake generator, 5-a-side team generator, penalty shootout generator and football bingo cards."
+ogDescription: "World Cup sweepstake generator, draft order generator, 5-a-side team generator, penalty shootout generator and football bingo cards."
 canonical: "https://spinnit.site/tools/football/"
 dateModified: "2026-06-12"
 permalink: "/tools/football/index.html"
@@ -20,7 +20,7 @@ jsonLd: |
     "@type": "CollectionPage",
     "name": "Football Random Tools",
     "url": "https://spinnit.site/tools/football/",
-    "description": "A collection of football random tools for sweepstakes, random teams, penalty shootouts and watch-party games.",
+    "description": "A collection of football random tools for sweepstakes, fantasy draft order, random teams, penalty shootouts and watch-party games.",
     "isPartOf": { "@type": "WebSite", "name": "Spinnit", "url": "https://spinnit.site/" }
   }
 extraHead: |
@@ -32,7 +32,7 @@ extraHead: |
       {
         "@type": "Question",
         "name": "What football random tools are on Spinnit?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Spinnit has football tools for World Cup sweepstake draws, 5-a-side team generation, random penalty shootouts and football bingo cards." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Spinnit has football tools for World Cup sweepstake draws, fantasy draft order, 5-a-side team generation, random penalty shootouts, tournament brackets and football bingo cards." }
       },
       {
         "@type": "Question",
@@ -50,7 +50,7 @@ extraHead: |
 ---
 <main class="hub-page">
   <h1>Football Random Tools</h1>
-  <p class="lede">Free football random tools for World Cup sweepstakes, 5-a-side teams, random penalty shootouts, match-day bingo cards and sports watch-party games. No sign-up, no app install, and every tool runs in your browser.</p>
+  <p class="lede">Free football random tools for World Cup sweepstakes, fantasy draft order, 5-a-side teams, random penalty shootouts, match-day bingo cards and sports watch-party games. No sign-up, no app install, and every tool runs in your browser.</p>
 
   <section class="hub-section">
     <h2>World Cup and football tools</h2>
@@ -58,6 +58,10 @@ extraHead: |
       <a class="hub-card" href="/tools/world-cup-sweepstake-generator.html">
         <h3>World Cup Sweepstake Generator</h3>
         <p>Randomly assign teams to office, family, club or WhatsApp sweepstake participants.</p>
+      </a>
+      <a class="hub-card" href="/tools/draft-order-generator.html">
+        <h3>Draft Order Generator</h3>
+        <p>Create a random fantasy football draft order with snake draft rounds, copyable results and share buttons.</p>
       </a>
       <a class="hub-card" href="/tools/5-a-side-team-generator.html">
         <h3>5-a-Side Team Generator</h3>
@@ -71,6 +75,10 @@ extraHead: |
         <h3>Football Bingo Card Generator</h3>
         <p>Create random football bingo cards for World Cup watch parties, pubs, classrooms and family games.</p>
       </a>
+      <a class="hub-card" href="/tools/tournament-bracket-generator.html">
+        <h3>Tournament Bracket Generator</h3>
+        <p>Create a random knockout bracket for mini-tournaments, gaming nights, football draws and club competitions.</p>
+      </a>
     </div>
   </section>
 
@@ -78,9 +86,11 @@ extraHead: |
     <h2>Which football tool should I use?</h2>
     <div class="hub-note">
       <p><strong>For a World Cup office draw:</strong> use the <a href="/tools/world-cup-sweepstake-generator.html">World Cup Sweepstake Generator</a>. Paste participants, check teams, then copy the fairness receipt.</p>
+      <p><strong>For a fantasy league draft:</strong> use the <a href="/tools/draft-order-generator.html">Draft Order Generator</a>. Paste managers, choose snake draft, then share the pick order with the league chat.</p>
       <p><strong>For a kickabout:</strong> use the <a href="/tools/5-a-side-team-generator.html">5-a-Side Team Generator</a>. Add optional ratings and goalkeeper tags if you want a more balanced team draw.</p>
       <p><strong>For a fun match result:</strong> use the <a href="/tools/penalty-shootout-generator.html">Penalty Shootout Generator</a>. It is a game simulator, not a betting or prediction tool.</p>
       <p><strong>For watch parties:</strong> use the <a href="/tools/football-bingo-card-generator.html">Football Bingo Card Generator</a>. Make one card per person, then print or share.</p>
+      <p><strong>For knockout draws:</strong> use the <a href="/tools/tournament-bracket-generator.html">Tournament Bracket Generator</a>. Paste teams or players, randomise the first round and advance winners through the bracket.</p>
     </div>
   </section>
 
@@ -89,6 +99,7 @@ extraHead: |
     <div class="hub-grid">
       <div class="hub-card"><h3>Office sweepstakes</h3><p>Randomly assign teams to colleagues and post the draw into Slack, Teams, email or a noticeboard.</p></div>
       <div class="hub-card"><h3>Family sweepstakes</h3><p>Give everyone one or more countries to follow during the tournament without needing a spreadsheet.</p></div>
+      <div class="hub-card"><h3>Fantasy draft order</h3><p>Randomly choose a snake draft order before a fantasy football season, watch-party game or prediction league.</p></div>
       <div class="hub-card"><h3>Watch-party games</h3><p>Generate football bingo cards for events like VAR checks, corners, penalties, cards and added time.</p></div>
       <div class="hub-card"><h3>Fantasy shootouts</h3><p>Settle "who would win on penalties?" debates with a quick random shootout.</p></div>
     </div>
@@ -101,13 +112,15 @@ extraHead: |
 
   <section class="hub-section">
     <h2>Sports expansion roadmap</h2>
-    <p class="hub-note">This hub can support more sports random tools after the football push. The strongest future candidates are rugby sweepstake generator, cricket team picker, Super Bowl bingo card generator, tennis draw randomizer, tournament bracket randomizer, fantasy draft order generator and sports rota generator. Each should be a useful tool first, with copyable results and a clear fairness note.</p>
+    <p class="hub-note">This hub can support more sports random tools after the football push. The strongest future candidates are rugby sweepstake generator, cricket team picker, Super Bowl bingo card generator, tennis draw randomizer, fantasy league schedule randomizer and sports rota generator. Each should be a useful tool first, with copyable results and a clear fairness note.</p>
   </section>
 
   <section class="hub-section">
     <h2>Related Spinnit tools</h2>
     <div class="hub-grid">
       <a class="hub-card" href="/tools/team-picker.html"><h3>General Team Picker</h3><p>Split any group into random teams outside football.</p></a>
+      <a class="hub-card" href="/tools/draft-order-generator.html"><h3>Draft Order Generator</h3><p>Create a random snake draft or linear draft order for fantasy leagues and group picks.</p></a>
+      <a class="hub-card" href="/tools/tournament-bracket-generator.html"><h3>Tournament Bracket Generator</h3><p>Create a random knockout bracket and advance winners through the rounds.</p></a>
       <a class="hub-card" href="/tools/fair-rotation-generator.html"><h3>Fair Rotation Generator</h3><p>Create a no-repeat turn order for coaches, players, tasks or match-day roles.</p></a>
       <a class="hub-card" href="/tools/list-shuffler.html"><h3>List Shuffler</h3><p>Shuffle a squad, fixture order, presentation list or tournament order.</p></a>
       <a class="hub-card" href="/randomness-and-fairness.html"><h3>Randomness and Fairness</h3><p>Read the setup checklist for fair random draws, duplicates and no-repeat rules.</p></a>

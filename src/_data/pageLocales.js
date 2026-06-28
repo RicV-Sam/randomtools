@@ -106,6 +106,7 @@ function priorityFor(loc) {
   const p = loc.replace("https://spinnit.site", "");
   if (p === "/" || p === "") return "1.0";
   if (p === "/classroom-random-tools/") return "0.95";
+  if (p === "/what-should-i/") return "0.95";
   if (p.startsWith("/classroom-random-tools/")) return "0.85";
   if (p.startsWith("/ar/")) return "0.3";
   if (p.startsWith("/de/")) return "0.5";
@@ -118,7 +119,7 @@ function priorityFor(loc) {
 
 function changefreqFor(loc) {
   const p = loc.replace("https://spinnit.site", "");
-  if (p === "/" || p === "/tools/" || p === "/blog/" || p === "/ai/") return "weekly";
+  if (p === "/" || p === "/tools/" || p === "/blog/" || p === "/ai/" || p === "/what-should-i/") return "weekly";
   if (/^\/(about|contact|privacy|terms|how-spinnit-tools-work|randomness-and-fairness)\.html$/.test(p)) return "yearly";
   return "monthly";
 }

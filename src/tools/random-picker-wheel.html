@@ -1,0 +1,599 @@
+---
+layout: layouts/base.njk
+title: "Random Picker Wheel - Spin a Wheel for Any Choice | Spinnit"
+description: "Spin a free random picker wheel for names, options, prizes, activities, chores, lunch choices, classroom prompts and quick decisions. No sign-up."
+ogTitle: "Random Picker Wheel | Spinnit"
+ogDescription: "Add options, spin the wheel, and pick a random result for decisions, classrooms, games, prizes and group choices."
+canonical: "https://spinnit.site/tools/random-picker-wheel.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Decision Maker Tools"
+    url: "/tools/decision-makers/"
+  - label: "Random Picker Wheel"
+    url: "/tools/random-picker-wheel.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Picker Wheel",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/random-picker-wheel.html",
+    "description": "A free browser-based random picker wheel for names, options, activities, prizes, chores, classroom prompts, lunch choices and quick decisions.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a random picker wheel?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A random picker wheel lets you add a list of options, spin a visual wheel, and randomly choose one result when the wheel stops." }
+      },
+      {
+        "@type": "Question",
+        "name": "What can I put on the picker wheel?",
+        "acceptedAnswer": { "@type": "Answer", "text": "You can add names, activities, prizes, chores, lunch choices, classroom prompts, game options, meeting topics or any low-stakes choice list." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the picker wheel free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The Spinnit random picker wheel is free, works in your browser and does not require an account." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Spinnit upload my wheel options?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Your wheel options are saved only in your browser on the device you are using." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .picker-wheel-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+  .picker-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .picker-wheel-wrap {
+    position: relative;
+    width: min(360px, 88vw);
+    margin: 0 auto 1rem;
+    user-select: none;
+  }
+  .picker-pointer {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 24px solid var(--accent2);
+    z-index: 10;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.45));
+  }
+  #pickerCanvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    cursor: pointer;
+    touch-action: none;
+    box-shadow: 0 0 42px rgba(52,211,153,0.18);
+  }
+  .picker-result {
+    text-align: center;
+    font-size: clamp(1.55rem, 8vw, 2.8rem);
+    font-weight: 700;
+    min-height: 58px;
+    font-family: var(--mono);
+    padding: 0.25rem 0.5rem;
+    word-break: break-word;
+  }
+  .picker-sub {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text3);
+    margin-bottom: 1rem;
+    min-height: 20px;
+    font-family: var(--mono);
+  }
+  .picker-option-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0.75rem 0;
+    min-height: 28px;
+  }
+  .picker-chip {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 10px 4px 12px;
+  }
+  .picker-chip button {
+    background: none;
+    border: 0;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+  }
+  .picker-count {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 11px;
+    margin: 0.75rem 0 0.25rem;
+  }
+  .preset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+    gap: 8px;
+    margin: 0.75rem 0 1rem;
+  }
+  .picker-use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 10px;
+  }
+  .picker-use {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .picker-use h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .picker-use p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  const PICKER_STORAGE_KEY = "spinnit-picker-wheel-options";
+  const PICKER_COLORS = [
+    { bg: "#7c6af7", fg: "#fff" },
+    { bg: "#34d399", fg: "#052e16" },
+    { bg: "#60a5fa", fg: "#001c3a" },
+    { bg: "#fb923c", fg: "#1c0a00" },
+    { bg: "#f472b6", fg: "#1c0011" },
+    { bg: "#facc15", fg: "#422006" },
+    { bg: "#38bdf8", fg: "#001c2a" },
+    { bg: "#a78bfa", fg: "#fff" },
+    { bg: "#4ade80", fg: "#001c00" },
+    { bg: "#fb7185", fg: "#1c0008" }
+  ];
+  const PICKER_PRESETS = {
+    lunch: ["Pizza", "Sushi", "Tacos", "Salad", "Burgers", "Noodles", "Sandwiches", "Curry"],
+    activities: ["Walk", "Board game", "Movie", "Museum", "Cafe", "Mini golf", "Park", "Cook together"],
+    classroom: ["Read aloud", "Partner talk", "Quick quiz", "Draw it", "Explain it", "Exit ticket", "Vocabulary game", "One-minute write"],
+    chores: ["Dishes", "Bins", "Vacuum", "Laundry", "Bathroom", "Kitchen", "Dusting", "Water plants"],
+    prizes: ["Sticker", "Snack", "Bonus point", "First pick", "Mystery prize", "Free pass", "Shout-out", "Small gift"],
+    meeting: ["Facilitator", "Notes", "Timekeeper", "Demo first", "Retro question", "Breakout lead", "Wrap-up", "Next action"]
+  };
+
+  let pickerOptions = [];
+  let pickerSpinning = false;
+  let pickerAngle = 0;
+  let pickerHistory = [];
+
+  function pickerCanvas() {
+    return document.getElementById("pickerCanvas");
+  }
+
+  function pickerCtx() {
+    return pickerCanvas().getContext("2d");
+  }
+
+  function pickerRandomIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function loadPickerOptions() {
+    try {
+      pickerOptions = JSON.parse(localStorage.getItem(PICKER_STORAGE_KEY)) || [];
+    } catch (error) {
+      pickerOptions = [];
+    }
+    if (!pickerOptions.length) pickerOptions = PICKER_PRESETS.activities.slice();
+    renderPickerOptions();
+    drawPickerWheel(pickerAngle);
+  }
+
+  function savePickerOptions() {
+    localStorage.setItem(PICKER_STORAGE_KEY, JSON.stringify(pickerOptions));
+  }
+
+  function cleanPickerInput(text) {
+    return text
+      .split(/\n|,/)
+      .map((item) => item.trim())
+      .filter((item) => item && item.length <= 44);
+  }
+
+  function addPickerOptions() {
+    const input = document.getElementById("pickerInput");
+    const added = cleanPickerInput(input.value);
+    if (!added.length) return;
+    pickerOptions = pickerOptions.concat(added).slice(0, 80);
+    input.value = "";
+    savePickerOptions();
+    renderPickerOptions();
+    drawPickerWheel(pickerAngle);
+  }
+
+  function replacePickerOptions(options) {
+    pickerOptions = options.slice(0, 80);
+    savePickerOptions();
+    renderPickerOptions();
+    drawPickerWheel(pickerAngle);
+    document.getElementById("pickerWinner").textContent = "-";
+    document.getElementById("pickerSub").textContent = "Preset loaded. Spin when ready.";
+    document.getElementById("pickerShareSummary").textContent = "Picker wheel ready with " + pickerOptions.length + " options.";
+  }
+
+  function loadPickerPreset(name) {
+    replacePickerOptions(PICKER_PRESETS[name]);
+  }
+
+  function removePickerOption(index) {
+    pickerOptions.splice(index, 1);
+    savePickerOptions();
+    renderPickerOptions();
+    drawPickerWheel(pickerAngle);
+  }
+
+  function clearPickerOptions() {
+    if (!confirm("Remove all wheel options?")) return;
+    pickerOptions = [];
+    savePickerOptions();
+    renderPickerOptions();
+    drawPickerWheel(pickerAngle);
+    document.getElementById("pickerWinner").textContent = "-";
+    document.getElementById("pickerSub").textContent = "Add options to get started.";
+  }
+
+  function escapePickerHtml(text) {
+    return text.replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+  }
+
+  function renderPickerOptions() {
+    document.getElementById("pickerCount").textContent = pickerOptions.length ? pickerOptions.length + " option" + (pickerOptions.length === 1 ? "" : "s") + " on the wheel" : "No options added yet";
+    document.getElementById("pickerChips").innerHTML = pickerOptions.map((option, index) => `
+      <span class="picker-chip">
+        <span style="color:${PICKER_COLORS[index % PICKER_COLORS.length].bg};font-size:10px;">&bull;</span>
+        ${escapePickerHtml(option)}
+        <button type="button" onclick="removePickerOption(${index})" title="Remove option">x</button>
+      </span>
+    `).join("");
+  }
+
+  function drawPickerWheel(angle) {
+    const canvas = pickerCanvas();
+    const ctx = pickerCtx();
+    const count = pickerOptions.length;
+    const size = canvas.width;
+    const cx = size / 2;
+    const cy = size / 2;
+    const radius = size / 2 - 4;
+    ctx.clearRect(0, 0, size, size);
+
+    if (!count) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = "#1c1c26";
+      ctx.fill();
+      ctx.fillStyle = "#7a7a92";
+      ctx.font = "14px DM Sans, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("Add options above", cx, cy);
+      return;
+    }
+
+    const arc = (2 * Math.PI) / count;
+    for (let i = 0; i < count; i++) {
+      const start = angle + i * arc;
+      const end = start + arc;
+      const color = PICKER_COLORS[i % PICKER_COLORS.length];
+
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, radius, start, end);
+      ctx.closePath();
+      ctx.fillStyle = color.bg;
+      ctx.fill();
+      ctx.strokeStyle = "rgba(10,10,15,0.62)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(start + arc / 2);
+      ctx.textAlign = "right";
+      ctx.fillStyle = color.fg;
+      const fontSize = count <= 8 ? 14 : count <= 20 ? 11 : 9;
+      ctx.font = "bold " + fontSize + "px Space Mono, monospace";
+      const maxWidth = radius - 18;
+      let label = pickerOptions[i];
+      while (ctx.measureText(label).width > maxWidth - 10 && label.length > 1) {
+        label = label.slice(0, -1);
+      }
+      if (label !== pickerOptions[i]) label += "...";
+      ctx.fillText(label, radius - 10, fontSize / 3);
+      ctx.restore();
+    }
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, 17, 0, 2 * Math.PI);
+    ctx.fillStyle = "#0a0a0f";
+    ctx.fill();
+    ctx.strokeStyle = "rgba(255,255,255,0.15)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  function pickerWinnerAtPointer() {
+    const count = pickerOptions.length;
+    const arc = (2 * Math.PI) / count;
+    const normalised = ((pickerAngle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+    const pointerAt = ((3 * Math.PI / 2 - normalised) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+    return pickerOptions[Math.floor(pointerAt / arc) % count];
+  }
+
+  function spinPickerWheel() {
+    if (pickerSpinning || !pickerOptions.length) return;
+    pickerSpinning = true;
+    document.getElementById("pickerSpinBtn").disabled = true;
+    document.getElementById("pickerWinner").textContent = "...";
+    document.getElementById("pickerSub").textContent = "";
+
+    const rotations = (6 + pickerRandomIndex(6)) * 2 * Math.PI;
+    const extra = (pickerRandomIndex(1000) / 1000) * 2 * Math.PI;
+    const startAngle = pickerAngle;
+    const targetAngle = startAngle + rotations + extra;
+    const startTime = performance.now();
+    const duration = 2600;
+
+    function easeOut(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    function frame(now) {
+      const progress = Math.min((now - startTime) / duration, 1);
+      pickerAngle = startAngle + (targetAngle - startAngle) * easeOut(progress);
+      drawPickerWheel(pickerAngle);
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+        return;
+      }
+      pickerSpinning = false;
+      document.getElementById("pickerSpinBtn").disabled = false;
+      const winner = pickerWinnerAtPointer();
+      const index = pickerOptions.indexOf(winner);
+      document.getElementById("pickerWinner").textContent = winner;
+      document.getElementById("pickerWinner").style.color = PICKER_COLORS[index % PICKER_COLORS.length].bg;
+      document.getElementById("pickerSub").textContent = "Spin again or copy the result.";
+      document.getElementById("pickerShareSummary").textContent = "Picker wheel result: " + winner;
+      pickerHistory.unshift(winner);
+      pickerHistory = pickerHistory.slice(0, 10);
+      renderPickerHistory();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function renderPickerHistory() {
+    document.getElementById("pickerHistory").innerHTML = pickerHistory.length
+      ? pickerHistory.map((item, index) => `<li>${index + 1}. ${escapePickerHtml(item)}</li>`).join("")
+      : "<li>No spins yet.</li>";
+  }
+
+  function pickerResultText() {
+    const winner = document.getElementById("pickerWinner").textContent.trim();
+    if (!winner || winner === "-" || winner === "...") return "Random Picker Wheel on Spinnit: spin a wheel for names, options, prizes, activities and quick decisions.";
+    return "Random picker wheel result: " + winner + "\n\nGenerated with Spinnit";
+  }
+
+  function copyPickerResult(button) {
+    window.copySpinnitText(pickerResultText(), button, "Copy result");
+  }
+
+  function copyPickerOptions(button) {
+    const text = pickerOptions.length ? pickerOptions.join("\n") : "No wheel options yet.";
+    window.copySpinnitText(text, button, "Copy options");
+  }
+
+  function sharePickerResult(button) {
+    window.shareOrCopySpinnit({
+      title: "Random Picker Wheel | Spinnit",
+      text: pickerResultText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyPickerEmbed(button) {
+    window.copySpinnitEmbed("/tools/random-picker-wheel.html", "Random Picker Wheel - Spinnit", button);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    loadPickerOptions();
+    renderPickerHistory();
+    pickerCanvas().addEventListener("click", spinPickerWheel);
+    pickerCanvas().addEventListener("touchstart", (event) => {
+      event.preventDefault();
+      spinPickerWheel();
+    }, { passive: false });
+    pickerCanvas().addEventListener("keydown", (event) => {
+      if (event.code === "Space" || event.code === "Enter") {
+        event.preventDefault();
+        spinPickerWheel();
+      }
+    });
+    document.getElementById("pickerInput").addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && event.ctrlKey) addPickerOptions();
+    });
+  });
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">PW</div>
+    <h1>Random Picker Wheel</h1>
+    <p>Spin a wheel for names, options, activities, prizes, chores, classroom prompts and quick decisions.</p>
+  </div>
+
+  <div class="picker-wheel-layout">
+    <div>
+      <div class="picker-wheel-wrap">
+        <div class="picker-pointer"></div>
+        <canvas id="pickerCanvas" width="360" height="360" role="button" tabindex="0" aria-label="Spin the random picker wheel"></canvas>
+      </div>
+
+      <div class="picker-result" id="pickerWinner" aria-live="polite" aria-atomic="true">-</div>
+      <div class="picker-sub" id="pickerSub">Tap the wheel or press Spin.</div>
+      <button class="btn-generate" id="pickerSpinBtn" type="button" onclick="spinPickerWheel()">SPIN THE WHEEL</button>
+    </div>
+
+    <section class="picker-panel">
+      <div class="control-group">
+        <label for="pickerInput">Add options, one per line or comma-separated</label>
+        <textarea id="pickerInput" rows="5" placeholder="Pizza&#10;Tacos&#10;Sushi&#10;Burgers"></textarea>
+      </div>
+      <div class="btn-row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+        <button class="btn-copy" type="button" onclick="addPickerOptions()">Add to wheel</button>
+        <button class="btn-copy" type="button" onclick="clearPickerOptions()">Clear all</button>
+      </div>
+
+      <div class="preset-grid">
+        <button class="btn-copy" type="button" onclick="loadPickerPreset('lunch')">Lunch</button>
+        <button class="btn-copy" type="button" onclick="loadPickerPreset('activities')">Activities</button>
+        <button class="btn-copy" type="button" onclick="loadPickerPreset('classroom')">Classroom</button>
+        <button class="btn-copy" type="button" onclick="loadPickerPreset('chores')">Chores</button>
+        <button class="btn-copy" type="button" onclick="loadPickerPreset('prizes')">Prizes</button>
+        <button class="btn-copy" type="button" onclick="loadPickerPreset('meeting')">Meeting</button>
+      </div>
+
+      <div class="tool-actions">
+        <button class="btn-copy" type="button" onclick="copyPickerResult(this)">Copy result</button>
+        <button class="btn-copy" type="button" onclick="copyPickerOptions(this)">Copy options</button>
+        <button class="btn-copy" type="button" onclick="sharePickerResult(this)">Share</button>
+        <button class="btn-copy" type="button" onclick="copyPickerEmbed(this)">Copy embed</button>
+        <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+      </div>
+
+      <div class="picker-count" id="pickerCount"></div>
+      <div class="picker-option-chips" id="pickerChips"></div>
+    </section>
+  </div>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="pickerShareSummary">Spin the wheel, then copy or share the result.</span></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <h2>Recent spins</h2>
+    <ol id="pickerHistory" style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;"></ol>
+
+    <h2>How to use the random picker wheel</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Type or paste your options into the box, one per line or comma-separated.</li>
+      <li>Use a preset if you want a fast lunch, activity, chore, prize, classroom or meeting wheel.</li>
+      <li>Click Spin the Wheel or tap the wheel itself.</li>
+      <li>Copy the result, copy the full option list, share the page or use projector mode for groups.</li>
+      <li>Clear the wheel when using a shared classroom, work or event device.</li>
+    </ol>
+
+    <h2>Best used for</h2>
+    <div class="picker-use-grid">
+      <article class="picker-use">
+        <h3>Everyday decisions</h3>
+        <p>Spin for lunch, dinner, chores, date ideas, weekend activities, games, playlists or what to do next.</p>
+      </article>
+      <article class="picker-use">
+        <h3>Classrooms</h3>
+        <p>Use the wheel for classroom prompts, review games, rewards, reading turns, activity choices or visible group decisions.</p>
+      </article>
+      <article class="picker-use">
+        <h3>Workshops and meetings</h3>
+        <p>Pick icebreakers, breakout leads, meeting roles, agenda topics, demo order or a low-stakes team activity.</p>
+      </article>
+      <article class="picker-use">
+        <h3>Giveaways and events</h3>
+        <p>Spin for prizes, door draws, raffle moments, party games, tournament extras or stream-friendly reveals.</p>
+      </article>
+    </div>
+
+    <h2>Random picker wheel vs Wheel of Names</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Use this Random Picker Wheel when the options are any kind of choice: activities, prizes, chores, food, prompts, meeting roles or game ideas. Use the <a href="/tools/wheel-of-names.html">Wheel of Names</a> when the list is mainly people. If you need a faster text result, use the <a href="/tools/pick-random-name.html">Pick a Random Name</a> tool or the <a href="/tools/list-shuffler.html">List Shuffler</a>.</p>
+
+    <h2>Privacy and saved wheels</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Your wheel options are saved in your browser's local storage on the current device. Spinnit does not require an account and does not upload your option list to a server.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Random picker wheel FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this as a spin-the-wheel picker?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Add any list of options, click Spin the Wheel, and the picker shows a random result when the wheel stops.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use names on this wheel?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. This wheel accepts names too. For a name-focused version, use the <a href="/tools/wheel-of-names.html">Wheel of Names</a>.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use it on a projector?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Use projector mode for classrooms, meetings, live streams, group games and event draws.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How many options can I add?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">The wheel supports up to 80 options. Shorter lists are easier to read on the wheel, especially on phones and projectors.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/wheel-of-names.html"><span class="ri">WN</span> Wheel of Names</a>
+      <a class="related-card" href="/tools/decision-makers/"><span class="ri">DM</span> Decision Tools</a>
+      <a class="related-card" href="/what-should-i/"><span class="ri">WS</span> What Should I</a>
+      <a class="related-card" href="/tools/random-activity-picker.html"><span class="ri">AC</span> Activity Picker</a>
+      <a class="related-card" href="/tools/poll-maker.html"><span class="ri">PL</span> Poll Maker</a>
+      <a class="related-card" href="/tools/list-shuffler.html"><span class="ri">LS</span> List Shuffler</a>
+      <a class="related-card" href="/tools/random-question-generator.html"><span class="ri">Q?</span> Random Questions</a>
+    </div>
+  </section>
+</main>

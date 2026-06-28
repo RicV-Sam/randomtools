@@ -1,0 +1,528 @@
+---
+layout: layouts/base.njk
+title: "Random Movie Picker - What Should I Watch? | Spinnit"
+description: "Pick a random movie from your watchlist or a genre preset. Free what-should-I-watch tool for movie nights, families, dates, parties and group decisions."
+ogTitle: "Random Movie Picker | Spinnit"
+ogDescription: "Paste a watchlist or choose a preset and let Spinnit pick what to watch tonight."
+canonical: "https://spinnit.site/tools/random-movie-picker.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Decision Maker Tools"
+    url: "/tools/decision-makers/"
+  - label: "Random Movie Picker"
+    url: "/tools/random-movie-picker.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Movie Picker",
+    "applicationCategory": "EntertainmentApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/random-movie-picker.html",
+    "description": "A free browser-based random movie picker for choosing what to watch from a custom watchlist or preset movie night shortlist.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does the random movie picker work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Paste movie titles or load a preset shortlist, then click Pick Movie. The tool randomly chooses one title from the current list in your browser." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I paste my own watchlist?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Add one movie per line or separate titles with commas. The picker works with your own watchlist, family shortlist, streaming queue or group suggestions." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this check Netflix, Disney, Prime Video or other streaming availability?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The movie picker does not check live streaming catalogues. Paste movies that are already available to your group if availability matters." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I avoid repeat movie picks?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Turn on avoid repeats this session and the picker will use each title once before the list resets." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .movie-layout {
+    display: grid;
+    gap: 1rem;
+  }
+  .movie-card {
+    background: linear-gradient(135deg, rgba(52,211,153,0.12), rgba(96,165,250,0.08));
+    border: 1px solid rgba(52,211,153,0.25);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+  }
+  .movie-result-title {
+    color: var(--text);
+    font-size: clamp(1.7rem, 7vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.12;
+    margin: 0.25rem 0;
+    overflow-wrap: anywhere;
+  }
+  .movie-result-meta {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .movie-tools {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+    gap: 8px;
+    margin-top: 0.85rem;
+  }
+  .movie-preset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+    gap: 8px;
+    margin-top: 0.75rem;
+  }
+  .movie-preset {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    cursor: pointer;
+    font-size: 13px;
+    min-height: 42px;
+    padding: 0.65rem 0.8rem;
+    text-align: left;
+  }
+  .movie-preset:hover,
+  .movie-preset.active {
+    border-color: rgba(52,211,153,0.55);
+    color: var(--text);
+  }
+  .movie-note {
+    background: rgba(96,165,250,0.1);
+    border: 1px solid rgba(96,165,250,0.25);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 1rem 0;
+    padding: 0.85rem 1rem;
+  }
+  .movie-history {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+  }
+  .movie-history h2 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.5rem;
+  }
+  .movie-history ol {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.8;
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+  .movie-use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 10px;
+  }
+  .movie-use {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .movie-use h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .movie-use p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  const moviePresets = {
+    family: [
+      "The Princess Bride",
+      "Paddington 2",
+      "The Parent Trap",
+      "School of Rock",
+      "Matilda",
+      "The Lego Movie",
+      "Jumanji",
+      "The Muppet Christmas Carol",
+      "The Iron Giant",
+      "Kiki's Delivery Service"
+    ],
+    comedy: [
+      "Groundhog Day",
+      "Clue",
+      "Ferris Bueller's Day Off",
+      "The Grand Budapest Hotel",
+      "Galaxy Quest",
+      "Booksmart",
+      "The Nice Guys",
+      "Hunt for the Wilderpeople",
+      "Best in Show",
+      "The Birdcage"
+    ],
+    action: [
+      "Raiders of the Lost Ark",
+      "Mad Max: Fury Road",
+      "Mission: Impossible - Fallout",
+      "Spider-Man: Into the Spider-Verse",
+      "The Fugitive",
+      "The Mummy",
+      "Edge of Tomorrow",
+      "Top Gun: Maverick",
+      "Crouching Tiger, Hidden Dragon",
+      "The Mask of Zorro"
+    ],
+    classics: [
+      "Casablanca",
+      "Singin' in the Rain",
+      "Rear Window",
+      "12 Angry Men",
+      "Roman Holiday",
+      "The Apartment",
+      "North by Northwest",
+      "Some Like It Hot",
+      "The Third Man",
+      "It Happened One Night"
+    ],
+    date: [
+      "Before Sunrise",
+      "When Harry Met Sally",
+      "Notting Hill",
+      "Crazy Rich Asians",
+      "About Time",
+      "Moonstruck",
+      "The Big Sick",
+      "Pride and Prejudice",
+      "La La Land",
+      "Rye Lane"
+    ],
+    kids: [
+      "Finding Nemo",
+      "Toy Story",
+      "Moana",
+      "The Incredibles",
+      "How to Train Your Dragon",
+      "The Peanuts Movie",
+      "Shaun the Sheep Movie",
+      "Mary Poppins",
+      "The Secret World of Arrietty",
+      "A Shaun the Sheep Movie: Farmageddon"
+    ]
+  };
+
+  let movieHistory = [];
+  let usedMovies = new Set();
+
+  function splitMovieList(value) {
+    return value
+      .split(/\n|,/)
+      .map(item => item.trim())
+      .filter(item => item.length > 0);
+  }
+
+  function uniqueMovies(items) {
+    const seen = new Set();
+    return items.filter(item => {
+      const key = item.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
+  function getMovies() {
+    return uniqueMovies(splitMovieList(document.getElementById("movieInput").value));
+  }
+
+  function resetMovieSession() {
+    usedMovies = new Set();
+    setStatus(getMovies().length + " movies ready");
+  }
+
+  function randomIndex(length) {
+    if (window.crypto && window.crypto.getRandomValues) {
+      const values = new Uint32Array(1);
+      const max = Math.floor(0x100000000 / length) * length;
+      do {
+        window.crypto.getRandomValues(values);
+      } while (values[0] >= max);
+      return values[0] % length;
+    }
+    return Math.floor(Math.random() * length);
+  }
+
+  function setStatus(message) {
+    document.getElementById("movieMeta").textContent = message;
+  }
+
+  function loadMoviePreset(name) {
+    const movies = moviePresets[name] || moviePresets.family;
+    document.getElementById("movieInput").value = movies.join("\n");
+    usedMovies = new Set();
+    document.querySelectorAll(".movie-preset").forEach(button => {
+      button.classList.toggle("active", button.dataset.preset === name);
+    });
+    setStatus(movies.length + " preset movies loaded");
+  }
+
+  function pickMovie() {
+    const movies = getMovies();
+    if (!movies.length) {
+      alert("Add at least one movie first.");
+      return;
+    }
+
+    let pool = movies;
+    const avoidRepeats = document.getElementById("avoidRepeats").checked;
+    if (avoidRepeats) {
+      const unused = movies.filter(movie => !usedMovies.has(movie.toLowerCase()));
+      if (!unused.length) {
+        usedMovies = new Set();
+        pool = movies;
+        setStatus("All movies used once; repeat tracker reset.");
+      } else {
+        pool = unused;
+      }
+    }
+
+    const pick = pool[randomIndex(pool.length)];
+    usedMovies.add(pick.toLowerCase());
+    movieHistory.unshift(pick);
+    movieHistory = movieHistory.slice(0, 10);
+
+    document.getElementById("movieResult").textContent = pick;
+    document.getElementById("movieShareSummary").textContent = "Movie picked: " + pick;
+    setStatus(pool.length + " eligible movie" + (pool.length === 1 ? "" : "s") + " in this pick");
+    renderMovieHistory();
+
+    const card = document.getElementById("movieResultCard");
+    card.classList.remove("pop");
+    void card.offsetWidth;
+    card.classList.add("pop");
+  }
+
+  function renderMovieHistory() {
+    const list = document.getElementById("movieHistory");
+    if (!movieHistory.length) {
+      list.innerHTML = "<li>No movies picked yet.</li>";
+      return;
+    }
+    list.innerHTML = movieHistory.map(movie => "<li>" + escapeHtml(movie) + "</li>").join("");
+  }
+
+  function escapeHtml(value) {
+    return value.replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+  }
+
+  function currentMovieText() {
+    const movie = document.getElementById("movieResult").textContent.trim();
+    if (!movie || movie === "-") return "";
+    return movie;
+  }
+
+  function copyMovieResult(button) {
+    const movie = currentMovieText();
+    if (!movie) {
+      alert("Pick a movie first.");
+      return;
+    }
+    copyMovieText("Tonight's movie pick: " + movie, button);
+  }
+
+  function copyMovieList(button) {
+    const movies = getMovies();
+    if (!movies.length) {
+      alert("Add movies first.");
+      return;
+    }
+    copyMovieText(movies.join("\n"), button);
+  }
+
+  function copyMovieEmbed(button) {
+    const html = '<a href="https://spinnit.site/tools/random-movie-picker.html">Random Movie Picker</a>';
+    copyMovieText(html, button);
+  }
+
+  function shareMovie(button) {
+    const movie = currentMovieText();
+    const text = movie ? "Movie pick: " + movie : "Use this random movie picker to choose what to watch.";
+    if (navigator.share) {
+      navigator.share({
+        title: "Random Movie Picker",
+        text,
+        url: "https://spinnit.site/tools/random-movie-picker.html"
+      }).catch(() => {});
+      return;
+    }
+    copyMovieText(text + " https://spinnit.site/tools/random-movie-picker.html", button);
+  }
+
+  function copyMovieText(text, button) {
+    navigator.clipboard.writeText(text).then(() => {
+      const old = button.textContent;
+      button.textContent = "Copied!";
+      button.classList.add("copied");
+      setTimeout(() => {
+        button.textContent = old;
+        button.classList.remove("copied");
+      }, 1800);
+    });
+  }
+
+  document.getElementById("movieInput").addEventListener("input", resetMovieSession);
+  loadMoviePreset("family");
+  renderMovieHistory();
+  bindGlobalShortcut(pickMovie);
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">MV</div>
+    <h1>Random Movie Picker</h1>
+    <p>Pick what to watch tonight from your watchlist or a ready-made movie night shortlist.</p>
+  </div>
+
+  <section class="movie-layout">
+    <div class="movie-card" id="movieResultCard">
+      <div class="result-label">tonight's pick</div>
+      <div class="movie-result-title" id="movieResult">-</div>
+      <div class="movie-result-meta" id="movieMeta">10 preset movies loaded</div>
+      <div class="movie-tools">
+        <button class="btn-copy" type="button" onclick="copyMovieResult(this)">Copy pick</button>
+        <button class="btn-copy" type="button" onclick="shareMovie(this)">Share</button>
+        <button class="btn-copy" type="button" onclick="copyMovieList(this)">Copy list</button>
+        <button class="btn-copy" type="button" onclick="copyMovieEmbed(this)">Copy embed</button>
+        <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="movieInput">Movie list (one per line or comma-separated)</label>
+        <textarea id="movieInput" rows="9" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;" placeholder="The Princess Bride&#10;Paddington 2&#10;School of Rock"></textarea>
+      </div>
+      <label style="align-items:center;color:var(--text2);display:flex;font-size:13px;gap:8px;margin-top:0.7rem;">
+        <input id="avoidRepeats" type="checkbox" checked>
+        Avoid repeats this session
+      </label>
+    </div>
+
+    <button class="btn-generate" type="button" onclick="pickMovie()">PICK MOVIE</button>
+
+    <div>
+      <div class="result-label">preset shortlists</div>
+      <div class="movie-preset-grid">
+        <button class="movie-preset active" data-preset="family" type="button" onclick="loadMoviePreset('family')">Family night</button>
+        <button class="movie-preset" data-preset="comedy" type="button" onclick="loadMoviePreset('comedy')">Comedy</button>
+        <button class="movie-preset" data-preset="action" type="button" onclick="loadMoviePreset('action')">Action and adventure</button>
+        <button class="movie-preset" data-preset="classics" type="button" onclick="loadMoviePreset('classics')">Classic films</button>
+        <button class="movie-preset" data-preset="date" type="button" onclick="loadMoviePreset('date')">Date night</button>
+        <button class="movie-preset" data-preset="kids" type="button" onclick="loadMoviePreset('kids')">Kids shortlist</button>
+      </div>
+    </div>
+
+    <div class="movie-note"><strong>Streaming note:</strong> this random movie picker does not check Netflix, Disney, Prime Video, Hulu or other live catalogues. If availability matters, paste titles from the services your group can actually watch.</div>
+    <div class="result-share-card"><strong>Share card:</strong> <span id="movieShareSummary">Pick a movie, then copy or share it.</span></div>
+
+    <div class="movie-history">
+      <h2>Recent movie picks</h2>
+      <ol id="movieHistory"></ol>
+    </div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>The Random Movie Picker helps answer the classic group question: what should I watch tonight? Paste your watchlist, add suggestions from friends, or load a preset shortlist and let the picker choose one movie at random. It is useful for movie nights, families, date nights, parties, dorm rooms, watch clubs and quick group decisions.</p>
+
+    <h2>How to use the random movie picker</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Paste movie titles into the list, one per line or separated by commas.</li>
+      <li>Or load a preset such as family night, comedy, classics or date night.</li>
+      <li>Leave avoid repeats on if you want every title used once before repeats.</li>
+      <li>Click Pick Movie and copy or share the result.</li>
+    </ol>
+
+    <h2>Best used for</h2>
+    <div class="movie-use-grid">
+      <article class="movie-use">
+        <h3>Movie night decisions</h3>
+        <p>Stop scrolling and choose from the titles everyone already agreed were acceptable.</p>
+      </article>
+      <article class="movie-use">
+        <h3>Family and kids picks</h3>
+        <p>Load a family preset or paste a parent-approved list so the result stays easy to say yes to.</p>
+      </article>
+      <article class="movie-use">
+        <h3>Date night shortlists</h3>
+        <p>Build a small list of films you would both watch, then let randomness break the tie.</p>
+      </article>
+      <article class="movie-use">
+        <h3>Group chats and parties</h3>
+        <p>Collect suggestions, paste them in, pick one movie and share the result back to the group.</p>
+      </article>
+    </div>
+
+    <h2>Custom watchlist ideas</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">You can paste a streaming watchlist, a film club shortlist, a family-approved kids list, movies leaving a service soon, award winners you missed, comfort rewatches or a list of films friends suggested. The picker removes duplicate titles during each pick, and no-repeat mode helps avoid choosing the same film twice in one session.</p>
+
+    <h2>Polls versus a random movie pick</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Use this tool when the group is happy with any movie on the list and just wants a fair choice. If people should vote, use the <a href="/tools/poll-maker.html">Poll Maker</a>. If the choice is between two films, use the <a href="/tools/coin-flip.html">Coin Flip</a> or <a href="/tools/yes-no-wheel.html">Yes / No Wheel</a>. For dinner before the film, use the <a href="/tools/random-dinner-picker.html">Random Dinner Picker</a>. For what to do before movie night, use the <a href="/tools/random-activity-picker.html">Random Activity Picker</a>. For conversation before the film starts, try <a href="/tools/would-you-rather-generator.html">Would You Rather</a> or <a href="/tools/truth-or-dare-generator.html">Truth or Dare</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Random movie picker FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How does the random movie picker work?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Paste movie titles or load a preset shortlist, then click <em>Pick Movie</em>. The tool randomly chooses one title from the current list in your browser.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I paste my own watchlist?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Add one movie per line or separate titles with commas. The picker works with your own watchlist, family shortlist, streaming queue or group suggestions.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this check streaming availability?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. It does not check Netflix, Disney, Prime Video, Hulu or other live streaming catalogues. Paste movies that are already available to your group if availability matters.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I avoid repeat movie picks?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Turn on avoid repeats this session and the picker will use each title once before the list resets.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/decision-makers/"><span class="ri">DM</span> Decision Tools</a>
+      <a class="related-card" href="poll-maker.html"><span class="ri">PL</span> Poll Maker</a>
+      <a class="related-card" href="random-activity-picker.html"><span class="ri">AC</span> Activity Picker</a>
+      <a class="related-card" href="random-dinner-picker.html"><span class="ri">DN</span> Dinner Picker</a>
+      <a class="related-card" href="coin-flip.html"><span class="ri">CF</span> Coin Flip</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">YN</span> Yes / No Wheel</a>
+      <a class="related-card" href="would-you-rather-generator.html"><span class="ri">WR</span> Would You Rather</a>
+      <a class="related-card" href="truth-or-dare-generator.html"><span class="ri">TD</span> Truth or Dare</a>
+    </div>
+  </section>
+</main>

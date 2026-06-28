@@ -1,0 +1,432 @@
+---
+layout: layouts/base.njk
+title: "Poll Maker - Free Quick Vote Tool for Group Decisions | Spinnit"
+description: "Create a free quick poll for classrooms, meetings, parties, teams and group decisions. Add options, vote live, copy results and share the poll prompt."
+ogTitle: "Poll Maker | Spinnit"
+ogDescription: "Make a quick local poll, vote on options, copy results and share a group decision prompt."
+canonical: "https://spinnit.site/tools/poll-maker.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Decision Maker Tools"
+    url: "/tools/decision-makers/"
+  - label: "Poll Maker"
+    url: "/tools/poll-maker.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Poll Maker",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/poll-maker.html",
+    "description": "A free browser-based poll maker for quick group decisions, classroom votes, workplace icebreakers, party games and live room voting.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is this poll maker for?",
+        "acceptedAnswer": { "@type": "Answer", "text": "It is for quick live votes in a room, classroom, meeting, party or group chat. Add a question and options, then tap votes locally and copy the result." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this collect online votes from other devices?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. This version is a browser-only live poll tool. It does not host a public voting link or collect remote votes from other devices." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can teachers use this in class?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Teachers can use it for starter questions, exit tickets, class votes, reading choices, review games and quick opinion checks." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are poll results stored?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The poll runs locally in your browser and does not require an account." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .poll-setup {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .poll-note {
+    background: rgba(96,165,250,0.1);
+    border: 1px solid rgba(96,165,250,0.25);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 1rem 0;
+    padding: 0.85rem 1rem;
+  }
+  .poll-card {
+    background: linear-gradient(135deg, rgba(96,165,250,0.12), rgba(167,139,250,0.08));
+    border: 1px solid rgba(96,165,250,0.25);
+    border-radius: var(--radius-lg);
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+  .poll-question {
+    color: var(--text);
+    font-size: clamp(1.35rem, 5vw, 2rem);
+    line-height: 1.25;
+    margin: 0 0 0.9rem;
+  }
+  .poll-options {
+    display: grid;
+    gap: 10px;
+  }
+  .poll-option {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    padding: 0.85rem;
+  }
+  .poll-option.winner {
+    border-color: rgba(52,211,153,0.55);
+    background: rgba(52,211,153,0.12);
+  }
+  .poll-row {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+  }
+  .poll-label {
+    font-size: 15px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+  .vote-controls {
+    display: flex;
+    gap: 6px;
+  }
+  .vote-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    cursor: pointer;
+    min-height: 38px;
+    min-width: 42px;
+    padding: 0.45rem 0.65rem;
+  }
+  .poll-bar {
+    background: var(--bg3);
+    border-radius: 999px;
+    height: 9px;
+    margin-top: 0.65rem;
+    overflow: hidden;
+  }
+  .poll-fill {
+    background: linear-gradient(90deg, var(--accent2), #34d399);
+    height: 100%;
+    width: 0%;
+  }
+  .poll-meta {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 11px;
+    margin-top: 0.45rem;
+  }
+  .poll-summary {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.7;
+    margin-top: 0.9rem;
+  }
+  .poll-use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 10px;
+  }
+  .poll-use {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .poll-use h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .poll-use p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  const pollQuestionInput = document.getElementById("pollQuestion");
+  const pollOptionsInput = document.getElementById("pollOptions");
+  let pollState = {
+    question: "",
+    options: []
+  };
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function readPollOptions() {
+    return pollOptionsInput.value
+      .split(/\n|,/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  function createPoll() {
+    const question = pollQuestionInput.value.trim() || "What should we choose?";
+    const labels = readPollOptions();
+    if (labels.length < 2) {
+      alert("Add at least two poll options.");
+      return;
+    }
+
+    pollState = {
+      question,
+      options: labels.map((label) => ({ label, votes: 0 }))
+    };
+    renderPoll();
+  }
+
+  function totalVotes() {
+    return pollState.options.reduce((sum, option) => sum + option.votes, 0);
+  }
+
+  function maxVotes() {
+    return Math.max(0, ...pollState.options.map((option) => option.votes));
+  }
+
+  function vote(index, delta) {
+    const option = pollState.options[index];
+    if (!option) return;
+    option.votes = Math.max(0, option.votes + delta);
+    renderPoll();
+  }
+
+  function resetVotes() {
+    pollState.options.forEach((option) => {
+      option.votes = 0;
+    });
+    renderPoll();
+  }
+
+  function renderPoll() {
+    const board = document.getElementById("pollBoard");
+    const total = totalVotes();
+    const high = maxVotes();
+    const winners = pollState.options.filter((option) => option.votes === high && high > 0).map((option) => option.label);
+
+    board.innerHTML = `
+      <section class="poll-card">
+        <h2 class="poll-question">${escapeHtml(pollState.question)}</h2>
+        <div class="poll-options">
+          ${pollState.options.map((option, index) => {
+            const percent = total ? Math.round((option.votes / total) * 100) : 0;
+            const isWinner = option.votes === high && high > 0;
+            return `
+              <div class="poll-option ${isWinner ? "winner" : ""}">
+                <div class="poll-row">
+                  <div class="poll-label">${escapeHtml(option.label)}</div>
+                  <div class="vote-controls">
+                    <button class="vote-btn" type="button" onclick="vote(${index}, -1)" aria-label="Remove vote from ${escapeHtml(option.label)}">-</button>
+                    <button class="vote-btn" type="button" onclick="vote(${index}, 1)" aria-label="Add vote to ${escapeHtml(option.label)}">+1</button>
+                  </div>
+                </div>
+                <div class="poll-bar" aria-hidden="true"><div class="poll-fill" style="width:${percent}%"></div></div>
+                <div class="poll-meta">${option.votes} vote${option.votes === 1 ? "" : "s"} - ${percent}%</div>
+              </div>
+            `;
+          }).join("")}
+        </div>
+        <p class="poll-summary">${total} total vote${total === 1 ? "" : "s"}${winners.length ? `. Current leader: ${escapeHtml(winners.join(", "))}.` : "."}</p>
+      </section>
+    `;
+
+    document.getElementById("pollShareSummary").textContent = `${pollState.options.length} options, ${total} vote${total === 1 ? "" : "s"} counted.`;
+  }
+
+  function pollText(includeVotes) {
+    if (!pollState.options.length) return "Poll Maker on Spinnit: create a quick live vote for a classroom, meeting, party or group decision.";
+    const lines = [pollState.question, ""];
+    pollState.options.forEach((option, index) => {
+      lines.push(`${index + 1}. ${option.label}${includeVotes ? ` - ${option.votes} vote${option.votes === 1 ? "" : "s"}` : ""}`);
+    });
+    if (includeVotes) lines.push("", `${totalVotes()} total votes`);
+    lines.push("", "Made with Spinnit");
+    return lines.join("\n");
+  }
+
+  function copyPollPrompt(button) {
+    window.copySpinnitText(pollText(false), button, "Copy poll");
+  }
+
+  function copyPollResults(button) {
+    window.copySpinnitText(pollText(true), button, "Copy results");
+  }
+
+  function sharePoll(button) {
+    window.shareOrCopySpinnit({
+      title: "Poll Maker | Spinnit",
+      text: pollText(false),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyPollEmbed(button) {
+    window.copySpinnitEmbed("/tools/poll-maker.html", "Poll Maker - Spinnit", button);
+  }
+
+  function loadPollExample(type) {
+    if (type === "classroom") {
+      pollQuestionInput.value = "Which review activity should we do first?";
+      pollOptionsInput.value = ["Quiz", "Partner questions", "Mini whiteboards", "Practice worksheet"].join("\n");
+    }
+    if (type === "workplace") {
+      pollQuestionInput.value = "What should we prioritise in the next workshop block?";
+      pollOptionsInput.value = ["Customer journey", "Roadmap tradeoffs", "Open risks", "Next actions"].join("\n");
+    }
+    if (type === "party") {
+      pollQuestionInput.value = "What should we play next?";
+      pollOptionsInput.value = ["Trivia", "Would you rather", "Charades", "Board game"].join("\n");
+    }
+    if (type === "lunch") {
+      pollQuestionInput.value = "What should we get for lunch?";
+      pollOptionsInput.value = ["Pizza", "Sushi", "Sandwiches", "Tacos"].join("\n");
+    }
+    createPoll();
+  }
+
+  pollQuestionInput.value = "What should we choose?";
+  pollOptionsInput.value = ["Option A", "Option B", "Option C"].join("\n");
+  createPoll();
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">PL</div>
+    <h1>Poll Maker</h1>
+    <p>Create a quick local vote for classrooms, meetings, parties and group decisions.</p>
+  </div>
+
+  <section class="poll-setup">
+    <div class="controls">
+      <div class="control-group">
+        <label for="pollQuestion">Poll question</label>
+        <input id="pollQuestion" type="text" value="What should we choose?">
+      </div>
+      <div class="control-group">
+        <label for="pollOptions">Poll options</label>
+        <textarea id="pollOptions" rows="6" placeholder="Option A&#10;Option B&#10;Option C"></textarea>
+      </div>
+    </div>
+
+    <button class="btn-generate" type="button" onclick="createPoll()">CREATE POLL</button>
+    <div class="template-buttons">
+      <button class="btn-copy" type="button" onclick="loadPollExample('classroom')">Classroom</button>
+      <button class="btn-copy" type="button" onclick="loadPollExample('workplace')">Workplace</button>
+      <button class="btn-copy" type="button" onclick="loadPollExample('party')">Party</button>
+      <button class="btn-copy" type="button" onclick="loadPollExample('lunch')">Lunch</button>
+    </div>
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="copyPollPrompt(this)">Copy poll</button>
+      <button class="btn-copy" type="button" onclick="copyPollResults(this)">Copy results</button>
+      <button class="btn-copy" type="button" onclick="sharePoll(this)">Share</button>
+      <button class="btn-copy" type="button" onclick="copyPollEmbed(this)">Copy embed</button>
+      <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+      <button class="btn-copy" type="button" onclick="resetVotes()">Reset votes</button>
+    </div>
+  </section>
+
+  <div class="poll-note"><strong>Browser-only poll:</strong> this tool is for live votes on one screen, a projector, or a shared device. It does not create a hosted voting link or collect remote votes from other devices.</div>
+  <div class="result-share-card"><strong>Share card:</strong> <span id="pollShareSummary">Create a poll, then copy or share it.</span></div>
+  <div id="pollBoard" aria-live="polite"></div>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>The Poll Maker helps a group make a quick low-stakes decision. Add a question, enter two or more options, then tap +1 as people vote. It works well on a laptop, tablet, classroom display, meeting room screen or family phone. When the vote is done, copy the result into Slack, Teams, WhatsApp, email, a lesson note or a meeting doc.</p>
+
+    <h2>How to use the poll maker</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Type the poll question.</li>
+      <li>Add each option on a new line.</li>
+      <li>Create the poll and show it to the group.</li>
+      <li>Tap +1 for each vote, or use the minus button to fix mistakes.</li>
+      <li>Copy the final results when the group decision is ready.</li>
+    </ol>
+
+    <h2>Best used for</h2>
+    <div class="poll-use-grid">
+      <article class="poll-use">
+        <h3>Classroom votes</h3>
+        <p>Choose review games, reading options, project topics, class rewards or exit-ticket answers.</p>
+      </article>
+      <article class="poll-use">
+        <h3>Meeting decisions</h3>
+        <p>Vote on workshop priorities, next agenda items, retrospective themes or team activity choices.</p>
+      </article>
+      <article class="poll-use">
+        <h3>Party and family choices</h3>
+        <p>Pick the next game, film, snack, dinner plan or group activity without a long debate.</p>
+      </article>
+      <article class="poll-use">
+        <h3>Live room polling</h3>
+        <p>Use projector mode when everyone is voting in the same room and you want the result visible.</p>
+      </article>
+    </div>
+
+    <h2>Polls versus random picks</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Use a poll when the group should decide. Use <a href="/tools/random-activity-picker.html">Random Activity Picker</a>, <a href="/tools/random-dinner-picker.html">Random Dinner Picker</a>, <a href="/tools/random-movie-picker.html">Random Movie Picker</a>, <a href="/tools/pick-random-name.html">Pick a Random Name</a>, <a href="/tools/wheel-of-names.html">Wheel of Names</a>, <a href="/tools/coin-flip.html">Coin Flip</a> or the <a href="/tools/yes-no-wheel.html">Yes / No Wheel</a> when the decision should be random. For conversational choices, try the <a href="/tools/would-you-rather-generator.html">Would You Rather Generator</a> or <a href="/tools/truth-or-dare-generator.html">Truth or Dare Generator</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Poll maker FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can this collect votes from a shared link?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. This is a local, browser-only poll for quick live decisions. It does not create a hosted voting link.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use it in a classroom?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Show the poll on a screen, ask students to vote, then tap the vote buttons as answers come in.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I copy the results?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Use Copy results to copy the question, options, vote counts and total votes.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does Spinnit store poll votes?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. Votes are counted locally in your browser during the session.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/decision-makers/"><span class="ri">DM</span> Decision Tools</a>
+      <a class="related-card" href="/workplace-random-tools/"><span class="ri">WK</span> Workplace Tools</a>
+      <a class="related-card" href="/classroom-random-tools/"><span class="ri">CL</span> Classroom Tools</a>
+      <a class="related-card" href="random-activity-picker.html"><span class="ri">AC</span> Activity Picker</a>
+      <a class="related-card" href="random-dinner-picker.html"><span class="ri">DN</span> Dinner Picker</a>
+      <a class="related-card" href="random-movie-picker.html"><span class="ri">MV</span> Movie Picker</a>
+      <a class="related-card" href="truth-or-dare-generator.html"><span class="ri">TD</span> Truth or Dare</a>
+      <a class="related-card" href="would-you-rather-generator.html"><span class="ri">WR</span> Would You Rather</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">YN</span> Yes / No Wheel</a>
+    </div>
+  </section>
+</main>

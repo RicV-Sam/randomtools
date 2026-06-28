@@ -1,0 +1,436 @@
+---
+layout: layouts/base.njk
+title: "Would You Rather Generator - Free Random Questions | Spinnit"
+description: "Generate free would you rather questions for kids, classrooms, parties, family games, senior activities, meetings and icebreakers. Copy or share prompts."
+ogTitle: "Would You Rather Generator | Spinnit"
+ogDescription: "Pick a category, generate random would you rather questions, and copy or share a prompt set."
+canonical: "https://spinnit.site/tools/would-you-rather-generator.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Decision Maker Tools"
+    url: "/tools/decision-makers/"
+  - label: "Would You Rather Generator"
+    url: "/tools/would-you-rather-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Would You Rather Generator",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/would-you-rather-generator.html",
+    "description": "A free browser-based would you rather question generator for classrooms, parties, families, senior activities, meetings and icebreakers.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a would you rather generator?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A would you rather generator randomly shows two-choice questions that people can answer for games, icebreakers, classroom discussions, meetings or family activities." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can teachers use these questions in class?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the classroom category for gentle, school-friendly questions and let students explain their choice, vote, write a sentence or move to sides of the room." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the questions family friendly?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The prompt sets are designed to be clean and suitable for kids, classrooms, families, meetings and mixed-age groups." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Spinnit store my answers?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The generator runs in your browser and does not require an account." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .wyr-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .wyr-stage {
+    background: linear-gradient(135deg, rgba(96,165,250,0.12), rgba(52,211,153,0.08));
+    border: 1px solid rgba(96,165,250,0.26);
+    border-radius: var(--radius-lg);
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+  .wyr-kicker {
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .wyr-question {
+    color: var(--text);
+    font-size: clamp(1.45rem, 6vw, 2.35rem);
+    line-height: 1.25;
+    margin: 0;
+  }
+  .wyr-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 10px;
+    margin: 1rem 0;
+  }
+  .wyr-option {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1.45;
+    min-height: 84px;
+    padding: 1rem;
+    text-align: left;
+  }
+  .wyr-option.selected {
+    background: rgba(52,211,153,0.16);
+    border-color: rgba(52,211,153,0.5);
+  }
+  .wyr-history {
+    display: grid;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  .history-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.55;
+    padding: 0.75rem;
+  }
+  .prompt-pack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 10px;
+  }
+  .prompt-pack {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .prompt-pack h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .prompt-pack p,
+  .prompt-pack li {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  const WYR_PROMPTS = {
+    clean: [
+      ["have unlimited books to read", "unlimited films to watch"],
+      ["always know the fastest route", "always find the best place to eat"],
+      ["live near the mountains", "live near the sea"],
+      ["have a perfect memory for names", "have a perfect memory for directions"],
+      ["only drink tea forever", "only drink coffee forever"],
+      ["be able to pause time for ten seconds", "rewind the last ten seconds once a day"],
+      ["have a tiny library in your house", "have a tiny cinema in your house"],
+      ["win a year of free travel", "win a year of free restaurant meals"]
+    ],
+    kids: [
+      ["have a pet dragon the size of a cat", "a pet cat the size of a dragon"],
+      ["eat breakfast for dinner every day", "eat dinner food for breakfast every day"],
+      ["be able to talk to trees", "be able to talk to clouds"],
+      ["have shoes that make you jump higher", "a backpack that never feels heavy"],
+      ["turn invisible for hide and seek", "run twice as fast for tag"],
+      ["build the biggest pillow fort", "build the biggest blanket tent"],
+      ["have a bedroom with a slide", "a bedroom with a secret door"],
+      ["spend a day at a theme park", "spend a day at a water park"]
+    ],
+    classroom: [
+      ["write every answer as a story", "draw every answer as a comic"],
+      ["do a project alone", "do a project with a small team"],
+      ["learn outside for a day", "turn the classroom into a museum for a day"],
+      ["give a one-minute talk", "make a one-page poster"],
+      ["read a mystery book", "read an adventure book"],
+      ["solve a puzzle with numbers", "solve a puzzle with words"],
+      ["choose the class music", "choose the class game"],
+      ["have extra reading time", "extra art time"]
+    ],
+    workplace: [
+      ["start every meeting with a one-minute win", "end every meeting with one clear next step"],
+      ["have no meetings before 10am", "no meetings after 3pm"],
+      ["work in quiet focus for a full morning", "collaborate in short bursts all day"],
+      ["present first", "present last"],
+      ["write decisions in a doc", "talk decisions through on a call"],
+      ["have a four-day week with longer days", "a five-day week with shorter days"],
+      ["run the retrospective", "take the notes"],
+      ["have a shared playlist", "have a shared snack table"]
+    ],
+    party: [
+      ["host a quiz night", "host a board game night"],
+      ["sing one karaoke song", "tell one funny story"],
+      ["bring the dessert", "bring the playlist"],
+      ["go to a costume party", "go to a mystery dinner"],
+      ["win a dance-off", "win a trivia round"],
+      ["have a surprise party", "plan a surprise party"],
+      ["only play team games", "only play one-on-one games"],
+      ["choose the next game", "choose the next snack"]
+    ],
+    senior: [
+      ["listen to favourite songs from childhood", "look through favourite old photos"],
+      ["spend an afternoon in a garden", "spend an afternoon by a window with a view"],
+      ["play a gentle word game", "answer gentle trivia questions"],
+      ["talk about a favourite holiday", "talk about a favourite meal"],
+      ["hear a short story read aloud", "hear a poem read aloud"],
+      ["make a simple craft", "play a simple card game"],
+      ["have tea with biscuits", "have cake with coffee"],
+      ["watch a classic film", "listen to a classic radio show"]
+    ]
+  };
+
+  const WYR_LABELS = {
+    clean: "Clean",
+    kids: "Kids",
+    classroom: "Classroom",
+    workplace: "Workplace",
+    party: "Party",
+    senior: "Senior-friendly"
+  };
+
+  let currentPrompt = null;
+  let promptHistory = [];
+
+  function randomIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function categoryPool() {
+    const category = document.getElementById("wyrCategory").value;
+    if (category === "all") {
+      return Object.entries(WYR_PROMPTS).flatMap(([key, prompts]) => prompts.map((prompt) => ({ category: key, prompt })));
+    }
+    return WYR_PROMPTS[category].map((prompt) => ({ category, prompt }));
+  }
+
+  function generateWyrPrompt() {
+    const pool = categoryPool();
+    const picked = pool[randomIndex(pool.length)];
+    currentPrompt = picked;
+    promptHistory.unshift(picked);
+    promptHistory = promptHistory.slice(0, 8);
+    renderCurrentPrompt();
+    renderHistory();
+  }
+
+  function renderCurrentPrompt() {
+    const label = WYR_LABELS[currentPrompt.category];
+    const [a, b] = currentPrompt.prompt;
+    document.getElementById("wyrKicker").textContent = `${label} question`;
+    document.getElementById("wyrQuestion").textContent = "Would you rather...";
+    document.getElementById("wyrOptionA").textContent = a;
+    document.getElementById("wyrOptionB").textContent = b;
+    document.getElementById("wyrOptionA").classList.remove("selected");
+    document.getElementById("wyrOptionB").classList.remove("selected");
+    document.getElementById("wyrShareSummary").textContent = `Question ready: would you rather ${a} or ${b}?`;
+  }
+
+  function renderHistory() {
+    const history = document.getElementById("wyrHistory");
+    history.innerHTML = promptHistory.map(({ category, prompt }, index) => `
+      <div class="history-item">${index + 1}. <strong>${WYR_LABELS[category]}:</strong> Would you rather ${prompt[0]} or ${prompt[1]}?</div>
+    `).join("");
+  }
+
+  function selectWyrOption(button) {
+    document.getElementById("wyrOptionA").classList.remove("selected");
+    document.getElementById("wyrOptionB").classList.remove("selected");
+    button.classList.add("selected");
+  }
+
+  function wyrText() {
+    if (!currentPrompt) return "Would You Rather Generator on Spinnit: generate clean random questions for games, classrooms and icebreakers.";
+    const [a, b] = currentPrompt.prompt;
+    return `Would you rather ${a} or ${b}?\n\nGenerated with Spinnit`;
+  }
+
+  function historyText() {
+    if (!promptHistory.length) return wyrText();
+    return promptHistory.map(({ category, prompt }, index) => `${index + 1}. ${WYR_LABELS[category]}: Would you rather ${prompt[0]} or ${prompt[1]}?`).join("\n");
+  }
+
+  function copyWyrPrompt(button) {
+    window.copySpinnitText(wyrText(), button, "Copy question");
+  }
+
+  function copyWyrSet(button) {
+    window.copySpinnitText(historyText(), button, "Copy set");
+  }
+
+  function shareWyrPrompt(button) {
+    window.shareOrCopySpinnit({
+      title: "Would You Rather Generator | Spinnit",
+      text: wyrText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyWyrEmbed(button) {
+    window.copySpinnitEmbed("/tools/would-you-rather-generator.html", "Would You Rather Generator - Spinnit", button);
+  }
+
+  function loadWyrPack(category) {
+    document.getElementById("wyrCategory").value = category;
+    promptHistory = [];
+    generateWyrPrompt();
+  }
+
+  document.addEventListener("DOMContentLoaded", generateWyrPrompt);
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">WR</div>
+    <h1>Would You Rather Generator</h1>
+    <p>Generate clean random questions for classrooms, parties, meetings and family games.</p>
+  </div>
+
+  <section class="wyr-panel">
+    <div class="controls">
+      <div class="control-row">
+        <div class="control-group">
+          <label for="wyrCategory">Question category</label>
+          <select id="wyrCategory">
+            <option value="all">All clean questions</option>
+            <option value="kids">Kids</option>
+            <option value="classroom">Classroom</option>
+            <option value="workplace">Workplace</option>
+            <option value="party">Party</option>
+            <option value="senior">Senior-friendly</option>
+            <option value="clean">Everyday clean</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-generate" type="button" onclick="generateWyrPrompt()">GENERATE QUESTION</button>
+    <div class="template-buttons">
+      <button class="btn-copy" type="button" onclick="loadWyrPack('classroom')">Classroom</button>
+      <button class="btn-copy" type="button" onclick="loadWyrPack('workplace')">Workplace</button>
+      <button class="btn-copy" type="button" onclick="loadWyrPack('party')">Party</button>
+      <button class="btn-copy" type="button" onclick="loadWyrPack('senior')">Senior-friendly</button>
+    </div>
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="copyWyrPrompt(this)">Copy question</button>
+      <button class="btn-copy" type="button" onclick="copyWyrSet(this)">Copy set</button>
+      <button class="btn-copy" type="button" onclick="shareWyrPrompt(this)">Share</button>
+      <button class="btn-copy" type="button" onclick="copyWyrEmbed(this)">Copy embed</button>
+      <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+    </div>
+  </section>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="wyrShareSummary">Generate a would you rather question, then copy or share it.</span></div>
+
+  <section class="wyr-stage" aria-live="polite">
+    <div id="wyrKicker" class="wyr-kicker">Question</div>
+    <p id="wyrQuestion" class="wyr-question">Would you rather...</p>
+    <div class="wyr-options">
+      <button id="wyrOptionA" class="wyr-option" type="button" onclick="selectWyrOption(this)">Option A</button>
+      <button id="wyrOptionB" class="wyr-option" type="button" onclick="selectWyrOption(this)">Option B</button>
+    </div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <h2>Recent questions</h2>
+    <div id="wyrHistory" class="wyr-history"></div>
+
+    <h2>How to use this would you rather generator</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Choose a category such as kids, classroom, workplace, party or senior-friendly.</li>
+      <li>Generate a question and let everyone choose an answer.</li>
+      <li>Click an answer on screen if you are using projector mode.</li>
+      <li>Copy one question or copy the recent set for a lesson plan, chat or activity sheet.</li>
+      <li>Share the page when someone asks for more clean questions.</li>
+    </ol>
+
+    <h2>Best used for</h2>
+    <div class="prompt-pack-grid">
+      <article class="prompt-pack">
+        <h3>Classroom warm-ups</h3>
+        <p>Use a quick prompt for speaking practice, opinion writing, movement games or morning meetings.</p>
+      </article>
+      <article class="prompt-pack">
+        <h3>Workplace icebreakers</h3>
+        <p>Start retrospectives, workshops and offsites with a low-pressure choice everyone can answer.</p>
+      </article>
+      <article class="prompt-pack">
+        <h3>Family and party games</h3>
+        <p>Generate clean prompts that work for mixed-age groups, travel games, dinners and game nights.</p>
+      </article>
+      <article class="prompt-pack">
+        <h3>Senior activities</h3>
+        <p>Use gentle conversation choices for care-home activity sessions, family visits and read-aloud games.</p>
+      </article>
+    </div>
+
+    <h2>Why use Spinnit?</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">The questions are clean, category-based and designed for live use. The page runs in your browser, needs no login, and includes copy, share, embed and projector controls so it can be used in classrooms, meetings, family rooms and activity sessions. For a slightly more active prompt game, use the <a href="/tools/truth-or-dare-generator.html">Truth or Dare Generator</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Would you rather generator FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are these would you rather questions clean?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The categories are written for mixed-age use, including kids, classrooms, families, meetings and senior-friendly activities.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this with a class?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Choose the Classroom category and ask students to explain their choice, vote, write a sentence or move to one side of the room.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I copy a set of questions?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Generate several questions, then use Copy set to copy the recent prompts.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Do I need an account?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. The generator is free and runs in your browser.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/decision-makers/"><span class="ri">DM</span> Decision Tools</a>
+      <a class="related-card" href="/classroom-random-tools/"><span class="ri">CL</span> Classroom Tools</a>
+      <a class="related-card" href="/workplace-random-tools/"><span class="ri">WK</span> Workplace Tools</a>
+      <a class="related-card" href="random-movie-picker.html"><span class="ri">MV</span> Movie Picker</a>
+      <a class="related-card" href="truth-or-dare-generator.html"><span class="ri">TD</span> Truth or Dare</a>
+      <a class="related-card" href="/senior-friendly-games/"><span class="ri">SH</span> Senior Games</a>
+      <a class="related-card" href="yes-no-wheel.html"><span class="ri">YN</span> Yes / No Wheel</a>
+    </div>
+  </section>
+</main>

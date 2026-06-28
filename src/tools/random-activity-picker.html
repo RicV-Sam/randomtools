@@ -1,0 +1,526 @@
+---
+layout: layouts/base.njk
+title: "Random Activity Picker - What Should I Do? | Spinnit"
+description: "Pick a random activity from your own list or a preset. Free what-should-I-do generator for boredom, families, dates, weekends, teams and group decisions."
+ogTitle: "Random Activity Picker | Spinnit"
+ogDescription: "Paste activity ideas or choose a preset and let Spinnit pick what to do next."
+canonical: "https://spinnit.site/tools/random-activity-picker.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Decision Maker Tools"
+    url: "/tools/decision-makers/"
+  - label: "Random Activity Picker"
+    url: "/tools/random-activity-picker.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Activity Picker",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/random-activity-picker.html",
+    "description": "A free browser-based random activity picker for choosing what to do from custom ideas or preset activity lists.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does the random activity picker work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Paste activity ideas or load a preset, then click Pick Activity. The tool randomly chooses one option from the current list in your browser." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I paste my own activity list?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Add one activity per line or separate ideas with commas. The picker works with family plans, date ideas, weekend options, team breaks and boredom lists." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this check weather, opening hours or local availability?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Only include activities that are realistic, safe and available for your group. The picker chooses from the list you provide." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I avoid repeat activity picks?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Turn on avoid repeats this session and the picker will use each activity once before the list resets." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .activity-layout {
+    display: grid;
+    gap: 1rem;
+  }
+  .activity-card {
+    background: linear-gradient(135deg, rgba(167,139,250,0.13), rgba(52,211,153,0.08));
+    border: 1px solid rgba(167,139,250,0.3);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+  }
+  .activity-result-title {
+    color: var(--text);
+    font-size: clamp(1.7rem, 7vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.12;
+    margin: 0.25rem 0;
+    overflow-wrap: anywhere;
+  }
+  .activity-result-meta {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .activity-tools {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    gap: 8px;
+    margin-top: 0.85rem;
+  }
+  .activity-preset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+    gap: 8px;
+    margin-top: 0.75rem;
+  }
+  .activity-preset {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    cursor: pointer;
+    font-size: 13px;
+    min-height: 42px;
+    padding: 0.65rem 0.8rem;
+    text-align: left;
+  }
+  .activity-preset:hover,
+  .activity-preset.active {
+    border-color: rgba(167,139,250,0.6);
+    color: var(--text);
+  }
+  .activity-note {
+    background: rgba(96,165,250,0.1);
+    border: 1px solid rgba(96,165,250,0.25);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 1rem 0;
+    padding: 0.85rem 1rem;
+  }
+  .activity-history {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+  }
+  .activity-history h2 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.5rem;
+  }
+  .activity-history ol {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.8;
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+  .activity-use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 10px;
+  }
+  .activity-use {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .activity-use h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .activity-use p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  const activityPresets = {
+    bored: [
+      "Go for a short walk",
+      "Make a playlist",
+      "Try a 10-minute tidy",
+      "Call or message a friend",
+      "Cook something simple",
+      "Watch one tutorial and try it",
+      "Read for 20 minutes",
+      "Do a quick workout",
+      "Plan a small project",
+      "Play a browser game"
+    ],
+    family: [
+      "Board game night",
+      "Bake something together",
+      "Family walk",
+      "Movie and snacks",
+      "Backyard picnic",
+      "Build a blanket fort",
+      "Puzzle time",
+      "Draw portraits of each other",
+      "Make homemade pizza",
+      "Family trivia"
+    ],
+    date: [
+      "Coffee walk",
+      "Cook dinner together",
+      "Museum or gallery visit",
+      "Mini golf",
+      "Bookstore browse",
+      "Dessert-only outing",
+      "Movie night",
+      "Picnic",
+      "Try a new restaurant",
+      "At-home tasting night"
+    ],
+    weekend: [
+      "Visit a local market",
+      "Take a long walk somewhere new",
+      "Try a new cafe",
+      "Declutter one area",
+      "Plan a day trip",
+      "Start a small DIY task",
+      "Cook a slow meal",
+      "Go to a park",
+      "Have a screen-light morning",
+      "Invite someone over"
+    ],
+    screenfree: [
+      "Go outside for 20 minutes",
+      "Write a letter or card",
+      "Do a puzzle",
+      "Cook from a recipe",
+      "Sketch something nearby",
+      "Stretch or meditate",
+      "Organize a drawer",
+      "Read a magazine or book",
+      "Play cards",
+      "Make tea and sit somewhere quiet"
+    ],
+    team: [
+      "Two-minute wins round",
+      "Coffee chat pair-up",
+      "Quick team poll",
+      "Show-and-tell item",
+      "Gratitude round",
+      "Random lunch pairings",
+      "Five-minute stretch break",
+      "Question of the day",
+      "Mini retro prompt",
+      "Walk-and-talk meeting"
+    ]
+  };
+
+  let activityHistory = [];
+  let usedActivities = new Set();
+
+  function splitActivityList(value) {
+    return value
+      .split(/\n|,/)
+      .map(item => item.trim())
+      .filter(item => item.length > 0);
+  }
+
+  function uniqueActivities(items) {
+    const seen = new Set();
+    return items.filter(item => {
+      const key = item.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
+  function getActivities() {
+    return uniqueActivities(splitActivityList(document.getElementById("activityInput").value));
+  }
+
+  function resetActivitySession() {
+    usedActivities = new Set();
+    setActivityStatus(getActivities().length + " activities ready");
+  }
+
+  function randomActivityIndex(length) {
+    if (window.crypto && window.crypto.getRandomValues) {
+      const values = new Uint32Array(1);
+      const max = Math.floor(0x100000000 / length) * length;
+      do {
+        window.crypto.getRandomValues(values);
+      } while (values[0] >= max);
+      return values[0] % length;
+    }
+    return Math.floor(Math.random() * length);
+  }
+
+  function setActivityStatus(message) {
+    document.getElementById("activityMeta").textContent = message;
+  }
+
+  function loadActivityPreset(name) {
+    const activities = activityPresets[name] || activityPresets.bored;
+    document.getElementById("activityInput").value = activities.join("\n");
+    usedActivities = new Set();
+    document.querySelectorAll(".activity-preset").forEach(button => {
+      button.classList.toggle("active", button.dataset.preset === name);
+    });
+    setActivityStatus(activities.length + " preset activities loaded");
+  }
+
+  function pickActivity() {
+    const activities = getActivities();
+    if (!activities.length) {
+      alert("Add at least one activity first.");
+      return;
+    }
+
+    let pool = activities;
+    const avoidRepeats = document.getElementById("avoidActivityRepeats").checked;
+    if (avoidRepeats) {
+      const unused = activities.filter(activity => !usedActivities.has(activity.toLowerCase()));
+      if (!unused.length) {
+        usedActivities = new Set();
+        pool = activities;
+        setActivityStatus("All activities used once; repeat tracker reset.");
+      } else {
+        pool = unused;
+      }
+    }
+
+    const pick = pool[randomActivityIndex(pool.length)];
+    usedActivities.add(pick.toLowerCase());
+    activityHistory.unshift(pick);
+    activityHistory = activityHistory.slice(0, 10);
+
+    document.getElementById("activityResult").textContent = pick;
+    document.getElementById("activityShareSummary").textContent = "Activity picked: " + pick;
+    setActivityStatus(pool.length + " eligible activit" + (pool.length === 1 ? "y" : "ies") + " in this pick");
+    renderActivityHistory();
+
+    const card = document.getElementById("activityResultCard");
+    card.classList.remove("pop");
+    void card.offsetWidth;
+    card.classList.add("pop");
+  }
+
+  function renderActivityHistory() {
+    const list = document.getElementById("activityHistory");
+    if (!activityHistory.length) {
+      list.innerHTML = "<li>No activities picked yet.</li>";
+      return;
+    }
+    list.innerHTML = activityHistory.map(activity => "<li>" + escapeActivityHtml(activity) + "</li>").join("");
+  }
+
+  function escapeActivityHtml(value) {
+    return value.replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+  }
+
+  function currentActivityText() {
+    const activity = document.getElementById("activityResult").textContent.trim();
+    if (!activity || activity === "-") return "";
+    return activity;
+  }
+
+  function copyActivityResult(button) {
+    const activity = currentActivityText();
+    if (!activity) {
+      alert("Pick an activity first.");
+      return;
+    }
+    copyActivityText("Activity pick: " + activity, button);
+  }
+
+  function copyActivityList(button) {
+    const activities = getActivities();
+    if (!activities.length) {
+      alert("Add activities first.");
+      return;
+    }
+    copyActivityText(activities.join("\n"), button);
+  }
+
+  function copyActivityEmbed(button) {
+    const html = '<a href="https://spinnit.site/tools/random-activity-picker.html">Random Activity Picker</a>';
+    copyActivityText(html, button);
+  }
+
+  function shareActivity(button) {
+    const activity = currentActivityText();
+    const text = activity ? "Activity pick: " + activity : "Use this random activity picker to choose what to do.";
+    if (navigator.share) {
+      navigator.share({
+        title: "Random Activity Picker",
+        text,
+        url: "https://spinnit.site/tools/random-activity-picker.html"
+      }).catch(() => {});
+      return;
+    }
+    copyActivityText(text + " https://spinnit.site/tools/random-activity-picker.html", button);
+  }
+
+  function copyActivityText(text, button) {
+    navigator.clipboard.writeText(text).then(() => {
+      const old = button.textContent;
+      button.textContent = "Copied!";
+      button.classList.add("copied");
+      setTimeout(() => {
+        button.textContent = old;
+        button.classList.remove("copied");
+      }, 1800);
+    });
+  }
+
+  document.getElementById("activityInput").addEventListener("input", resetActivitySession);
+  loadActivityPreset("bored");
+  renderActivityHistory();
+  bindGlobalShortcut(pickActivity);
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">AC</div>
+    <h1>Random Activity Picker</h1>
+    <p>Pick what to do next from your own ideas, boredom list, family options, date plans or team breaks.</p>
+  </div>
+
+  <section class="activity-layout">
+    <div class="activity-card" id="activityResultCard">
+      <div class="result-label">next activity</div>
+      <div class="activity-result-title" id="activityResult">-</div>
+      <div class="activity-result-meta" id="activityMeta">10 preset activities loaded</div>
+      <div class="activity-tools">
+        <button class="btn-copy" type="button" onclick="copyActivityResult(this)">Copy pick</button>
+        <button class="btn-copy" type="button" onclick="shareActivity(this)">Share</button>
+        <button class="btn-copy" type="button" onclick="copyActivityList(this)">Copy list</button>
+        <button class="btn-copy" type="button" onclick="copyActivityEmbed(this)">Copy embed</button>
+        <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="activityInput">Activity ideas (one per line or comma-separated)</label>
+        <textarea id="activityInput" rows="9" style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);resize:vertical;" placeholder="Go for a walk&#10;Play a board game&#10;Try a new cafe"></textarea>
+      </div>
+      <label style="align-items:center;color:var(--text2);display:flex;font-size:13px;gap:8px;margin-top:0.7rem;">
+        <input id="avoidActivityRepeats" type="checkbox" checked>
+        Avoid repeats this session
+      </label>
+    </div>
+
+    <button class="btn-generate" type="button" onclick="pickActivity()">PICK ACTIVITY</button>
+
+    <div>
+      <div class="result-label">preset activity lists</div>
+      <div class="activity-preset-grid">
+        <button class="activity-preset active" data-preset="bored" type="button" onclick="loadActivityPreset('bored')">When bored</button>
+        <button class="activity-preset" data-preset="family" type="button" onclick="loadActivityPreset('family')">Family activities</button>
+        <button class="activity-preset" data-preset="date" type="button" onclick="loadActivityPreset('date')">Date ideas</button>
+        <button class="activity-preset" data-preset="weekend" type="button" onclick="loadActivityPreset('weekend')">Weekend plans</button>
+        <button class="activity-preset" data-preset="screenfree" type="button" onclick="loadActivityPreset('screenfree')">Screen-free ideas</button>
+        <button class="activity-preset" data-preset="team" type="button" onclick="loadActivityPreset('team')">Team breaks</button>
+      </div>
+    </div>
+
+    <div class="activity-note"><strong>Reality check:</strong> only include activities that are safe, available and suitable for your situation. This picker does not check weather, opening hours, travel time, cost, accessibility or local availability.</div>
+    <div class="result-share-card"><strong>Share card:</strong> <span id="activityShareSummary">Pick an activity, then copy or share it.</span></div>
+
+    <div class="activity-history">
+      <h2>Recent activity picks</h2>
+      <ol id="activityHistory"></ol>
+    </div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <p>The Random Activity Picker helps answer the everyday question: what should I do? Paste your own ideas, load a preset, or collect suggestions from a group chat and let the picker choose one. It works for boredom, family time, date ideas, weekend plans, screen-free breaks, team activities and low-stakes group decisions.</p>
+
+    <h2>How to use the random activity picker</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Paste activity ideas into the list, one per line or separated by commas.</li>
+      <li>Or load a preset such as bored, family activities, date ideas or team breaks.</li>
+      <li>Leave avoid repeats on if you want every option used once before repeats.</li>
+      <li>Click Pick Activity and copy or share the result.</li>
+    </ol>
+
+    <h2>Best used for</h2>
+    <div class="activity-use-grid">
+      <article class="activity-use">
+        <h3>Boredom decisions</h3>
+        <p>Turn a vague "I'm bored" moment into one clear next action without scrolling forever.</p>
+      </article>
+      <article class="activity-use">
+        <h3>Family and weekend plans</h3>
+        <p>Pick from family-safe options, rainy-day plans, weekend ideas or screen-free activities.</p>
+      </article>
+      <article class="activity-use">
+        <h3>Date ideas</h3>
+        <p>Paste ideas you would both enjoy and let randomness break the tie for the next plan.</p>
+      </article>
+      <article class="activity-use">
+        <h3>Team breaks</h3>
+        <p>Choose a quick workplace break, warmup, lunch pairing or meeting energizer.</p>
+      </article>
+    </div>
+
+    <h2>Custom activity list ideas</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Try lists such as free things nearby, date ideas under a budget, rainy-day activities, things to do without a phone, quick team energizers, family games, weekend errands, solo reset ideas or small creative projects. The picker removes duplicates during each pick, and no-repeat mode helps avoid choosing the same activity twice in one session.</p>
+
+    <h2>Polls versus a random activity pick</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Use this tool when every option on the list is acceptable and you just want one clear next activity. If people should vote, use the <a href="/tools/poll-maker.html">Poll Maker</a>. For food, use the <a href="/tools/random-dinner-picker.html">Random Dinner Picker</a>. For movie night, use the <a href="/tools/random-movie-picker.html">Random Movie Picker</a>. For two options, use the <a href="/tools/coin-flip.html">Coin Flip</a> or <a href="/tools/yes-no-wheel.html">Yes / No Wheel</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Random activity picker FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">How does the random activity picker work?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Paste activity ideas or load a preset, then click <em>Pick Activity</em>. The tool randomly chooses one option from the current list in your browser.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I paste my own activity list?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Add one activity per line or separate ideas with commas. The picker works with family plans, date ideas, weekend options, team breaks and boredom lists.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Does this check weather or opening hours?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. Only include activities that are realistic, safe and available for your group. The picker chooses from the list you provide.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I avoid repeat activity picks?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Turn on avoid repeats this session and the picker will use each activity once before the list resets.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/decision-makers/"><span class="ri">DM</span> Decision Tools</a>
+      <a class="related-card" href="poll-maker.html"><span class="ri">PL</span> Poll Maker</a>
+      <a class="related-card" href="random-dinner-picker.html"><span class="ri">DN</span> Dinner Picker</a>
+      <a class="related-card" href="random-movie-picker.html"><span class="ri">MV</span> Movie Picker</a>
+      <a class="related-card" href="truth-or-dare-generator.html"><span class="ri">TD</span> Truth or Dare</a>
+      <a class="related-card" href="would-you-rather-generator.html"><span class="ri">WR</span> Would You Rather</a>
+    </div>
+  </section>
+</main>

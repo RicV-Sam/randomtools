@@ -1,0 +1,368 @@
+---
+layout: layouts/base.njk
+title: "Random Word Generator - Free Words for Games & Prompts | Spinnit"
+description: "Generate random words for games, writing prompts, classrooms, Pictionary, charades, vocabulary practice, test data and creative ideas. Free, no sign-up."
+ogTitle: "Random Word Generator | Spinnit"
+ogDescription: "Generate random words by category for games, classrooms, writing prompts, vocabulary practice and creative ideas."
+canonical: "https://spinnit.site/tools/random-word-generator.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Random Word Generator"
+    url: "/tools/random-word-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Word Generator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/random-word-generator.html",
+    "description": "A free browser-based random word generator for games, writing prompts, classrooms, vocabulary practice, test data and creative ideas.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What can I use a random word generator for?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Use a random word generator for word games, writing prompts, vocabulary practice, classroom activities, Pictionary, charades, test data, naming ideas and creative warm-ups." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I generate more than one word?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Choose how many words you want, then generate a copyable list." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the words classroom friendly?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The built-in word lists are clean and suitable for classrooms, families, games and mixed-age groups." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Spinnit require an account?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The random word generator is free, runs in your browser and does not require an account." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .word-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .word-result-card {
+    background: linear-gradient(135deg, rgba(96,165,250,0.12), rgba(52,211,153,0.08));
+    border: 1px solid rgba(96,165,250,0.26);
+    border-radius: var(--radius-lg);
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+  .word-result {
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: clamp(1.45rem, 7vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 52px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .word-meta {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 12px;
+    margin-top: 0.65rem;
+  }
+  .word-history {
+    display: grid;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  .word-history-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.55;
+    padding: 0.75rem;
+  }
+  .word-use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 10px;
+  }
+  .word-use {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .word-use h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .word-use p,
+  .word-use li {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  const WORD_BANKS = {
+    common: ["river", "window", "garden", "pencil", "cloud", "market", "bridge", "lamp", "basket", "forest", "mirror", "button", "ticket", "planet", "castle", "blanket", "pocket", "ladder", "harbor", "folder", "camera", "notebook", "island", "thunder", "kitchen", "circle", "engine", "silver", "meadow", "lantern"],
+    nouns: ["apple", "mountain", "teacher", "bicycle", "library", "sandwich", "airport", "dragon", "ocean", "violin", "clock", "umbrella", "robot", "castle", "village", "telescope", "puzzle", "garden", "museum", "backpack", "compass", "painting", "volcano", "penguin", "suitcase", "candle", "festival", "rainbow", "stadium", "bookshop"],
+    verbs: ["build", "whisper", "sketch", "climb", "discover", "juggle", "measure", "wander", "invent", "borrow", "deliver", "balance", "collect", "pretend", "explore", "repair", "shuffle", "celebrate", "describe", "imagine", "listen", "arrange", "compare", "decorate", "question", "travel", "create", "notice", "practice", "solve"],
+    adjectives: ["brave", "quiet", "golden", "curious", "gentle", "electric", "ancient", "playful", "bright", "stormy", "tiny", "mysterious", "friendly", "crooked", "famous", "hidden", "smooth", "wild", "careful", "sleepy", "glowing", "simple", "lucky", "fresh", "massive", "polite", "rapid", "striped", "warm", "clever"],
+    games: ["wizard", "treasure", "spaceship", "sandcastle", "popcorn", "skateboard", "octopus", "fireworks", "detective", "moonlight", "pirate", "snowman", "trampoline", "guitar", "dinosaur", "waterfall", "superhero", "birthday", "jungle", "rollercoaster", "mermaid", "trophy", "campfire", "maze", "rocket", "watermelon", "magician", "carousel", "monster", "pancake"],
+    classroom: ["compare", "evidence", "summary", "pattern", "question", "example", "chapter", "fraction", "weather", "habitat", "timeline", "estimate", "observe", "predict", "diagram", "vocabulary", "method", "contrast", "source", "result", "reason", "shape", "cycle", "character", "setting", "theme", "measure", "classify", "energy", "community"],
+    writing: ["doorway", "secret", "storm", "letter", "promise", "map", "stranger", "lantern", "echo", "journey", "clocktower", "garden", "mistake", "memory", "signal", "courage", "key", "riverbank", "festival", "shadow", "arrival", "song", "photograph", "message", "footsteps", "choice", "horizon", "cabin", "whisper", "discovery"],
+    testdata: ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "green", "orange", "purple", "north", "south", "east", "west", "table", "field", "record", "sample", "token", "widget", "folder", "status", "group", "label", "value", "filter", "export", "import", "index", "query", "schema"]
+  };
+
+  const WORD_LABELS = {
+    common: "Common words",
+    nouns: "Nouns",
+    verbs: "Verbs",
+    adjectives: "Adjectives",
+    games: "Game words",
+    classroom: "Classroom words",
+    writing: "Writing prompts",
+    testdata: "Test data"
+  };
+
+  let wordHistory = [];
+  let lastWords = [];
+
+  function randomWordIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function currentWordPool() {
+    const category = document.getElementById("wordCategory").value;
+    if (category === "all") {
+      return Object.values(WORD_BANKS).flat();
+    }
+    return WORD_BANKS[category];
+  }
+
+  function generateRandomWords() {
+    const category = document.getElementById("wordCategory").value;
+    const countInput = document.getElementById("wordCount");
+    const count = Math.min(Math.max(parseInt(countInput.value, 10) || 1, 1), 50);
+    countInput.value = count;
+    const pool = currentWordPool();
+    const unique = document.getElementById("uniqueWords").checked;
+    const working = pool.slice();
+    const picked = [];
+
+    for (let i = 0; i < count; i++) {
+      const source = unique ? working : pool;
+      if (!source.length) break;
+      const index = randomWordIndex(source.length);
+      picked.push(source[index]);
+      if (unique) working.splice(index, 1);
+    }
+
+    lastWords = picked;
+    const output = picked.join(count > 1 ? "\n" : "");
+    document.getElementById("wordResult").textContent = output || "-";
+    document.getElementById("wordMeta").textContent = (category === "all" ? "All categories" : WORD_LABELS[category]) + " | " + picked.length + " word" + (picked.length === 1 ? "" : "s");
+    document.getElementById("wordShareSummary").textContent = "Random word" + (picked.length === 1 ? "" : "s") + ": " + picked.join(", ");
+    wordHistory.unshift({ category, words: picked });
+    wordHistory = wordHistory.slice(0, 10);
+    renderWordHistory();
+  }
+
+  function escapeWordHtml(text) {
+    return text.replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+  }
+
+  function renderWordHistory() {
+    const history = document.getElementById("wordHistory");
+    history.innerHTML = wordHistory.map((item, index) => `
+      <div class="word-history-item">${index + 1}. <strong>${item.category === "all" ? "All categories" : WORD_LABELS[item.category]}:</strong> ${escapeWordHtml(item.words.join(", "))}</div>
+    `).join("");
+  }
+
+  function loadWordCategory(category) {
+    document.getElementById("wordCategory").value = category;
+    generateRandomWords();
+  }
+
+  function wordsText() {
+    if (!lastWords.length) return "Random Word Generator on Spinnit: generate random words for games, classrooms, writing prompts and vocabulary practice.";
+    return lastWords.join("\n") + "\n\nGenerated with Spinnit";
+  }
+
+  function copyWords(button) {
+    window.copySpinnitText(wordsText(), button, "Copy words");
+  }
+
+  function shareWords(button) {
+    window.shareOrCopySpinnit({
+      title: "Random Word Generator | Spinnit",
+      text: wordsText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyWordEmbed(button) {
+    window.copySpinnitEmbed("/tools/random-word-generator.html", "Random Word Generator - Spinnit", button);
+  }
+
+  document.addEventListener("DOMContentLoaded", generateRandomWords);
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">WD</div>
+    <h1>Random Word Generator</h1>
+    <p>Generate random words for games, writing prompts, classrooms, vocabulary practice and creative ideas.</p>
+  </div>
+
+  <section class="word-panel">
+    <div class="controls">
+      <div class="control-row">
+        <div class="control-group">
+          <label for="wordCategory">Word category</label>
+          <select id="wordCategory">
+            <option value="all">All categories</option>
+            <option value="common">Common words</option>
+            <option value="nouns">Nouns</option>
+            <option value="verbs">Verbs</option>
+            <option value="adjectives">Adjectives</option>
+            <option value="games">Game words</option>
+            <option value="classroom">Classroom words</option>
+            <option value="writing">Writing prompts</option>
+            <option value="testdata">Test data</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="wordCount">How many words?</label>
+          <input id="wordCount" type="number" value="1" min="1" max="50">
+        </div>
+      </div>
+      <label style="display:flex;gap:8px;align-items:center;margin-top:10px;color:var(--text2);font-size:13px;">
+        <input id="uniqueWords" type="checkbox" checked> Unique words only
+      </label>
+    </div>
+
+    <button class="btn-generate" type="button" onclick="generateRandomWords()">GENERATE WORDS</button>
+    <div class="template-buttons">
+      <button class="btn-copy" type="button" onclick="loadWordCategory('games')">Games</button>
+      <button class="btn-copy" type="button" onclick="loadWordCategory('classroom')">Classroom</button>
+      <button class="btn-copy" type="button" onclick="loadWordCategory('writing')">Writing</button>
+      <button class="btn-copy" type="button" onclick="loadWordCategory('testdata')">Test data</button>
+    </div>
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="copyWords(this)">Copy words</button>
+      <button class="btn-copy" type="button" onclick="shareWords(this)">Share</button>
+      <button class="btn-copy" type="button" onclick="copyWordEmbed(this)">Copy embed</button>
+      <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+    </div>
+  </section>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="wordShareSummary">Generate random words, then copy or share them.</span></div>
+
+  <section class="word-result-card" aria-live="polite">
+    <p id="wordResult" class="word-result">-</p>
+    <div id="wordMeta" class="word-meta">Ready</div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <h2>Recent words</h2>
+    <div id="wordHistory" class="word-history"></div>
+
+    <h2>How to use the random word generator</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Choose a category such as nouns, game words, classroom words, writing prompts or test data.</li>
+      <li>Choose how many words you need.</li>
+      <li>Generate a fresh word or copyable word list.</li>
+      <li>Use projector mode for classrooms, games and group activities.</li>
+      <li>Share the page when someone needs quick words for a game, lesson or writing prompt.</li>
+    </ol>
+
+    <h2>Best used for</h2>
+    <div class="word-use-grid">
+      <article class="word-use">
+        <h3>Word games</h3>
+        <p>Generate words for Pictionary, charades, Taboo-style games, warm-ups, party games and family activities.</p>
+      </article>
+      <article class="word-use">
+        <h3>Classrooms</h3>
+        <p>Use clean words for vocabulary practice, spelling games, writing starters, category sorting and quick discussion prompts.</p>
+      </article>
+      <article class="word-use">
+        <h3>Writing prompts</h3>
+        <p>Pick one or more words as a seed for stories, poems, journaling, creative constraints or brainstorming sessions.</p>
+      </article>
+      <article class="word-use">
+        <h3>Developer test data</h3>
+        <p>Generate simple placeholder words for mock data, examples, labels, filters and quick interface tests.</p>
+      </article>
+    </div>
+
+    <h2>Why this belongs in Spinnit</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Random words sit at the intersection of games, education, writing, decision-making and developer utilities. Need letters instead of full words? Use the <a href="/tools/random-letter-generator.html">Random Letter Generator</a>. This page expands Spinnit's topical authority beyond names and numbers into reusable prompt generation, while linking naturally to the <a href="/tools/random-question-generator.html">Random Question Generator</a>, <a href="/tools/random-picker-wheel.html">Random Picker Wheel</a>, <a href="/classroom-random-tools/">Classroom Random Tools</a> and <a href="/tools/decision-makers/">Decision Maker Tools</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Random word generator FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate random words for games?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Use the Game words category for Pictionary, charades, family games, party games and quick group activities.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can teachers use these words in class?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The Classroom words category is clean and useful for vocabulary practice, spelling games, sorting tasks and writing starters.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate multiple words?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Choose any count from 1 to 50, then copy the generated list.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are the words uploaded anywhere?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. The generator runs in your browser and does not require an account.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/random-question-generator.html"><span class="ri">Q?</span> Random Questions</a>
+      <a class="related-card" href="/tools/random-letter-generator.html"><span class="ri">AZ</span> Random Letter</a>
+      <a class="related-card" href="/tools/random-picker-wheel.html"><span class="ri">PW</span> Picker Wheel</a>
+      <a class="related-card" href="/classroom-random-tools/"><span class="ri">CL</span> Classroom Tools</a>
+      <a class="related-card" href="/tools/list-shuffler.html"><span class="ri">LS</span> List Shuffler</a>
+      <a class="related-card" href="/tools/random-name-generator.html"><span class="ri">NG</span> Name Generator</a>
+      <a class="related-card" href="/tools/decision-makers/"><span class="ri">DM</span> Decision Tools</a>
+    </div>
+  </section>
+</main>
