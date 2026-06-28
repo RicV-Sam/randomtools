@@ -1,0 +1,358 @@
+---
+layout: layouts/base.njk
+title: "Random Object Generator - Pick Random Things | Spinnit"
+description: "Generate random objects and things for games, classrooms, drawing prompts, scavenger hunts, writing ideas, charades and test data. Free, no sign-up."
+ogTitle: "Random Object Generator | Spinnit"
+ogDescription: "Pick random objects by category for games, classrooms, drawing prompts, scavenger hunts and creative ideas."
+canonical: "https://spinnit.site/tools/random-object-generator.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Random Object Generator"
+    url: "/tools/random-object-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Object Generator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/random-object-generator.html",
+    "description": "A free browser-based random object generator for games, classrooms, drawing prompts, scavenger hunts, writing ideas, charades and test data.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What can I use a random object generator for?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Use it for drawing prompts, classroom games, Pictionary, charades, scavenger hunts, writing prompts, object lessons, vocabulary practice and quick test data." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I generate more than one object?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Choose how many objects you want, then generate a copyable list." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the objects classroom friendly?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The built-in object lists are clean and suitable for classrooms, families, group games and mixed-age activities." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this random object picker require an account?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. It is free, runs in your browser and does not require an account." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .object-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .object-result-card {
+    background: linear-gradient(135deg, rgba(244,114,182,0.11), rgba(52,211,153,0.08));
+    border: 1px solid rgba(244,114,182,0.24);
+    border-radius: var(--radius-lg);
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+  .object-result {
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: clamp(1.45rem, 7vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 52px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .object-meta {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 12px;
+    margin-top: 0.65rem;
+  }
+  .object-history {
+    display: grid;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  .object-history-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.55;
+    padding: 0.75rem;
+  }
+  .object-use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 10px;
+  }
+  .object-use {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .object-use h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .object-use p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  const OBJECT_BANKS = {
+    everyday: ["backpack", "bottle", "chair", "clock", "cup", "desk", "door", "folder", "glasses", "key", "lamp", "mirror", "notebook", "pillow", "plate", "remote", "rug", "scissors", "shoe", "spoon", "table", "towel", "umbrella", "wallet", "window"],
+    classroom: ["book", "calculator", "crayon", "eraser", "globe", "highlighter", "index card", "marker", "paintbrush", "paper clip", "pencil", "poster", "ruler", "stapler", "sticky note", "tablet", "textbook", "whiteboard", "worksheet"],
+    games: ["balloon", "binoculars", "camera", "candle", "compass", "crown", "dice", "flashlight", "guitar", "helmet", "lantern", "magnifying glass", "map", "mask", "microphone", "paint can", "puzzle", "rocket", "skateboard", "telescope", "ticket", "treasure chest", "trophy"],
+    drawing: ["anchor", "bicycle", "castle", "cloud", "couch", "drum", "feather", "flower pot", "goggles", "hammer", "ice cream cone", "kite", "ladder", "mailbox", "paint palette", "sailboat", "snow globe", "teapot", "violin", "watering can"],
+    scavenger: ["blue object", "round object", "soft object", "shiny object", "wooden object", "tiny object", "heavy object", "striped object", "green object", "square object", "object with wheels", "object with a handle", "object you can stack", "object that makes sound", "object used outside"],
+    testdata: ["asset card", "demo item", "export file", "feature tile", "filter chip", "gallery item", "inventory row", "mock object", "placeholder image", "sample record", "status badge", "test fixture", "upload slot", "widget panel"]
+  };
+
+  const OBJECT_LABELS = {
+    all: "All categories",
+    everyday: "Everyday objects",
+    classroom: "Classroom objects",
+    games: "Game objects",
+    drawing: "Drawing prompts",
+    scavenger: "Scavenger hunt prompts",
+    testdata: "Test data"
+  };
+
+  let objectHistory = [];
+  let lastObjects = [];
+
+  function randomObjectIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function currentObjectPool() {
+    const category = document.getElementById("objectCategory").value;
+    if (category === "all") return Object.values(OBJECT_BANKS).flat();
+    return OBJECT_BANKS[category];
+  }
+
+  function generateRandomObjects() {
+    const category = document.getElementById("objectCategory").value;
+    const countInput = document.getElementById("objectCount");
+    const count = Math.min(Math.max(parseInt(countInput.value, 10) || 1, 1), 50);
+    countInput.value = count;
+    const unique = document.getElementById("uniqueObjects").checked;
+    const pool = currentObjectPool();
+    const working = pool.slice();
+    const picked = [];
+
+    for (let i = 0; i < count; i++) {
+      const source = unique ? working : pool;
+      if (!source.length) break;
+      const index = randomObjectIndex(source.length);
+      picked.push(source[index]);
+      if (unique) working.splice(index, 1);
+    }
+
+    lastObjects = picked;
+    document.getElementById("objectResult").textContent = picked.join(count > 1 ? "\n" : "") || "-";
+    document.getElementById("objectMeta").textContent = OBJECT_LABELS[category] + " | " + picked.length + " object" + (picked.length === 1 ? "" : "s");
+    document.getElementById("objectShareSummary").textContent = "Random object" + (picked.length === 1 ? "" : "s") + ": " + picked.join(", ");
+    objectHistory.unshift({ category, objects: picked });
+    objectHistory = objectHistory.slice(0, 10);
+    renderObjectHistory();
+  }
+
+  function escapeObjectHtml(text) {
+    return text.replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+  }
+
+  function renderObjectHistory() {
+    const history = document.getElementById("objectHistory");
+    history.innerHTML = objectHistory.map((item, index) => `
+      <div class="object-history-item">${index + 1}. <strong>${OBJECT_LABELS[item.category]}:</strong> ${escapeObjectHtml(item.objects.join(", "))}</div>
+    `).join("");
+  }
+
+  function loadObjectCategory(category) {
+    document.getElementById("objectCategory").value = category;
+    generateRandomObjects();
+  }
+
+  function objectsText() {
+    if (!lastObjects.length) return "Random Object Generator on Spinnit: pick random objects for games, classrooms, drawing prompts and scavenger hunts.";
+    return lastObjects.join("\n") + "\n\nGenerated with Spinnit";
+  }
+
+  function copyObjects(button) {
+    window.copySpinnitText(objectsText(), button, "Copy objects");
+  }
+
+  function shareObjects(button) {
+    window.shareOrCopySpinnit({
+      title: "Random Object Generator | Spinnit",
+      text: objectsText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyObjectEmbed(button) {
+    window.copySpinnitEmbed("/tools/random-object-generator.html", "Random Object Generator - Spinnit", button);
+  }
+
+  document.addEventListener("DOMContentLoaded", generateRandomObjects);
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">OB</div>
+    <h1>Random Object Generator</h1>
+    <p>Generate random objects and things for games, classrooms, drawing prompts, scavenger hunts and creative ideas.</p>
+  </div>
+
+  <section class="object-panel">
+    <div class="controls">
+      <div class="control-row">
+        <div class="control-group">
+          <label for="objectCategory">Object category</label>
+          <select id="objectCategory">
+            <option value="all">All categories</option>
+            <option value="everyday">Everyday objects</option>
+            <option value="classroom">Classroom objects</option>
+            <option value="games">Game objects</option>
+            <option value="drawing">Drawing prompts</option>
+            <option value="scavenger">Scavenger hunt prompts</option>
+            <option value="testdata">Test data</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="objectCount">How many objects?</label>
+          <input id="objectCount" type="number" value="1" min="1" max="50">
+        </div>
+      </div>
+      <label style="display:flex;gap:8px;align-items:center;margin-top:10px;color:var(--text2);font-size:13px;">
+        <input id="uniqueObjects" type="checkbox" checked> Unique objects only
+      </label>
+    </div>
+
+    <button class="btn-generate" type="button" onclick="generateRandomObjects()">GENERATE OBJECTS</button>
+    <div class="template-buttons">
+      <button class="btn-copy" type="button" onclick="loadObjectCategory('drawing')">Drawing</button>
+      <button class="btn-copy" type="button" onclick="loadObjectCategory('games')">Games</button>
+      <button class="btn-copy" type="button" onclick="loadObjectCategory('classroom')">Classroom</button>
+      <button class="btn-copy" type="button" onclick="loadObjectCategory('scavenger')">Scavenger hunt</button>
+    </div>
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="copyObjects(this)">Copy objects</button>
+      <button class="btn-copy" type="button" onclick="shareObjects(this)">Share</button>
+      <button class="btn-copy" type="button" onclick="copyObjectEmbed(this)">Copy embed</button>
+      <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+    </div>
+  </section>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="objectShareSummary">Generate random objects, then copy or share them.</span></div>
+
+  <section class="object-result-card" aria-live="polite">
+    <p id="objectResult" class="object-result">-</p>
+    <div id="objectMeta" class="object-meta">Ready</div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <h2>Recent objects</h2>
+    <div id="objectHistory" class="object-history"></div>
+
+    <h2>How to use the random object generator</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Choose a category such as everyday objects, drawing prompts, classroom objects or scavenger hunt prompts.</li>
+      <li>Choose how many objects you need.</li>
+      <li>Generate a fresh object or a copyable object list.</li>
+      <li>Use projector mode for classrooms, group games and whiteboard prompts.</li>
+      <li>Share the page when someone needs a quick drawing idea, game clue or object challenge.</li>
+    </ol>
+
+    <h2>Best used for</h2>
+    <div class="object-use-grid">
+      <article class="object-use">
+        <h3>Drawing prompts</h3>
+        <p>Pick a random thing to draw for sketch warm-ups, art class, creative blocks, drawing games and daily practice.</p>
+      </article>
+      <article class="object-use">
+        <h3>Classrooms</h3>
+        <p>Generate classroom-friendly objects for vocabulary, sorting, descriptive writing, show-and-tell, phonics and object lessons.</p>
+      </article>
+      <article class="object-use">
+        <h3>Games</h3>
+        <p>Use random objects for Pictionary, charades, scavenger hunts, party games, family challenges and improv prompts.</p>
+      </article>
+      <article class="object-use">
+        <h3>Test data</h3>
+        <p>Create simple object names for mock inventory, cards, labels, sample rows, filters and interface demos.</p>
+      </article>
+    </div>
+
+    <h2>Related prompt tools</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Need words instead of objects? Use the <a href="/tools/random-word-generator.html">Random Word Generator</a>. Need letters? Try the <a href="/tools/random-letter-generator.html">Random Letter Generator</a>. For questions and conversation prompts, use the <a href="/tools/random-question-generator.html">Random Question Generator</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Random object generator FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this for drawing prompts?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Choose Drawing prompts to get object ideas for sketching, art class, daily drawing practice and drawing games.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I use this for classroom games?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. The classroom and everyday categories are clean and useful for vocabulary, describing objects, sorting games and writing starters.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate a scavenger hunt list?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Choose Scavenger hunt prompts and generate several object descriptions for a quick hunt.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are the objects uploaded anywhere?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. The generator runs in your browser and does not require an account.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/random-word-generator.html"><span class="ri">WD</span> Random Word</a>
+      <a class="related-card" href="/tools/random-letter-generator.html"><span class="ri">AZ</span> Random Letter</a>
+      <a class="related-card" href="/tools/random-question-generator.html"><span class="ri">Q?</span> Random Questions</a>
+      <a class="related-card" href="/classroom-random-tools/"><span class="ri">CL</span> Classroom Tools</a>
+      <a class="related-card" href="/tools/random-picker-wheel.html"><span class="ri">PW</span> Picker Wheel</a>
+      <a class="related-card" href="/tools/decision-makers/"><span class="ri">DM</span> Decision Tools</a>
+    </div>
+  </section>
+</main>
