@@ -1,0 +1,363 @@
+---
+layout: layouts/base.njk
+title: "Random Emoji Generator - Pick Random Emojis | Spinnit"
+description: "Generate random emojis for messages, games, classrooms, social posts, icebreakers, mood checks and creative prompts. Free random emoji picker, no sign-up."
+ogTitle: "Random Emoji Generator | Spinnit"
+ogDescription: "Pick random emojis by category for social posts, classroom prompts, mood checks, games and creative ideas."
+canonical: "https://spinnit.site/tools/random-emoji-generator.html"
+dateModified: "2026-06-28"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "All Tools"
+    url: "/tools/"
+  - label: "Random Emoji Generator"
+    url: "/tools/random-emoji-generator.html"
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Random Emoji Generator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "url": "https://spinnit.site/tools/random-emoji-generator.html",
+    "description": "A free browser-based random emoji generator for messages, games, classrooms, social posts, icebreakers, mood checks and creative prompts.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "isAccessibleForFree": true
+  }
+extraHead: |
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What can I use a random emoji generator for?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Use it for social captions, group chats, classroom mood checks, icebreakers, creative prompts, emoji games, reaction prompts and quick design placeholders." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I generate more than one emoji?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Choose how many emojis you want and generate a copyable emoji list." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I pick emojis by category?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Choose all emojis, faces and feelings, gestures, food, travel, objects, symbols or classroom-safe emojis." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this random emoji picker free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is free, runs in your browser and does not require an account." }
+      }
+    ]
+  }
+  </script>
+pageStyle: |
+  .emoji-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .emoji-result-card {
+    background: linear-gradient(135deg, rgba(251,191,36,0.14), rgba(96,165,250,0.08));
+    border: 1px solid rgba(251,191,36,0.26);
+    border-radius: var(--radius-lg);
+    margin: 1rem 0;
+    padding: 1rem;
+    text-align: center;
+  }
+  .emoji-result {
+    color: var(--text);
+    font-size: clamp(2.6rem, 15vw, 5.5rem);
+    line-height: 1.2;
+    margin: 0;
+    min-height: 86px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .emoji-meta {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 12px;
+    margin-top: 0.65rem;
+  }
+  .emoji-history {
+    display: grid;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  .emoji-history-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 18px;
+    line-height: 1.55;
+    padding: 0.75rem;
+  }
+  .emoji-history-item strong {
+    color: var(--text);
+    font-size: 13px;
+  }
+  .emoji-use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 10px;
+  }
+  .emoji-use {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .emoji-use h3 {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 0.35rem;
+  }
+  .emoji-use p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+pageScript: |
+  const EMOJI_BANKS = {
+    faces: ["😀", "😄", "😊", "🙂", "😉", "😎", "🤔", "😮", "😌", "🥳", "🤩", "😇", "😂", "😅", "🙃", "😍", "😴", "🤗"],
+    gestures: ["👍", "👎", "👏", "🙌", "🙏", "💪", "✌️", "👌", "🤝", "👋", "☝️", "✋", "🤞", "🫶", "👀", "💬"],
+    food: ["🍕", "🍔", "🍟", "🌮", "🍜", "🍣", "🍩", "🍪", "🍰", "🍫", "🍿", "☕", "🍵", "🍎", "🍌", "🍓", "🍉", "🥑"],
+    travel: ["✈️", "🚗", "🚲", "🚆", "🚀", "🏖️", "🏕️", "🏙️", "🗺️", "🧭", "🎒", "🎟️", "⛵", "🏛️", "🌉", "🗽"],
+    objects: ["💡", "📚", "✏️", "📌", "📎", "🎨", "🎲", "🎯", "🎧", "🎮", "📷", "🔑", "🧩", "🪄", "🎁", "🏆", "📱", "💻"],
+    symbols: ["⭐", "🔥", "✨", "⚡", "💥", "💯", "✅", "❌", "❓", "❗", "💭", "💬", "🔔", "📍", "🔒", "🔓", "🔁", "🎵"],
+    classroom: ["😀", "🤔", "💡", "📚", "✏️", "🎯", "⭐", "✅", "❓", "💬", "👏", "🙌", "🧩", "📌", "📝", "🏆"]
+  };
+
+  const EMOJI_LABELS = {
+    all: "All emojis",
+    faces: "Faces and feelings",
+    gestures: "Gestures",
+    food: "Food",
+    travel: "Travel",
+    objects: "Objects",
+    symbols: "Symbols",
+    classroom: "Classroom-safe"
+  };
+
+  let emojiHistory = [];
+  let lastEmojis = [];
+
+  function randomEmojiIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues && max > 0) {
+      const range = 0x100000000;
+      const limit = range - (range % max);
+      const values = new Uint32Array(1);
+      let value;
+      do {
+        window.crypto.getRandomValues(values);
+        value = values[0];
+      } while (value >= limit);
+      return value % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function currentEmojiPool() {
+    const category = document.getElementById("emojiCategory").value;
+    if (category === "all") return Object.values(EMOJI_BANKS).flat();
+    return EMOJI_BANKS[category];
+  }
+
+  function generateRandomEmojis() {
+    const category = document.getElementById("emojiCategory").value;
+    const countInput = document.getElementById("emojiCount");
+    const count = Math.min(Math.max(parseInt(countInput.value, 10) || 1, 1), 50);
+    countInput.value = count;
+    const unique = document.getElementById("uniqueEmojis").checked;
+    const separator = document.getElementById("emojiSeparator").value;
+    const pool = currentEmojiPool();
+    const working = pool.slice();
+    const picked = [];
+
+    for (let i = 0; i < count; i++) {
+      const source = unique ? working : pool;
+      if (!source.length) break;
+      const index = randomEmojiIndex(source.length);
+      picked.push(source[index]);
+      if (unique) working.splice(index, 1);
+    }
+
+    lastEmojis = picked;
+    const joiner = separator === "spaces" ? " " : "";
+    document.getElementById("emojiResult").textContent = picked.join(joiner) || "-";
+    document.getElementById("emojiMeta").textContent = EMOJI_LABELS[category] + " | " + picked.length + " emoji" + (picked.length === 1 ? "" : "s");
+    document.getElementById("emojiShareSummary").textContent = "Random emoji" + (picked.length === 1 ? "" : "s") + ": " + picked.join(" ");
+    emojiHistory.unshift({ category, emojis: picked });
+    emojiHistory = emojiHistory.slice(0, 10);
+    renderEmojiHistory();
+  }
+
+  function renderEmojiHistory() {
+    const history = document.getElementById("emojiHistory");
+    history.innerHTML = emojiHistory.map((item, index) => `
+      <div class="emoji-history-item"><strong>${index + 1}. ${EMOJI_LABELS[item.category]}:</strong> ${item.emojis.join(" ")}</div>
+    `).join("");
+  }
+
+  function loadEmojiCategory(category) {
+    document.getElementById("emojiCategory").value = category;
+    generateRandomEmojis();
+  }
+
+  function emojisText() {
+    if (!lastEmojis.length) return "Random Emoji Generator on Spinnit: pick random emojis for messages, games, classrooms and creative prompts.";
+    return lastEmojis.join(" ") + "\n\nGenerated with Spinnit";
+  }
+
+  function copyEmojis(button) {
+    window.copySpinnitText(emojisText(), button, "Copy emojis");
+  }
+
+  function shareEmojis(button) {
+    window.shareOrCopySpinnit({
+      title: "Random Emoji Generator | Spinnit",
+      text: emojisText(),
+      url: window.location.href
+    }, button);
+  }
+
+  function copyEmojiEmbed(button) {
+    window.copySpinnitEmbed("/tools/random-emoji-generator.html", "Random Emoji Generator - Spinnit", button);
+  }
+
+  document.addEventListener("DOMContentLoaded", generateRandomEmojis);
+---
+<main class="tool-page">
+  <div class="tool-header">
+    <div class="tool-icon">EM</div>
+    <h1>Random Emoji Generator</h1>
+    <p>Generate random emojis for messages, games, classrooms, social posts, mood checks and creative prompts.</p>
+  </div>
+
+  <section class="emoji-panel">
+    <div class="controls">
+      <div class="control-row">
+        <div class="control-group">
+          <label for="emojiCategory">Emoji category</label>
+          <select id="emojiCategory">
+            <option value="all">All emojis</option>
+            <option value="faces">Faces and feelings</option>
+            <option value="gestures">Gestures</option>
+            <option value="food">Food</option>
+            <option value="travel">Travel</option>
+            <option value="objects">Objects</option>
+            <option value="symbols">Symbols</option>
+            <option value="classroom">Classroom-safe</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="emojiSeparator">Format</label>
+          <select id="emojiSeparator">
+            <option value="spaces">With spaces</option>
+            <option value="tight">No spaces</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="emojiCount">How many emojis?</label>
+          <input id="emojiCount" type="number" value="1" min="1" max="50">
+        </div>
+      </div>
+      <label style="display:flex;gap:8px;align-items:center;margin-top:10px;color:var(--text2);font-size:13px;">
+        <input id="uniqueEmojis" type="checkbox" checked> Unique emojis only
+      </label>
+    </div>
+
+    <button class="btn-generate" type="button" onclick="generateRandomEmojis()">GENERATE EMOJIS</button>
+    <div class="template-buttons">
+      <button class="btn-copy" type="button" onclick="loadEmojiCategory('faces')">Faces</button>
+      <button class="btn-copy" type="button" onclick="loadEmojiCategory('symbols')">Symbols</button>
+      <button class="btn-copy" type="button" onclick="loadEmojiCategory('classroom')">Classroom</button>
+      <button class="btn-copy" type="button" onclick="loadEmojiCategory('food')">Food</button>
+    </div>
+    <div class="tool-actions">
+      <button class="btn-copy" type="button" onclick="copyEmojis(this)">Copy emojis</button>
+      <button class="btn-copy" type="button" onclick="shareEmojis(this)">Share</button>
+      <button class="btn-copy" type="button" onclick="copyEmojiEmbed(this)">Copy embed</button>
+      <button class="btn-copy" type="button" onclick="toggleSpinnitProjectorMode(this)">Projector mode</button>
+    </div>
+  </section>
+
+  <div class="result-share-card"><strong>Share card:</strong> <span id="emojiShareSummary">Generate random emojis, then copy or share them.</span></div>
+
+  <section class="emoji-result-card" aria-live="polite">
+    <p id="emojiResult" class="emoji-result">-</p>
+    <div id="emojiMeta" class="emoji-meta">Ready</div>
+  </section>
+
+  <section class="tool-content" style="margin-top:2rem;">
+    <h2>Recent emojis</h2>
+    <div id="emojiHistory" class="emoji-history"></div>
+
+    <h2>How to use the random emoji generator</h2>
+    <ol style="font-size:14px;color:var(--text2);line-height:1.9;padding-left:1.25rem;">
+      <li>Choose a category such as faces, symbols, food, travel, objects or classroom-safe emojis.</li>
+      <li>Choose one emoji or generate a copyable emoji set.</li>
+      <li>Pick whether emojis should be separated by spaces.</li>
+      <li>Use projector mode for mood checks, classroom prompts and group games.</li>
+      <li>Copy or share the result for messages, captions and creative prompts.</li>
+    </ol>
+
+    <h2>Best used for</h2>
+    <div class="emoji-use-grid">
+      <article class="emoji-use">
+        <h3>Social posts and chats</h3>
+        <p>Pick a random emoji for captions, group chat prompts, reaction games, status ideas and lightweight social challenges.</p>
+      </article>
+      <article class="emoji-use">
+        <h3>Classroom mood checks</h3>
+        <p>Use classroom-safe emojis for feelings check-ins, exit tickets, quick votes, warm-ups and writing prompts.</p>
+      </article>
+      <article class="emoji-use">
+        <h3>Games and icebreakers</h3>
+        <p>Generate emoji clues, emoji stories, team prompts, guessing games, improv prompts and quick party activities.</p>
+      </article>
+      <article class="emoji-use">
+        <h3>Design placeholders</h3>
+        <p>Create quick symbols for mock cards, reactions, labels, app states, sample content and prototype screens.</p>
+      </article>
+    </div>
+
+    <h2>Related prompt tools</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;">Need words or things instead? Use the <a href="/tools/random-word-generator.html">Random Word Generator</a> or <a href="/tools/random-object-generator.html">Random Object Generator</a>. For discussion prompts, use the <a href="/tools/random-question-generator.html">Random Question Generator</a>.</p>
+  </section>
+
+  <section class="tool-faq" style="margin-top:2rem;">
+    <h2>Random emoji generator FAQ</h2>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate random emojis for captions?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Pick a category, generate one or more emojis, then copy them into your caption, message or post.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can teachers use this in class?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Use the classroom-safe category for mood checks, writing prompts, quick votes and group warm-ups.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Can I generate emoji combinations?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">Yes. Choose a count greater than one and decide whether the emojis should have spaces between them.</p>
+
+    <h3 style="font-size:15px;font-weight:600;margin:1.25rem 0 0.4rem;">Are the emojis uploaded anywhere?</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;">No. The generator runs in your browser and does not require an account.</p>
+  </section>
+
+  <section class="related" style="margin-top:2rem;">
+    <h2 class="related-label">Related Tools</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/random-object-generator.html"><span class="ri">OB</span> Random Object</a>
+      <a class="related-card" href="/tools/random-word-generator.html"><span class="ri">WD</span> Random Word</a>
+      <a class="related-card" href="/tools/random-question-generator.html"><span class="ri">Q?</span> Random Questions</a>
+      <a class="related-card" href="/tools/random-letter-generator.html"><span class="ri">AZ</span> Random Letter</a>
+      <a class="related-card" href="/classroom-random-tools/"><span class="ri">CL</span> Classroom Tools</a>
+      <a class="related-card" href="/tools/decision-makers/"><span class="ri">DM</span> Decision Tools</a>
+    </div>
+  </section>
+</main>
