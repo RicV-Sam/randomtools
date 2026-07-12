@@ -1,0 +1,79 @@
+---
+layout: layouts/base.njk
+---
+{%- set course = learningCourses[courseDataKey] -%}
+{%- set currentLessonId = lessonId -%}
+<main
+  class="learn-page learn-lesson"
+  data-course-id="{{ courseId }}"
+  data-lesson-id="{{ lessonId }}">
+  <article class="learn-lesson__article">
+      <header class="learn-lesson__header">
+        <p class="learn-eyebrow">{{ course.shortTitle }} &middot; Level {{ levelNumber }}: {{ levelTitle }} &middot; Lesson {{ lessonNumber }}</p>
+        <h1>{{ h1 }}</h1>
+        <p class="learn-lesson__lede">{{ lessonIntroduction }}</p>
+        <ul class="learn-lesson__meta" aria-label="Lesson details">
+          <li>About {{ estimatedMinutes }} minutes</li>
+          <li>No account needed</li>
+          <li>Beginner level</li>
+        </ul>
+      </header>
+
+      <section class="learn-objectives" aria-labelledby="learning-objectives-title">
+        <h2 id="learning-objectives-title">By the end of this lesson, you can:</h2>
+        <ul>
+          {%- for objective in learningObjectives %}
+          <li>{{ objective }}</li>
+          {%- endfor %}
+        </ul>
+      </section>
+
+      <div class="learn-lesson__content">
+        {{ content | safe }}
+      </div>
+
+      {%- if promptMakeover %}
+      {% include "partials/learn/prompt-makeover.njk" %}
+      {%- endif %}
+
+      {%- if exercise and knowledgeCheck %}
+      {% include "partials/learn/exercise.njk" %}
+      {%- endif %}
+
+      {%- if keyTakeaway %}
+      <section class="learn-takeaway" aria-labelledby="key-takeaway-title">
+        <p class="learn-eyebrow">Keep this</p>
+        <h2 id="key-takeaway-title">{{ keyTakeaway.title }}</h2>
+        <p>{{ keyTakeaway.text }}</p>
+        <pre><code>{{ keyTakeaway.template | escape }}</code></pre>
+        <p>{{ keyTakeaway.note }}</p>
+      </section>
+      {%- endif %}
+
+      {% include "partials/learn/lesson-progress.njk" %}
+
+      {% include "partials/learn/course-navigation.njk" %}
+
+      <nav class="learn-lesson-nav" aria-label="Lesson navigation">
+        {%- if previousLesson and previousLesson.url %}
+        <a rel="prev" href="{{ previousLesson.url }}">&larr; {{ previousLesson.title }}</a>
+        {%- else %}
+        <a href="{{ course.url }}">&larr; Course overview</a>
+        {%- endif %}
+        {%- if nextLesson and nextLesson.url %}
+        <a rel="next" href="{{ nextLesson.url }}">{{ nextLesson.title }} &rarr;</a>
+        {%- endif %}
+      </nav>
+
+      {%- if relatedResources %}
+      <aside class="learn-related" aria-labelledby="related-resources-title">
+        <h2 id="related-resources-title">Useful next resources</h2>
+        <ul>
+          {%- for resource in relatedResources %}
+          <li><a href="{{ resource.url }}">{{ resource.title }}</a><span>{{ resource.description }}</span></li>
+          {%- endfor %}
+        </ul>
+      </aside>
+      {%- endif %}
+  </article>
+</main>

@@ -1,0 +1,62 @@
+{
+  "aiPrompting": {
+    "id": "ai-prompting",
+    "title": "AI Prompting: Beginner to Applied Workflows",
+    "shortTitle": "AI Prompting",
+    "description": "A practical learning path for giving AI clearer instructions, checking its responses and building useful everyday workflows.",
+    "url": "/learn/ai-prompting/",
+    "availableLessonIds": [
+      "how-ai-responds"
+    ],
+    "levels": [
+      {
+        "id": "level-1",
+        "number": 1,
+        "title": "Prompting Basics",
+        "outcome": "Write a clear, safe and structured prompt for an everyday task.",
+        "lessons": [
+          {
+            "id": "how-ai-responds",
+            "number": 1,
+            "title": "How AI responds to instructions",
+            "estimatedMinutes": 10,
+            "publicationStatus": "published",
+            "url": "/learn/ai-prompting/level-1/how-ai-responds/"
+          },
+          {
+            "id": "anatomy-of-a-useful-prompt",
+            "number": 2,
+            "title": "The anatomy of a useful prompt",
+            "estimatedMinutes": 10,
+            "publicationStatus": "planned",
+            "url": null
+          },
+          {
+            "id": "add-context-and-constraints",
+            "number": 3,
+            "title": "Add the right context and constraints",
+            "estimatedMinutes": 12,
+            "publicationStatus": "planned",
+            "url": null
+          },
+          {
+            "id": "ask-for-the-right-output",
+            "number": 4,
+            "title": "Ask for the output you need",
+            "estimatedMinutes": 10,
+            "publicationStatus": "planned",
+            "url": null
+          },
+          {
+            "id": "check-ai-answers",
+            "number": 5,
+            "title": "Check, question and improve AI answers",
+            "estimatedMinutes": 12,
+            "publicationStatus": "planned",
+            "url": null
+          }
+        ]
+      }
+    ]
+  }
+}

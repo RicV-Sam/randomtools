@@ -1,0 +1,34 @@
+<nav class="learn-course-nav" aria-label="{{ course.shortTitle }} course navigation">
+  <div class="learn-section-heading">
+    <p class="learn-eyebrow">Course journey</p>
+    <h2 id="{{ course.id }}-course-outline-title">Course outline</h2>
+  </div>
+
+  {%- for level in course.levels %}
+  <section class="learn-course-nav__level" aria-labelledby="{{ course.id }}-{{ level.id }}-title">
+    <div class="learn-course-nav__level-heading">
+      <h3 id="{{ course.id }}-{{ level.id }}-title">Level {{ level.number }}: {{ level.title }}</h3>
+      <p>{{ level.outcome }}</p>
+    </div>
+    <ol class="learn-course-nav__list">
+      {%- for courseLesson in level.lessons %}
+      <li class="learn-course-nav__item{% if courseLesson.id == currentLessonId %} is-current{% endif %}{% if not courseLesson.url %} is-planned{% endif %}">
+        {%- if courseLesson.url and courseLesson.publicationStatus != "planned" %}
+        <a href="{{ courseLesson.url }}"{% if courseLesson.id == currentLessonId %} aria-current="page"{% endif %}>
+          <span class="learn-course-nav__number">Lesson {{ courseLesson.number }}</span>
+          <span class="learn-course-nav__title">{{ courseLesson.title }}</span>
+          <span class="learn-course-nav__meta">{{ courseLesson.estimatedMinutes }} minutes{% if courseLesson.id == currentLessonId %} &middot; Current lesson{% endif %}</span>
+        </a>
+        {%- else %}
+        <div class="learn-course-nav__planned">
+          <span class="learn-course-nav__number">Lesson {{ courseLesson.number }}</span>
+          <span class="learn-course-nav__title">{{ courseLesson.title }}</span>
+          <span class="learn-course-nav__meta">Coming later</span>
+        </div>
+        {%- endif %}
+      </li>
+      {%- endfor %}
+    </ol>
+  </section>
+  {%- endfor %}
+</nav>

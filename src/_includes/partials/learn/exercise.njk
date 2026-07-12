@@ -1,0 +1,50 @@
+<section class="learn-exercise" aria-labelledby="lesson-exercise-title">
+  <div class="learn-section-heading">
+    <p class="learn-eyebrow">Practice</p>
+    <h2 id="lesson-exercise-title">{{ exercise.title }}</h2>
+    <p>{{ exercise.introduction }}</p>
+  </div>
+
+  <div class="learn-exercise__activity">
+    <p class="learn-example-label">{{ exercise.exampleLabel }}</p>
+    <p class="learn-exercise__scenario">{{ exercise.scenario }}</p>
+    <fieldset>
+      <legend>{{ exercise.legend }}</legend>
+      {%- for option in exercise.options %}
+      <label class="learn-choice" for="{{ option.id }}">
+        <input type="radio" id="{{ option.id }}" name="lesson-exercise-choice" value="{{ option.id }}">
+        <span>{{ option.text }}</span>
+      </label>
+      {%- endfor %}
+    </fieldset>
+
+    <details class="learn-model-answer">
+      <summary>Check the model answer</summary>
+      <div>
+        <p><strong>{{ exercise.modelAnswerTitle }}</strong></p>
+        <p>{{ exercise.modelAnswer }}</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="learn-exercise__activity learn-knowledge-check">
+    <h3>Knowledge check</h3>
+    <fieldset>
+      <legend>{{ knowledgeCheck.legend }}</legend>
+      {%- for option in knowledgeCheck.options %}
+      <label class="learn-choice" for="{{ option.id }}">
+        <input type="radio" id="{{ option.id }}" name="lesson-knowledge-check" value="{{ option.id }}">
+        <span>{{ option.text }}</span>
+      </label>
+      {%- endfor %}
+    </fieldset>
+
+    <details class="learn-model-answer">
+      <summary>Check the answer</summary>
+      <div>
+        <p><strong>{{ knowledgeCheck.answer }}</strong></p>
+        <p>{{ knowledgeCheck.explanation }}</p>
+      </div>
+    </details>
+  </div>
+</section>

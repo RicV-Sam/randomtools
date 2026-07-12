@@ -1,0 +1,153 @@
+---
+layout: layouts/lesson.njk
+title: "How AI Responds to Instructions | AI Prompting Course | Spinnit"
+h1: "How AI responds to instructions"
+description: "Learn why clear AI instructions matter by comparing a vague request with a prompt that states a useful outcome, context and output format."
+canonical: "https://spinnit.site/learn/ai-prompting/level-1/how-ai-responds/"
+permalink: "/learn/ai-prompting/level-1/how-ai-responds/index.html"
+dateModified: "2026-07-12"
+lang: en
+noAlternates: true
+publicationStatus: published
+contentType: lesson
+courseDataKey: aiPrompting
+courseId: ai-prompting
+levelId: level-1
+levelNumber: 1
+levelTitle: Prompting Basics
+lessonId: how-ai-responds
+lessonNumber: 1
+estimatedMinutes: 10
+learningObjectives:
+  - "Explain why an AI assistant cannot infer every unstated goal."
+  - "Distinguish a vague request from a task with a clear outcome."
+  - "Explain why a fluent AI response can still require verification."
+lessonIntroduction: "AI works with the instructions and information you provide. In this lesson, you will turn an ambiguous request into a clear task and learn why every important answer still needs your judgement."
+navBackHref: /learn/ai-prompting/
+navBackLabel: Course overview
+learningBreadcrumbs:
+  - label: Home
+    url: /
+  - label: Learn AI
+    url: /learn/
+  - label: AI Prompting Course
+    url: /learn/ai-prompting/
+  - label: How AI responds to instructions
+    url: /learn/ai-prompting/level-1/how-ai-responds/
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "How AI responds to instructions",
+    "description": "Learn why clear AI instructions matter by comparing a vague request with a prompt that states a useful outcome, context and output format.",
+    "url": "https://spinnit.site/learn/ai-prompting/level-1/how-ai-responds/",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Spinnit",
+      "url": "https://spinnit.site/"
+    }
+  }
+promptMakeover:
+  exampleLabel: "Illustrative example"
+  introduction: "A community-garden organiser wants help inviting volunteers to a clean-up session. Watch what changes when the unstated goal becomes a specific task."
+  originalPrompt: "Help me write something about our community garden."
+  missing:
+    - "The task: what kind of writing is needed?"
+    - "The audience: who should receive it?"
+    - "The outcome: what should readers know or do?"
+    - "The facts and format: what details must be used, and what should the response look like?"
+  improvedPrompt: |-
+    Write a friendly email to current community-garden volunteers asking them to join a Saturday clean-up from 10:00 to 12:00.
+
+    Mention that gloves and tools will be provided, and ask volunteers to reply by Thursday if they can attend. Return a short subject line followed by an email of no more than 120 words. Do not add a date, location or other detail that I have not supplied; mark any missing essential detail for me to add.
+  whyBetter:
+    - "It names the task: write an email."
+    - "It identifies the audience and the action they should take."
+    - "It supplies the facts that must appear instead of asking the AI to guess."
+    - "It requests a useful format and length."
+    - "It tells the AI not to invent missing event details."
+  stillCheck:
+    - "Add and confirm the actual date and location before sending."
+    - "Check that the reply deadline and equipment details are correct."
+    - "Edit the tone so it sounds like the organisation, not just like a polished generic email."
+exercise:
+  title: "Choose the instruction with a clear outcome"
+  introduction: "Read both requests. Choose the one that gives an AI assistant a clearer job, then open the model answer to compare your reasoning."
+  exampleLabel: "Illustrative example"
+  scenario: "A colleague needs a short update for a weekly team meeting. The update should help the team understand what was completed and what needs attention next."
+  legend: "Which request states the clearer task and outcome?"
+  options:
+    - id: exercise-option-a
+      text: "Option A: Help me with my project update."
+    - id: exercise-option-b
+      text: "Option B: Turn the project notes below into a 90-word update for our weekly team meeting. Use two headings: Completed this week and Needs attention next. Keep the tone direct, and do not add facts that are not in the notes."
+  modelAnswerTitle: "Option B gives the clearer instruction."
+  modelAnswer: "It names the task, audience, length, structure and boundary on invented facts. Option A leaves the AI to guess what kind of help is needed and what a useful result would look like. Option B can still produce an imperfect answer, so the colleague must compare it with the original notes before using it."
+knowledgeCheck:
+  legend: "An AI response sounds confident and reads smoothly. What does that tell you?"
+  options:
+    - id: knowledge-option-a
+      text: "Option A: The information must be correct because the writing is fluent."
+    - id: knowledge-option-b
+      text: "Option B: The response may be easy to read, but important facts still need checking."
+    - id: knowledge-option-c
+      text: "Option C: The original prompt included every detail the AI could need."
+  answer: "Option B is the best answer."
+  explanation: "Fluency describes how the response sounds, not whether every claim is accurate. Compare the answer with the information you supplied and verify important facts through reliable, authoritative sources."
+keyTakeaway:
+  title: "State the job before adding detail"
+  text: "Begin with the task and useful outcome. Add only the context, boundaries and format that help the AI understand what success looks like."
+  template: |-
+    I want you to [task] so that [useful outcome].
+    Use this context: [relevant facts or input].
+    Return: [format, length or structure].
+    Do not assume: [important boundary or missing information].
+  note: "This is a flexible checklist, not a formula. A simple task may need only the first line. A clearer prompt can improve the response, but it does not guarantee a correct result."
+relatedResources:
+  - title: "Use the AI Tool Picker"
+    url: /ai/picker/
+    description: "Compare which kind of AI tool fits a particular task."
+  - title: "Read the privacy policy"
+    url: /privacy.html
+    description: "See how Spinnit handles analytics and browser-local learning progress."
+---
+<section aria-labelledby="how-ai-uses-instructions-title">
+  <h2 id="how-ai-uses-instructions-title">AI starts with what you give it</h2>
+  <p>When you send an instruction to an AI assistant, it predicts a response from the words you supplied, the surrounding conversation and patterns learned during its training. Some assistants can also use tools such as web search when those tools are available. None of that lets the assistant automatically know the goal you have left unstated.</p>
+  <p>If you write <q>Help me prepare</q>, the AI has to guess what you are preparing, who it is for and what would count as useful help. It may produce polished text, but polished is not the same as relevant.</p>
+</section>
+
+<section aria-labelledby="make-outcome-visible-title">
+  <h2 id="make-outcome-visible-title">Make the outcome visible</h2>
+  <p>A useful result begins with a clear task. You do not need to write a long or complicated prompt. You need enough information to remove the ambiguity that matters.</p>
+
+  <div class="learn-comparison" aria-label="Comparison of an ambiguous request and a clear task">
+    <article>
+      <p class="learn-example-label">Illustrative example: ambiguous request</p>
+      <h3>Leaves the job unstated</h3>
+      <blockquote><p>Help me prepare for Monday.</p></blockquote>
+      <p>The AI does not know whether you need an agenda, a revision plan, a packing list or something else.</p>
+    </article>
+    <article>
+      <p class="learn-example-label">Illustrative example: clear task</p>
+      <h3>Names the useful outcome</h3>
+      <blockquote><p>Create a 20-minute revision plan for my history quiz on Monday. Use the three topics in my notes below and finish with five recall questions.</p></blockquote>
+      <p>The task, source material, time limit and output are visible. The learner still needs to check the questions against their notes.</p>
+    </article>
+  </div>
+
+  <div class="learn-reflection">
+    <h3>What is missing?</h3>
+    <p>Look again at the ambiguous request. Before opening the answer, name two details that would change what the AI should produce.</p>
+    <details>
+      <summary>Compare your ideas</summary>
+      <p>The type of preparation and the intended result are both missing. Useful context could also include the subject, available time, source notes, audience or required format. The right details depend on the task; not every prompt needs every possible element.</p>
+    </details>
+  </div>
+</section>
+
+<section aria-labelledby="fluency-needs-checking-title">
+  <h2 id="fluency-needs-checking-title">Fluent language still needs checking</h2>
+  <p>AI can produce a confident, natural-sounding answer even when it has misunderstood the task or included an inaccurate detail. Clear instructions reduce avoidable guessing, but prompting does not prevent errors or guarantee a correct result.</p>
+  <p>Before you use an answer, compare it with the information you supplied. For important facts, decisions or advice, check authoritative sources outside the AI response. Do not paste passwords, private records or other sensitive information into an exercise or an AI tool.</p>
+</section>

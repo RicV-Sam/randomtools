@@ -421,6 +421,8 @@ function findHtmlFiles(dir, base = SRC, out = []) {
     const rel = path.relative(base, full);
     // Skip translated output folders, includes, data, passthrough assets.
     if (entry.isDirectory()) {
+      // Learning content remains English-only until a reviewed localization pilot is approved.
+      if (path.resolve(dir) === path.resolve(base) && entry.name === "learn") continue;
       if (["_includes", "_data", "assets", "icons", ".well-known"].includes(entry.name)) continue;
       if (LANGUAGE_DIRS.has(entry.name)) continue; // skip translated output folders
       findHtmlFiles(full, base, out);

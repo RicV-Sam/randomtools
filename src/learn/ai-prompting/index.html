@@ -1,0 +1,88 @@
+---
+layout: layouts/base.njk
+title: "AI Prompting: Beginner to Applied Workflows | Spinnit"
+description: "Learn practical AI prompting from beginner foundations to applied workflows through short explanations, Prompt Makeovers, exercises and model answers."
+canonical: "https://spinnit.site/learn/ai-prompting/"
+permalink: "/learn/ai-prompting/index.html"
+dateModified: "2026-07-12"
+lang: en
+noAlternates: true
+publicationStatus: published
+contentType: course
+courseId: ai-prompting
+navBackHref: /learn/
+navBackLabel: Learn AI
+learningBreadcrumbs:
+  - label: Home
+    url: /
+  - label: Learn AI
+    url: /learn/
+  - label: AI Prompting Course
+    url: /learn/ai-prompting/
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "AI Prompting: Beginner to Applied Workflows",
+    "description": "Learn practical AI prompting from beginner foundations to applied workflows through short explanations, Prompt Makeovers, exercises and model answers.",
+    "url": "https://spinnit.site/learn/ai-prompting/",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Spinnit",
+      "url": "https://spinnit.site/"
+    }
+  }
+---
+{%- set course = learningCourses.aiPrompting -%}
+{%- set currentLessonId = null -%}
+<main class="hub-page learn-page learn-course-overview">
+  <header class="learn-hero">
+    <p class="learn-eyebrow">Free course &middot; Lesson 1 available</p>
+    <h1>AI Prompting: Beginner to Applied Workflows</h1>
+    <p class="lede">Learn how to give AI a clear task, supply the context it needs, request a useful output and judge the response. The techniques apply across general-purpose AI assistants, not just one product.</p>
+    <p class="learn-course-status"><strong>Lesson 1 is available now.</strong> The remaining Level 1 lessons will be added progressively.</p>
+    <div class="learn-actions">
+      <a class="learn-button learn-button--primary" href="/learn/ai-prompting/level-1/how-ai-responds/">Start Lesson 1</a>
+      <span>About 10 minutes for the first lesson</span>
+    </div>
+  </header>
+
+  <section class="hub-section" aria-labelledby="course-outcome-title">
+    <h2 id="course-outcome-title">What you will learn</h2>
+    <div class="hub-grid">
+      <article class="hub-card">
+        <h3>Give AI a clear task</h3>
+        <p>Turn an unstated intention into an outcome that an AI assistant can follow.</p>
+      </article>
+      <article class="hub-card">
+        <h3>Add what matters</h3>
+        <p>Use relevant context, inputs and constraints without making every prompt unnecessarily long.</p>
+      </article>
+      <article class="hub-card">
+        <h3>Check the response</h3>
+        <p>Treat fluent writing as a starting point, then verify important facts and improve the result through follow-up instructions.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="hub-section learn-method" aria-labelledby="course-method-title">
+    <h2 id="course-method-title">How each lesson works</h2>
+    <ol>
+      <li>Understand one idea in plain language.</li>
+      <li>Inspect an illustrative weak prompt and decide what is missing.</li>
+      <li>Follow a complete Prompt Makeover.</li>
+      <li>Try an exercise, then compare your thinking with a model answer.</li>
+      <li>Use a short knowledge check and keep a reusable takeaway.</li>
+    </ol>
+    <p>A clearer prompt can improve the chance of a useful response, but it cannot guarantee accuracy or prevent AI errors. Important information still needs checking.</p>
+  </section>
+
+  {% include "partials/learn/lesson-progress.njk" %}
+
+  {% include "partials/learn/course-navigation.njk" %}
+
+  <section class="hub-section hub-note" aria-labelledby="course-access-title">
+    <h2 id="course-access-title">Accessible and account-free</h2>
+    <p>Lesson content and feedback are present in the page itself. JavaScript adds optional progress on this browser only; it is not required to learn, practise or reveal the model answers. Future lesson titles are shown as a preview and do not link to unfinished pages.</p>
+  </section>
+</main>

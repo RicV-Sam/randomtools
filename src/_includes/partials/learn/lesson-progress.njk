@@ -1,0 +1,34 @@
+{%- set availableLessonCount = course.availableLessonIds | length -%}
+<section
+  class="learn-progress"
+  aria-labelledby="{{ course.id }}-progress-title"
+  data-course-progress
+  data-learning-progress
+  data-course-id="{{ course.id }}"
+  data-available-lesson-ids="{{ course.availableLessonIds | join(' ') }}"{% if lessonId %}
+  data-lesson-id="{{ lessonId }}"{% endif %}>
+  <div class="learn-section-heading">
+    <p class="learn-eyebrow">Optional browser progress</p>
+    <h2 id="{{ course.id }}-progress-title">Your progress</h2>
+  </div>
+
+  <p data-progress-summary data-progress-count>0 of {{ availableLessonCount }} available lesson{% if availableLessonCount != 1 %}s{% endif %} completed</p>
+  <progress aria-label="Course progress" data-progress-meter data-progress-bar max="{{ availableLessonCount }}" value="0">0 of {{ availableLessonCount }}</progress>
+
+  {%- if lessonId %}
+  <button
+    class="learn-progress__toggle"
+    type="button"
+    data-progress-toggle
+    data-lesson-id="{{ lessonId }}"
+    aria-pressed="false"
+    aria-describedby="{{ course.id }}-progress-privacy"
+    hidden>
+    <span data-progress-button-label>Mark lesson complete</span>
+  </button>
+  {%- endif %}
+
+  <p id="{{ course.id }}-progress-privacy" class="learn-progress__privacy">Progress stores only the course identifier and completed lesson identifiers in this browser. It does not save your answers, prompt text or identity, and it does not sync to another device. Clearing browser data removes it.</p>
+  <p class="learn-progress__status" data-progress-status role="status" aria-live="polite"></p>
+  <noscript><p class="learn-progress__noscript">Progress tracking needs JavaScript. You can still read the lesson, complete every exercise and view all model answers.</p></noscript>
+</section>

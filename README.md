@@ -1,6 +1,6 @@
 # Spinnit
 
-Spinnit is an Eleventy static site for free random generators, picker tools, short guides, and an AI tools directory.
+Spinnit is an Eleventy static site for practical AI learning, free random generators, picker tools, short guides, and an AI tools directory.
 
 ## Structure
 
@@ -8,6 +8,7 @@ Spinnit is an Eleventy static site for free random generators, picker tools, sho
 - `src/tools/` - random generator and picker tool pages.
 - `src/blog/` - English guide pages.
 - `src/ai/` - AI tool directory, comparisons, category pages, and guides.
+- `src/learn/` - English learning hubs, course pages, and lessons.
 - `src/de/` and `src/ar/` - localized mirrors.
 - `src/_includes/layouts/base.njk` - shared HTML shell, metadata, canonicals, hreflang, JSON-LD, nav/footer rendering.
 - `src/_data/pageLocales.js` - locale availability and sitemap URL data.
@@ -19,10 +20,12 @@ Spinnit is an Eleventy static site for free random generators, picker tools, sho
 
 ```bash
 npm ci
-npm run check:content
 npm run build
+npm run check:content
 npm start
 ```
+
+Run the build before `npm run check:content`: the combined content check validates source files and the generated `_site/` SEO output.
 
 Useful maintenance commands:
 
@@ -34,6 +37,12 @@ npm run submit:indexnow -- --dry-run
 ```
 
 There is no `lint` script currently.
+
+## Learning Content
+
+- Course outlines and stable course, level, and lesson identifiers live in `src/_data/learningCourses.json`; route and SEO-critical metadata stays in each page's front matter.
+- Learning content is English-only until a reviewed localization pilot is approved. `scripts/translate.js` excludes the top-level `learn/` tree, and source validation rejects premature German or Arabic learning pages.
+- Lesson progress is an optional browser-local enhancement stored under `spinnit.learn.progress.v1`. It stores a technical format version plus a known course identifier and known completed lesson identifiers, remains on the current browser/device, and can be removed by clearing site data. It does not store prompt text, exercise answers, identity, or sensitive information.
 
 ## SEO And Indexing Notes
 
@@ -47,6 +56,6 @@ There is no `lint` script currently.
 
 ## Deployment
 
-Deployment runs on pushes to `main` and manual workflow dispatch. The workflow installs dependencies, runs `npm run check:content`, builds Eleventy, uploads `_site`, and deploys with GitHub Pages.
+Deployment runs on pushes to `main` and manual workflow dispatch. The workflow installs dependencies, builds Eleventy, runs `npm run check:content`, uploads `_site`, and deploys with GitHub Pages.
 
 Do not push directly to `main` without review.

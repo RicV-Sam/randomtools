@@ -1,0 +1,44 @@
+<section class="learn-prompt-makeover" aria-labelledby="prompt-makeover-title">
+  <div class="learn-section-heading">
+    <p class="learn-eyebrow">{{ promptMakeover.exampleLabel }}</p>
+    <h2 id="prompt-makeover-title">Prompt Makeover</h2>
+    <p>{{ promptMakeover.introduction }}</p>
+  </div>
+
+  <div class="learn-prompt-makeover__step">
+    <h3>Original prompt</h3>
+    <pre><code>{{ promptMakeover.originalPrompt | escape }}</code></pre>
+  </div>
+
+  <div class="learn-prompt-makeover__step">
+    <h3>What is missing</h3>
+    <ul>
+      {%- for item in promptMakeover.missing %}
+      <li>{{ item }}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+
+  <div class="learn-prompt-makeover__step learn-prompt-makeover__step--improved">
+    <h3>Improved prompt</h3>
+    <pre><code>{{ promptMakeover.improvedPrompt | escape }}</code></pre>
+  </div>
+
+  <div class="learn-prompt-makeover__step">
+    <h3>Why it is better</h3>
+    <ul>
+      {%- for item in promptMakeover.whyBetter %}
+      <li>{{ item }}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+
+  <div class="learn-prompt-makeover__step learn-prompt-makeover__step--check">
+    <h3>What still needs checking</h3>
+    <ul>
+      {%- for item in promptMakeover.stillCheck %}
+      <li>{{ item }}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
