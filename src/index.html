@@ -4,6 +4,10 @@ title: "Learn AI by Doing and Use Free Browser Tools | Spinnit"
 description: "Learn practical AI prompting with free lessons and exercises, compare useful AI tools, and use Spinnit's browser-based classroom, decision and random tools."
 ogDescription: "Learn practical AI prompting with free lessons and exercises, compare useful AI tools, and use Spinnit's browser-based classroom, decision and random tools."
 canonical: "https://spinnit.site/"
+socialImage: "https://spinnit.site/assets/images/spinnit-learn-ai-social.png"
+socialImageWidth: 1200
+socialImageHeight: 630
+socialImageAlt: "Spinnit — Learn AI by doing. Free practical AI prompting course."
 dateModified: "2026-07-12"
 hideNav: true
 extraHead: |
@@ -199,6 +203,15 @@ pageStyle: |
     padding: 0.7rem 1rem;
     text-decoration: none;
   }
+  .home-hero-art {
+    display: block;
+    width: min(100%, 1040px);
+    height: auto;
+    margin: 2.25rem auto 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  }
   .home-primary-cta {
     background: var(--accent2);
     border-color: var(--accent2) !important;
@@ -314,6 +327,10 @@ pageStyle: |
     .home-hero-actions a {
       width: 100%;
     }
+    .home-hero-art {
+      margin-top: 1.5rem;
+      border-radius: var(--radius);
+    }
     .home-tool-grid .tool-card {
       min-height: auto;
     }
@@ -343,6 +360,15 @@ pageScript: |
       <a class="home-primary-cta" href="/learn/ai-prompting/">Start the free AI prompting course</a>
       <a class="home-secondary-cta" href="/tools/">Browse all tools</a>
     </div>
+    <img
+      class="home-hero-art"
+      src="/assets/images/spinnit-learn-ai-hero.webp"
+      width="1672"
+      height="941"
+      alt="Abstract illustration showing scattered prompt fragments becoming structured steps and a checked AI response."
+      loading="eager"
+      fetchpriority="high"
+      decoding="async">
   </section>
 
   <div class="home-tools">
