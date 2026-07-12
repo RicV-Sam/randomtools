@@ -1,4 +1,4 @@
-<nav class="nav">
+<header class="nav site-nav">
   {%- set localePrefix = locale.prefix or '' -%}
   {%- set labels = locale.labels or {} -%}
   {%- set aiHref = localePrefix + '/ai/' -%}
@@ -7,9 +7,17 @@
   {%- endif -%}
   <a class="nav-back" href="{{ navBackHref or (localePrefix + '/tools/') }}"><span aria-hidden="true">&larr;</span> {{ navBackLabel or labels.allTools or 'all tools' }}</a>
   <a class="nav-logo" href="{{ localePrefix }}/" aria-label="Spinnit home">spinn<span>it</span></a>
-  <div class="nav-links">
+  <nav class="nav-links" aria-label="{{ labels.primaryNavigation or 'Primary navigation' }}">
+    {%- if localePrefix == '' %}
+    <a href="/learn/">Learn AI</a>
+    <a href="/ai/">AI tools</a>
+    <a href="/classroom-random-tools/">classroom</a>
+    <a href="/tools/">all tools</a>
+    <a href="/blog/">guides</a>
+    {%- else %}
     <a href="{{ localePrefix }}/tools/">{{ labels.tools or 'tools' }}</a>
     <a href="{{ localePrefix }}/blog/">{{ labels.blog or 'blog' }}</a>
     <a href="{{ aiHref }}">AI</a>
-  </div>
-</nav>
+    {%- endif %}
+  </nav>
+</header>

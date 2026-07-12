@@ -16,6 +16,7 @@ module.exports = {
           terms: "Terms",
           about: "About",
           contact: "Contact",
+          primaryNavigation: "Primary navigation",
         },
         de: {
           home: "Startseite",
@@ -27,6 +28,7 @@ module.exports = {
           terms: "Nutzungsbedingungen",
           about: "Über uns",
           contact: "Kontakt",
+          primaryNavigation: "Hauptnavigation",
         },
         ar: {
           home: "الرئيسية",
@@ -38,6 +40,7 @@ module.exports = {
           terms: "الشروط",
           about: "من نحن",
           contact: "اتصل بنا",
+          primaryNavigation: "التنقل الرئيسي",
         },
       };
       return {
