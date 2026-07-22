@@ -6,7 +6,11 @@
     "description": "A practical learning path for giving AI clearer instructions, checking its responses and building useful everyday workflows.",
     "url": "/learn/ai-prompting/",
     "availableLessonIds": [
-      "how-ai-responds"
+      "how-ai-responds",
+      "anatomy-of-a-useful-prompt",
+      "add-context-and-constraints",
+      "ask-for-the-right-output",
+      "check-ai-answers"
     ],
     "levels": [
       {
@@ -28,32 +32,32 @@
             "number": 2,
             "title": "The anatomy of a useful prompt",
             "estimatedMinutes": 10,
-            "publicationStatus": "planned",
-            "url": null
+            "publicationStatus": "published",
+            "url": "/learn/ai-prompting/level-1/anatomy-of-a-useful-prompt/"
           },
           {
             "id": "add-context-and-constraints",
             "number": 3,
             "title": "Add the right context and constraints",
             "estimatedMinutes": 12,
-            "publicationStatus": "planned",
-            "url": null
+            "publicationStatus": "published",
+            "url": "/learn/ai-prompting/level-1/add-context-and-constraints/"
           },
           {
             "id": "ask-for-the-right-output",
             "number": 4,
             "title": "Ask for the output you need",
             "estimatedMinutes": 10,
-            "publicationStatus": "planned",
-            "url": null
+            "publicationStatus": "published",
+            "url": "/learn/ai-prompting/level-1/ask-for-the-right-output/"
           },
           {
             "id": "check-ai-answers",
             "number": 5,
             "title": "Check, question and improve AI answers",
             "estimatedMinutes": 12,
-            "publicationStatus": "planned",
-            "url": null
+            "publicationStatus": "published",
+            "url": "/learn/ai-prompting/level-1/check-ai-answers/"
           }
         ]
       }

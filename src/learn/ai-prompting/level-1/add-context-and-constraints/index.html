@@ -1,0 +1,163 @@
+---
+layout: layouts/lesson.njk
+title: "Add the Right Context and Constraints | AI Prompting Course | Spinnit"
+h1: "Add the right context and constraints"
+description: "Learn how to supply targeted background information, tone controls, and negative constraints to prevent AI hallucinations and keep responses focused."
+canonical: "https://spinnit.site/learn/ai-prompting/level-1/add-context-and-constraints/"
+socialImage: "https://spinnit.site/assets/images/spinnit-learn-ai-social.png"
+socialImageWidth: 1200
+socialImageHeight: 630
+socialImageAlt: "Spinnit — Learn AI by doing. Free practical AI prompting course."
+permalink: "/learn/ai-prompting/level-1/add-context-and-constraints/index.html"
+dateModified: "2026-07-21"
+lang: en
+noAlternates: true
+publicationStatus: published
+contentType: lesson
+courseDataKey: aiPrompting
+courseId: ai-prompting
+levelId: level-1
+levelNumber: 1
+levelTitle: Prompting Basics
+lessonId: add-context-and-constraints
+lessonNumber: 3
+estimatedMinutes: 12
+learningObjectives:
+  - "Distinguish helpful context from unnecessary information overload."
+  - "Apply tone controls and audience scoping to match your communication style."
+  - "Use negative constraints to prevent AI hallucinations and unwanted filler."
+lessonIntroduction: "AI models respond to context and constraints. Without constraints, an assistant might write in a generic tone or invent missing facts. In this lesson, you will learn how to set boundaries that keep AI answers relevant, accurate, and concise."
+navBackHref: /learn/ai-prompting/
+navBackLabel: Course overview
+previousLesson:
+  title: The anatomy of a useful prompt
+  url: /learn/ai-prompting/level-1/anatomy-of-a-useful-prompt/
+nextLesson:
+  title: Ask for the output you need
+  url: /learn/ai-prompting/level-1/ask-for-the-right-output/
+learningBreadcrumbs:
+  - label: Home
+    url: /
+  - label: Learn AI
+    url: /learn/
+  - label: AI Prompting Course
+    url: /learn/ai-prompting/
+  - label: Add the right context and constraints
+    url: /learn/ai-prompting/level-1/add-context-and-constraints/
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Add the right context and constraints",
+    "description": "Learn how to supply targeted background information, tone controls, and negative constraints to prevent AI hallucinations and keep responses focused.",
+    "url": "https://spinnit.site/learn/ai-prompting/level-1/add-context-and-constraints/",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Spinnit",
+      "url": "https://spinnit.site/"
+    }
+  }
+promptMakeover:
+  exampleLabel: "Illustrative example"
+  introduction: "A product manager wants to announce a new software update to existing beta testers. See how adding negative constraints and audience context prevents generic hype."
+  originalPrompt: "Write an email telling users about our new dark mode feature."
+  missing:
+    - "Target audience: who is receiving this email?"
+    - "Tone: what voice should be used?"
+    - "Negative constraints: what buzzwords or claims should be avoided?"
+    - "Call to action: what specific step should users take next?"
+  improvedPrompt: |-
+    Write a short announcement email for our technical beta testers about the release of Dark Mode v2.
+
+    Use a direct, helpful tone. Keep the message under 120 words.
+    
+    CONSTRAINTS:
+    - Do NOT use marketing hype, clichés, or words like 'game-changing', 'revolutionary', or 'supercharge'.
+    - Do NOT invent unstated features; mention only custom themes and reduced eye strain in low-light environments.
+    - End with a single CTA link asking users to enable dark mode under Account Settings.
+  whyBetter:
+    - "It scopes the audience: technical beta testers."
+    - "It sets explicit negative constraints eliminating marketing clichés."
+    - "It bounds the facts so the AI does not invent unsupported sub-features."
+    - "It specifies an exact word limit (<120 words) and a single call to action."
+  stillCheck:
+    - "Confirm that Dark Mode v2 is actually located under Account Settings."
+    - "Ensure the tone reflects your company's actual brand voice."
+exercise:
+  title: "Identify the prompt with effective negative constraints"
+  introduction: "Read both instructions for drafting a client proposal summary. Select the option that uses negative constraints to protect fact accuracy."
+  exampleLabel: "Illustrative example"
+  scenario: "A freelancer is summarizing a client scope agreement. They need a 1-page overview without added promises or estimated completion dates."
+  legend: "Which request effectively prevents the AI from assuming unstated timeline details?"
+  options:
+    - id: exercise-option-a
+      text: "Option A: Summarize this scope agreement for the client. Make it sound professional and optimistic about our timeline."
+    - id: exercise-option-b
+      text: "Option B: Summarize the key deliverables from the scope agreement below into 4 bullet points. Constraints: Do NOT state an estimated delivery date or completion deadline unless it explicitly appears in the text. Mark any unstated timeline assumptions as [TBD BY CLIENT]."
+  modelAnswerTitle: "Option B uses explicit negative constraints."
+  modelAnswer: "Option B explicitly tells the AI what NOT to do ('Do NOT state an estimated delivery date unless explicitly in the text'). Option A encourages the AI to be 'optimistic', which risks inventing imaginary timelines or over-promising."
+knowledgeCheck:
+  legend: "What are negative constraints in prompt engineering?"
+  options:
+    - id: kc-option-a
+      text: "Option A: Critical comments that criticize the AI's previous answer."
+    - id: kc-option-b
+      text: "Option B: Explicit rules stating what the AI should NOT do, include, or assume."
+    - id: kc-option-c
+      text: "Option C: Technical error codes returned when a prompt fails."
+  answer: "Option B is the correct answer."
+  explanation: "Negative constraints (e.g. 'Do NOT use jargon', 'Do NOT assume unstated dates') set firm boundaries that stop AI models from adding unwanted filler or hallucinating facts."
+keyTakeaway:
+  title: "The Context & Constraints Formula"
+  text: "Combine positive context with negative boundaries to keep responses on target:"
+  template: |-
+    TASK: [What to produce]
+    AUDIENCE: [Who will read/use this]
+    TONE: [Direct / Professional / Friendly / Concise]
+    MUST INCLUDE: [Essential facts, links, or details]
+    DO NOT INCLUDE: [Prohibited buzzwords, assumed dates, or unverified claims]
+  note: "Negative constraints are especially powerful when writing customer-facing copy, legal summaries, or technical guides where accuracy is critical."
+relatedResources:
+  - title: "Lesson 4: Ask for the output you need"
+    url: /learn/ai-prompting/level-1/ask-for-the-right-output/
+    description: "Learn how to format responses into tables, summaries, and lists."
+  - title: "AI Tool Picker"
+    url: /ai/picker/
+    description: "Find the right AI tool for your specific workflow."
+---
+<section aria-labelledby="why-context-matters-title">
+  <h2 id="why-context-matters-title">Why context transforms AI responses</h2>
+  <p>AI models do not possess background knowledge about your specific project, your team's culture, or your client's preferences unless you provide it. When you omit context, the AI falls back on generic averages derived from its training data.</p>
+
+  <div class="learn-comparison" aria-label="Comparison of low context vs scoped context">
+    <article>
+      <p class="learn-example-label">Low context</p>
+      <h3>Generic baseline</h3>
+      <blockquote><p>Write an apology email for a late shipment.</p></blockquote>
+      <p>Produces a generic, overly formal template that sounds like a standard corporate auto-responder.</p>
+    </article>
+    <article>
+      <p class="learn-example-label">Scoped context &amp; constraints</p>
+      <h3>Tailored result</h3>
+      <blockquote><p>Write an apology email for an artisan coffee roastery. A courier truck broke down, delaying 40 orders by 24 hours. Keep it warm, informal, and offer a free bag of coffee on their next order. Do NOT use legal language or formal jargon.</p></blockquote>
+      <p>Matches your brand voice instantly and addresses the exact situation with authentic warmth.</p>
+    </article>
+  </div>
+</section>
+
+<section aria-labelledby="the-power-of-negative-constraints-title">
+  <h2 id="the-power-of-negative-constraints-title">The power of negative constraints</h2>
+  <p>Telling an AI what <em>not</em> to do is often more effective than telling it what to do. Negative constraints act as guardrails that prevent the model from slipping into common failure modes:</p>
+  <ul>
+    <li><strong>Preventing Hype:</strong> <em>"Do not use buzzwords like revolutionary, seamless, or game-changing."</em></li>
+    <li><strong>Preventing Hallucinations:</strong> <em>"Do not invent facts, dates, or prices not provided in the source text."</em></li>
+    <li><strong>Controlling Length:</strong> <em>"Do not write more than 150 words."</em></li>
+    <li><strong>Eliminating Filler:</strong> <em>"Do not include introductory pleasantries (e.g. 'Sure, I can help with that!')."</em></li>
+  </ul>
+</section>
+
+<section aria-labelledby="avoiding-context-overload-title">
+  <h2 id="avoiding-context-overload-title">Avoiding context overload</h2>
+  <p>While context is crucial, dumping thousands of words of irrelevant background information can confuse the model or cause it to overlook your core instruction. Apply the <strong>Need-to-Know Rule</strong>:</p>
+  <p>Include only the background details that directly influence the required output. If a detail does not change what the AI should write, edit it out before sending your prompt.</p>
+</section>

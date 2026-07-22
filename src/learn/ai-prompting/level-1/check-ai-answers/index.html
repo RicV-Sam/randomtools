@@ -1,0 +1,210 @@
+---
+layout: layouts/lesson.njk
+title: "Check, Question and Improve AI Answers | AI Prompting Course | Spinnit"
+h1: "Check, question and improve AI answers"
+description: "Learn a practical 5-point verification framework to evaluate AI responses for accuracy, bias, and completeness — and master follow-up prompting to iteratively improve any output."
+canonical: "https://spinnit.site/learn/ai-prompting/level-1/check-ai-answers/"
+socialImage: "https://spinnit.site/assets/images/spinnit-learn-ai-social.png"
+socialImageWidth: 1200
+socialImageHeight: 630
+socialImageAlt: "Spinnit — Learn AI by doing. Free practical AI prompting course."
+permalink: "/learn/ai-prompting/level-1/check-ai-answers/index.html"
+dateModified: "2026-07-22"
+lang: en
+noAlternates: true
+publicationStatus: published
+contentType: lesson
+courseDataKey: aiPrompting
+courseId: ai-prompting
+levelId: level-1
+levelNumber: 1
+levelTitle: Prompting Basics
+lessonId: check-ai-answers
+lessonNumber: 5
+estimatedMinutes: 12
+learningObjectives:
+  - "Apply a 5-point verification checklist to any AI-generated response."
+  - "Identify the three most common AI failure modes: hallucination, recency gaps, and embedded assumptions."
+  - "Write effective follow-up prompts to iteratively refine, shorten, or fact-check an AI answer."
+lessonIntroduction: "An AI response is a strong first draft, not a final deliverable. In this lesson, you will build a critical evaluation habit — a systematic 5-point check that catches errors before they reach your audience, and a follow-up prompting toolkit to turn a good first answer into an excellent final one."
+navBackHref: /learn/ai-prompting/
+navBackLabel: Course overview
+previousLesson:
+  title: Ask for the output you need
+  url: /learn/ai-prompting/level-1/ask-for-the-right-output/
+learningBreadcrumbs:
+  - label: Home
+    url: /
+  - label: Learn AI
+    url: /learn/
+  - label: AI Prompting Course
+    url: /learn/ai-prompting/
+  - label: Check, question and improve AI answers
+    url: /learn/ai-prompting/level-1/check-ai-answers/
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": "Check, question and improve AI answers",
+    "description": "A practical 5-point verification framework to evaluate AI responses for accuracy, bias, and completeness — and master follow-up prompting to iteratively improve any output.",
+    "url": "https://spinnit.site/learn/ai-prompting/level-1/check-ai-answers/",
+    "educationalLevel": "Beginner",
+    "learningResourceType": "Lesson",
+    "teaches": "AI output evaluation, hallucination detection, and iterative follow-up prompting",
+    "isPartOf": {
+      "@type": "Course",
+      "name": "AI Prompting Course",
+      "url": "https://spinnit.site/learn/ai-prompting/",
+      "provider": {
+        "@type": "Organization",
+        "name": "Spinnit",
+        "url": "https://spinnit.site/"
+      }
+    }
+  }
+promptMakeover:
+  exampleLabel: "Illustrative example"
+  introduction: "A marketing manager receives an AI-generated summary of a competitor's pricing model. Before sharing it with their director, they apply the 5-point verification check — and find a critical error."
+  originalPrompt: "Summarise Competitor X's pricing tiers from the information below."
+  missing:
+    - "Fact verification: are the stated prices current or from outdated training data?"
+    - "Source grounding: did the AI use only the pasted text, or blend in its own assumptions?"
+    - "Completeness: were any pricing tiers mentioned in the source document left out?"
+    - "Recency check: does the AI acknowledge any knowledge cut-off limitations?"
+  improvedPrompt: |-
+    Summarise Competitor X's pricing tiers using ONLY the text I have pasted below.
+
+    After the summary, add a section titled 'Verification Flags' and list:
+    1. Any pricing figures you could not confirm from the pasted text alone (mark as [UNVERIFIED]).
+    2. Any assumptions you made that are not explicitly stated in the source.
+    3. A reminder if this information may have changed since your training data cut-off.
+  whyBetter:
+    - "It restricts the AI to the pasted source, reducing hallucination risk."
+    - "It forces the AI to self-report any gaps or unverified figures."
+    - "The 'Verification Flags' section makes the human review step fast and systematic."
+    - "It builds a transparent audit trail — crucial for anything shared with stakeholders."
+  stillCheck:
+    - "Cross-reference any key pricing figures against Competitor X's live website."
+    - "Check if the competitor has announced pricing changes since the document was written."
+exercise:
+  title: "Identify the stronger follow-up prompt"
+  introduction: "A researcher has received an AI-generated response about renewable energy adoption rates. They want to improve it. Read both follow-up prompts and select the one that will produce a more accurate, verifiable revision."
+  exampleLabel: "Illustrative example"
+  scenario: "The AI returned a 4-paragraph answer on global solar panel adoption. One statistic (35% year-on-year growth in 2023) seems unusually high and the researcher cannot recall seeing that figure in their source documents."
+  legend: "Which follow-up prompt best addresses a potential hallucination?"
+  options:
+    - id: exercise-option-a
+      text: "Option A: That statistic seems wrong. Please rewrite your answer and make it more accurate."
+    - id: exercise-option-b
+      text: "Option B: In your previous response, you stated '35% year-on-year growth in 2023'. Please identify the specific source or passage from the text I provided that supports this figure. If you cannot find it in my text, mark it as [UNVERIFIED — not found in source] and provide a revised answer that omits or clearly flags unverified figures."
+  modelAnswerTitle: "Option B directly challenges the specific claim with a verification request."
+  modelAnswer: "Option A is vague — 'make it more accurate' gives the AI no direction and it may simply rewrite with equal or greater confidence. Option B identifies the exact suspect statistic, asks the AI to trace it back to the source, and provides a clear protocol ([UNVERIFIED]) to flag anything it cannot support. This is targeted, reproducible, and leaves a clear audit trail."
+knowledgeCheck:
+  legend: "What is an AI 'hallucination' in the context of using AI assistants for work?"
+  options:
+    - id: kc-option-a
+      text: "Option A: When the AI produces a response that is intentionally dishonest or deceptive."
+    - id: kc-option-b
+      text: "Option B: When the AI generates plausible-sounding but factually incorrect or fabricated information, presented with confidence."
+    - id: kc-option-c
+      text: "Option C: When the AI assistant crashes or stops generating a response mid-sentence."
+  answer: "Option B is the correct answer."
+  explanation: "AI hallucinations occur when a model generates confident-sounding statements that are not supported by its training data or the context you provided. They are not intentional deception — but they can be equally damaging if not caught. The 5-point verification habit is your primary defence."
+keyTakeaway:
+  title: "The 5-Point AI Output Verification Checklist"
+  text: "Run every important AI response through this checklist before sharing or publishing:"
+  template: |-
+    ✅ 1. FACTUAL ACCURACY  — Can I verify key claims against a reliable source?
+    ✅ 2. SOURCE GROUNDING  — Did the AI stay within the context I provided, or invent extras?
+    ✅ 3. RECENCY           — Could this information be outdated due to a training cut-off?
+    ✅ 4. COMPLETENESS      — Did the AI answer every part of my question?
+    ✅ 5. BIAS & FRAMING    — Does the response reflect my intended tone, not the AI's default?
+
+    If any box is uncertain → use a targeted follow-up prompt to investigate before publishing.
+  note: "Build this habit once and it becomes second nature. The 5-point check takes under 2 minutes for most work outputs and can prevent costly corrections later."
+relatedResources:
+  - title: "Course overview: AI Prompting Course"
+    url: /learn/ai-prompting/
+    description: "Return to the full course and review all five lessons."
+  - title: "AI Tool Radar"
+    url: /ai/
+    description: "Compare the top AI assistants by accuracy, speed, and use case."
+  - title: "AI Tool Picker"
+    url: /ai/picker/
+    description: "Find the right AI tool for your specific workflow."
+---
+<section aria-labelledby="why-checking-matters-title">
+  <h2 id="why-checking-matters-title">Why AI responses always need a human check</h2>
+  <p>AI language models are pattern-matching engines, not fact databases. They are trained to produce statistically plausible text — which means a confident-sounding response and a factually accurate one can look identical on the surface. Understanding where errors come from helps you know where to look:</p>
+
+  <div class="hub-grid" style="margin: 1.5rem 0 2rem;">
+    <article class="hub-card">
+      <h3 style="color: var(--accent2);">Hallucinations</h3>
+      <p>The model generates specific facts, statistics, or citations that sound credible but cannot be traced to a verified source. They are especially common in niche topics or when the prompt implies that certain data exists.</p>
+    </article>
+    <article class="hub-card">
+      <h3 style="color: var(--accent2);">Recency Gaps</h3>
+      <p>AI models have a training data cut-off date. Any events, price changes, policy updates, or product releases after that date are invisible to the model — unless you supply them directly in your prompt.</p>
+    </article>
+    <article class="hub-card">
+      <h3 style="color: var(--accent2);">Embedded Assumptions</h3>
+      <p>When context is missing, AI fills the gaps with statistically common assumptions. A question about "our software" may produce an answer based on the most common software type in training data, not yours.</p>
+    </article>
+    <article class="hub-card">
+      <h3 style="color: var(--accent2);">Tone Drift</h3>
+      <p>Without explicit tone instructions (covered in Lesson 3), AI defaults to a neutral, slightly formal voice that may not match your brand, audience, or relationship with the reader.</p>
+    </article>
+  </div>
+</section>
+
+<section aria-labelledby="five-point-check-title">
+  <h2 id="five-point-check-title">The 5-point verification framework</h2>
+  <p>Rather than reading an AI response with a vague sense of unease, use this structured checklist. Apply it systematically and it becomes fast — most outputs can be checked in under two minutes:</p>
+
+  <div class="learn-comparison" aria-label="5-point verification framework steps">
+    <article>
+      <p class="learn-example-label">Check 1</p>
+      <h3>Factual accuracy</h3>
+      <p>Isolate every specific claim: statistics, dates, prices, names, and causal statements. Ask yourself: <em>can I verify this with a reliable external source?</em> For business-critical outputs, cross-reference at least one primary source before publishing.</p>
+    </article>
+    <article>
+      <p class="learn-example-label">Check 2</p>
+      <h3>Source grounding</h3>
+      <p>If you pasted a document or data set into your prompt, confirm the AI used only that material. Ask the AI directly: <em>"Which part of the text I provided supports this claim?"</em> If it cannot answer, the claim is likely generated, not extracted.</p>
+    </article>
+    <article>
+      <p class="learn-example-label">Check 3</p>
+      <h3>Recency</h3>
+      <p>Check whether time-sensitive information (regulations, market data, software versions, prices) could have changed after the model's training cut-off. Add a disclaimer or verify against a live source if recency matters for your use case.</p>
+    </article>
+    <article>
+      <p class="learn-example-label">Check 4</p>
+      <h3>Completeness</h3>
+      <p>Re-read your original prompt and confirm every question was answered. AI assistants sometimes address the most prominent part of a multi-part prompt and quietly drop the secondary questions. If something is missing, ask for it explicitly in a follow-up.</p>
+    </article>
+    <article>
+      <p class="learn-example-label">Check 5</p>
+      <h3>Bias & framing</h3>
+      <p>Consider whether the response reflects your intended perspective and tone. AI models can default to over-optimistic, overly cautious, or culturally biased framings depending on training data. Read the response as your audience would — not as someone who wrote the prompt.</p>
+    </article>
+  </div>
+</section>
+
+<section aria-labelledby="followup-prompts-title">
+  <h2 id="followup-prompts-title">Follow-up prompts: the iterative improvement toolkit</h2>
+  <p>A first AI response is rarely the last. These follow-up prompt patterns are the most effective tools for converting a good first draft into a polished deliverable:</p>
+  <ul>
+    <li><strong>Verify a specific claim:</strong> <em>"You stated [X]. Please identify the exact sentence in my original text that supports this. If you cannot find it, retract the claim and flag it as [UNVERIFIED]."</em></li>
+    <li><strong>Shorten without losing meaning:</strong> <em>"Reduce this to under 100 words. Keep the three most important points. Do not add any new information."</em></li>
+    <li><strong>Adjust tone:</strong> <em>"Rewrite the second paragraph in a warmer, more direct tone. Avoid corporate jargon. Keep the same facts."</em></li>
+    <li><strong>Request a gap check:</strong> <em>"Review your response against my original question. List any parts of my question that you did not fully address."</em></li>
+    <li><strong>Challenge an assumption:</strong> <em>"Your response assumes [X]. Rewrite assuming [Y] instead, and note how the conclusion changes."</em></li>
+  </ul>
+</section>
+
+<section aria-labelledby="calibrated-trust-title">
+  <h2 id="calibrated-trust-title">Developing calibrated trust in AI</h2>
+  <p>The goal of this lesson is not to make you distrust AI — it is to help you develop <strong>calibrated trust</strong>: knowing precisely when to rely on an output and when to verify it independently.</p>
+  <p>Low-stakes, creative, or internally-facing tasks (brainstorming, drafting internal notes, rephrasing copy) warrant minimal verification. High-stakes outputs — anything involving financial figures, legal language, medical information, or public-facing claims — always warrant at least a targeted spot-check using the 5-point framework.</p>
+  <p>The most effective AI users are not those who trust the AI blindly, nor those who distrust it reflexively. They are the ones who have developed a fast, systematic habit for knowing the difference.</p>
+</section>

@@ -17,6 +17,9 @@
 {%- endif %}
 <title>{{ title }}</title>
 <meta name="description" content="{{ description }}">
+{%- if keywords or site.keywords %}
+<meta name="keywords" content="{{ keywords or site.keywords }}">
+{%- endif %}
 {%- set canonicalPath = canonical | replace(site.url, "") if canonical else page.url %}
 {%- set localeIncomplete = translationStatus == "incomplete" or (incompleteLocalePages and incompleteLocalePages.indexOf(canonicalPath) != -1) or (incompleteLocalePages and incompleteLocalePages.indexOf(page.url) != -1) %}
 {%- set isNoindex = noindex or localeIncomplete %}
@@ -25,9 +28,11 @@
 {%- endif %}
 {%- if ogTitle or title %}
 <meta property="og:title" content="{{ ogTitle or title }}">
+<meta name="twitter:title" content="{{ ogTitle or title }}">
 {%- endif %}
 {%- if ogDescription or description %}
 <meta property="og:description" content="{{ ogDescription or description }}">
+<meta name="twitter:description" content="{{ ogDescription or description }}">
 {%- endif %}
 <meta property="og:type" content="{{ ogType or 'website' }}">
 {%- if canonical %}
@@ -37,10 +42,10 @@
 <meta property="og:image" content="{{ socialImage }}">
 <meta property="og:image:width" content="{{ socialImageWidth or 1200 }}">
 <meta property="og:image:height" content="{{ socialImageHeight or 630 }}">
-<meta property="og:image:alt" content="{{ socialImageAlt }}">
+<meta property="og:image:alt" content="{{ socialImageAlt or title }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{{ socialImage }}">
-<meta name="twitter:image:alt" content="{{ socialImageAlt }}">
+<meta name="twitter:image:alt" content="{{ socialImageAlt or title }}">
 {%- else %}
 <meta name="twitter:card" content="summary">
 {%- endif %}

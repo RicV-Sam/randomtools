@@ -1,0 +1,508 @@
+---
+layout: layouts/base.njk
+title: "Free AI Prompt Builder | Structure Any Prompt in Seconds | Spinnit"
+description: "Build a structured AI prompt using the 4-part Role, Task, Context, and Output framework. Copy it directly into ChatGPT, Claude, or Gemini. Free, no sign-up required."
+canonical: "https://spinnit.site/tools/ai-prompt-builder/"
+socialImage: "https://spinnit.site/assets/images/spinnit-learn-ai-social.png"
+socialImageWidth: 1200
+socialImageHeight: 630
+socialImageAlt: "Spinnit AI Prompt Builder: build structured prompts for ChatGPT, Claude, and Gemini for free."
+permalink: "/tools/ai-prompt-builder/index.html"
+dateModified: "2026-07-22"
+lang: en
+noAlternates: true
+publicationStatus: published
+contentType: tool
+breadcrumbs:
+  - label: Home
+    url: /
+  - label: Tools
+    url: /tools/
+  - label: AI Prompt Builder
+    url: /tools/ai-prompt-builder/
+jsonLd: |-
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI Prompt Builder",
+    "description": "A free structured prompt building tool using the Role, Task, Context, and Output framework. Works with ChatGPT, Claude, Gemini and all major AI assistants.",
+    "url": "https://spinnit.site/tools/ai-prompt-builder/",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Web",
+    "isAccessibleForFree": true,
+    "featureList": ["Role-Task-Context-Output prompt framework", "Live prompt preview", "One-click copy to clipboard", "Works with ChatGPT, Claude, and Gemini"],
+    "provider": {
+      "@type": "Organization",
+      "name": "Spinnit",
+      "url": "https://spinnit.site/"
+    }
+  }
+pageStyle: |-
+  /* Prompt Builder Page */
+  .pb-page { padding: 0 0 5rem; }
+
+  .pb-hero {
+    padding: 3.5rem 2rem 2.5rem;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .pb-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent, #a78bfa), var(--accent2, #60a5fa));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.75rem;
+  }
+  .pb-hero p { color: var(--text-muted, #aaa); font-size: 1.1rem; line-height: 1.7; max-width: 540px; margin: 0 auto 1.5rem; }
+  .pb-hero-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+  .pb-btn-secondary {
+    padding: 0.55rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid var(--border, rgba(255,255,255,0.15));
+    background: rgba(255,255,255,0.05);
+    color: var(--text, #fff);
+    text-decoration: none;
+  }
+  .pb-btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: var(--accent, #a78bfa); }
+
+  /* Builder grid */
+  .pb-container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+  .pb-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (max-width: 780px) { .pb-grid { grid-template-columns: 1fr; } }
+
+  /* Input panel */
+  .pb-inputs { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .pb-field {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .pb-field:focus-within {
+    border-color: var(--accent, #a78bfa);
+    box-shadow: 0 0 0 3px rgba(167,139,250,0.12);
+  }
+  .pb-field-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem; }
+  .pb-step-badge {
+    width: 1.6rem; height: 1.6rem;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700;
+    background: linear-gradient(135deg, var(--accent, #a78bfa), var(--accent2, #60a5fa));
+    color: #000; flex-shrink: 0;
+  }
+  .pb-field-label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text, #fff);
+  }
+  .pb-field-hint { font-size: 0.8rem; color: var(--text-muted, #888); margin-bottom: 0.6rem; }
+  .pb-field textarea {
+    width: 100%;
+    min-height: 72px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text, #fff);
+    font-family: inherit;
+    font-size: 0.925rem;
+    line-height: 1.6;
+    resize: vertical;
+    padding: 0;
+  }
+  .pb-field textarea::placeholder { color: rgba(255,255,255,0.3); }
+
+  /* Preview panel */
+  .pb-preview-panel {
+    position: sticky;
+    top: 1.5rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .pb-preview-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.03);
+  }
+  .pb-preview-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted, #888); }
+  .pb-char-count { font-size: 0.78rem; color: var(--text-muted, #777); }
+
+  .pb-preview-body {
+    padding: 1.25rem 1.5rem;
+    min-height: 240px;
+    font-family: 'Courier New', 'Consolas', monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: var(--text, #e2e8f0);
+  }
+  .pb-preview-body.is-empty { color: rgba(255,255,255,0.25); font-style: italic; font-family: inherit; }
+
+  .pb-preview-tag { color: var(--accent, #a78bfa); font-weight: 700; }
+
+  .pb-preview-actions {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .pb-copy-btn {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(135deg, var(--accent, #a78bfa), var(--accent2, #60a5fa));
+    color: #000;
+    transition: opacity 0.2s, transform 0.15s;
+    letter-spacing: 0.01em;
+  }
+  .pb-copy-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+  .pb-copy-btn:active { transform: translateY(0); }
+  .pb-copy-btn.is-success { background: linear-gradient(135deg, #4ade80, #22c55e); }
+
+  .pb-open-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+  .pb-open-btn {
+    padding: 0.5rem 0.25rem;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.05);
+    color: var(--text, #fff);
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 0.3rem;
+  }
+  .pb-open-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent, #a78bfa); }
+
+  .pb-privacy-note { font-size: 0.74rem; color: var(--text-muted, #666); text-align: center; margin-top: 0.25rem; }
+
+  /* Info strip below builder */
+  .pb-info-strip {
+    max-width: 1100px;
+    margin: 3rem auto 0;
+    padding: 0 1.5rem;
+  }
+  .pb-info-strip h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .pb-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .pb-info-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+  }
+  .pb-info-card h3 { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--accent, #a78bfa); }
+  .pb-info-card p { font-size: 0.85rem; color: var(--text-muted, #999); line-height: 1.55; margin: 0; }
+
+  .pb-course-cta {
+    max-width: 640px;
+    margin: 3rem auto 0;
+    padding: 0 1.5rem;
+    text-align: center;
+  }
+  .pb-course-cta p { color: var(--text-muted, #aaa); margin-bottom: 1rem; }
+---
+<main class="pb-page">
+  <header class="pb-hero">
+    <p class="learn-eyebrow">Free tool &middot; No account needed</p>
+    <h1>AI Prompt Builder</h1>
+    <p>Build a structured prompt using the 4-part framework from the course. Fill in the fields and your prompt assembles live, ready to copy into any AI assistant.</p>
+    <div class="pb-hero-actions">
+      <button class="pb-btn-secondary" id="pb-load-example" type="button">Load an example</button>
+      <button class="pb-btn-secondary" id="pb-clear-all" type="button">Clear all</button>
+      <a class="pb-btn-secondary" href="/learn/ai-prompting/">Back to course</a>
+    </div>
+  </header>
+
+  <div class="pb-container">
+    <div class="pb-grid">
+
+      <!-- LEFT: Input fields -->
+      <div class="pb-inputs" role="form" aria-label="Prompt builder fields">
+
+        <div class="pb-field">
+          <div class="pb-field-header">
+            <span class="pb-step-badge" aria-hidden="true">1</span>
+            <label class="pb-field-label" for="pb-role">Role / Persona</label>
+          </div>
+          <p class="pb-field-hint" id="pb-role-hint">Who should the AI act as? Give it a relevant expert identity.</p>
+          <textarea
+            id="pb-role"
+            name="pb-role"
+            placeholder="e.g. senior UX designer, experienced HR manager, high school science teacher"
+            rows="2"
+            autocomplete="off"
+            spellcheck="true"
+            aria-describedby="pb-role-hint"></textarea>
+        </div>
+
+        <div class="pb-field">
+          <div class="pb-field-header">
+            <span class="pb-step-badge" aria-hidden="true">2</span>
+            <label class="pb-field-label" for="pb-task">Task</label>
+          </div>
+          <p class="pb-field-hint" id="pb-task-hint">What specific action do you want the AI to perform?</p>
+          <textarea
+            id="pb-task"
+            name="pb-task"
+            placeholder="e.g. write a 3-email onboarding sequence, summarise this meeting transcript, explain this formula"
+            rows="3"
+            autocomplete="off"
+            spellcheck="true"
+            aria-describedby="pb-task-hint"></textarea>
+        </div>
+
+        <div class="pb-field">
+          <div class="pb-field-header">
+            <span class="pb-step-badge" aria-hidden="true">3</span>
+            <label class="pb-field-label" for="pb-context">Context &amp; Background</label>
+          </div>
+          <p class="pb-field-hint" id="pb-context-hint">What essential facts, audience details, or constraints does the AI need? Include negative constraints (what NOT to do or assume).</p>
+          <textarea
+            id="pb-context"
+            name="pb-context"
+            placeholder="e.g. target audience: first-time managers at companies of 50-200 people. Do NOT use jargon. Do NOT assume prior HR experience."
+            rows="4"
+            autocomplete="off"
+            spellcheck="true"
+            aria-describedby="pb-context-hint"></textarea>
+        </div>
+
+        <div class="pb-field">
+          <div class="pb-field-header">
+            <span class="pb-step-badge" aria-hidden="true">4</span>
+            <label class="pb-field-label" for="pb-output">Output Format</label>
+          </div>
+          <p class="pb-field-hint" id="pb-output-hint">Specify format, length, and structure. The more specific, the more usable the response.</p>
+          <textarea
+            id="pb-output"
+            name="pb-output"
+            placeholder="e.g. return a numbered list of 5 steps, each under 30 words. End with a 2-sentence summary."
+            rows="3"
+            autocomplete="off"
+            spellcheck="true"
+            aria-describedby="pb-output-hint"></textarea>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Live preview -->
+      <div class="pb-preview-panel" aria-live="polite" aria-label="Assembled prompt preview">
+        <div class="pb-preview-header">
+          <span class="pb-preview-title">Your prompt</span>
+          <span class="pb-char-count" id="pb-char-count" aria-label="Character count">0 characters</span>
+        </div>
+        <div class="pb-preview-body is-empty" id="pb-preview" aria-label="Assembled prompt text">
+Start filling in the fields on the left and your structured prompt will appear here.</div>
+        <div class="pb-preview-actions">
+          <button class="pb-copy-btn" id="pb-copy" type="button" aria-live="polite">Copy prompt</button>
+          <div class="pb-open-btns" aria-label="Open in AI assistant">
+            <a class="pb-open-btn" id="pb-open-chatgpt" href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer" title="Copy prompt then open ChatGPT">
+              ChatGPT
+            </a>
+            <a class="pb-open-btn" id="pb-open-claude" href="https://claude.ai/" target="_blank" rel="noopener noreferrer" title="Copy prompt then open Claude">
+              Claude
+            </a>
+            <a class="pb-open-btn" id="pb-open-gemini" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" title="Copy prompt then open Gemini">
+              Gemini
+            </a>
+          </div>
+          <p class="pb-privacy-note">Your prompt text stays in your browser. Nothing is stored or sent to any server.</p>
+        </div>
+      </div>
+
+    </div><!-- /.pb-grid -->
+
+    <!-- Framework info strip -->
+    <section class="pb-info-strip" aria-labelledby="pb-framework-title">
+      <h2 id="pb-framework-title">What each field does</h2>
+      <div class="pb-info-grid">
+        <div class="pb-info-card">
+          <h3>1. Role</h3>
+          <p>Calibrates the AI's expertise, vocabulary, and perspective. Without it, the AI responds as a generic assistant.</p>
+        </div>
+        <div class="pb-info-card">
+          <h3>2. Task</h3>
+          <p>The primary action. Be specific: "Write", "Summarise", "Analyse", "Generate", "Rewrite". Vague verbs produce vague results.</p>
+        </div>
+        <div class="pb-info-card">
+          <h3>3. Context</h3>
+          <p>Supplies the who, what, and why the AI needs to give a relevant answer, including what to exclude or avoid.</p>
+        </div>
+        <div class="pb-info-card">
+          <h3>4. Output</h3>
+          <p>Defines format (table, list, prose), length (word count, item count), and structure (headings, columns, sign-off).</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="pb-course-cta">
+      <p>New to structured prompting? The free course explains every framework used in this tool with real before/after examples.</p>
+      <a class="learn-button learn-button--primary" href="/learn/ai-prompting/level-1/how-ai-responds/">Start Lesson 1 free, no sign-up</a>
+    </div>
+
+  </div><!-- /.pb-container -->
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var roleEl   = document.getElementById('pb-role');
+  var taskEl   = document.getElementById('pb-task');
+  var ctxEl    = document.getElementById('pb-context');
+  var outputEl = document.getElementById('pb-output');
+  var preview  = document.getElementById('pb-preview');
+  var charCount = document.getElementById('pb-char-count');
+  var copyBtn  = document.getElementById('pb-copy');
+
+  var EXAMPLE = {
+    role:   'senior product marketing manager',
+    task:   'Write a 3-email onboarding drip sequence for new free-trial users of our B2B project management tool',
+    ctx:    'Target audience: small business owners (5-20 employees) with no technical background. Key benefit to emphasise: saves 4+ hours per week. Do NOT use technical jargon. Do NOT promise specific ROI figures.',
+    output: 'Return 3 separate emails, each with: Subject line, 150-word body, and a single CTA link placeholder [CTA_URL]. Label each email: Day 1, Day 3, Day 7.'
+  };
+
+  function assemble() {
+    var role   = (roleEl.value   || '').trim();
+    var task   = (taskEl.value   || '').trim();
+    var ctx    = (ctxEl.value    || '').trim();
+    var output = (outputEl.value || '').trim();
+
+    if (!role && !task && !ctx && !output) {
+      preview.textContent = 'Start filling in the fields on the left and your structured prompt will appear here.';
+      preview.classList.add('is-empty');
+      charCount.textContent = '0 characters';
+      return;
+    }
+
+    var parts = [];
+    if (role)   parts.push('[ROLE]\nAct as a ' + role + '.\n');
+    if (task)   parts.push('[TASK]\n' + task + '\n');
+    if (ctx)    parts.push('[CONTEXT]\n' + ctx + '\n');
+    if (output) parts.push('[OUTPUT FORMAT]\n' + output);
+
+    var assembled = parts.join('\n');
+    preview.textContent = assembled;
+    preview.classList.remove('is-empty');
+    var len = assembled.length;
+    charCount.textContent = len.toLocaleString() + ' character' + (len !== 1 ? 's' : '');
+  }
+
+  function copyToClipboard(text, btn) {
+    if (!navigator.clipboard) {
+      // Fallback
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch(e) {}
+      document.body.removeChild(ta);
+      showCopySuccess(btn);
+      return;
+    }
+    navigator.clipboard.writeText(text).then(function() {
+      showCopySuccess(btn);
+    }).catch(function() {});
+  }
+
+  function showCopySuccess(btn) {
+    var originalText = btn.textContent;
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('is-success');
+    setTimeout(function() {
+      btn.textContent = originalText;
+      btn.classList.remove('is-success');
+    }, 2000);
+  }
+
+  function getCurrentPrompt() {
+    return preview.classList.contains('is-empty') ? '' : preview.textContent;
+  }
+
+  // Copy button
+  copyBtn.addEventListener('click', function() {
+    var text = getCurrentPrompt();
+    if (!text) {
+      copyBtn.textContent = 'Add content first';
+      setTimeout(function() { copyBtn.textContent = 'Copy prompt'; }, 1800);
+      return;
+    }
+    copyToClipboard(text, copyBtn);
+  });
+
+  // Open in AI buttons: copy first, then let link navigate.
+  ['pb-open-chatgpt', 'pb-open-claude', 'pb-open-gemini'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('click', function() {
+      var text = getCurrentPrompt();
+      if (text) copyToClipboard(text, copyBtn);
+    });
+  });
+
+  // Load example
+  document.getElementById('pb-load-example').addEventListener('click', function() {
+    roleEl.value   = EXAMPLE.role;
+    taskEl.value   = EXAMPLE.task;
+    ctxEl.value    = EXAMPLE.ctx;
+    outputEl.value = EXAMPLE.output;
+    assemble();
+    roleEl.focus();
+  });
+
+  // Clear all
+  document.getElementById('pb-clear-all').addEventListener('click', function() {
+    roleEl.value = taskEl.value = ctxEl.value = outputEl.value = '';
+    assemble();
+    roleEl.focus();
+  });
+
+  // Live updates
+  [roleEl, taskEl, ctxEl, outputEl].forEach(function(el) {
+    el.addEventListener('input', assemble);
+  });
+
+  assemble();
+})();
+</script>
