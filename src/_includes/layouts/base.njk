@@ -90,6 +90,8 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 {%- if not hideNav %}
 {% include "partials/nav.njk" %}
 {%- endif %}
@@ -129,6 +131,7 @@
 </script>
 {%- endif %}
 
+<div id="main-content" tabindex="-1"></div>
 {{ content | safe }}
 
 {%- if aiCommercialNotice %}

@@ -20,6 +20,8 @@ jsonLd: |-
     "description": "A calm, practical introduction to AI for adults 50+ and complete beginners.",
     "url": "https://spinnit.site/ai-for-over-50s/",
     "dateModified": "2026-08-31",
+    "author": { "@type": "Organization", "name": "Spinnit Editorial", "url": "https://spinnit.site/editorial-standards/" },
+    "publisher": { "@type": "Organization", "name": "Spinnit", "url": "https://spinnit.site/" },
     "isPartOf": {
       "@type": "WebSite",
       "name": "Spinnit",
@@ -66,12 +68,19 @@ pageStyle: |
     </div>
   </header>
 
+  {% include "partials/editorial-trust.njk" %}
+
   <nav class="guide-index" aria-label="On this page">
     <a href="#what-is-ai">What AI is</a>
     <a href="#everyday-ai">Useful everyday tasks</a>
     <a href="#first-task">Your first prompt</a>
     <a href="#ai-safety">Privacy, accuracy and scams</a>
   </nav>
+
+  <figure class="guide-visual">
+    <img src="/assets/images/ai-assistant-not-authority.webp" width="960" height="540" loading="lazy" decoding="async" alt="An AI response card leading to a human checklist, showing that people should review AI output.">
+    <figcaption>AI can produce a quick draft. Human checking and judgement complete the task.</figcaption>
+  </figure>
 
   <section class="guide-section" id="what-is-ai" aria-labelledby="what-is-ai-heading">
     <p class="learn-kicker">The basics</p>
@@ -128,7 +137,7 @@ pageStyle: |
   <section class="guide-section" aria-labelledby="next-heading">
     <p class="learn-kicker">Continue when you are ready</p>
     <h2 id="next-heading">Choose the question you want to answer next</h2>
-    <p>The beginner series separates practical tasks, privacy, checking and scams so you can learn one useful thing at a time.</p>
+    <p>The beginner series separates practical tasks, privacy, checking and scams so you can learn one useful thing at a time. If you want a structured route after the first guides, the five-lesson course is the deeper practice stage.</p>
     <div class="guide-next">
       <a href="/ai-for-over-50s/chatgpt-for-beginners/"><strong>Use ChatGPT for the first time →</strong><span>Follow one complete, low-risk conversation.</span></a>
       <a href="/ai-for-over-50s/everyday-ai-prompts/"><strong>Try 12 everyday prompts →</strong><span>Emails, plans, learning and hobbies.</span></a>

@@ -38,6 +38,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.skip-link {
+  position: fixed;
+  z-index: 1000;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border: 2px solid var(--accent2);
+  border-radius: var(--radius);
+  background: var(--bg2);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
 a { color: var(--accent2); text-decoration: none; transition: color 0.2s ease, text-shadow 0.2s ease; }
 a:hover { color: var(--text); }
 a:focus-visible,
@@ -939,6 +960,31 @@ footer a:hover { color: var(--text); }
 .footer-learn,
 .footer-learn a {
   color: var(--text2);
+}
+
+.footer-learning-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 1rem;
+  margin: 0.75rem auto;
+}
+
+.footer-learning-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+footer .footer-secondary {
+  color: var(--text2);
+  font-size: 0.78rem;
+}
+
+footer .footer-secondary a {
+  color: var(--accent2);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 @media (max-width: 760px) {

@@ -7,11 +7,23 @@
 {%- endif -%}
 {%- if footerVariant == "short" %}
   <p>Spinnit &copy; {{ site.year }} - {{ labels.footerTagline or 'free forever' }} &nbsp;|&nbsp; <a href="{{ localePrefix }}/privacy.html">{{ labels.privacy or 'Privacy' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/about.html">{{ labels.about or 'About' }}</a></p>
+{%- elif footerVariant == "learning" and localePrefix == '' %}
+  <p>Spinnit &copy; {{ site.year }} &mdash; simple, practical AI learning for complete beginners.</p>
+  <nav class="footer-learning-links" aria-label="Learning and support">
+    <a href="/ai-for-over-50s/">Start here</a>
+    <a href="/learn/">Learn AI</a>
+    <a href="/learn/ai-prompting/">Beginner course</a>
+    <a href="/editorial-standards/">Editorial standards</a>
+    <a href="/about.html">About</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+  <p class="footer-secondary">Looking for the original generators, wheels and pickers? <a href="/tools/">Browse all browser tools</a>.</p>
 {%- else %}
   <p>Spinnit &copy; {{ site.year }} - {{ labels.footerTagline or 'free forever' }} &nbsp;|&nbsp; <a href="{{ localePrefix }}/tools/">{{ labels.allTools or 'All Tools' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/blog/">{{ labels.blog or 'Blog' }}</a> &nbsp;|&nbsp; <a href="{{ aiHref }}">AI tools</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/privacy.html">{{ labels.privacy or 'Privacy' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/terms.html">{{ labels.terms or 'Terms' }}</a>{%- if localePrefix == '' %} &nbsp;|&nbsp; <a href="/affiliate-disclosure.html">Disclosure</a>{%- endif %} &nbsp;|&nbsp; <a href="{{ localePrefix }}/about.html">{{ labels.about or 'About' }}</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/contact.html">{{ labels.contact or 'Contact' }}</a></p>
   {%- if localePrefix == '' %}
   <p class="footer-popular footer-learn">Learn AI: <a href="/ai-for-over-50s/">Beginner guide for adults 50+</a> &nbsp;|&nbsp; <a href="/learn/">Learning hub</a> &nbsp;|&nbsp; <a href="/learn/ai-prompting/">Free beginner course</a> &nbsp;|&nbsp; <a href="/ai-for-over-50s/#ai-safety">AI safety</a></p>
-  <p class="footer-popular">Trust and safety: <a href="/how-spinnit-tools-work.html">How Spinnit tools work</a> &nbsp;|&nbsp; <a href="/randomness-and-fairness.html">Randomness and fairness</a> &nbsp;|&nbsp; <a href="/tools/password-security/">Password security</a> &nbsp;|&nbsp; <a href="/ai/how-we-review/">AI review methodology</a></p>
+  <p class="footer-popular">Trust and safety: <a href="/editorial-standards/">AI learning editorial standards</a> &nbsp;|&nbsp; <a href="/how-spinnit-tools-work.html">How Spinnit tools work</a> &nbsp;|&nbsp; <a href="/randomness-and-fairness.html">Randomness and fairness</a> &nbsp;|&nbsp; <a href="/tools/password-security/">Password security</a> &nbsp;|&nbsp; <a href="/ai/how-we-review/">AI review methodology</a></p>
   {%- endif %}
   <p class="footer-popular">Core tools: <a href="{{ localePrefix }}/tools/random-number.html">Random Number</a> &nbsp;|&nbsp; <a href="/tools/random-date-generator.html">Random Date</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/tools/dice-roller.html">Dice Roller</a> &nbsp;|&nbsp; <a href="/tools/random-picker-wheel.html">Picker Wheel</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/tools/wheel-of-names.html">Wheel of Names</a> &nbsp;|&nbsp; <a href="/what-should-i/">What Should I</a> &nbsp;|&nbsp; <a href="/tools/poll-maker.html">Poll Maker</a> &nbsp;|&nbsp; <a href="/tools/random-activity-picker.html">Activity Picker</a> &nbsp;|&nbsp; <a href="/tools/random-dinner-picker.html">Dinner Picker</a> &nbsp;|&nbsp; <a href="/tools/random-movie-picker.html">Movie Picker</a> &nbsp;|&nbsp; <a href="/tools/random-emoji-generator.html">Random Emoji</a> &nbsp;|&nbsp; <a href="/tools/random-object-generator.html">Random Object</a> &nbsp;|&nbsp; <a href="/tools/random-letter-generator.html">Random Letter</a> &nbsp;|&nbsp; <a href="/tools/random-word-generator.html">Random Word</a> &nbsp;|&nbsp; <a href="/tools/random-question-generator.html">Random Question</a> &nbsp;|&nbsp; <a href="/tools/would-you-rather-generator.html">Would You Rather</a> &nbsp;|&nbsp; <a href="/tools/truth-or-dare-generator.html">Truth or Dare</a> &nbsp;|&nbsp; <a href="/tools/football/">Football Tools</a> &nbsp;|&nbsp; <a href="/tools/draft-order-generator.html">Draft Order</a> &nbsp;|&nbsp; <a href="/tools/tournament-bracket-generator.html">Tournament Bracket</a> &nbsp;|&nbsp; <a href="/senior-friendly-games/">Senior Games</a> &nbsp;|&nbsp; <a href="/workplace-random-tools/">Workplace Tools</a> &nbsp;|&nbsp; <a href="/tools/fair-rotation-generator.html">Fair Rotation</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/tools/team-picker.html">Team Picker</a> &nbsp;|&nbsp; <a href="{{ localePrefix }}/tools/password-generator.html">Password Generator</a></p>
 {%- endif %}

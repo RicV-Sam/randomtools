@@ -66,6 +66,7 @@ module.exports = {
     },
     breadcrumbs: (data) => {
       if (data.noBreadcrumbs || data.hideNav || !data.page || !data.page.filePathStem) return null;
+      if (Array.isArray(data.manualBreadcrumbs) && data.manualBreadcrumbs.length) return data.manualBreadcrumbs;
 
       const stem = data.page.filePathStem;
       // AI Tool Radar pages have their own visible breadcrumb pattern inside
@@ -122,6 +123,7 @@ module.exports = {
     },
     schemaBreadcrumbs: (data) => {
       if (data.noBreadcrumbs || data.hideNav || data.noindex || !data.page || !data.page.filePathStem) return null;
+      if (Array.isArray(data.manualBreadcrumbs) && data.manualBreadcrumbs.length) return data.manualBreadcrumbs;
 
       const stem = data.page.filePathStem;
       const isAiToolRadar = stem === "/ai" || stem.startsWith("/ai/");
