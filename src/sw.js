@@ -1,8 +1,11 @@
-const CACHE = 'spinnit-v3';
+const CACHE = 'spinnit-v4';
 const OFFLINE_URL = '/offline.html';
 const ASSETS = [
   '/',
   '/index.html',
+  '/ai-for-over-50s/',
+  '/learn/',
+  '/learn/ai-prompting/',
   OFFLINE_URL,
   '/assets/style.css',
   '/manifest.json',

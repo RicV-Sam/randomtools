@@ -26,6 +26,18 @@ module.exports = function (eleventyConfig) {
     return site + (path.startsWith("/") ? path : "/" + path);
   });
 
+  // Serialize values for JSON-LD without HTML-encoding apostrophes or quotes.
+  // Escaping HTML-significant characters prevents a value from closing the
+  // surrounding script element.
+  eleventyConfig.addFilter("json", function (value) {
+    return JSON.stringify(value)
+      .replace(/</g, "\\u003c")
+      .replace(/>/g, "\\u003e")
+      .replace(/&/g, "\\u0026")
+      .replace(/\u2028/g, "\\u2028")
+      .replace(/\u2029/g, "\\u2029");
+  });
+
   return {
     dir: {
       input: "src",

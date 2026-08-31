@@ -71,7 +71,9 @@ module.exports = {
       // AI Tool Radar pages have their own visible breadcrumb pattern inside
       // the AI layout content. Keep the global breadcrumb renderer off there;
       // schema-only breadcrumbs for English AI pages are handled below.
-      if (stem.includes("/404") || stem.startsWith("/ai")) return null;
+      const isAiToolRadar = stem === "/ai" || stem.startsWith("/ai/");
+      const isAiBeginnerGuide = stem === "/ai-for-over-50s" || stem.startsWith("/ai-for-over-50s/");
+      if (stem.includes("/404") || isAiToolRadar || isAiBeginnerGuide) return null;
 
       const langMatch = stem.match(/^\/([a-z]{2}(?:-[A-Z]{2})?)\//);
       const lang = langMatch ? langMatch[1] : "en";
@@ -122,13 +124,30 @@ module.exports = {
       if (data.noBreadcrumbs || data.hideNav || data.noindex || !data.page || !data.page.filePathStem) return null;
 
       const stem = data.page.filePathStem;
-      if (!stem.startsWith("/ai") || stem.includes("/404")) return null;
+      const isAiToolRadar = stem === "/ai" || stem.startsWith("/ai/");
+      const isAiBeginnerGuide = stem === "/ai-for-over-50s" || stem.startsWith("/ai-for-over-50s/");
+      if ((!isAiToolRadar && !isAiBeginnerGuide) || stem.includes("/404")) return null;
 
       const urlFromStem = (path) => path.endsWith("/index") ? path.replace(/\/index$/, "/") : `${path}.html`;
       const title = (data.h1 || data.ogTitle || data.title || "")
         .replace(/ \| Spinnit$/, "")
         .replace(/ \| AI Tool Radar$/, "")
         .replace(/&amp;/g, "&");
+
+      if (stem === "/ai-for-over-50s/index") {
+        return [
+          { label: "Home", url: "/" },
+          { label: "AI for over 50s", url: "/ai-for-over-50s/" },
+        ];
+      }
+
+      if (isAiBeginnerGuide) {
+        return [
+          { label: "Home", url: "/" },
+          { label: "AI for over 50s", url: "/ai-for-over-50s/" },
+          { label: title, url: urlFromStem(stem) },
+        ];
+      }
 
       if (stem === "/ai/index") {
         return [

@@ -120,8 +120,8 @@
     {
       "@type": "ListItem",
       "position": {{ loop.index }},
-      "name": "{{ crumb.label }}",
-      "item": "{{ site.url }}{{ crumb.url }}"
+      "name": {{ crumb.label | json | safe }},
+      "item": {{ (site.url + crumb.url) | json | safe }}
     }{% if not loop.last %},{% endif %}
     {%- endfor %}
   ]

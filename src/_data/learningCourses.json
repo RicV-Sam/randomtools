@@ -1,9 +1,9 @@
 {
   "aiPrompting": {
     "id": "ai-prompting",
-    "title": "AI Prompting: Beginner to Applied Workflows",
-    "shortTitle": "AI Prompting",
-    "description": "A practical learning path for giving AI clearer instructions, checking its responses and building useful everyday workflows.",
+    "title": "AI for Complete Beginners: Write Better Prompts",
+    "shortTitle": "Better AI Prompts",
+    "description": "A plain-English course for asking AI clearly, checking its answers and using it for useful everyday tasks.",
     "url": "/learn/ai-prompting/",
     "availableLessonIds": [
       "how-ai-responds",

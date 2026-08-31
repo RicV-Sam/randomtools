@@ -9,11 +9,11 @@
   <a class="nav-logo" href="{{ localePrefix }}/" aria-label="Spinnit home">spinn<span>it</span></a>
   <nav class="nav-links" aria-label="{{ labels.primaryNavigation or 'Primary navigation' }}">
     {%- if localePrefix == '' %}
+    <a href="/ai-for-over-50s/">Start here</a>
     <a href="/learn/">Learn AI</a>
+    <a href="/ai-for-over-50s/#ai-safety">AI safety</a>
     <a href="/ai/">AI tools</a>
-    <a href="/classroom-random-tools/">classroom</a>
-    <a href="/tools/">all tools</a>
-    <a href="/blog/">guides</a>
+    <a href="/tools/">More tools</a>
     {%- else %}
     <a href="{{ localePrefix }}/tools/">{{ labels.tools or 'tools' }}</a>
     <a href="{{ localePrefix }}/blog/">{{ labels.blog or 'blog' }}</a>

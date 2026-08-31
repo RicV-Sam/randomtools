@@ -67,8 +67,9 @@ function isSkippablePage(urlPath) {
     urlPath === "/404.html" ||
     urlPath.endsWith("/404.html") ||
     urlPath === "/offline.html" ||
-    // Localized AI mirrors are not in sitemap/SEO QA until a separate
-    // translation and currentness review approves them.
+    // Localized AI mirrors stay outside core-page QA until a separate
+    // translation and currentness review approves them. Their noindex and
+    // sitemap state are enforced explicitly in the main validation loop.
     isLocalizedAiPage(urlPath)
   );
 }
@@ -126,6 +127,60 @@ function canonicalPath(root) {
   }
 }
 
+function jsonLdObjects(root, urlPath, errors) {
+  const objects = [];
+  const collect = (value) => {
+    if (Array.isArray(value)) {
+      value.forEach(collect);
+      return;
+    }
+    if (!value || typeof value !== "object") return;
+    objects.push(value);
+    if (Array.isArray(value["@graph"])) value["@graph"].forEach(collect);
+  };
+
+  for (const script of root.querySelectorAll('script[type="application/ld+json" i]')) {
+    try {
+      collect(JSON.parse(script.text.trim()));
+    } catch (error) {
+      errors.push(`${htmlLabel(urlPath)} has invalid JSON-LD (${error.message})`);
+    }
+  }
+  return objects;
+}
+
+function validateBeginnerGuideBreadcrumb(page, errors) {
+  if (!page.urlPath.startsWith("/ai-for-over-50s/")) return;
+
+  const objects = jsonLdObjects(page.root, page.urlPath, errors);
+  const breadcrumb = objects.find((item) => item["@type"] === "BreadcrumbList");
+  if (!breadcrumb || !Array.isArray(breadcrumb.itemListElement)) {
+    errors.push(`${htmlLabel(page.urlPath)} is missing BreadcrumbList structured data`);
+    return;
+  }
+
+  const paths = breadcrumb.itemListElement.map((item) => {
+    try {
+      return normalizePathname(new URL(item.item, SITE_URL).pathname);
+    } catch {
+      return "";
+    }
+  });
+  const expected = page.urlPath === "/ai-for-over-50s/"
+    ? ["/", "/ai-for-over-50s/"]
+    : ["/", "/ai-for-over-50s/", page.urlPath];
+
+  if (JSON.stringify(paths) !== JSON.stringify(expected)) {
+    errors.push(`${htmlLabel(page.urlPath)} has the wrong breadcrumb hierarchy (${paths.join(" > ")})`);
+  }
+  if (breadcrumb.itemListElement[1] && breadcrumb.itemListElement[1].name !== "AI for over 50s") {
+    errors.push(`${htmlLabel(page.urlPath)} has the wrong beginner-guide breadcrumb label`);
+  }
+  if (breadcrumb.itemListElement.some((item) => /&(?:#\d+|#x[\da-f]+|[a-z]+);/i.test(item.name || ""))) {
+    errors.push(`${htmlLabel(page.urlPath)} has HTML entities in breadcrumb structured data`);
+  }
+}
+
 function readSitemapPaths(errors) {
   const sitemapFile = path.join(SITE_DIR, "sitemap.xml");
   if (!fs.existsSync(sitemapFile)) {
@@ -134,6 +189,9 @@ function readSitemapPaths(errors) {
   }
 
   const raw = fs.readFileSync(sitemapFile, "utf8");
+  if (/<(?:changefreq|priority)>/i.test(raw)) {
+    errors.push("sitemap should contain canonical URLs and accurate lastmod values only");
+  }
   const locs = Array.from(raw.matchAll(/<loc>([^<]+)<\/loc>/g)).map((m) => m[1].trim());
   const paths = new Set();
 
@@ -240,9 +298,19 @@ function main() {
   const titleBuckets = new Map();
   const h1Buckets = new Map();
   const sitemapPaths = readSitemapPaths(errors);
-  const skippedLocalizedAiPages = Array.from(pages.values()).filter((page) => isLocalizedAiPage(page.urlPath)).length;
+  const heldLocalizedAiPages = Array.from(pages.values()).filter((page) => isLocalizedAiPage(page.urlPath)).length;
 
   for (const page of pages.values()) {
+    if (isLocalizedAiPage(page.urlPath)) {
+      if (!page.noindex) {
+        errors.push(`${htmlLabel(page.urlPath)} is a localized AI page pending review and must be noindex`);
+      }
+      if (sitemapPaths.has(page.urlPath)) {
+        errors.push(`sitemap includes localized AI page pending review ${htmlLabel(page.urlPath)}`);
+      }
+      continue;
+    }
+
     if (page.noindex || isSkippablePage(page.urlPath)) continue;
 
     if (!page.title) errors.push(`${htmlLabel(page.urlPath)} is missing a <title>`);
@@ -251,6 +319,8 @@ function main() {
     if (page.h1s.length !== 1) {
       errors.push(`${htmlLabel(page.urlPath)} should have exactly one H1 (found ${page.h1s.length})`);
     }
+
+    validateBeginnerGuideBreadcrumb(page, errors);
 
     if (!isCoreOrganicPage(page)) continue;
 
@@ -296,7 +366,7 @@ function main() {
     process.exit(1);
   }
 
-  const aiNote = skippedLocalizedAiPages ? `; ${skippedLocalizedAiPages} localized AI pages skipped intentionally` : "";
+  const aiNote = heldLocalizedAiPages ? `; ${heldLocalizedAiPages} localized AI pages held at noindex pending review` : "";
   console.log(`check-seo passed (${files.length} HTML files, ${linkCount} internal links, ${sitemapPaths.size} sitemap URLs${aiNote})`);
 }
 

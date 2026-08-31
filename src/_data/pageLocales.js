@@ -102,28 +102,6 @@ function sortUrl(a, b) {
   return a.localeCompare(b);
 }
 
-function priorityFor(loc) {
-  const p = loc.replace("https://spinnit.site", "");
-  if (p === "/" || p === "") return "1.0";
-  if (p === "/classroom-random-tools/") return "0.95";
-  if (p === "/what-should-i/") return "0.95";
-  if (p.startsWith("/classroom-random-tools/")) return "0.85";
-  if (p.startsWith("/ar/")) return "0.3";
-  if (p.startsWith("/de/")) return "0.5";
-  if (p.startsWith("/tools/")) return "0.9";
-  if (p.startsWith("/blog/")) return "0.8";
-  if (p.startsWith("/ai/")) return "0.7";
-  if (/^\/(about|contact|privacy|terms|how-spinnit-tools-work|randomness-and-fairness)\.html$/.test(p)) return "0.4";
-  return "0.6";
-}
-
-function changefreqFor(loc) {
-  const p = loc.replace("https://spinnit.site", "");
-  if (p === "/" || p === "/tools/" || p === "/blog/" || p === "/ai/" || p === "/what-should-i/") return "weekly";
-  if (/^\/(about|contact|privacy|terms|how-spinnit-tools-work|randomness-and-fairness)\.html$/.test(p)) return "yearly";
-  return "monthly";
-}
-
 function localizedUrl(lang, url) {
   if (lang === languages.default) return url;
   const locale = languages.available.find((l) => l.code === lang);
@@ -171,7 +149,7 @@ for (const file of walk(SRC)) {
     );
     if (!sitemapUrls.includes(loc)) sitemapUrls.push(loc);
     if (!sitemapEntryMap.has(loc)) {
-      sitemapEntryMap.set(loc, { loc, lastmod, priority: priorityFor(loc), changefreq: changefreqFor(loc) });
+      sitemapEntryMap.set(loc, { loc, lastmod });
     } else if (lastmod > sitemapEntryMap.get(loc).lastmod) {
       sitemapEntryMap.get(loc).lastmod = lastmod;
     }
