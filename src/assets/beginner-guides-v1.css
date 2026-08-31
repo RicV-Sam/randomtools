@@ -166,6 +166,130 @@
   margin-top: 0;
 }
 
+.guide-quick-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  width: min(100%, 780px);
+  margin: 0 0 2rem;
+  padding-block: 1rem;
+  border-block: 1px solid var(--border);
+}
+
+.guide-quick-nav a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+}
+
+.guide-use-cases {
+  display: grid;
+  gap: 0;
+  margin: 1.25rem 0;
+  padding: 0;
+  border-block: 1px solid var(--border);
+  list-style: none;
+  counter-reset: use-case;
+}
+
+.guide-use-cases[start="5"] { counter-reset: use-case 4; }
+.guide-use-cases[start="9"] { counter-reset: use-case 8; }
+.guide-use-cases[start="13"] { counter-reset: use-case 12; }
+
+.guide-use-cases li {
+  counter-increment: use-case;
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: 0.25rem 0.8rem;
+  margin: 0;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.guide-use-cases li:last-child {
+  border-bottom: 0;
+}
+
+.guide-use-cases li::before {
+  content: counter(use-case, decimal-leading-zero);
+  grid-row: 1 / span 2;
+  color: var(--accent2);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.guide-use-cases strong {
+  color: var(--text);
+}
+
+.guide-use-cases span {
+  color: var(--text2);
+  line-height: 1.65;
+}
+
+.guide-table-wrap {
+  width: 100%;
+  margin-block: 1.25rem;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+}
+
+.guide-table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.guide-table th,
+.guide-table td {
+  padding: 0.85rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.guide-table th {
+  background: var(--bg2);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+}
+
+.guide-table td {
+  color: var(--text2);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.guide-terms {
+  width: min(100%, 780px);
+  margin: 1.25rem 0;
+}
+
+.guide-terms > div {
+  padding-block: 1.2rem;
+  border-top: 1px solid var(--border);
+}
+
+.guide-terms > div:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.guide-terms dt {
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.guide-terms dd {
+  margin: 0.35rem 0 0;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
 .guide-source-note {
   width: min(100%, 780px);
   margin-top: 2.5rem;
