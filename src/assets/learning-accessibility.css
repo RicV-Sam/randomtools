@@ -1,0 +1,36 @@
+/* Loaded only on learning surfaces; preserve the tool layouts and brand tokens. */
+body .nav { flex-wrap: wrap; gap: .5rem 1rem; }
+body .nav :is(.nav-links, .home-nav-links) { flex-wrap: wrap; gap: .25rem 1rem; }
+body .nav :is(.nav-links, .home-nav-links) a,
+body .nav .nav-back { display: inline-flex; align-items: center; min-height: 44px; font-size: 1rem; white-space: normal; }
+body .nav .nav-logo { display: inline-flex; align-items: center; min-height: 44px; font-size: 1rem; }
+body :is(.home-main, .learn-page) { font-size: 1.125rem; line-height: 1.75; }
+body :is(.home-text-link, .home-button, .learn-button, .guide-quick-nav a, .guide-breadcrumb, .guide-trust, .guide-source-note, .guide-series__links span) { font-size: 1rem; }
+body .home-text-link { min-height: 44px; }
+body .guide-breadcrumb { color: var(--text2); }
+body .guide-breadcrumb a { min-height: 44px; }
+body .beginner-guide .guide-index a { font-size: 1rem; }
+body :is(.guide-example blockquote, .guide-comparison p, .guide-table td, .home-path p, .home-link-list p) { font-size: 1.0625rem; }
+body :is(.home-main, .learn-page) :is(p, li) a,
+body .home-text-link { text-decoration: underline; text-underline-offset: .2em; }
+body .footer-learning-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 1rem; }
+body .guide-copy { margin-top: .75rem; }
+body :is(.guide-copy, .guide-print) { background: var(--bg2); cursor: pointer; }
+body .guide-print[hidden] { display: none; }
+body .guide-copy-status { display: block; min-height: 1.75em; font-size: 1rem; color: var(--text2); }
+body .guide-example { scroll-margin-top: 7rem; }
+@media (max-width: 900px) {
+  /* Wrapped navigation must not obscure jump targets or most of a phone screen. */
+  body .nav { position: static; }
+  body .nav :is(.nav-links, .home-nav-links) { width: 100%; justify-content: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+@media print {
+  .nav, .skip-link, footer, .guide-actions, .guide-copy, .guide-copy-status, .guide-print { display: none !important; }
+  body { background: white; color: black; }
+  body .learn-page { width: 100%; padding: 0; }
+  body .learn-page * { color: black !important; background: transparent !important; box-shadow: none !important; }
+  .guide-example { break-inside: avoid; }
+}

@@ -3,6 +3,7 @@ module.exports = {
   noAlternates: true,
   footerVariant: "learning",
   editorialReviewedText: "31 August 2026",
+  editorialReviewedDate: "2026-08-31",
   socialImage: "https://spinnit.site/assets/images/spinnit-learn-ai-social.png",
   socialImageWidth: 1200,
   socialImageHeight: 630,
@@ -10,5 +11,6 @@ module.exports = {
   extraHead: `
     <link rel="stylesheet" href="/assets/learn-v1.css">
     <link rel="stylesheet" href="/assets/beginner-guides-v1.css">
+    <link rel="stylesheet" href="/assets/learning-accessibility.css">
   `,
 };

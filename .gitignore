@@ -23,3 +23,7 @@ arabic-polish-suggestions.json
 *.iml
 .DS_Store
 Thumbs.db
+
+# Local browser audit evidence
+.playwright-cli/
+output/playwright/
