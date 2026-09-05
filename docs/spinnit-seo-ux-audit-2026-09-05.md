@@ -4,6 +4,8 @@ Audited 5 September 2026. The user reviewed the performance findings and authori
 
 ## What I found
 
+**Deployment receipt:** content commit `9c7c2bb` went live on 5 September 2026 at 07:03 BST through [successful GitHub Pages run 33948737309](https://github.com/RicV-Sam/randomtools/actions/runs/33948737309). Live priority-page and asset checks passed. The final included scope and next-work dates are in the performance-validation report linked above. Service-worker testing below documents a deferred prototype, not this production release.
+
 The positioning is credible and the beginner cluster already has substance. The biggest opportunities are helping visitors recognise the intended audience, complete a first task and reuse the guides. A large-scale rewrite or a new batch of pages would add risk without solving those needs.
 
 Direct HTTP checks returned 200 for the homepage and all five requested guide URLs, with self-referencing canonicals and one H1 each. The sitemap and robots file returned 200; an invented URL correctly returned 404. Some search-tool extracts were older than the direct live HTML, so findings use the direct responses and browser inspection where they differ.

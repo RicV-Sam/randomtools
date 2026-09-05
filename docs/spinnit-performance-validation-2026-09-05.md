@@ -4,7 +4,7 @@
 
 The user authorised commit, push and live deployment after reviewing the findings. Release scope: AI guide usability/accessibility, practical homepage messaging, the early tools link, the existing homepage SEO title and an ad-free homepage. The user confirmed no advertising monetisation is currently active and any platform launch is some way off; ad suppression therefore has no identified current revenue tradeoff. The service-worker rewrite is deferred and excluded from the commit. Established tool pages remain unchanged.
 
-The core guide series entered Git in `3bd0d9b` on **31 August 2026 at 11:38 BST**. This verifies the source publication date, not the original production deployment timestamp. This improvement release is dated **5 September 2026**; the deployment result will be recorded below. Earlier references to unpublished changes describe the pre-release review.
+The core guide series entered Git in `3bd0d9b` on **31 August 2026 at 11:38 BST**, and its [production deployment](https://github.com/RicV-Sam/randomtools/actions/runs/33383338689) completed successfully at **11:39 BST**. This improvement release went live on **5 September 2026**. Earlier references to unpublished changes describe the pre-release review.
 
 | Task | When | Completion rule |
 | --- | --- | --- |
@@ -18,7 +18,9 @@ The core guide series entered Git in `3bd0d9b` on **31 August 2026 at 11:38 BST*
 
 ### Release receipt
 
-Deployment pending at commit preparation; the workflow result and live checks will be recorded after completion.
+Content commit: `9c7c2bb9fe30b62f78ab86eee09d18940b0ecd38`, pushed to `main`. [GitHub Pages deployment 33948737309](https://github.com/RicV-Sam/randomtools/actions/runs/33948737309) completed successfully on **5 September 2026 at 07:03 BST** (06:03 UTC).
+
+Local and deployment build/content/SEO checks passed: 306 generated HTML pages, 16,376 internal links, 161 sitemap URLs and unchanged localized noindex safeguards. Post-deployment HTTP checks returned 200 for the homepage, all five priority guides, tools index, penalty shootout tool, both new assets and sitemap. Browser inspection confirmed the new homepage content, successful navigation to the prompts page, all 12 copy buttons and no prompt-page horizontal overflow at the inspected viewport. No tool page source was changed; `src/sw.js` remains unchanged. Homepage ad code is suppressed through `noAds: true`. This documentation receipt does not change the deployed website payload.
 
 ## Executive Summary
 
