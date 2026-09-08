@@ -54,14 +54,29 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v5
       - uses: actions/checkout@v6
-        if: env.BING_WEBMASTER_API_KEY != '' || env.INDEXNOW_API_KEY != ''
       - uses: actions/setup-node@v6
-        if: env.BING_WEBMASTER_API_KEY != '' || env.INDEXNOW_API_KEY != ''
         with:
           node-version-file: .nvmrc
       - name: Submit URLs to Bing Webmaster
         if: env.BING_WEBMASTER_API_KEY != ''
         run: node scripts/submit-bing.js --sitemap https://spinnit.site/sitemap.xml
       - name: Submit URLs to IndexNow
-        if: env.INDEXNOW_API_KEY != ''
+        id: indexnow
+        if: ${{ !cancelled() && steps.deployment.outcome == 'success' && env.INDEXNOW_API_KEY != '' }}
         run: node scripts/submit-indexnow.js --sitemap https://spinnit.site/sitemap.xml
+
+      - name: Record IndexNow outcome
+        if: ${{ always() }}
+        env:
+          SUBMISSION_OUTCOME: ${{ steps.indexnow.outcome }}
+        run: node scripts/lib/indexnow-client.mjs finalize spinnit.site "$SUBMISSION_OUTCOME"
+
+      - name: Save IndexNow receipt
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: indexnow-status
+          path: .indexnow-status.json
+          include-hidden-files: true
+          retention-days: 90
+          if-no-files-found: warn

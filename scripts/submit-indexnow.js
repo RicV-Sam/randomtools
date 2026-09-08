@@ -6,7 +6,6 @@ const ROOT = path.resolve(__dirname, "..");
 const DEFAULT_SITE_URL = "https://spinnit.site";
 const DEFAULT_SITEMAP = path.join(ROOT, "_site", "sitemap.xml");
 const DEFAULT_ENDPOINT = "https://api.indexnow.org/indexnow";
-const MAX_BATCH_SIZE = 10000;
 
 function loadLocalEnv() {
   if (process.env.CI) return;
@@ -150,63 +149,18 @@ function prepareUrls(urls, siteUrl, limit) {
   return cleaned;
 }
 
-function chunks(items, size) {
-  const out = [];
-  for (let i = 0; i < items.length; i += size) out.push(items.slice(i, i + size));
-  return out;
-}
-
-async function submitBatch(endpoint, body) {
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: { "content-type": "application/json; charset=utf-8" },
-    body: JSON.stringify(body),
-  });
-  const text = await response.text();
-  if (![200, 202].includes(response.status)) {
-    throw new Error(`IndexNow submit failed with HTTP ${response.status}${text.trim() ? `: ${text.trim()}` : ""}`);
-  }
-}
-
 async function main() {
+  const { submitIndexNow } = await import("./lib/indexnow-client.mjs");
   loadLocalEnv();
   const options = parseArgs(process.argv.slice(2));
   const key = indexNowKey().trim();
-  if (!key && !options.dryRun) throw new Error("INDEXNOW_API_KEY is required");
 
   const rawUrls = options.urls.length > 0 ? options.urls : await readSitemapUrls(options.sitemap);
   if (options.urlsFile) rawUrls.push(...readUrlsFile(options.urlsFile));
 
   const urls = prepareUrls(rawUrls, options.siteUrl, options.limit);
-  if (urls.length === 0) {
-    console.log("No IndexNow URLs to submit.");
-    return;
-  }
-
-  const host = new URL(options.siteUrl).host;
-  const keyLocation = `${new URL(options.siteUrl).origin}/${key}.txt`;
-
-  if (options.dryRun) {
-    console.log(`IndexNow dry run: ${urls.length} URL(s) for ${host}`);
-    console.log(`Endpoint: ${options.endpoint}`);
-    console.log(`Key location: ${key ? keyLocation : "(requires INDEXNOW_API_KEY for live submission)"}`);
-    for (const url of urls.slice(0, 20)) console.log(`- ${url}`);
-    if (urls.length > 20) console.log(`...and ${urls.length - 20} more`);
-    return;
-  }
-
-  const batches = chunks(urls, MAX_BATCH_SIZE);
-  for (let i = 0; i < batches.length; i += 1) {
-    await submitBatch(options.endpoint, {
-      host,
-      key,
-      keyLocation,
-      urlList: batches[i],
-    });
-    console.log(`Submitted IndexNow batch ${i + 1}/${batches.length} (${batches[i].length} URL(s))`);
-  }
-
-  console.log(`Submitted ${urls.length} URL(s) through IndexNow for ${host}.`);
+  await submitIndexNow({ endpoint: options.endpoint, host: new URL(options.siteUrl).host,
+    key, keyLocation: `${new URL(options.siteUrl).origin}/${key}.txt`, urls, dryRun: options.dryRun });
 }
 
 main().catch((error) => {

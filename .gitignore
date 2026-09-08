@@ -27,3 +27,5 @@ Thumbs.db
 # Local browser audit evidence
 .playwright-cli/
 output/playwright/
+.indexnow-status.json
+.indexnow-status.json.tmp
