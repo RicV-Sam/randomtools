@@ -1,0 +1,24 @@
+{
+  "steps": [
+    {
+      "id": "open-account",
+      "title": "Open the official website",
+      "narration": "Keep your Spinnit lesson tab open while you set up Chat GPT. Use the Open Chat GPT button in this guide. You do not need to install an app for this lesson. On the computer picture, look for Sign up for free in the upper right. On the narrow browser picture, the button says Log in. It opens a window called Log in or sign up, so a new user can begin there too. Already have an account? Use Log in and the method you normally use. If a cookie notice appears, choose the privacy option you prefer. These are pictures of the website as checked in September twenty twenty-six. Your screen may look different. Use the written directions as well as the pictures."
+    },
+    {
+      "id": "choose-signin",
+      "title": "Choose one way to sign in",
+      "narration": "Choose one way to sign in. The window we checked offers Google, Apple, phone and email. Use a method you can access again. For email, enter your email address and choose Continue. For Google or Apple, choose the matching button and follow that provider's instructions. If you prefer the phone option and it is available, follow the instructions shown. Complete any checks privately. If asked for a code or password, enter it on the sign-in screen. Never put it into Spinnit, an AI conversation, or a message to someone helping you. Our pictures stop before these private steps. They do not show a completed registration. Later screens depend on the method you choose."
+    },
+    {
+      "id": "return-to-lesson",
+      "title": "Return to your lesson",
+      "narration": "When you can find the message box, you are ready to return to the lesson. If Chat GPT offers a choice between Chat and Work, choose Chat for this conversation exercise. This course does not require a paid subscription. If you reach a paid-plan or payment screen, go back and look for the free route. Do not enter payment details just to complete this lesson. Switch back to your original Spinnit lesson tab. If setup takes longer than expected, take a break. You can return later."
+    },
+    {
+      "id": "understand-limits",
+      "title": "Understand a usage-limit notice",
+      "narration": "If a usage-limit message appears, you have not failed the lesson. Read the notice on your own screen. First, look for what is limited: chatting or a particular feature. This lesson uses ordinary text messages. Next, look for what you can do. If a reset time is shown, note it and return then. If a free way to continue chatting is offered, you can use it. If you only see an upgrade offer, you can pause instead. Return to Spinnit and choose Remember my place on this device, or write down your step. Use Try this task later if needed, and tick only tasks you actually completed. We do not promise a fixed free-message allowance or reset time. A sign-in or connection error is different from a usage limit. Check the connection and website address, then try reloading or use Help on the official website."
+    }
+  ]
+}

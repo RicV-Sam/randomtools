@@ -2,14 +2,14 @@
 layout: layouts/lesson.njk
 title: "Add the Right Context and Constraints | AI Prompting Course | Spinnit"
 h1: "Add the right context and constraints"
-description: "Learn how to supply targeted background information, tone controls, and negative constraints to prevent AI hallucinations and keep responses focused."
+description: "Learn how to supply targeted background information, tone controls, and instructions about what to leave out, followed by checks for invented details."
 canonical: "https://spinnit.site/learn/ai-prompting/level-1/add-context-and-constraints/"
 socialImage: "https://spinnit.site/assets/images/spinnit-learn-ai-social.png"
 socialImageWidth: 1200
 socialImageHeight: 630
 socialImageAlt: "Spinnit — Learn AI by doing. Free practical AI prompting course."
 permalink: "/learn/ai-prompting/level-1/add-context-and-constraints/index.html"
-dateModified: "2026-07-21"
+dateModified: "2026-09-26"
 lang: en
 noAlternates: true
 publicationStatus: published
@@ -25,7 +25,7 @@ estimatedMinutes: 12
 learningObjectives:
   - "Distinguish helpful context from unnecessary information overload."
   - "Apply tone controls and audience scoping to match your communication style."
-  - "Use negative constraints to prevent AI hallucinations and unwanted filler."
+  - "Ask the assistant to avoid unsupported details, and check whether it followed that instruction."
 lessonIntroduction: "AI models respond to context and constraints. Without constraints, an assistant might write in a generic tone or invent missing facts. In this lesson, you will learn how to set boundaries that keep AI answers relevant, accurate, and concise."
 navBackHref: /learn/ai-prompting/
 navBackLabel: Course overview
@@ -49,7 +49,7 @@ jsonLd: |-
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Add the right context and constraints",
-    "description": "Learn how to supply targeted background information, tone controls, and negative constraints to prevent AI hallucinations and keep responses focused.",
+    "description": "Learn how to supply targeted background information, tone controls, and instructions about what to leave out, followed by checks for invented details.",
     "url": "https://spinnit.site/learn/ai-prompting/level-1/add-context-and-constraints/",
     "isPartOf": {
       "@type": "WebSite",
@@ -88,7 +88,7 @@ exercise:
   introduction: "Read both instructions for drafting a client proposal summary. Select the option that uses negative constraints to protect fact accuracy."
   exampleLabel: "Illustrative example"
   scenario: "A freelancer is summarizing a client scope agreement. They need a 1-page overview without added promises or estimated completion dates."
-  legend: "Which request effectively prevents the AI from assuming unstated timeline details?"
+  legend: "Which request makes the boundary on unstated timeline details clearer?"
   options:
     - id: exercise-option-a
       text: "Option A: Summarize this scope agreement for the client. Make it sound professional and optimistic about our timeline."
@@ -106,7 +106,7 @@ knowledgeCheck:
     - id: kc-option-c
       text: "Option C: Technical error codes returned when a prompt fails."
   answer: "Option B is the correct answer."
-  explanation: "Negative constraints (e.g. 'Do NOT use jargon', 'Do NOT assume unstated dates') set firm boundaries that stop AI models from adding unwanted filler or hallucinating facts."
+  explanation: "Negative constraints (e.g. 'Do NOT use jargon', 'Do NOT assume unstated dates') describe what to leave out. The assistant can still make mistakes, so compare its answer with your source."
 keyTakeaway:
   title: "The Context & Constraints Formula"
   text: "Combine positive context with negative boundaries to keep responses on target:"
@@ -140,17 +140,17 @@ relatedResources:
       <p class="learn-example-label">Scoped context &amp; constraints</p>
       <h3>Tailored result</h3>
       <blockquote><p>Write an apology email for an artisan coffee roastery. A courier truck broke down, delaying 40 orders by 24 hours. Keep it warm, informal, and offer a free bag of coffee on their next order. Do NOT use legal language or formal jargon.</p></blockquote>
-      <p>Matches your brand voice instantly and addresses the exact situation with authentic warmth.</p>
+      <p>Gives the assistant a tone and specific facts to work with. Check the wording and confirm that any offer is authorised before sending.</p>
     </article>
   </div>
 </section>
 
 <section aria-labelledby="the-power-of-negative-constraints-title">
   <h2 id="the-power-of-negative-constraints-title">The power of negative constraints</h2>
-  <p>Telling an AI what <em>not</em> to do is often more effective than telling it what to do. Negative constraints act as guardrails that prevent the model from slipping into common failure modes:</p>
+  <p>You can describe both what you want and what the assistant should leave out. These instructions can help, but they do not prevent mistakes. Check the response against your source:</p>
   <ul>
     <li><strong>Preventing Hype:</strong> <em>"Do not use buzzwords like revolutionary, seamless, or game-changing."</em></li>
-    <li><strong>Preventing Hallucinations:</strong> <em>"Do not invent facts, dates, or prices not provided in the source text."</em></li>
+    <li><strong>Discouraging invented details:</strong> <em>"Do not invent facts, dates, or prices not provided in the source text."</em></li>
     <li><strong>Controlling Length:</strong> <em>"Do not write more than 150 words."</em></li>
     <li><strong>Eliminating Filler:</strong> <em>"Do not include introductory pleasantries (e.g. 'Sure, I can help with that!')."</em></li>
   </ul>

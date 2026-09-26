@@ -28,6 +28,7 @@ jobs:
           cache: npm
 
       - run: npm ci
+      - run: npm run check:learning
       - run: npm run build
       - run: npm run check:content
       - name: Write IndexNow key file

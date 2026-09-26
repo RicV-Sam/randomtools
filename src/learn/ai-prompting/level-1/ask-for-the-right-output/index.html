@@ -2,14 +2,14 @@
 layout: layouts/lesson.njk
 title: "Ask for the Output You Need | AI Prompting Course | Spinnit"
 h1: "Ask for the output you need"
-description: "Learn how to specify format, length, and structure in your AI prompts — from bullet lists and tables to JSON and step-by-step guides — to get responses you can use immediately."
+description: "Learn how to specify format, length, and structure in your AI prompts — from bullet lists and tables to JSON and step-by-step guides — to get drafts that are easier to review and adapt."
 canonical: "https://spinnit.site/learn/ai-prompting/level-1/ask-for-the-right-output/"
 socialImage: "https://spinnit.site/assets/images/spinnit-learn-ai-social.png"
 socialImageWidth: 1200
 socialImageHeight: 630
 socialImageAlt: "Spinnit — Learn AI by doing. Free practical AI prompting course."
 permalink: "/learn/ai-prompting/level-1/ask-for-the-right-output/index.html"
-dateModified: "2026-07-22"
+dateModified: "2026-09-26"
 lang: en
 noAlternates: true
 publicationStatus: published
@@ -26,7 +26,7 @@ learningObjectives:
   - "Name at least five output formats and know when to use each one."
   - "Write a prompt that specifies length, structure, and delivery format simultaneously."
   - "Avoid the most common output specification mistakes that cause extra editing rounds."
-lessonIntroduction: "AI can produce its answer in almost any shape you like — but only if you ask. Left to its defaults, it will choose prose. In this lesson, you will learn how to precisely specify format, length, and structure so the output is ready to use the moment you receive it."
+lessonIntroduction: "You can ask for a list, a table or a short paragraph. Naming the format, length and structure can make a draft easier to use. The assistant may not follow every instruction, so check the result before sharing it."
 navBackHref: /learn/ai-prompting/
 navBackLabel: Course overview
 previousLesson:
@@ -49,7 +49,7 @@ jsonLd: |-
     "@context": "https://schema.org",
     "@type": "LearningResource",
     "name": "Ask for the output you need",
-    "description": "Learn how to specify format, length, and structure in your AI prompts to get responses you can use immediately.",
+    "description": "Learn how to specify format, length, and structure in your AI prompts to get drafts that are easier to review and adapt.",
     "url": "https://spinnit.site/learn/ai-prompting/level-1/ask-for-the-right-output/",
     "educationalLevel": "Beginner",
     "learningResourceType": "Lesson",
@@ -95,7 +95,7 @@ exercise:
   introduction: "A content manager wants to repurpose a blog post into short social media copy. Read both requests and select the one that fully defines the output format, platform, and length constraints."
   exampleLabel: "Illustrative example"
   scenario: "Repurposing a 1,200-word blog post titled 'Five habits of highly productive remote workers' for two social media channels."
-  legend: "Which prompt will produce usable social content on the first attempt?"
+  legend: "Which prompt gives clearer instructions about the intended format?"
   options:
     - id: exercise-option-a
       text: "Option A: Turn my blog post into social media posts for LinkedIn and Twitter."
@@ -109,11 +109,11 @@ knowledgeCheck:
     - id: kc-option-a
       text: "Option A: It forces the AI to produce shorter answers."
     - id: kc-option-b
-      text: "Option B: It reduces editing time and avoids a second round-trip prompt to reformat."
+      text: "Option B: It can reduce editing time, although a follow-up may still be needed."
     - id: kc-option-c
       text: "Option C: AI assistants ignore format instructions and always respond in prose."
   answer: "Option B is the correct answer."
-  explanation: "Specifying format upfront (table, numbered list, JSON, etc.) means the output arrives ready to copy-paste or share. Reformatting after the fact costs extra editing time or requires a follow-up prompt — both of which are avoidable."
+  explanation: "Specifying a format can reduce editing time. You may still need a follow-up, and you should check the facts, length and formatting before sharing."
 keyTakeaway:
   title: "The Output Specification Formula"
   text: "Add these three output controls to any high-stakes prompt before you send it:"
@@ -136,7 +136,7 @@ relatedResources:
 ---
 <section aria-labelledby="why-format-matters-title">
   <h2 id="why-format-matters-title">Why format is part of the prompt, not an afterthought</h2>
-  <p>When you do not specify a format, an AI assistant defaults to what it was most frequently rewarded for in training: conversational prose. Prose is fine for simple questions, but it is rarely what you need when producing deliverables for work. Consider these common use cases:</p>
+  <p>When you do not specify a format, the assistant chooses one that may not suit your task. Prose is fine for simple questions, but it is rarely what you need when producing deliverables for work. Consider these common use cases:</p>
 
   <div class="hub-grid" style="margin: 1.5rem 0 2rem;">
     <article class="hub-card">
@@ -145,7 +145,7 @@ relatedResources:
     </article>
     <article class="hub-card">
       <h3 style="color: var(--accent2);">Social Media Copy</h3>
-      <p>Each platform has strict character or word norms. Specifying <strong>platform + word count</strong> prevents copy that's too long to publish.</p>
+      <p>Each platform has strict character or word norms. Specifying <strong>platform + word count</strong> gives a useful target. Check the actual length and the platform’s current limits.</p>
     </article>
     <article class="hub-card">
       <h3 style="color: var(--accent2);">Developer Workflows</h3>

@@ -1,0 +1,12 @@
+{% set clip = accountGuideAudio.clips[narrationStep.id] %}
+{% if clip %}
+<div class="account-narration" data-narration>
+  <p id="{{ narrationStep.id }}-audio-label"><strong>Listen to this section</strong><span>Heart · AI narration · {{ clip.seconds | round }} seconds</span></p>
+  <audio controls preload="none" src="{{ clip.src }}" aria-labelledby="{{ narrationStep.id }}-audio-label">Your browser does not support this player. Read the transcript below.</audio>
+  <label class="account-audio-speed" hidden>Playback speed <select data-audio-speed aria-label="Playback speed for {{ narrationStep.title }}"><option value="0.85">Slower</option><option value="1" selected>Normal</option><option value="1.15">Faster</option></select></label>
+  <p>Press play when you are ready. You can pause or replay any part.</p>
+  <p role="status" data-audio-status></p>
+  <button type="button" data-audio-retry hidden>Try loading audio again</button>
+  <details><summary>Read the narration transcript</summary><p>{{ narrationStep.narration }}</p></details>
+</div>
+{% endif %}

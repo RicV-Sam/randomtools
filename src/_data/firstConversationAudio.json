@@ -1,0 +1,148 @@
+{
+  "voice": "Heart",
+  "engine": "Kokoro",
+  "voiceId": "af_heart",
+  "speed": 0.95,
+  "clips": {
+    "welcome": {
+      "src": "/assets/audio/first-conversation/welcome-7abc29c3d647.mp3",
+      "textHash": "7abc29c3d64705cd705ff7bc68f7570b8cab2b4528dae6f11b41fe4dac3d26ff",
+      "fileHash": "c910ec032cbccfbdfbd84ad718e19ded598140401b2ee605eba43ffb95e960be",
+      "seconds": 38.731,
+      "bytes": 310508
+    },
+    "start-safely": {
+      "src": "/assets/audio/first-conversation/start-safely-cfc0b774e21d.mp3",
+      "textHash": "cfc0b774e21d93383bac751a2e84ec657d340d02ba56f8b9948efdfb25d33d2a",
+      "fileHash": "72934daab9ec53147e433f387d3d898dafdf6a22da27f2c3f8310b25f16dc439",
+      "seconds": 48.973,
+      "bytes": 392492
+    },
+    "start-safely-feedback-1": {
+      "src": "/assets/audio/first-conversation/start-safely-feedback-1-9d3caf7b15a6.mp3",
+      "textHash": "9d3caf7b15a6507417c68bd0f5264f94325030bdf02e1c61dea4b4512089c645",
+      "fileHash": "f39334e48a3a6669a0c798ef417e85990944f031c9e49de38d24ce5314ae2e63",
+      "seconds": 7.702,
+      "bytes": 62252
+    },
+    "start-safely-feedback-2": {
+      "src": "/assets/audio/first-conversation/start-safely-feedback-2-4a53e4b9760a.mp3",
+      "textHash": "4a53e4b9760a9e26b7dd72387e352acdb42a50064d68271a28ded46ed2940a2e",
+      "fileHash": "77f4b996acacb7171bf08fb2b4d17c8ab3fc4b81c983419020d61235ec87eb43",
+      "seconds": 6.285,
+      "bytes": 50924
+    },
+    "start-safely-feedback-3": {
+      "src": "/assets/audio/first-conversation/start-safely-feedback-3-5631dab44a83.mp3",
+      "textHash": "5631dab44a83462367631fc8cd39279d705338cba29cf453d60212a64d699def",
+      "fileHash": "679af198ed2bfc1ec4b3e854f0712d540c7ac835b5ccd98eff764fd25c2b2772",
+      "seconds": 8.479,
+      "bytes": 68588
+    },
+    "first-message": {
+      "src": "/assets/audio/first-conversation/first-message-c2d615a99154.mp3",
+      "textHash": "c2d615a99154b6c59e9dbd91922b977187e919a8586cff57bb3139ab09e1a4b7",
+      "fileHash": "3c0203022b33f9b14db7ae4d0e209727c35e0aed6bd9fa6095381bba8c0bb7d4",
+      "seconds": 49.312,
+      "bytes": 395180
+    },
+    "follow-up": {
+      "src": "/assets/audio/first-conversation/follow-up-7821a2496085.mp3",
+      "textHash": "7821a249608536606a9e5e9dd1076556828dfa22a220f28dbce2f9eabc9aff79",
+      "fileHash": "c00e4d31628dfdbffdc0c9bc2ab509031018b14cb24a1a245e833d2a0d672a5f",
+      "seconds": 40.231,
+      "bytes": 322604
+    },
+    "follow-up-feedback-1": {
+      "src": "/assets/audio/first-conversation/follow-up-feedback-1-91244fb41061.mp3",
+      "textHash": "91244fb410613acd41fd105d6d8e44f27d7085a28a51eff7f9058deae7d02874",
+      "fileHash": "937536ec0fcbc899aa8ffb77e00c876b3fcab0668bb00794263a830c4ec8013f",
+      "seconds": 7.017,
+      "bytes": 56876
+    },
+    "follow-up-feedback-2": {
+      "src": "/assets/audio/first-conversation/follow-up-feedback-2-08b6cf57ce92.mp3",
+      "textHash": "08b6cf57ce92346e29fa3e5e6a8b55019555bc185ebc4fa992ccd66d8ba65423",
+      "fileHash": "6e810e1604c7bce241e9391d5c43d9635355947f0acbd2f0e34cf053b01ce358",
+      "seconds": 8.116,
+      "bytes": 65708
+    },
+    "follow-up-feedback-3": {
+      "src": "/assets/audio/first-conversation/follow-up-feedback-3-13468c7f478f.mp3",
+      "textHash": "13468c7f478f50ca03a33abb979e6cf85325afe32c6e56d0f3c70cf668d13287",
+      "fileHash": "3487c0ba542bbb61ce535988c728db4e705a5c52b9e07b2c1425feef98d2bd10",
+      "seconds": 7.093,
+      "bytes": 57452
+    },
+    "improve-message": {
+      "src": "/assets/audio/first-conversation/improve-message-064314a56a8d.mp3",
+      "textHash": "064314a56a8dc9950eeaec59d2764b85e988d47736f05867a9444a8cd50a3a78",
+      "fileHash": "75529ad74a5e4cf74c851d59ec4b868e7371dd834bdfea43e9e2dcc17f3ec7f1",
+      "seconds": 42.287,
+      "bytes": 338924
+    },
+    "spot-invention": {
+      "src": "/assets/audio/first-conversation/spot-invention-b4c202a292f0.mp3",
+      "textHash": "b4c202a292f03b3762abe82566916b9bd6fda5124952cfe061909a5317cb4d4c",
+      "fileHash": "03bc3fc7b095a3454d66428e6311a9010b7aef77a1346067c9bf881f878fc500",
+      "seconds": 55.336,
+      "bytes": 443372
+    },
+    "spot-invention-feedback-1": {
+      "src": "/assets/audio/first-conversation/spot-invention-feedback-1-55192d483604.mp3",
+      "textHash": "55192d483604a6f37a8cfe88a6d2ae21ce7915bafdcbbaa9ba2c19f6d493a196",
+      "fileHash": "80574ed0d0d79a8f9cd041f97147be4f34e66f2b039f135509285d8756186751",
+      "seconds": 6.495,
+      "bytes": 52652
+    },
+    "spot-invention-feedback-2": {
+      "src": "/assets/audio/first-conversation/spot-invention-feedback-2-206e47f8a3fc.mp3",
+      "textHash": "206e47f8a3fc0a8a5a5762802a25d2561845fa05bc34f4dd2c5c6082ab2eb23b",
+      "fileHash": "aa210def7e08f6dccbf6366a17292c08a9a87470ae1d2016eae311a0ace42ff0",
+      "seconds": 6.635,
+      "bytes": 53804
+    },
+    "spot-invention-feedback-3": {
+      "src": "/assets/audio/first-conversation/spot-invention-feedback-3-93a3ad5bcb76.mp3",
+      "textHash": "93a3ad5bcb766d758055b7f198b88251b3a4ccd5dc3d7cbe3fdc9588c56b3290",
+      "fileHash": "4b03aad51350535e6ac791d109804cf44d85c32cdec45246b4257e9fce66a800",
+      "seconds": 8.17,
+      "bytes": 66092
+    },
+    "check-message": {
+      "src": "/assets/audio/first-conversation/check-message-9140a1dfee81.mp3",
+      "textHash": "9140a1dfee81fb5562892a6148dfaac0a05f09e7ca7e70ab972e139c0f45ad82",
+      "fileHash": "fea0ff01848d6a5d3f93cd69be282eec8045a862eedd16c946f8f1651ed507b0",
+      "seconds": 45.635,
+      "bytes": 365804
+    },
+    "own-task": {
+      "src": "/assets/audio/first-conversation/own-task-caf5891f55d5.mp3",
+      "textHash": "caf5891f55d5da4e231d39bf708d06e8b4836b6f91ce200a5772898a0a651ee0",
+      "fileHash": "b3422a6f8ffb8be0d2559fba75e106747b1656a91565104a40ae3e756dd9bbaa",
+      "seconds": 43.483,
+      "bytes": 348524
+    },
+    "next-steps": {
+      "src": "/assets/audio/first-conversation/next-steps-297ecfcacd2b.mp3",
+      "textHash": "297ecfcacd2b53cc86f050baa6b1e7d27bafcb6f942e16b95b9f9203c14d50be",
+      "fileHash": "c47c80c37421f2a03a5bf3e1a97b72e0c53e3ebb3304dae5e371b0383ad34db9",
+      "seconds": 42.323,
+      "bytes": 339308
+    }
+  },
+  "stepSourceHashes": {
+    "welcome": "790c15f595a11d15bc34fd77cfab10190a13cc54ca82e110de7afe8a30cc4091",
+    "start-safely": "297d27612a730beef6ad4ebd79e0bf22697952f935e92a203f51828cde077113",
+    "first-message": "0ad697a94fd36d2466e0ca26fd1b3dcfa5d1fdf9269a7c6100adf1a7d2823842",
+    "follow-up": "ae4842a80fcc882015c4ebdc3c564212f8e80583c533f20b1189dc9ed38b4900",
+    "improve-message": "83dc543e4a67bba941e584af6d45d10b07505942c67d750ac9ba9513cbde8786",
+    "spot-invention": "0ccf06e3204adc53d145a0d83a288b9e090cac07474ee594205983f162091aa2",
+    "check-message": "a2edb2c4bd384b15160ef30ef5aaba2ffdceebfa2b877f3e70524d1ccc5c6447",
+    "own-task": "6e39fa9707bf4881ce4e179a9e0b3b50c241084f2d3c176699608d79a7b65268",
+    "next-steps": "87c3079f748e9a77d71fbe1cb3e727007210eaa70177024d358feb590b88632c"
+  },
+  "sourceFileHashes": {
+    "src/ai-for-over-50s/first-ai-conversation/index.html": "d2422bbcb8082aa620d2b8cb233c59d6e638178b62d9f0e4cb00e91be26ed214"
+  }
+}

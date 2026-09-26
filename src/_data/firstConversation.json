@@ -1,0 +1,120 @@
+{
+  "steps": [
+    {
+      "id": "welcome",
+      "narration": "Welcome. We will practise one useful conversation with Chat GPT. First, send a request. Next, improve the reply. Then, check it. Finish with a fresh task on your own. You can pause, listen again, or take a break at any time. Use the fictional details in these lessons. Keep passwords, bank details and private documents out of your chats. This course is free and does not require a paid subscription. Chat GPT is a separate website, and it may ask you to sign in. We cannot see your activity there. Only tick tasks you have actually done. When you are ready, choose Start lesson one.",
+      "part": "Before you start",
+      "title": "One useful conversation. At your pace.",
+      "paragraphs": [
+        "Practise with ChatGPT in three short lessons: send a request, improve the reply, then check it. Finish by trying a fresh task on your own.",
+        "Allow around 20–30 minutes including practice, or do one lesson at a time. This is an estimate, not a timer. You can repeat any step.",
+        "The lessons are free and need no Spinnit account. Practice uses the separate ChatGPT website, where access and sign-in requirements can vary. This unit does not require a paid subscription."
+      ],
+      "bullets": ["Use a computer, tablet or phone with an internet connection.", "Practise with the fictional details provided. Keep private documents, passwords and bank details out.", "Your ChatGPT replies will differ from our examples. You will learn how to judge them.", "We cannot see what you do in ChatGPT. You decide when you have completed the practical tasks."],
+      "nextLabel": "Start lesson 1"
+    },
+    {
+      "id": "start-safely",
+      "narration": "Find the right place to type. In the next step, open the official Chat GPT website. Look for the message box. If you see a choice between Chat and Work, choose Chat. A prompt is simply your request. You do not need special words. Our example asks for a friendly coffee morning invitation using made-up details: Tuesday, from two p.m. to four p.m., with a request to reply and no location. The example reply uses those details. Now choose the safer first practice task. Option one: upload a bank statement so the assistant has a real example. Option two: draft an invitation using the made-up details above. Option three: ask the assistant which password you should use for your email. Select one answer, then choose Check my answer. You can try again.",
+      "part": "Lesson 1 · Start a conversation",
+      "title": "Find the right place to type",
+      "paragraphs": ["Open the official ChatGPT website using the link in the next step. Look for a message box where you can type. If you see a choice between Chat and Work, choose Chat for these exercises.", "A prompt is simply your request. You do not need special words. Start with a small task you can check yourself."],
+      "demo": {"label": "Illustration of a conversation · not a live ChatGPT screen", "request": "Help me write a friendly invitation using these made-up details: a coffee morning on Tuesday, from 2pm to 4pm. Ask people to reply if they can come. Keep it short. Do not add a location.", "reply": "Would you like to join a coffee morning on Tuesday, from 2pm to 4pm? Please reply if you can come. It would be lovely to see you!"},
+      "quiz": {
+        "question": "Which is the safer first practice task?",
+        "options": [
+          {"text": "Upload a bank statement so the assistant has a real example.", "feedback": "Use invented details instead. A bank statement contains private information that this practice task does not need."},
+          {"text": "Draft an invitation using the made-up details above.", "correct": true, "feedback": "Yes. You can check the invitation against the details you supplied, without sharing private information."},
+          {"text": "Ask the assistant which password I should use for my email.", "feedback": "Keep account security out of this exercise. Use the fictional invitation; never share existing passwords or security codes."}
+        ]
+      },
+      "nextLabel": "Try your first message"
+    },
+    {
+      "id": "first-message",
+      "narration": "Your turn. Keep this lesson open. Open Chat GPT in a new tab using the button on this page. Sign in if asked. You do not need to buy a subscription for this lesson. Find the message box and copy or type this request: Help me write a friendly invitation using these made-up details: a coffee morning on Tuesday, from two p.m. to four p.m. Ask people to reply if they can come. Keep it short. Do not add a location. Use the send control beside the message box, wait for the reply, and read it. Return to the Spinnit tab. On a phone, use your browser's tab switcher. Tick the actions you completed: finding the message box, sending the request and reading the reply, and returning here without losing the conversation. Then choose Finish lesson one, or Try this task later.",
+      "part": "Lesson 1 · Your turn in ChatGPT",
+      "title": "Send a request and read the reply",
+      "paragraphs": ["Keep this lesson open. The button below opens ChatGPT in another tab. Return to this Spinnit tab when you have tried the task. On a phone, use your browser’s tab switcher; on a computer, select the Spinnit tab at the top."],
+      "instructions": ["Open ChatGPT. Sign in if the service asks you to. Do not buy a subscription for this lesson.", "Find the message box. Copy or type the practice request below into it.", "Use the send control beside the message box. Wait for the reply and read it.", "Return here and tick only the actions you actually completed."],
+      "prompt": "Help me write a friendly invitation using these made-up details: a coffee morning on Tuesday, from 2pm to 4pm. Ask people to reply if they can come. Keep it short. Do not add a location.",
+      "practice": ["I found the message box in the official ChatGPT website.", "I sent the practice request and read the reply.", "I returned to this lesson without losing my conversation."],
+      "nextLabel": "Finish lesson 1"
+    },
+    {
+      "id": "follow-up",
+      "narration": "You can ask for a change. Stay in the same conversation to improve the reply. Start a new chat for a different task. Our example invitation sounds formal: You are cordially invited to attend our forthcoming coffee gathering. We would be most grateful if you could confirm your availability. You want it to sound like a friendly text message. What would you type next? Option one: Make it warmer and less formal. Use two short sentences and keep the event details unchanged. Option two: Make it better. Option three: Start a new chat and type, change that. Choose one answer, then select Check my answer. A follow-up may still need another edit.",
+      "part": "Lesson 2 · Improve a reply",
+      "title": "You can ask for a change",
+      "paragraphs": ["You do not have to accept the first reply. Continue in the same conversation to ask for a specific change. For a different task, use New chat instead.", "A follow-up can ask for shorter wording, simpler language or a different tone. It may still need another edit."],
+      "demo": {"label": "Illustrative example · the assistant’s first draft", "request": "Write a short invitation to the coffee morning.", "reply": "You are cordially invited to attend our forthcoming coffee gathering. We would be most grateful if you could confirm your availability."},
+      "quiz": {
+        "question": "You want the invitation to sound more like a friendly text message. What would you type next?",
+        "options": [
+          {"text": "Make it warmer and less formal. Use two short sentences and keep the event details unchanged.", "correct": true, "feedback": "Yes. You name the change you want and remind the assistant to preserve the facts. Check that it actually does both."},
+          {"text": "Make it better.", "feedback": "This leaves the assistant to guess what better means. Say whether you want a warmer tone, shorter wording or another specific change."},
+          {"text": "Start a new chat and type: change that.", "feedback": "A new chat may lack the draft you mean. For this revision, stay in the same conversation and say what to change."}
+        ]
+      },
+      "nextLabel": "Try a follow-up"
+    },
+    {
+      "id": "improve-message",
+      "narration": "Make the invitation sound like you. Return to your coffee morning conversation in Chat GPT. In the same message box, ask for one change in your own words. You could ask for a warmer tone or shorter wording. Read the new reply and compare it with the first one. Did it change as you wanted? Check that Tuesday, two p.m. to four p.m., and the request to reply are still correct. Check that no location was added. Ask for another correction if needed. There is a hint on this page if you want help. Return here and tick what you did: send a follow-up, compare the replies, and check the event details. Then choose Finish lesson two, or Try this task later.",
+      "part": "Lesson 2 · Your turn in ChatGPT",
+      "title": "Make the invitation sound like you",
+      "paragraphs": ["Go back to the conversation you just started. Type your follow-up in the same message box below the reply. If your invitation is already friendly, ask for it to be shorter instead."],
+      "instructions": ["Choose one change and ask for it in your own words. You can use the hint if you need a starting point.", "Read the new reply. Did the wording change as you wanted?", "Check that Tuesday and 2pm to 4pm are still correct, and that no location has been added. Ask for another correction if needed."],
+      "hint": "Try: Make it warmer and less formal. Use two short sentences. Keep Tuesday, 2pm to 4pm, and the request to reply. Do not add a location.",
+      "practice": ["I sent a follow-up in the same conversation.", "I compared the new reply with the first one.", "I checked the event details and asked for a correction if needed."],
+      "nextLabel": "Finish lesson 2"
+    },
+    {
+      "id": "spot-invention",
+      "narration": "A confident answer can add a wrong detail. Asking an assistant not to invent details does not guarantee accuracy. Compare the reply with what you supplied. Check real-world facts using an authoritative source yourself. Asking, are you sure, is not independent verification. Here is a deliberately flawed example. Your request gives Tuesday, two p.m. to four p.m., a coffee morning and a request to reply. You did not supply a location. The reply says: Join us at Oak Hall on Tuesday, from two p.m. to four p.m., for a coffee morning. Please reply if you can come. What needs correcting? Option one: Nothing. The reply sounds friendly and confident. Option two: Tuesday, because AI can never use days of the week. Option three: Oak Hall. No location was supplied, so I should remove it rather than assume it is correct. Choose an answer and select Check my answer.",
+      "part": "Lesson 3 · Check before using",
+      "title": "A confident answer can add a wrong detail",
+      "paragraphs": ["An instruction such as “do not invent details” is useful, but it cannot guarantee accuracy. Compare the reply with what you supplied. For facts about the real world, open an authoritative source yourself.", "Asking the assistant “are you sure?” is not independent verification."],
+      "demo": {"label": "Deliberately flawed example · spot the added detail", "request": "Invite people to a coffee morning on Tuesday, 2pm to 4pm. Ask them to reply. Do not add a location.", "reply": "Join us at Oak Hall on Tuesday, from 2pm to 4pm, for a coffee morning. Please reply if you can come."},
+      "quiz": {
+        "question": "What needs correcting before this message is used?",
+        "options": [
+          {"text": "Nothing. The reply sounds friendly and confident.", "feedback": "The tone does not prove the facts. Compare each event detail with the request, especially the place name."},
+          {"text": "Tuesday, because AI can never use days of the week.", "feedback": "Tuesday was supplied in the request. The problem is a detail that the assistant added without support."},
+          {"text": "Oak Hall. No location was supplied, so I should remove it rather than assume it is correct.", "correct": true, "feedback": "Exactly. Oak Hall was invented for this example. Remove it or replace it only with a location you have confirmed yourself."}
+        ]
+      },
+      "nextLabel": "Check your own reply"
+    },
+    {
+      "id": "check-message",
+      "narration": "Decide whether your draft is usable. Look at your actual invitation in Chat GPT. Compare it with Tuesday, two p.m. to four p.m., coffee morning, and a request to reply. Look for anything extra: a place, a price, a calendar date or a promise you never supplied. Remove or correct it. Select and copy the final message, or use a copy control if available. Paste it into a blank note and read it again. This is a fictional exercise. You do not need to send the invitation to anyone. Tick the actions you completed: checking the supplied details, removing unsupported details or confirming there were none, and copying and checking the message in a note. Choose Finish lesson three, or Try this task later.",
+      "part": "Lesson 3 · Your turn in ChatGPT",
+      "title": "Decide whether your draft is usable",
+      "paragraphs": ["Look at your invitation in ChatGPT. You are the editor. You can ask for corrections or edit the wording yourself. This is a fictional exercise; you do not need to send the invitation to anyone."],
+      "instructions": ["Compare the reply with these supplied details: Tuesday, 2pm to 4pm, coffee morning, and a request to reply.", "Look for anything extra: a place, a price, a calendar date or a promise you did not supply. Remove or correct it.", "Select and copy the final message, or use the reply’s copy control if available. Paste into a blank note to see what you copied. Read it again before ever using a real draft."],
+      "hint": "If a detail is wrong, try: Remove the location. I have not supplied one. Keep the rest of the event details unchanged. Then check the revised reply yourself.",
+      "practice": ["I compared the reply with the supplied details.", "I removed or corrected unsupported details, or confirmed there were none.", "I copied the message into a note and checked the copied text."],
+      "nextLabel": "Finish lesson 3"
+    },
+    {
+      "id": "own-task",
+      "narration": "Now try a fresh task on your own. A fictional book group meets on Friday, from eleven a.m. to noon. People should bring a book they enjoyed. No location has been decided. Find New chat in Chat GPT. Write your own request for a friendly reminder using those facts. Ask for one change in the same conversation. Check every detail, then copy the final version. Try without opening the hint first, but use it if you need help. Tick what you actually did: start a new chat and write your request, ask for a change, check the facts, and copy the final text. Can you explain why the result is suitable? Choose See my next steps when you are ready. You can also try this task later.",
+      "part": "Your independent challenge",
+      "title": "Try a fresh task without a ready-made prompt",
+      "paragraphs": ["Use these fictional facts: a book group meets on Friday, from 11am to noon. People should bring a book they enjoyed. No location has been decided.", "In ChatGPT, find New chat. Write your own request for a friendly reminder using those facts. Ask for one change, then check and copy the final version. Try without opening the hint first."],
+      "hint": "Give the assistant a job (write a reminder), the supplied facts and the style you want. Tell it the location is undecided. After the reply, ask for one specific change. Check every detail against the task above.",
+      "practice": ["I started a new chat and wrote my own request.", "I asked for a useful change in the same conversation.", "I checked Friday, 11am to noon, the book reminder and the undecided location.", "I copied the final text and can explain why it is suitable for this fictional task."],
+      "nextLabel": "See my next steps"
+    },
+    {
+      "id": "next-steps",
+      "narration": "What feels comfortable now? Your summary on this page shows the tasks you reported completing. Completing a page is not the same as doing a task independently. How did the independent challenge feel? Choose: I did it on my own; I managed with a hint or some help; or, I have not tried it yet, or would like more practice. On another day, try a short thank-you note to a fictional neighbour who watered your plants. Write your own request, ask for one change, and check that no gifts or promises were added. Repeat any step where you need help. There is no deadline. You can print the lessons and open the take-away checklist below. Your confidence grows through practice, at your own pace.",
+      "part": "Keep practising",
+      "title": "What feels comfortable now?",
+      "paragraphs": ["Comfort grows with practice. Completing a page is not the same as doing the task independently. Use your experience to decide what to repeat."],
+      "finish": true,
+      "nextLabel": "Return to the beginning"
+    }
+  ]
+}

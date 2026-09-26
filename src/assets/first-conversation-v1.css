@@ -1,0 +1,93 @@
+/* The first-conversation pilot stays within Spinnit's existing learning identity. */
+.conversation { max-width: 1000px; --text2: #c1c1d2; }
+.conversation [hidden] { display: none !important; }
+.conversation-heading { margin-bottom: 1.8rem; }
+.conversation-heading h1 { font-size: clamp(2rem, 5vw, 3rem); max-width: 23ch; }
+.conversation-heading > p:last-child { color: var(--text2); }
+.conversation.has-started .conversation-heading h1 { font-size: 1.4rem; max-width: none; }
+.conversation.has-started .conversation-heading > p { display: none; }
+.conversation.has-started .conversation-heading { margin-bottom: 1rem; }
+.conversation-path { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--border2); padding-block: .7rem; gap: .7rem; margin-bottom: 1.2rem; }
+.conversation-path a { display: flex; gap: .6rem; align-items: center; color: var(--text2); padding: .5rem; line-height: 1.4; font-size: 1rem; border-radius: 6px; min-height: 52px; }
+.conversation-path a[aria-current] { color: var(--text); background: var(--bg3); box-shadow: inset 0 -3px var(--accent2); }
+.conversation-path span { font-weight: 700; color: var(--accent2); }
+.conversation-path .conversation-path-label { font-weight: 400; color: inherit; }
+.conversation-path small { display: block; color: #8fdbb0; font-size: .85rem; margin-top: .3rem; }
+.conversation-tools { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .75rem; }
+.conversation-tools label { display: flex; align-items: center; gap: .75rem; min-height: 48px; font-size: 1rem; cursor: pointer; }
+.conversation input { flex-shrink: 0; width: 1.35rem; height: 1.35rem; accent-color: #a78bfa; }
+.conversation-save { font-size: .95rem; color: var(--text2); margin: .6rem 0 1.4rem; }
+.conversation-position { font-size: 1rem; color: var(--accent2); margin: 1rem 0; }
+.conversation-step { max-width: 780px; padding: 1.6rem 0 2rem; border-bottom: 1px solid var(--border2); }
+.conversation-step h2 { margin: .25rem 0 1rem; font-size: clamp(1.6rem, 4vw, 2.15rem); scroll-margin-top: 8rem; }
+.conversation-step > p { margin-bottom: 1rem; }
+.conversation-step ul, .conversation-step ol { margin: 1rem 0; }
+.conversation-step h3 { font-size: 1.2rem; }
+.conversation .learn-eyebrow { font-family: var(--sans); font-size: .95rem; text-transform: none; letter-spacing: .015em; }
+.conversation button, .conversation-open { font: inherit; font-weight: 600; font-size: 1rem; min-height: 48px; padding: .65rem 1rem; border: 1px solid #858597; border-radius: 8px; background: var(--bg2); color: var(--text); cursor: pointer; line-height: 1.5; }
+.conversation button:hover { background: var(--bg3); }
+.conversation .conversation-next, .conversation-open { color: #12121b; background: #c4b5fd; border-color: #c4b5fd; }
+.conversation .conversation-next:hover, .conversation-open:hover { background: #ddd5ff; color: #12121b; }
+.conversation a.conversation-open { display: inline-block; text-decoration: none; margin-top: .75rem; }
+.conversation-open span { font-weight: 400; }
+.conversation-demo { margin: 1.5rem 0; border-left: 3px solid var(--accent2); padding: .25rem 0 .25rem 1.1rem; }
+.conversation-demo figcaption { color: var(--text2); font-size: .95rem; margin-bottom: 1rem; }
+.conversation-demo > div { padding: 1rem; background: var(--bg2); margin-top: .5rem; border-radius: 8px; }
+.conversation-demo > div:last-child { background: var(--bg3); }
+.conversation-demo strong { font-size: .95rem; color: var(--accent2); }
+.conversation-demo p { margin-top: .3rem; }
+.conversation fieldset { border: 0; min-width: 0; padding: 0; margin: 1.5rem 0; }
+.conversation legend { font-weight: 700; margin-bottom: .7rem; width: 100%; }
+.conversation-choice { display: flex; align-items: flex-start; gap: .8rem; margin: .7rem 0; padding: 1rem; border: 1px solid #858597; border-radius: 8px; cursor: pointer; line-height: 1.6; }
+.conversation-choice input { margin-top: .25rem; }
+.conversation-choice:has(input:checked) { background: var(--bg3); border-color: var(--accent2); }
+.conversation-choice:focus-within { outline: 2px solid var(--accent2); outline-offset: 3px; }
+.conversation-feedback:not(:empty) { margin: 1rem 0; padding: 1rem; border-left: 3px solid var(--accent2); background: var(--bg3); }
+.conversation-feedback[data-result="correct"] { border-color: #8fdbb0; }
+.conversation-prompt { background: var(--bg2); border: 1px solid var(--border2); padding: 1.2rem; margin: 1.5rem 0; border-radius: 8px; }
+.conversation-prompt h3 { margin-top: 0; }
+.conversation-prompt p { margin-bottom: .8rem; }
+.conversation details { border-top: 1px solid var(--border2); padding: .75rem 0; margin-top: 1rem; }
+.conversation summary { min-height: 48px; padding: .6rem 0; cursor: pointer; color: var(--accent2); font-weight: 600; }
+.conversation details p, .conversation details li { margin-bottom: .6rem; }
+.conversation-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.5rem; align-items: center; }
+.conversation .conversation-later { border-color: transparent; text-decoration: underline; text-underline-offset: .2em; font-weight: 400; }
+.conversation-note { font-size: 1rem; color: var(--text2); }
+.conversation-setup { padding: 1rem 0; border-block: 1px solid var(--border2); }
+.conversation-setup strong { display: block; margin-bottom: .4rem; }
+.conversation-help { max-width: 780px; margin-top: 1.5rem; font-size: 1rem; }
+.conversation-help > p { margin-top: 1.5rem; }
+.conversation-help li { margin-top: .7rem; }
+.conversation-summary { padding: 1rem; border-left: 3px solid var(--accent2); background: var(--bg2); margin: 1rem 0; }
+.conversation-summary li a { display: inline-block; padding-block: .5rem; }
+.conversation-narration { margin: 1.25rem 0 1.5rem; padding: 1rem 1.1rem; border-left: 3px solid var(--accent2); background: var(--bg2); border-radius: 0 8px 8px 0; }
+.conversation-narration > p:first-child { margin: 0 0 .75rem; }
+.conversation-narration > p:first-child span { display: block; font-size: .95rem; color: var(--text2); }
+.conversation-narration audio { display: block; width: 100%; min-width: 0; height: 54px; margin-bottom: .75rem; }
+.conversation-audio-speed { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; font-size: 1rem; margin: .75rem 0; }
+.conversation-audio-speed select { font: inherit; min-height: 48px; border: 1px solid #858597; background: var(--bg3); color: var(--text); border-radius: 6px; padding: .5rem .8rem; }
+.conversation-narration details { margin-top: .5rem; }
+.conversation-narration--feedback { margin: .7rem 0; }
+@media (max-width: 700px) {
+  .conversation-path { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .conversation-step h2 { scroll-margin-top: 1rem; }
+  .conversation { padding-inline: 1rem; }
+  .conversation-choice { padding: .8rem; }
+}
+@media (max-width: 380px) {
+  .conversation-path { grid-template-columns: 1fr; }
+  .conversation-actions button { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .conversation *, .conversation *::before, .conversation *::after { transition: none !important; animation: none !important; }
+}
+@media print {
+  .conversation-narration { display: none !important; }
+  .conversation [data-step][hidden] { display: block !important; }
+  .conversation [data-enhanced], .conversation-save, .conversation-position, .conversation-path, .conversation-open, .conversation [data-step-status] { display: none !important; }
+  .conversation-step { max-width: none; break-before: page; padding: 1rem 0; }
+  .conversation-step:first-of-type { break-before: auto; }
+  .conversation-choice, .conversation-demo, .conversation-prompt { break-inside: avoid; }
+  .conversation details > * { display: block !important; }
+  .conversation input { appearance: none; border: 1px solid black; }
+}

@@ -1,0 +1,46 @@
+{
+  "voice": "Heart",
+  "engine": "Kokoro",
+  "voiceId": "af_heart",
+  "speed": 0.95,
+  "clips": {
+    "open-account": {
+      "src": "/assets/audio/account-guide/open-account-162b4af70140.mp3",
+      "textHash": "162b4af70140f3d575d218b73de5cea464b56fd09077a7f4faaad33d59fdfce8",
+      "fileHash": "72d6b55edf0733d9bd58035088430879ebd073aa0f4b979e35230dab74c22c2e",
+      "seconds": 41.517,
+      "bytes": 332780
+    },
+    "choose-signin": {
+      "src": "/assets/audio/account-guide/choose-signin-db01917bdeb5.mp3",
+      "textHash": "db01917bdeb57fbd0ccc9cfc042ba67c5a9f7d809cd540150d8fdf7835dd883c",
+      "fileHash": "f42438327a15cac96cc3662a52db69615c09425a7327e5512a110faee1b4b367",
+      "seconds": 42.558,
+      "bytes": 341228
+    },
+    "return-to-lesson": {
+      "src": "/assets/audio/account-guide/return-to-lesson-3eb0e1e364a8.mp3",
+      "textHash": "3eb0e1e364a83f2d5a3cc89628fcdc939906c09a7a2523452a880371e1a8a856",
+      "fileHash": "0797b0457bd4a2cfe4ad14271020fdb4c4fbaa496bfc4e7046fbb467c725735b",
+      "seconds": 30.662,
+      "bytes": 245996
+    },
+    "understand-limits": {
+      "src": "/assets/audio/account-guide/understand-limits-2f67903fe670.mp3",
+      "textHash": "2f67903fe670a58f1e82fc634f57273ebb26d2fdc46f750df0bc307624efd3ac",
+      "fileHash": "2ad25b09be19d50d9deb4fdc1fe763e431f762f266bfd98a52d5c56350fbf974",
+      "seconds": 49.368,
+      "bytes": 395564
+    }
+  },
+  "stepSourceHashes": {
+    "open-account": "905fdb0415c410e0c0f4ea6fa3d8df67985f529dfe562687a3284a06566a1ccf",
+    "choose-signin": "719f889eef071d36a1f63e94ea49060d623139626e07b7baf83783f466c692ec",
+    "return-to-lesson": "f89c305cb76d1c2b5dcc015b600e32eabdc30e3dda23a34620688cdf8052b3e9",
+    "understand-limits": "f45197cbf5a9b35477254d057966ae70e8e3e47a8c1a4dffd02c88d62a16ca30"
+  },
+  "sourceFileHashes": {
+    "src/ai-for-over-50s/chatgpt-free-account/index.html": "f12a3e82a3840bd25ef37b1dc738e10b3fde3ec17b05b58b0ed2b473e8ab497d",
+    "src/_includes/partials/account-guide-audio.njk": "c82d4b1921031ab3dedbb6e4972bd3d39f60452d9dfb333e31326957649b6d31"
+  }
+}

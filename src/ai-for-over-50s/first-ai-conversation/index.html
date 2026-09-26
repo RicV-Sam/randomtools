@@ -1,0 +1,153 @@
+---
+layout: layouts/base.njk
+title: "Your First Useful ChatGPT Conversation | Free Practice | Spinnit"
+description: "Practise starting a ChatGPT conversation, improving a reply and checking the result. Three short interactive lessons and an independent everyday task."
+canonical: "https://spinnit.site/ai-for-over-50s/first-ai-conversation/"
+permalink: "/ai-for-over-50s/first-ai-conversation/index.html"
+dateModified: "2026-09-26"
+editorialReviewedText: "26 September 2026"
+editorialReviewedDate: "2026-09-26"
+lang: en
+noAlternates: true
+noindex: true
+navBackHref: /learn/
+navBackLabel: Learn AI
+extraHead: |-
+  <link rel="stylesheet" href="/assets/learn-v1.css">
+  <link rel="stylesheet" href="/assets/learning-accessibility.css">
+  <link rel="stylesheet" href="/assets/first-conversation-v1.css">
+  <script src="/assets/learning-audio-v1.js" defer></script>
+  <script src="/assets/first-conversation-v1.js" defer></script>
+---
+<main class="learn-page conversation" data-conversation>
+  <header class="conversation-heading">
+    <p class="learn-eyebrow">Free guided practice · ChatGPT</p>
+    <h1>Your first useful AI conversation</h1>
+    <p>Start small. Try it yourself. Build confidence one step at a time.</p>
+  </header>
+
+  <nav class="conversation-path" aria-label="Practice route">
+    <a href="#start-safely" data-go="start-safely"><span>1</span><span class="conversation-path-label">Start a conversation <small data-practised hidden>Practised ✓</small></span></a>
+    <a href="#follow-up" data-go="follow-up"><span>2</span><span class="conversation-path-label">Improve a reply <small data-practised hidden>Practised ✓</small></span></a>
+    <a href="#spot-invention" data-go="spot-invention"><span>3</span><span class="conversation-path-label">Check before using <small data-practised hidden>Practised ✓</small></span></a>
+    <a href="#own-task" data-go="own-task"><span>4</span><span class="conversation-path-label">Try it on your own <small data-practised hidden>Practised ✓</small></span></a>
+  </nav>
+
+  <div class="conversation-tools" data-enhanced hidden>
+    <label><input type="checkbox" data-remember> Remember my place on this device</label>
+    <button type="button" data-print>Print the lessons</button>
+  </div>
+  <p class="conversation-save" role="status" data-save-status></p>
+  <p class="conversation-position" data-position hidden></p>
+  <noscript><p class="conversation-note">All lessons are shown below. Choose an answer, open its explanation and use the checklists on paper. Interactive feedback and saving your place need JavaScript.</p></noscript>
+
+  {% for step in firstConversation.steps %}
+  <section class="conversation-step" id="{{ step.id }}" data-step="{{ step.id }}"{% if step.practice %} data-practice{% endif %} aria-labelledby="{{ step.id }}-title">
+    <p class="learn-eyebrow">{{ step.part }}</p>
+    <h2 id="{{ step.id }}-title" tabindex="-1">{{ step.title }}</h2>
+    {% set narration = firstConversationAudio.clips[step.id] %}
+    {% if narration %}
+    <div class="conversation-narration" data-narration>
+      <p id="{{ step.id }}-audio-label"><strong>Listen to this step</strong> <span>Heart · AI narration · {{ narration.seconds | round }} seconds</span></p>
+      <audio controls preload="none" src="{{ narration.src }}" aria-labelledby="{{ step.id }}-audio-label" data-step-audio>Your browser does not support this player. Read the transcript below.</audio>
+      <label class="conversation-audio-speed" data-enhanced hidden>Playback speed
+        <select data-audio-speed aria-label="Playback speed for {{ step.title }}"><option value="0.85">Slower</option><option value="1" selected>Normal</option><option value="1.15">Faster</option></select>
+      </label>
+      <p class="conversation-note">Press play when you are ready. You can pause or replay any part.</p>
+      <p class="conversation-feedback" role="status" data-audio-status></p>
+      <button type="button" data-audio-retry hidden>Try loading audio again</button>
+      <details class="conversation-transcript"><summary>Read the narration transcript</summary><p>{{ step.narration }}</p></details>
+    </div>
+    {% endif %}
+    {% for paragraph in step.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+    {% if step.id == 'welcome' or step.id == 'first-message' %}
+    <p class="conversation-setup"><strong>Need help getting started?</strong> <a href="/ai-for-over-50s/chatgpt-free-account/" target="_blank" rel="noopener noreferrer">Free-account picture guide and help with usage limits (new tab)</a>. Keep this lesson open while you follow it. Already set up? Continue below.</p>
+    {% endif %}
+    {% if step.bullets %}<ul>{% for item in step.bullets %}<li>{{ item }}</li>{% endfor %}</ul>{% endif %}
+    {% if step.instructions %}<ol class="conversation-instructions">{% for item in step.instructions %}<li>{{ item }}</li>{% endfor %}</ol>{% endif %}
+
+    {% if step.demo %}
+    <figure class="conversation-demo">
+      <figcaption>{{ step.demo.label }}</figcaption>
+      <div><strong>Your request</strong><p>{{ step.demo.request }}</p></div>
+      <div><strong>Example reply</strong><p>{{ step.demo.reply }}</p></div>
+    </figure>
+    {% endif %}
+
+    {% if step.quiz %}
+    <fieldset class="conversation-quiz" data-quiz>
+      <legend>{{ step.quiz.question }}</legend>
+      {% for option in step.quiz.options %}
+      {% set feedbackKey = step.id + '-feedback-' + loop.index %}
+      <label class="conversation-choice"><input type="radio" name="{{ step.id }}-choice" value="{{ loop.index }}" data-correct="{{ 'true' if option.correct else 'false' }}" data-feedback-src="{{ firstConversationAudio.clips[feedbackKey].src }}" aria-describedby="{{ step.id }}-feedback"><span>{{ option.text }}</span></label>
+      {% endfor %}
+      <button type="button" data-check data-enhanced hidden>Check my answer</button>
+      <p id="{{ step.id }}-feedback" class="conversation-feedback" role="status" data-feedback></p>
+      <div class="conversation-narration conversation-narration--feedback" data-feedback-audio data-narration hidden>
+        <p id="{{ step.id }}-feedback-audio-label"><strong>Listen to the feedback</strong></p>
+        <audio controls preload="none" aria-labelledby="{{ step.id }}-feedback-audio-label" data-feedback-player></audio>
+        <p class="conversation-feedback" role="status" data-audio-status></p>
+        <button type="button" data-audio-retry hidden>Try loading audio again</button>
+      </div>
+      <details class="conversation-explanations"><summary>Read the answer explanations</summary>
+        <ol>{% for option in step.quiz.options %}<li data-explanation="{{ loop.index }}">{{ option.feedback }}</li>{% endfor %}</ol>
+      </details>
+    </fieldset>
+    {% endif %}
+
+    {% if step.prompt %}
+    <div class="conversation-prompt"><h3>Practice request</h3><p id="{{ step.id }}-prompt" data-prompt>{{ step.prompt }}</p><button type="button" data-copy data-enhanced hidden>Copy practice request</button><p role="status" data-copy-status></p></div>
+    {% endif %}
+    {% if step.hint %}<details class="conversation-hint"><summary>I would like a hint</summary><p>{{ step.hint }}</p></details>{% endif %}
+    {% if step.practice %}
+    <p><a class="conversation-open" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">Open ChatGPT <span>(new tab)</span></a></p>
+    <p class="conversation-note">If ChatGPT is already open, switch to that tab. We do not send your practice request automatically.</p>
+    <fieldset class="conversation-checklist"><legend>After trying it, tick what you did</legend>
+      {% for item in step.practice %}<label class="conversation-choice"><input type="checkbox" data-task-check><span>{{ item }}</span></label>{% endfor %}
+    </fieldset>
+    <p class="conversation-note">These are your own observations. Spinnit cannot verify activity in ChatGPT.</p>
+    {% endif %}
+
+    {% if step.finish %}
+    <div class="conversation-summary" data-summary aria-live="polite"></div>
+    <fieldset class="conversation-reflection"><legend>How did the independent task feel?</legend>
+      <label class="conversation-choice"><input type="radio" name="confidence" value="independent"><span>I did it on my own and feel ready to try another small task.</span></label>
+      <label class="conversation-choice"><input type="radio" name="confidence" value="supported"><span>I managed it with a hint or some help.</span></label>
+      <label class="conversation-choice"><input type="radio" name="confidence" value="repeat"><span>I have not tried it yet, or would like more practice.</span></label>
+    </fieldset>
+    <p class="conversation-feedback" data-reflection role="status"></p>
+    <h3>A small task for another day</h3>
+    <p>Without copying an example, ask for a short thank-you note to a fictional neighbour who watered your plants. Ask for one change. Check that the assistant did not add gifts, promises or other details you never supplied.</p>
+    <p>If you need help, repeat the relevant lesson. There is no deadline and no lost streak.</p>
+    <details><summary>Your take-away checklist</summary><ol><li>Open the official platform and start a new chat for a fresh task.</li><li>Say what you want, add only the details needed, and leave out private information.</li><li>Ask for one useful change in the same conversation.</li><li>Check facts against your source. Verify real-world claims independently.</li><li>Copy the useful part and read it before using it.</li></ol></details>
+    <details><summary>For the person helping you test</summary><p>Let the learner operate their own device. Ask them to say what they expect each button to do. Help when asked, and note where help was needed. Never ask for passwords, private conversations or screenshots of personal information.</p><ul><li>Could they find ChatGPT, send a message and return to this lesson?</li><li>Could they make a useful follow-up and spot an unsupported detail?</li><li>Could they complete the book-group task without a copied prompt?</li><li>What felt confusing? What would they like to try next?</li><li>On another day, can they complete the thank-you task with less help?</li></ul><p>Keep these observations in your own notes. Nothing is submitted from this checklist. Judge the course by where people need help, rather than treating difficulty as a learner’s failure.</p></details>
+    {% endif %}
+
+    <div class="conversation-actions" data-enhanced hidden>
+      {% if not loop.first %}<button type="button" data-back>Back</button>{% endif %}
+      <button type="button" class="conversation-next" data-next>{{ step.nextLabel }}</button>
+      {% if step.practice %}<button type="button" class="conversation-later" data-later>Try this task later</button>{% endif %}
+    </div>
+    <p class="conversation-feedback" role="status" data-step-status></p>
+  </section>
+  {% endfor %}
+
+  <aside class="conversation-help" aria-label="Help and resources">
+    <details><summary>Stuck, or your ChatGPT screen looks different?</summary>
+      <h3>I cannot find the message box</h3><p>Check the address is chatgpt.com. Finish any sign-in screen first. If you see Chat and Work, choose Chat. Look for New chat, sometimes inside a side menu. Screens can vary by device and account; use the <a href="https://learn.chatgpt.com/docs/web" target="_blank" rel="noopener noreferrer">official web guide (new tab)</a> if needed.</p>
+      <h3>I lost my conversation</h3><p>If your account shows recent chats, look there. Otherwise start again with the fictional coffee-morning details. Our browser bookmark saves your place in this lesson, not your ChatGPT conversation.</p>
+      <h3>I cannot paste or copy</h3><p>On a computer, select the message box and use Ctrl+V (Windows) or Command+V (Mac) to paste. On a phone or tablet, touch and hold in the message box to look for Paste. You can always type the short request instead. To copy a reply, select its text and choose Copy, or use a copy control if shown.</p>
+      <h3>It asks me to sign in, pay, or wait</h3><p>Use the <a href="/ai-for-over-50s/chatgpt-free-account/" target="_blank" rel="noopener noreferrer">free-account picture guide (new tab)</a> for sign-up help and a checklist for usage-limit notices. This lesson does not require a paid plan. If free access is unavailable or a usage limit appears, use “Try this task later” and return when you can. Reading the example does not count as completing the practical task.</p>
+      <h3>I am nervous about making a mistake</h3><p>Use only the fictional details. These steps ask for drafts; you do not need to connect apps, upload files or send a message to anyone. You can stop, edit your next request or start a new chat. If a permission or payment request surprises you, pause and get help.</p>
+    </details>
+    <details><summary>Optional help and free learning resources</summary><p>Use one resource when you need it. You do not need to read them all to finish this unit.</p><ul>
+      <li><a href="https://learn.chatgpt.com/docs/quickstart">Official ChatGPT quickstart</a> — setup and current platform guidance.</li>
+      <li><a href="/ai-for-over-50s/what-not-to-share-with-ai/">What to keep out of AI chats</a> — our plain-English privacy guide.</li>
+      <li><a href="/ai-for-over-50s/chatgpt-on-phone-or-tablet/">Using ChatGPT on a phone or tablet</a> — help with the official app.</li>
+      <li><a href="https://seniorplanet.org/ai">Senior Planet AI resources</a> — an older-adult guide, videos and free online classes. Check individual event times and registration requirements.</li>
+      <li><a href="https://support.google.com/gemini/answer/13275745?hl=en">Official Gemini instructions</a> and <a href="https://support.microsoft.com/en-us/microsoft-copilot/getting-started-with-microsoft-copilot">Copilot getting started</a> — optional next steps after practising one platform.</li>
+    </ul><p>Official resources checked 26 September 2026. Account requirements, free access and screens can change. This pilot teaches everyday text conversations; voice, uploads and other platforms are further learning.</p></details>
+    <details><summary>About saved progress</summary><p>Saving is optional. When you choose “Remember my place”, this pilot stores your current step and completed checkpoint identifiers in this browser. It does not store the answer you selected, confidence response, prompt text or identity. Your place will not sync to another device. Clearing browser data removes it.</p><p>Untick the option to remove this pilot’s saved record while keeping your place for the current visit. Other courses’ progress is separate. Existing site measurement is described in our <a href="/privacy.html">privacy policy</a>.</p></details>
+    <p><a href="/learn/ai-prompting/">Continue with the five-lesson prompting course</a> · <a href="/ai-for-over-50s/chatgpt-for-beginners/">Read the first-conversation guide</a></p>
+  </aside>
+</main>

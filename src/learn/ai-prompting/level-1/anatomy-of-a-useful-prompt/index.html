@@ -9,7 +9,7 @@ socialImageWidth: 1200
 socialImageHeight: 630
 socialImageAlt: "Spinnit — Learn AI by doing. Free practical AI prompting course."
 permalink: "/learn/ai-prompting/level-1/anatomy-of-a-useful-prompt/index.html"
-dateModified: "2026-07-21"
+dateModified: "2026-09-26"
 lang: en
 noAlternates: true
 publicationStatus: published
@@ -26,7 +26,7 @@ learningObjectives:
   - "Identify the 4 core building blocks of a high-performing prompt."
   - "Recognize missing structural components in weak instructions."
   - "Construct a balanced 4-part prompt for work and personal tasks."
-lessonIntroduction: "Every high-performing prompt is built from four distinct building blocks: Role, Task, Context, and Output Specifications. In this lesson, you will learn how to assemble these parts to eliminate ambiguity and get reliable answers."
+lessonIntroduction: "Task, context and output instructions can make a request clearer. An optional role can guide the style, but does not give an assistant professional expertise. Practise choosing the details your task needs, then check the answer."
 navBackHref: /learn/ai-prompting/
 navBackLabel: Course overview
 previousLesson:
@@ -97,14 +97,14 @@ knowledgeCheck:
     - id: kc-option-a
       text: "Option A: The AI assistant refuses to answer the prompt."
     - id: kc-option-b
-      text: "Option B: The AI defaults to generic conversational prose, often requiring extra re-formatting effort."
+      text: "Option B: The AI chooses a format that may need changing to suit your task."
     - id: kc-option-c
       text: "Option C: The AI automatically selects the exact format you were hoping for."
   answer: "Option B is the correct answer."
-  explanation: "Without explicit output specifications (e.g. 'table', '3 bullet points', 'JSON'), AI models default to generic conversational prose. Specifying format controls up front saves editing time."
+  explanation: "Without a requested format, the assistant chooses a format that may not suit the task. Naming the format can reduce editing, but you still need to check the result."
 keyTakeaway:
   title: "The 4-Part Prompt Framework"
-  text: "Use these four building blocks whenever you need a predictable, high-quality result:"
+  text: "Use these building blocks as a flexible checklist, then review the result:"
   template: |-
     [ROLE]: Act as a [expert/persona].
     [TASK]: [Specific action to perform].
@@ -126,7 +126,7 @@ relatedResources:
   <div class="hub-grid" style="margin: 1.5rem 0 2rem;">
     <article class="hub-card">
       <h3 style="color: var(--accent2);">1. Role / Persona</h3>
-      <p>Tells the AI what perspective or expertise to adopt (e.g. <em>"Act as an experienced copywriter"</em> or <em>"Act as a high school physics teacher"</em>).</p>
+      <p>Suggests a style or perspective for the response (e.g. <em>"Act as an experienced copywriter"</em> or <em>"Act as a high school physics teacher"</em>).</p>
     </article>
     <article class="hub-card">
       <h3 style="color: var(--accent2);">2. Core Task</h3>
@@ -151,14 +151,14 @@ relatedResources:
     <article>
       <p class="learn-example-label">Bare task (No structure)</p>
       <h3>Task only</h3>
-      <blockquote><p>Give me meal prep ideas for the week.</p></blockquote>
-      <p>Generates generic recipes that may not suit your diet, cooking time, budget, or family size.</p>
+      <blockquote><p>Give me activity ideas for a book group.</p></blockquote>
+      <p>May produce ideas that do not suit the group, available materials or time.</p>
     </article>
     <article>
       <p class="learn-example-label">Full 4-Part Prompt</p>
       <h3>All 4 building blocks active</h3>
-      <blockquote><p>Act as a practical nutritionist [ROLE]. Recommend 5 weekday dinner prep ideas [TASK] for a busy family of four with a £70 weekly budget and a peanut allergy [CONTEXT]. Present the results in a 3-column table showing Meal Name, Cooking Time, and Main Ingredients [OUTPUT].</p></blockquote>
-      <p>Removes ambiguity, respects dietary constraints, and produces a table ready to use immediately.</p>
+      <blockquote><p>Use a friendly event-organiser style [ROLE]. Suggest 5 indoor activities for a book group [TASK] of four adults who have an hour together and want to use only books and paper [CONTEXT]. Present a table showing Activity, Materials and Suggested Time [OUTPUT].</p></blockquote>
+      <p>Gives the assistant useful details and a requested structure. Check that the suggested activities fit the group, materials and available time.</p>
     </article>
   </div>
 </section>
@@ -172,5 +172,5 @@ relatedResources:
     <li>Creating educational content or study guides</li>
     <li>Generating code or structured data formats</li>
   </ul>
-  <p>Using all four building blocks ensures you get a tailored, structured response on the first try without wasting turns on back-and-forth edits.</p>
+  <p>Use the elements that help with your task. A role is optional, and no prompt structure guarantees a correct answer. Follow-up questions and your own checks are normal parts of using AI.</p>
 </section>

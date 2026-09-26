@@ -1,0 +1,45 @@
+/* Optional sign-up reference: retain the beginner guides' established styles. */
+.account-guide { --text2: #c1c1d2; }
+.account-guide .learn-hero h1 { max-width: 22ch; }
+.account-guide .learn-eyebrow { font-family: var(--sans); text-transform: none; letter-spacing: .02em; }
+.account-guide .guide-section > p, .account-guide .guide-section > ul, .account-guide .guide-section > ol { margin-block: 1rem; }
+.account-guide .guide-section li { margin-block: .7rem; }
+.account-guide .guide-visual { margin-block: 1.5rem; }
+.account-guide .guide-visual figcaption { font-size: 1rem; }
+.account-guide .guide-visual a { display: block; }
+.account-guide .account-picture--dialog { max-width: 449px; }
+.account-guide .account-picture--phone { max-width: 390px; }
+.account-guide .account-guide-note { max-width: 780px; font-size: 1rem; color: var(--text2); margin-block: 1.25rem; }
+.account-guide details { max-width: 780px; margin-block: 1rem; padding-block: .75rem; border-block: 1px solid var(--border2); }
+.account-guide summary { min-height: 48px; padding-block: .6rem; color: var(--accent2); font-weight: 600; cursor: pointer; }
+.account-guide details p { margin-block: 1rem; }
+.account-guide .account-limit-steps { padding-left: 1.5rem; }
+.account-guide .account-limit-steps li { padding-left: .4rem; margin-bottom: 1.2rem; }
+.account-guide [hidden] { display: none !important; }
+.account-guide button, .account-guide select { font: inherit; min-height: 48px; border: 1px solid #858597; border-radius: 6px; color: var(--text); background: var(--bg3); padding: .5rem .8rem; }
+.account-guide button { cursor: pointer; }
+.account-narration { margin-block: 1.25rem; padding: 1rem; background: var(--bg2); border-left: 3px solid var(--accent2); }
+.account-narration > p:first-child span { display: block; color: var(--text2); font-size: 1rem; }
+.account-narration audio { display: block; width: 100%; min-width: 0; height: 54px; margin-block: .75rem; }
+.account-narration .account-audio-speed { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-block: .75rem; }
+.account-narration > p { font-size: 1rem; }
+.account-guide .account-button-detail { max-width: 440px; }
+.account-detail-crop { position: relative; overflow: hidden; aspect-ratio: 5 / 1; background: white; border-radius: 8px; }
+.account-guide .account-detail-crop img { position: absolute; right: 0; top: 0; width: calc(100% * 1100 / 270); max-width: none; height: auto; border: 0; border-radius: 0; }
+.account-guide .account-button-detail--phone { max-width: 320px; }
+.account-button-detail--phone .account-detail-crop { aspect-ratio: 2 / 1; }
+.account-guide .account-button-detail--phone img { width: calc(100% * 390 / 150); }
+.account-picture-viewer { width: min(1140px, calc(100vw - 2rem)); max-width: calc(100vw - 2rem); max-height: calc(100dvh - 2rem); padding: 1rem; border: 1px solid #858597; border-radius: 10px; color: var(--text); background: var(--bg2); }
+.account-picture-viewer::backdrop { background: rgba(0,0,0,.8); }
+.account-picture-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
+.account-picture-toolbar h2 { flex: 1 1 100%; font-size: 1.3rem; margin: 0; }
+.account-picture-viewer > p { font-size: 1rem; margin-block: .75rem; }
+.account-picture-scroll { max-height: 65dvh; overflow: auto; border: 1px solid var(--border2); }
+.account-picture-scroll img { display: block; width: auto; max-width: 100%; height: auto; margin-inline: auto; }
+.account-picture-scroll img.is-actual-size { max-width: none; }
+html:has(.account-picture-viewer[open]) { overflow: hidden; }
+@media print {
+  .account-guide .account-narration, .account-guide .account-picture-viewer { display: none !important; }
+  .account-guide details > * { display: block !important; }
+  .account-guide .guide-visual { break-inside: avoid; }
+}

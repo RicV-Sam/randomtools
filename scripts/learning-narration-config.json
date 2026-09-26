@@ -1,0 +1,21 @@
+{
+  "voice": "Heart",
+  "engine": "Kokoro",
+  "voiceId": "af_heart",
+  "speed": 0.95,
+  "fingerprintVersion": "kokoro-onnx-mp3-v1",
+  "courses": {
+    "first-conversation": {
+      "source": "src/_data/firstConversation.json",
+      "manifest": "src/_data/firstConversationAudio.json",
+      "assetDir": "src/assets/audio/first-conversation",
+      "templates": ["src/ai-for-over-50s/first-ai-conversation/index.html"]
+    },
+    "account-guide": {
+      "source": "src/_data/accountGuideNarration.json",
+      "manifest": "src/_data/accountGuideAudio.json",
+      "assetDir": "src/assets/audio/account-guide",
+      "templates": ["src/ai-for-over-50s/chatgpt-free-account/index.html", "src/_includes/partials/account-guide-audio.njk"]
+    }
+  }
+}
