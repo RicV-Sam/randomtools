@@ -1,0 +1,22 @@
+.video-lessons { --learn-content-width: 900px; }
+.video-lessons .learn-hero { padding-top: 1.5rem; }
+.video-introduction, .video-practice { margin: 1.5rem 0; padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg2); }
+.video-lesson-index { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; margin: 2rem 0; }
+.video-lesson-index a { display: flex; align-items: center; gap: .75rem; padding: .85rem; min-height: 48px; border: 1px solid var(--border); border-radius: var(--radius); }
+.video-lesson-index span { color: var(--accent2); font-weight: 700; }
+.video-lesson { padding-top: 2rem; margin-top: 2rem; border-top: 1px solid var(--border2); scroll-margin-top: 7rem; }
+.lesson-video { margin: 1.5rem 0; }
+.lesson-video-poster { position: relative; }
+.lesson-video img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+.lesson-video button { font: inherit; min-height: 48px; padding: .7rem 1.1rem; border: 2px solid var(--accent2); border-radius: var(--radius); background: var(--bg2); color: var(--text); cursor: pointer; }
+.lesson-video [data-video-load] { position: absolute; bottom: 1rem; left: 1rem; right: 1rem; font-weight: 700; }
+.lesson-video [data-video-close] { margin-top: .75rem; }
+.lesson-video iframe { display: block; width: 100%; aspect-ratio: 16/9; min-height: 200px; border: 0; border-radius: var(--radius); }
+.video-lessons [hidden] { display: none !important; }
+.video-availability, .video-small { color: var(--text2); font-size: 1rem; }
+.video-transcript { border: 1px solid var(--border); padding: 1rem; border-radius: var(--radius); }
+.video-transcript summary { cursor: pointer; font-weight: 700; min-height: 44px; }
+.video-transcript h3 { margin-top: 1.5rem; }
+.video-next { margin-top: 1.5rem; }
+@media (max-width: 600px) { .video-lesson-index { grid-template-columns: 1fr; } .video-practice .learn-button { width: 100%; } }
+@media print { .lesson-video, .video-lesson-index { display: none; } .video-lesson { break-before: page; } }

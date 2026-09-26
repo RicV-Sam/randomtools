@@ -1,0 +1,68 @@
+---
+layout: layouts/base.njk
+title: "ChatGPT Video Lessons for Beginners | Free Practice | Spinnit"
+description: "Five short ChatGPT lessons for beginners: get started, write a request, improve a reply, check the answer and try a task yourself. Includes full transcripts."
+canonical: "https://spinnit.site/ai-for-over-50s/video-lessons/"
+permalink: "/ai-for-over-50s/video-lessons/index.html"
+dateModified: "2026-09-26"
+editorialReviewedText: "26 September 2026"
+editorialReviewedDate: "2026-09-26"
+lang: en
+noAlternates: true
+navBackHref: /learn/
+navBackLabel: Learn AI
+extraHead: |-
+  <link rel="stylesheet" href="/assets/learn-v1.css">
+  <link rel="stylesheet" href="/assets/learning-accessibility.css">
+  <link rel="stylesheet" href="/assets/learning-videos-v1.css">
+  <script src="/assets/learning-videos-v1.js" defer></script>
+---
+<main class="learn-page video-lessons">
+  <header class="learn-hero">
+    <p class="learn-eyebrow">Five short lessons · ChatGPT · Complete beginners</p>
+    <h1>Watch, then try it yourself</h1>
+    <p class="learn-lede">Learn one useful step at a time: get started, ask, improve and check. These lessons are designed for complete beginners, including adults over 50. Pause, replay and practise at your own pace.</p>
+    <p><a class="learn-button learn-button--primary" href="/ai-for-over-50s/first-ai-conversation/">Open the guided practice</a></p>
+  </header>
+  <div class="video-introduction">
+    <h2>Make the lesson useful</h2>
+    <ol><li>Watch or read one lesson.</li><li>Open its practice activity and try the steps yourself.</li><li>Check what you managed before continuing. Watching alone does not complete the activity.</li></ol>
+    <p>Keep this page open while you practise. The examples use fictional details, so you do not need to share private information. Heart is an AI-generated narrator.</p>
+    <p>YouTube players load only when you choose “Load video player”, which connects to YouTube. You can always read the transcript instead.</p>
+  </div>
+  <nav class="video-lesson-index" aria-label="Video lessons">
+    {% for video in firstConversationVideoSeries.lessons %}<a href="#lesson-{{ video.number }}"><span>{{ video.number }}</span>{{ video.shortTitle }}</a>{% endfor %}
+  </nav>
+  {% for video in firstConversationVideoSeries.lessons %}
+  <section class="video-lesson" id="lesson-{{ video.number }}" aria-labelledby="lesson-{{ video.number }}-title">
+    <p class="learn-eyebrow">Lesson {{ video.number }} of 5 · {{ video.duration }}</p>
+    <h2 id="lesson-{{ video.number }}-title">{{ video.shortTitle }}</h2>
+    <p>{{ video.summary }}</p>
+    <div class="lesson-video"{% if video.youtubeId %} data-lesson-video data-video-id="{{ video.youtubeId }}" data-video-title="{{ video.shortTitle }}"{% endif %}>
+      <div class="lesson-video-poster" data-video-poster>
+        <img src="{{ video.thumbnail }}" width="1280" height="720" loading="lazy" decoding="async" alt="Lesson {{ video.number }}: {{ video.shortTitle }}">
+        {% if video.youtubeId %}<button type="button" data-video-load hidden aria-label="Load video player for {{ video.shortTitle }}">Load video player</button>{% endif %}
+      </div>
+      {% if video.youtubeId %}
+      <div data-video-player></div>
+      <button type="button" data-video-close hidden>Close video player</button>
+      <p><a href="{{ video.watchUrl }}" target="_blank" rel="noopener noreferrer">Watch lesson {{ video.number }} on YouTube (new tab)</a></p>
+      {% else %}<p class="video-availability">The video will be available here soon. You can read the full lesson and try the activity below.</p>{% endif %}
+    </div>
+    <div class="video-practice">
+      <h3>Now try it</h3><p>{{ video.practiceTask }}</p>
+      <p><a class="learn-button learn-button--primary" href="{{ video.practiceUrl }}" target="_blank" rel="noopener noreferrer">{{ video.practiceLabel }} (new tab)</a></p>
+      <p class="video-small">Keep control of the mouse or phone yourself. Use a hint or ask for help whenever you need it.</p>
+    </div>
+    <details class="video-transcript"><summary>Read lesson {{ video.number }} transcript</summary>
+      {% for scene in video.transcript %}<h3>{{ scene.title }}</h3><p>{{ scene.text }}</p>{% endfor %}
+    </details>
+    <p class="video-next">{% if not loop.last %}<a href="#lesson-{{ video.number + 1 }}">Continue to lesson {{ video.number + 1 }}</a>{% else %}<a href="/ai-for-over-50s/first-ai-conversation/#next-steps">Reflect on your practice</a>{% endif %}</p>
+  </section>
+  {% endfor %}
+  <aside class="video-introduction">
+    <h2>If your screen looks different</h2>
+    <p>The account screenshots were captured on 26 September 2026. Buttons and available sign-in methods can change. The illustrated requests and replies are teaching examples; your actual answer will probably use different words.</p>
+    <p>For account help and usage-limit notices, use the <a href="/ai-for-over-50s/chatgpt-free-account/">free-account picture guide</a>. For current platform instructions, see <a href="https://learn.chatgpt.com/docs/quickstart" target="_blank" rel="noopener noreferrer">OpenAI’s quickstart (new tab)</a>.</p>
+  </aside>
+</main>
