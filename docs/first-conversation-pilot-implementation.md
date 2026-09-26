@@ -1,12 +1,12 @@
 # First-conversation pilot
 
-Implementation review: 26 September 2026. Local pilot; not published by this task.
+Implementation review: 26 September 2026. Published pilot. The user requested indexability after the initial release.
 
 ## Scope and design
 
 The approved pilot is three practical mini-lessons plus an independent task. Nine screens cover orientation, three knowledge checks, three real-platform tasks, an independent challenge, and reflection. The existing prompting course and tools remain accessible.
 
-The pilot lives alongside the existing beginner guides at `/ai-for-over-50s/first-ai-conversation/`. It is linked from `/learn/` and the first-use ChatGPT guide. Keeping this as a companion avoids changing the existing course's route and progress registry before learner testing. It uses `noindex: true` during the pilot, is omitted from the sitemap, and remains ad-free through the existing guide data.
+The pilot lives alongside the existing beginner guides at `/ai-for-over-50s/first-ai-conversation/`. It is linked from `/learn/` and the first-use ChatGPT guide. Keeping this as a companion avoids changing the existing course's route and progress registry before learner testing. At the user's request, this lesson and its account guide are indexable and included in the sitemap. Both remain ad-free through the existing guide data.
 
 Content is in `src/_data/firstConversation.json`, rendered into ordinary HTML by Eleventy. `first-conversation-v1.js` progressively enhances it into one visible step at a time. With JavaScript unavailable, all lessons, native answer explanations and checklists remain readable. There is no live AI tutor or AI API cost. The examples are clearly labelled illustrations, not screenshots or live generated answers.
 
@@ -74,6 +74,6 @@ The tests validate the local website, not actual learner independence, every ass
 
 ## Parent test and next release
 
-Use [the parent test sheet](first-conversation-parent-test.md). Keep the pilot noindex during testing. After a publication request, recheck the final diff, build, deploy and verify the exact public route and assets before giving parents a public link. A successful test should inform the next unit and any navigation refinements; do not infer success from page completion or checkbox counts.
+Use [the parent test sheet](first-conversation-parent-test.md). Indexability does not replace learner testing. Recheck the final diff, build, deploy and verify the exact public route and assets for releases. A successful test should inform the next unit and any navigation refinements; do not infer success from page completion or checkbox counts. The validation counts above describe the initial release; enabling the two pages adds two sitemap URLs, for 163 total. Indexable and submitted do not mean indexed.
 
 The welcome and first practical step link to an optional [free-account picture guide](chatgpt-account-guide-evidence.md). It contains three dated, unaltered sign-up screenshots, button close-ups, four narrated sections and conditional usage-limit guidance. The guide opens separately to preserve the lesson; its pictures enlarge inside the guide with fit/actual-size controls and keyboard focus recovery. Registration after the public entry screen and an exact free-message allowance remain unverified. The guide passed 31 browser assertions; see its evidence note for scope and checks.

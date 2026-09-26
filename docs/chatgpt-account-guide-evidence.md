@@ -1,6 +1,6 @@
 # ChatGPT free-account picture guide
 
-Prepared 26 September 2026. Local pilot only; no publication or account creation.
+Prepared 26 September 2026. Published pilot; no account was created during preparation. Indexability was enabled at the user's request after the first release.
 
 ## What was observed
 
@@ -25,13 +25,15 @@ No real account registration was completed. No password, verification or payment
 
 ## Integration
 
-The reference route is `/ai-for-over-50s/chatgpt-free-account/`. It is noindex during the pilot and excluded from the sitemap. Welcome, the first real-platform task and sign-in troubleshooting link to it in a new tab with `noopener noreferrer`. This keeps the current lesson page open, including unsaved in-memory progress. The guide tells the learner to return to that original tab.
+The reference route is `/ai-for-over-50s/chatgpt-free-account/`. It is indexable and included in the sitemap at the user's request. Welcome, the first real-platform task and sign-in troubleshooting link to it in a new tab with `noopener noreferrer`. This keeps the current lesson page open, including unsaved in-memory progress. The guide tells the learner to return to that original tab.
 
 The guide includes four optional Heart recordings covering the official website, sign-in choices, returning to practice and usage-limit notices. Transcripts are stored in `src/_data/accountGuideNarration.json`; `accountGuideAudio.json` records clip integrity and reviewed content/template hashes. Playback shares the lesson's audio controls, speed selection and retry behaviour. No new forms or learner-data fields were added.
 
 The two button details use CSS cropping of the original PNG files; the source images remain unchanged. With JavaScript, the three screenshot links open a native dialog in the same page, with fit/actual-size views, Close picture and Escape support, and focus returned to the originating link. Without JavaScript, each link opens the original PNG in the same tab and browser Back returns to the guide. Full written directions and native audio remain available. The phone comparison uses native `details` so it can be expanded without JavaScript.
 
 ## Validation
+
+The checks below describe the initial noindex release. The subsequent metadata correction enables both new pages in the sitemap (163 URLs total); it does not change lesson or narration wording and does not establish search-engine indexing.
 
 - Eleventy build succeeded, writing 309 files.
 - Source/content checks passed: 310 source HTML files; 308 generated HTML files, 16,428 internal links and 161 sitemap URLs.
