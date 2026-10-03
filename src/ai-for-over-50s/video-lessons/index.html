@@ -22,7 +22,8 @@ extraHead: |-
     <p class="learn-eyebrow">Five short lessons · ChatGPT · Complete beginners</p>
     <h1>Watch, then try it yourself</h1>
     <p class="learn-lede">Learn one useful step at a time: get started, ask, improve and check. These lessons are designed for complete beginners, including adults over 50. Pause, replay and practise at your own pace.</p>
-    <p><a class="learn-button learn-button--primary" href="/ai-for-over-50s/first-ai-conversation/">Open the guided practice</a></p>
+    <p><a class="learn-button learn-button--primary" href="#lesson-1">Start with lesson 1</a></p>
+    <p>Ready to practise instead? <a href="/ai-for-over-50s/first-ai-conversation/">Open the guided practice</a>.</p>
   </header>
   <div class="video-introduction">
     <h2>Make the lesson useful</h2>
@@ -57,6 +58,7 @@ extraHead: |-
     <details class="video-transcript"><summary>Read lesson {{ video.number }} transcript</summary>
       {% for scene in video.transcript %}<h3>{{ scene.title }}</h3><p>{{ scene.text }}</p>{% endfor %}
     </details>
+    <p class="video-check"><strong>Before continuing:</strong> {{ video.checkPrompt }}</p>
     <p class="video-next">{% if not loop.last %}<a href="#lesson-{{ video.number + 1 }}">Continue to lesson {{ video.number + 1 }}</a>{% else %}<a href="/ai-for-over-50s/first-ai-conversation/#next-steps">Reflect on your practice</a>{% endif %}</p>
   </section>
   {% endfor %}

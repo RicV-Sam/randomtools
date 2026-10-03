@@ -10,6 +10,7 @@
     "practiceUrl": "/ai-for-over-50s/chatgpt-free-account/",
     "practiceLabel": "Open the picture guide",
     "practiceTask": "Find the official website and message box, then return to the lesson. Keep all sign-in details private.",
+    "checkPrompt": "Can you find the official ChatGPT page and its message box, then return here? Repeat this step or use the picture guide if you need help.",
     "transcript": [
       {
         "title": "A small first step",
@@ -62,8 +63,9 @@
     "youtubeId": "0U5NOX-jdNk",
     "thumbnail": "/assets/images/first-conversation-videos/lesson-2.webp",
     "practiceUrl": "/ai-for-over-50s/first-ai-conversation/#first-message",
-    "practiceLabel": "Open this practice activity",
+    "practiceLabel": "Practise sending your first request",
     "practiceTask": "Send the fictional coffee-morning request. Read the reply and compare it with the supplied facts.",
+    "checkPrompt": "Did you send the fictional request, read the reply and compare it with the event details? The practice page has a checklist if you want to retrace the steps.",
     "transcript": [
       {
         "title": "From blank box to first draft",
@@ -116,8 +118,9 @@
     "youtubeId": "owdJ1a3jZpo",
     "thumbnail": "/assets/images/first-conversation-videos/lesson-3.webp",
     "practiceUrl": "/ai-for-over-50s/first-ai-conversation/#improve-message",
-    "practiceLabel": "Open this practice activity",
+    "practiceLabel": "Practise improving your reply",
     "practiceTask": "Ask for one useful change in the same conversation. Check that the day, time and request to reply stay correct.",
+    "checkPrompt": "Did the follow-up make the change you wanted while keeping the day, time and request to reply correct?",
     "transcript": [
       {
         "title": "You can change the draft",
@@ -170,8 +173,9 @@
     "youtubeId": "rMMqRnzrDnI",
     "thumbnail": "/assets/images/first-conversation-videos/lesson-4.webp",
     "practiceUrl": "/ai-for-over-50s/first-ai-conversation/#check-message",
-    "practiceLabel": "Open this practice activity",
+    "practiceLabel": "Practise checking your answer",
     "practiceTask": "Find any unsupported details, correct them, and check the text after copying it into a blank note.",
+    "checkPrompt": "Did you remove or correct unsupported details, then reread the text you copied into a note?",
     "transcript": [
       {
         "title": "A convincing mistake",
@@ -224,8 +228,9 @@
     "youtubeId": "u-u4mDFPAsY",
     "thumbnail": "/assets/images/first-conversation-videos/lesson-5.webp",
     "practiceUrl": "/ai-for-over-50s/first-ai-conversation/#own-task",
-    "practiceLabel": "Open this practice activity",
+    "practiceLabel": "Try the book-group task yourself",
     "practiceTask": "Start a fresh conversation for the fictional book-group task. Write, improve and check it using fewer hints.",
+    "checkPrompt": "Did you write, improve and check the book-group reminder with fewer hints? If not, you can repeat any part before reflecting.",
     "transcript": [
       {
         "title": "A fresh task",

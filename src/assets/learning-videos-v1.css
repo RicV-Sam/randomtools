@@ -1,4 +1,5 @@
 .video-lessons { --learn-content-width: 900px; }
+.video-lessons :where(p, li) { max-width: 58ch; }
 .video-lessons .learn-hero { padding-top: 1.5rem; }
 .video-introduction, .video-practice { margin: 1.5rem 0; padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg2); }
 .video-lesson-index { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; margin: 2rem 0; }
@@ -17,6 +18,7 @@
 .video-transcript { border: 1px solid var(--border); padding: 1rem; border-radius: var(--radius); }
 .video-transcript summary { cursor: pointer; font-weight: 700; min-height: 44px; }
 .video-transcript h3 { margin-top: 1.5rem; }
+.video-check { margin-top: 1.5rem; }
 .video-next { margin-top: 1.5rem; }
 @media (max-width: 600px) { .video-lesson-index { grid-template-columns: 1fr; } .video-practice .learn-button { width: 100%; } }
 @media print { .lesson-video, .video-lesson-index { display: none; } .video-lesson { break-before: page; } }
