@@ -29,3 +29,8 @@ Thumbs.db
 output/playwright/
 .indexnow-status.json
 .indexnow-status.json.tmp
+
+.indexnow-state/
+indexnow-revision.txt
+.indexnow-status.json
+.indexnow-status.json.tmp
