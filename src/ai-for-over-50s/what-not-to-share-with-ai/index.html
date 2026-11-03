@@ -4,7 +4,7 @@ title: "What Not to Share with AI: A Beginner Privacy Guide | Spinnit"
 description: "Learn which personal, financial, medical and work information to keep out of AI chats, how to remove identifying details and which privacy controls to review."
 canonical: "https://spinnit.site/ai-for-over-50s/what-not-to-share-with-ai/"
 permalink: "/ai-for-over-50s/what-not-to-share-with-ai/index.html"
-dateModified: "2026-08-31"
+dateModified: "2026-11-03"
 lang: en
 navBackHref: /ai-for-over-50s/
 navBackLabel: Beginner guide
@@ -15,11 +15,15 @@ jsonLd: |-
     "name": "What Not to Share with AI: A Beginner Privacy Guide",
     "description": "A plain-English guide to keeping sensitive information out of consumer AI chats.",
     "url": "https://spinnit.site/ai-for-over-50s/what-not-to-share-with-ai/",
-    "dateModified": "2026-08-31",
+    "dateModified": "2026-11-03",
     "author": { "@type": "Organization", "name": "Spinnit Editorial", "url": "https://spinnit.site/editorial-standards/" },
     "publisher": { "@type": "Organization", "name": "Spinnit", "url": "https://spinnit.site/" },
     "isPartOf": { "@type": "WebSite", "name": "Spinnit", "url": "https://spinnit.site/" }
   }
+extraHead: |-
+  <link rel="stylesheet" href="/assets/learning-videos-v1.css">
+  <link rel="stylesheet" href="/assets/everyday-ai-shorts-v1.css">
+  <script src="/assets/learning-videos-v1.js" defer></script>
 ---
 <main class="learn-page beginner-article">
   <nav class="guide-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/ai-for-over-50s/">AI beginner guide</a><span aria-hidden="true">/</span><span aria-current="page">What not to share</span></nav>
@@ -41,6 +45,9 @@ jsonLd: |-
   <section class="guide-section" aria-labelledby="mistake-heading"><p class="learn-kicker">If you shared something by mistake</p><h2 id="mistake-heading">Act according to what was exposed</h2><p>Delete the chat if the service allows it and review the provider’s privacy guidance, but do not assume deletion reverses every use or retention rule. Change an exposed password immediately. Contact your bank through an official number if payment information was involved. Tell your employer or the relevant person if their confidential information was shared.</p><div class="learn-callout learn-callout--caution"><h3>Do not ask the AI how to secure a compromised account</h3><p>Go directly to the account provider, bank, employer or relevant authority using a trusted website, app or phone number.</p></div></section>
 
   <aside class="guide-source-note" aria-labelledby="sources-heading"><h2 id="sources-heading">Provider privacy information</h2><ul><li><a href="https://help.openai.com/en/articles/7730893-data-controls-faq">OpenAI Data Controls FAQ</a></li><li><a href="https://support.google.com/gemini/answer/13594961?hl=en-GB">Google Gemini Apps Privacy Hub</a></li><li><a href="https://support.anthropic.com/en/articles/8325621-i-would-like-to-input-sensitive-data-into-my-free-pro-or-max-plan-claude-account-who-can-view-my-conversations">Anthropic guidance on sensitive data in consumer Claude accounts</a></li></ul><p>Settings and retention rules vary by product, plan and region and can change. Check the service you actually use.</p></aside>
+
+  {% set guideShorts = everydayAiShorts["what-not-to-share-with-ai"] %}
+  {% include "partials/learn/everyday-ai-shorts.njk" %}
 
   <section class="guide-series" aria-labelledby="continue-heading"><h2 id="continue-heading">Continue safely</h2><div class="guide-series__links"><a href="/ai-for-over-50s/chatgpt-for-beginners/"><strong>Start your first ChatGPT conversation →</strong><span>A low-risk task with privacy controls to review.</span></a><a href="/ai-for-over-50s/ai-scams-and-deepfakes/"><strong>Recognise AI-assisted scams →</strong><span>Pause, verify and report suspicious contact.</span></a></div></section>
 </main>

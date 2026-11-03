@@ -4,7 +4,7 @@ title: "How to Check AI Answers: A Beginner Fact-Checking Guide | Spinnit"
 description: "A simple five-step method for checking AI answers, sources, dates and uncertainty before relying on them—especially for health, money, legal or safety questions."
 canonical: "https://spinnit.site/ai-for-over-50s/how-to-check-ai-answers/"
 permalink: "/ai-for-over-50s/how-to-check-ai-answers/index.html"
-dateModified: "2026-10-10"
+dateModified: "2026-11-03"
 editorialReviewedText: "10 October 2026"
 editorialReviewedDate: "2026-10-10"
 lang: en
@@ -17,11 +17,15 @@ jsonLd: |-
     "name": "How to Check AI Answers: A Beginner Fact-Checking Guide",
     "description": "A simple five-step method for checking AI answers, sources, dates and uncertainty.",
     "url": "https://spinnit.site/ai-for-over-50s/how-to-check-ai-answers/",
-    "dateModified": "2026-10-10",
+    "dateModified": "2026-11-03",
     "author": { "@type": "Organization", "name": "Spinnit Editorial", "url": "https://spinnit.site/editorial-standards/" },
     "publisher": { "@type": "Organization", "name": "Spinnit", "url": "https://spinnit.site/" },
     "isPartOf": { "@type": "WebSite", "name": "Spinnit", "url": "https://spinnit.site/" }
   }
+extraHead: |-
+  <link rel="stylesheet" href="/assets/learning-videos-v1.css">
+  <link rel="stylesheet" href="/assets/everyday-ai-shorts-v1.css">
+  <script src="/assets/learning-videos-v1.js" defer></script>
 ---
 <main class="learn-page beginner-article">
   <nav class="guide-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/ai-for-over-50s/">AI beginner guide</a><span aria-hidden="true">/</span><span aria-current="page">Check AI answers</span></nav>
@@ -62,6 +66,9 @@ jsonLd: |-
   </section>
 
   <aside class="guide-source-note" aria-labelledby="official-heading"><h2 id="official-heading">Sources behind this guide</h2><p>OpenAI's <a href="https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth">guidance on ChatGPT accuracy</a> explains that confident replies can include incorrect facts or fabricated references, and recommends checking important information. The practice uses its <a href="https://help.openai.com/en/articles/8142208-chatgpt-android-app-faq">Android app help page</a> and the official store listing linked there. These sources were checked on <time datetime="2026-10-10">10 October 2026</time>.</p><p>The government, health and financial sources above are UK examples. Use the responsible authority for the country and circumstances that apply to your question.</p></aside>
+
+  {% set guideShorts = everydayAiShorts["how-to-check-ai-answers"] %}
+  {% include "partials/learn/everyday-ai-shorts.njk" %}
 
   <section class="guide-series" aria-labelledby="continue-heading"><h2 id="continue-heading">Keep building safer habits</h2><div class="guide-series__links"><a href="/learn/ai-prompting/level-1/check-ai-answers/"><strong>Take the full checking lesson →</strong><span>Exercises and model answers for improving AI responses.</span></a><a href="/ai-for-over-50s/ai-scams-and-deepfakes/"><strong>Spot AI-assisted scams →</strong><span>Verification for suspicious messages, calls and media.</span></a></div></section>
 </main>

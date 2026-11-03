@@ -1,0 +1,36 @@
+.guide-shorts__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1rem;
+}
+
+.guide-shorts__card {
+  min-width: 0;
+  max-width: 27rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.guide-shorts__card .lesson-video-poster,
+.guide-shorts__card [data-video-player] {
+  max-width: 15rem;
+  margin-inline: auto;
+}
+
+.guide-shorts__card .lesson-video iframe {
+  aspect-ratio: 9 / 16;
+}
+
+.guide-shorts__card :focus-visible {
+  outline: 3px solid var(--accent2);
+  outline-offset: 3px;
+}
+
+.guide-shorts__link-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
