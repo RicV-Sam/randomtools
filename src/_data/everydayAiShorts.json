@@ -1,0 +1,134 @@
+{
+  "use-ai-to-write-emails": [
+    {
+      "title": "Write a polite email with AI",
+      "youtubeId": "9_nyzvax10E",
+      "poster": "/assets/everyday-ai-shorts/01.webp",
+      "practice": "Fill in [Name] and [Date] yourself.",
+      "transcript": [
+        "A blank email can be harder than the email itself. Imagine you need to move an appointment. Start with the purpose and the tone.",
+        "Write a short, polite email asking to move my appointment to next week. Leave the name and date as placeholders.",
+        "Check the draft for promises or details you never gave. Replace the placeholders yourself and read the message once before you send it.",
+        "Try it with the guide at Spinnit dot site."
+      ]
+    },
+    {
+      "title": "Make an AI draft sound more like you",
+      "youtubeId": "Rd02RWWFdLI",
+      "poster": "/assets/everyday-ai-shorts/09.webp",
+      "practice": "Read it aloud before sending.",
+      "transcript": [
+        "Suppose an AI thank-you note sounds stiff. Decide what you would actually say, then ask for a small rewrite with one real detail you are comfortable sharing.",
+        "Rewrite this as two short, friendly sentences. Keep the thank-you for helping with the garden. Use everyday words and add no new details.",
+        "Read it out loud. If a phrase feels unlike you, swap it for your own words. You can use the draft as a starting point and write the last line yourself.",
+        "Try it with the guide at Spinnit dot site."
+      ]
+    }
+  ],
+  "everyday-ai-prompts": [
+    {
+      "title": "Turn a club notice into a checklist",
+      "youtubeId": "g5rR_rCzl3U",
+      "poster": "/assets/everyday-ai-shorts/02.webp",
+      "practice": "Check each item against the notice.",
+      "transcript": [
+        "A long notice can hide the one thing you need to do. Try this with an invented gardening club notice, or with a public notice that has no personal details.",
+        "Turn this notice into a checklist. Separate what I need to bring, what I need to do, and any dates mentioned. If a detail is missing, say so.",
+        "Put the checklist next to the notice. If the checklist says to bring gloves, find the sentence about gloves. Use the original notice to confirm the date.",
+        "Try it with the guide at Spinnit dot site."
+      ]
+    },
+    {
+      "title": "Get AI to compare two options",
+      "youtubeId": "M_itaqR3ncs",
+      "poster": "/assets/everyday-ai-shorts/06.webp",
+      "practice": "Keep missing prices marked unknown.",
+      "transcript": [
+        "Imagine choosing between two invented hobby classes. One is close by on a Tuesday. The other is on Saturday, a little farther away. Give AI those details and say what matters to you.",
+        "Compare these two classes in a table. Show day, travel and cost. Use only the details I give you. Mark missing details as unknown.",
+        "Look for gaps in the table. If you never gave a price, leave it unknown until you can ask the organiser.",
+        "Try it with the guide at Spinnit dot site."
+      ]
+    },
+    {
+      "title": "Turn a vague prompt into a usable plan",
+      "youtubeId": "hN87b8OfYqE",
+      "poster": "/assets/everyday-ai-shorts/07.webp",
+      "practice": "One drawer. Twenty minutes. Three steps.",
+      "transcript": [
+        "Try asking for a weekend tidying plan. A long reply might assume you have a whole afternoon. Give the assistant a smaller job you can actually start.",
+        "Give me a twenty-minute plan to tidy one kitchen drawer. Use things I already have. Give me three steps and tell me where to start.",
+        "If the plan starts with sorting the entire kitchen, remind the assistant of the one-drawer limit. Try the first step and adjust the rest to suit you.",
+        "Try it with the guide at Spinnit dot site."
+      ]
+    }
+  ],
+  "how-to-ask-ai-follow-up-questions": [
+    {
+      "title": "Get a simpler explanation from AI",
+      "youtubeId": "-7Kb2QeVPeo",
+      "poster": "/assets/everyday-ai-shorts/03.webp",
+      "practice": "Ask about one confusing term.",
+      "transcript": [
+        "Suppose an answer says to sync your files. If that word is new to you, ask about that one part in the same conversation.",
+        "Explain what syncing means in two sentences. Use an example with a phone and a tablet. Keep any technical words out.",
+        "If the example still feels fuzzy, ask what happens when you change the file on your phone. Keep the follow-up focused on the part you want to understand.",
+        "Try it with the guide at Spinnit dot site."
+      ]
+    }
+  ],
+  "useful-things-ai-can-do": [
+    {
+      "title": "Practise a phone call with AI",
+      "youtubeId": "efUoXu_36K4",
+      "poster": "/assets/everyday-ai-shorts/04.webp",
+      "practice": "Practise one question at a time.",
+      "transcript": [
+        "If a phone call makes you nervous, try a dry run. Imagine calling a library to ask about joining. Use made-up details while you practise.",
+        "Pretend you work at a library. Help me practise asking how to join. Ask me one question at a time, then give me one tip.",
+        "Try the conversation again using that tip. When you are ready to make the real call, ask the library for its actual joining requirements.",
+        "Try it with the guide at Spinnit dot site."
+      ]
+    },
+    {
+      "title": "Ask for one step at a time",
+      "youtubeId": "0J5vjTbZk-8",
+      "poster": "/assets/everyday-ai-shorts/10.webp",
+      "practice": "Say “I’m ready” when you want the next step.",
+      "transcript": [
+        "A page of instructions can feel like too much. Imagine you want to organise a shelf. Ask the assistant to give you one small action and then wait.",
+        "Help me organise one shelf. Give me the first step only. Wait for me to say I am ready before giving me the next step.",
+        "Do the first action. If something about the shelf changes the plan, explain that before asking for the next step. You can stop whenever you have done enough.",
+        "Try it with the guide at Spinnit dot site."
+      ]
+    }
+  ],
+  "what-not-to-share-with-ai": [
+    {
+      "title": "What to leave out of an AI prompt",
+      "youtubeId": "Po-er4KF754",
+      "poster": "/assets/everyday-ai-shorts/05.webp",
+      "practice": "Use [Tracking number] in the draft.",
+      "transcript": [
+        "Imagine asking AI for a parcel enquiry. The draft needs to say the parcel has not arrived. It can use a placeholder for the tracking number and address.",
+        "Draft a short message about a parcel that has not arrived. Use placeholders for my name, address and tracking number.",
+        "Add any necessary details yourself in the message you send to the delivery company. Keep passwords and one-time codes out of the chat.",
+        "Try it with the guide at Spinnit dot site."
+      ]
+    }
+  ],
+  "how-to-check-ai-answers": [
+    {
+      "title": "Check a date AI gives you",
+      "youtubeId": "l6UlJ3yx0r4",
+      "poster": "/assets/everyday-ai-shorts/08.webp",
+      "practice": "Confirm the date with the organiser.",
+      "transcript": [
+        "Imagine an AI answer tells you a garden club meeting is on Thursday. Before adding it to your diary, open the club's current notice or contact the organiser.",
+        "Which source is that date from? Show me the original notice and say if you cannot find it.",
+        "Open the source yourself. Look for the date, year and location. If the notice is old or two pages disagree, ask the organiser before making plans.",
+        "Try it with the guide at Spinnit dot site."
+      ]
+    }
+  ]
+}

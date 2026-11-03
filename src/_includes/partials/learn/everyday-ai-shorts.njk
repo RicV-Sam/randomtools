@@ -1,0 +1,26 @@
+<section class="guide-section guide-shorts" aria-labelledby="guide-shorts-heading">
+  <p class="learn-kicker">Everyday AI</p>
+  <h2 id="guide-shorts-heading">Watch a short example</h2>
+  <p>The examples use fictional details and AI narration. Loading a player connects to YouTube. You can also read the transcript.</p>
+  <div class="guide-shorts__grid">
+    {% for video in guideShorts %}
+    <article class="guide-shorts__card">
+      <h3>{{ video.title | escape }}</h3>
+      <div class="lesson-video" data-lesson-video data-video-id="{{ video.youtubeId }}" data-video-title="{{ video.title | escape }}">
+        <div class="lesson-video-poster" data-video-poster>
+          <img src="{{ video.poster }}" width="360" height="640" loading="lazy" decoding="async" alt="">
+          <button type="button" data-video-load hidden aria-label="Load video player for {{ video.title | escape }}">Load video player</button>
+        </div>
+        <div data-video-player></div>
+        <button type="button" data-video-close hidden>Close video player</button>
+        <p><a href="https://www.youtube.com/shorts/{{ video.youtubeId }}">Watch on YouTube<span class="guide-shorts__link-title">: {{ video.title | escape }}</span></a></p>
+      </div>
+      <p>{{ video.practice | escape }}</p>
+      <details class="video-transcript">
+        <summary>Read transcript</summary>
+        {% for paragraph in video.transcript %}<p>{{ paragraph | escape }}</p>{% endfor %}
+      </details>
+    </article>
+    {% endfor %}
+  </div>
+</section>
